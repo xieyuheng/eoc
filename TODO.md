@@ -1,8 +1,14 @@
+update occam-lisp -- pattern match on tael
+
+[lang] env.lisp -- env-set-value
+[lang] env.lisp -- env-lookup-value
+
+[lang] evaluate.test.lisp
+
 [lang] parse-exp
 [lang] parse-program
 [lang] format-exp
 [lang] format-program
-[lang] example.lisp -- the pattern matching example
 
 # old
 
