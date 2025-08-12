@@ -14,4 +14,9 @@
   (prim-exp (op symbol?) (args (list? exp?)))
   (let-exp (name symbol?) (rhs exp?) (body exp?)))
 
-(var-exp 'x)
+(define-data program?
+  (make-program (info anything?) (body exp?)))
+
+(make-program
+ '()
+ (var-exp 'x))

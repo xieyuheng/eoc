@@ -1,9 +1,8 @@
-lang/exp.lisp -- program?
-parse-exp
-parse-program
-format-exp
-format-program
-lang/example.lisp -- the pattern matching example
+[lang] parse-exp
+[lang] parse-program
+[lang] format-exp
+[lang] format-program
+[lang] example.lisp -- the pattern matching example
 
 # old
 
