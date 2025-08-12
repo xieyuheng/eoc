@@ -15,7 +15,7 @@
 ;;         | (Prim '- (<exp>))
 ;;         | (Prim '+ (<exp> <exp>))
 ;;         | (Prim '- (<exp> <exp>))
-; ;        | (Let <var> <exp> <exp>)
+;;         | (Let <var> <exp> <exp>)
 ;; <program> ::= (Program '() <exp>)
 
 (define-data Int (value))

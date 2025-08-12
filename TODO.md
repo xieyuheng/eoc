@@ -1,5 +1,9 @@
-setup occam-lisp project
-lang/program
+lang/exp.lisp -- program?
+parse-exp
+parse-program
+format-exp
+format-program
+lang/example.lisp -- the pattern matching example
 
 # old
 
