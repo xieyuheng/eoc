@@ -1,3 +1,8 @@
+setup occam-lisp project
+lang/program
+
+# old
+
 > 2 Integers and Variables
 
 [lang] c-checker -- required by 050-assign-homes

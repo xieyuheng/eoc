@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-bin="racket"
-ext=rkt
+bin="occam-lisp.js debug"
+ext=lisp
 
 for file in $(find src -name "*.test.${ext}"); do
     echo "[test] $file"
