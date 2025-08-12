@@ -1,3 +1,5 @@
+update `occam-lisp` to use `list?`
+
 [lang] parse-exp
 [lang] parse-program
 [lang] format-exp
