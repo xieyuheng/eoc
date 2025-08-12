@@ -21,10 +21,6 @@
  []
  (var-exp 'x))
 
-(int-exp 8)
-(prim-exp '- [(int-exp 8)])
-(prim-exp '+ [(prim-exp 'read []) (prim-exp '- [(int-exp 8)])])
-
-;; (assert (exp? (int-exp 8)))
-;; (assert (exp? (prim-exp '- [(int-exp 8)])))
-;; (assert (exp? (prim-exp '+ [(prim-exp 'read []) (prim-exp '- [(int-exp 8)])])))
+(assert (exp? (int-exp 8)))
+(assert (exp? (prim-exp '- [(int-exp 8)])))
+(assert (exp? (prim-exp '+ [(prim-exp 'read []) (prim-exp '- [(int-exp 8)])])))
