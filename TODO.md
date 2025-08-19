@@ -1,5 +1,3 @@
-update occam-lisp -- pattern match on tael
-
 [lang] env.lisp -- env-set-value
 [lang] env.lisp -- env-lookup-value
 

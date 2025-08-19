@@ -1,4 +1,4 @@
-(require "program.lisp")
+(import-all "program.lisp")
 
 (claim evaluate-exp (-> exp? env? anything?))
 (define (evaluate-exp exp env)
