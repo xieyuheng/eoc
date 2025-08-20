@@ -1,5 +1,3 @@
-[lang] evaluate.test.lisp
-
 [lang] parse-exp
 [lang] parse-program
 [lang] format-exp

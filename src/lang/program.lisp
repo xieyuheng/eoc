@@ -16,9 +16,3 @@
 
 (define-data program?
   (make-program (info anything?) (body exp?)))
-
-(assert (program? (make-program [] (var-exp 'x))))
-
-(assert (exp? (int-exp 8)))
-(assert (exp? (prim-exp '- [(int-exp 8)])))
-(assert (exp? (prim-exp '+ [(prim-exp 'read []) (prim-exp '- [(int-exp 8)])])))
