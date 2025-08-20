@@ -1,6 +1,5 @@
 # migrate lang
 
-extract exp from program
 [lang] `parse-program`
 [lang] `format-exp`
 [lang] `format-program`
