@@ -1,6 +1,24 @@
+# migrate lang
+
+extract exp from program
 [lang] `parse-program`
 [lang] `format-exp`
 [lang] `format-program`
+[lang] `check` -- `check-op`
+[lang] `check` -- `check-exp`
+[lang] `check` -- `check-program`
+
+# migrate c-lang
+
+TODO
+
+# migrate x86-lang
+
+TODO
+
+# migrate passes
+
+TODO
 
 # old
 
