@@ -1,6 +1,3 @@
-[lang] env.lisp -- env-set-value
-[lang] env.lisp -- env-lookup-value
-
 [lang] evaluate.test.lisp
 
 [lang] parse-exp
