@@ -1,5 +1,4 @@
-(import-all "program.lisp")
-(import-all "env.lisp")
+(import-all "index.lisp")
 
 (claim eval-exp (-> exp? env? anything?))
 

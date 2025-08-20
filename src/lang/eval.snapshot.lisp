@@ -1,13 +1,9 @@
-(import-all "program.lisp")
-(import-all "env.lisp")
-(import-all "eval.lisp")
+(import-all "index.lisp")
 
-((eval-exp (int-exp 8))
- empty-env)
+(define (run sexp)
+  (= exp (parse-exp sexp))
+  (eval-exp exp empty-env))
 
-((eval-exp (prim-exp '- [(int-exp 8)]))
- empty-env)
-
-((eval-exp (prim-exp '+ [(prim-exp '+ [(int-exp 8)])
-                         (prim-exp '- [(int-exp 8)])]))
- empty-env)
+(run '8)
+(run '(- 8))
+(run '(+ (+ 8) (- 8)))
