@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-bin="occam-lisp.js debug"
+bin="npx occam-lisp.js run --debug=true"
 ext=lisp
 dir=src
 

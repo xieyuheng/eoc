@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "bash scripts/run-src.sh"
+  },
+  "dependencies": {
+    "@xieyuheng/occam-lisp.js": "^0.1.17"
+  }
+}
