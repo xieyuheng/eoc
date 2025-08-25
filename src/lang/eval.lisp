@@ -6,7 +6,7 @@
   (match exp
     ((int-exp n) n)
     ((var-exp name)
-     (env-lookup-value name env))
+     (env-lookup name env))
     ((prim-exp op args)
      (eval-prim op args env))
     ((let-exp name rhs body)
