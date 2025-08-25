@@ -1,6 +1,5 @@
-# migrate lang
+# migrate langs/lang
 
-[lang] `check` -- `check-program`
 [lang] test with check
 
 update occam for `list-map-zip`
@@ -10,11 +9,11 @@ update occam for `tau`
 [lang] `check` -- `check-exp` -- fix claim with `tau`
 [lang] `check` -- `check-exp` -- refactor -- `=` support pattern
 
-# migrate c-lang
+# migrate langs/c
 
 TODO
 
-# migrate x86-lang
+# migrate langs/x86
 
 TODO
 
