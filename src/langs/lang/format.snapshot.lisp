@@ -4,7 +4,8 @@
   (pipe sexp
     parse-program
     format-program
-    format-sexp))
+    format-sexp
+    writeln))
 
 (echo-program
  '(program () 8))
