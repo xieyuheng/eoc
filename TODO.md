@@ -1,7 +1,5 @@
 # migrate lang
 
-[lang] `format-exp`
-[lang] `format-program`
 [lang] `check` -- `check-op`
 [lang] `check` -- `check-exp`
 [lang] `check` -- `check-program`
