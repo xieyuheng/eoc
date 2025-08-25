@@ -16,17 +16,21 @@
     (exit [:message "(check-type-equal?) fail"
            :lhs lhs :rhs rhs :exp exp])))
 
-;; (claim check-op (-> op-t (list-t type-t) exp-t type-t))
+(claim check-op (-> op? (list? type?) exp? type?))
 
-;; (define (check-op op arg-types exp)
-;;   (match-define (cons expected-arg-types return-type)
-;;                 (alist-get-or-fail (operator-types) op))
-;;   (for ((arg-type arg-types)
-;;         (expected-arg-type expected-arg-types))
-;;        (check-type-equal? arg-type expected-arg-type exp))
-;;   return-type)
+(define (check-op op arg-types exp)
+  (= entry (record-get op operator-types))
+  (= expected-arg-types (list-first entry))
+  (= return-type (list-second entry))
+  (list-map
+   (lambda (pair)
+     (= expected-arg-type (list-first pair))
+     (= arg-type (list-second pair))
+     (check-type-equal? arg-type expected-arg-type exp))
+   (list-zip expected-arg-types arg-types))
+  return-type)
 
-;; (claim check-exp (-> env-t exp-t (pair-t exp-t type-t)))
+;; (claim check-exp (-> env? exp? (pair? exp? type?)))
 
 ;; (define ((check-exp env) exp)
 ;;   (match exp

@@ -1,8 +1,9 @@
 # migrate lang
 
-[lang] `check` -- `check-op`
 [lang] `check` -- `check-exp`
 [lang] `check` -- `check-program`
+[lang] test with check
+[lang] `check` -- `check-op` -- refactor with `list-map-zip`
 
 # migrate c-lang
 
