@@ -8,13 +8,13 @@
 
 (define (type-equal? lhs rhs) (equal? lhs rhs))
 
-(claim check-type-equal? (-> type? type? exp? void?))
+(claim check-type-equal? (-> exp? type? type? void?))
 
-(define (check-type-equal? lhs rhs exp)
+(define (check-type-equal? exp lhs rhs)
   (if (type-equal? lhs rhs)
     void
     (exit [:message "(check-type-equal?) fail"
-           :lhs lhs :rhs rhs :exp exp])))
+           :exp exp :lhs lhs :rhs rhs])))
 
 (define (list-map-zip f left right)
   (list-map
@@ -29,9 +29,7 @@
   (= entry (record-get op operator-types))
   (= expected-arg-types (list-first entry))
   (= return-type (list-second entry))
-  (list-map-zip
-   (lambda (expected-arg-type arg-type)
-     (check-type-equal? expected-arg-type arg-type exp))
+  (list-map-zip (check-type-equal? exp)
    expected-arg-types arg-types)
   return-type)
 
@@ -65,5 +63,5 @@
      (= body-result (check-exp empty-env body))
      (= body^ (list-first body-result))
      (= body-type (list-second body-result))
-     (check-type-equal? body-type int-t body)
+     (check-type-equal? body body-type int-t)
      (make-program info body^))))
