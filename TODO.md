@@ -1,6 +1,5 @@
 # migrate lang
 
-[lang] `eval.test` -- `test-program`
 [lang] `format-exp`
 [lang] `format-program`
 [lang] `check` -- `check-op`

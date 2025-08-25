@@ -1,8 +1,8 @@
 (import-all "index.lisp")
 
-(claim evaluate-program (-> program? anything?))
+(claim eval-program (-> program? anything?))
 
-(define (evaluate-program program)
+(define (eval-program program)
   (match program
     ((make-program info exp)
      (eval-exp exp empty-env))))
