@@ -3,6 +3,8 @@
 update occam for `list-map-zip`
 [lang] `check` -- `check-op` -- refactor with `list-map-zip`
 
+check use `ctx` instead of `env`
+
 update occam for `tau`
 [lang] `check` -- `check-exp` -- fix claim with `tau`
 [lang] `check` -- `check-exp` -- refactor -- `=` support pattern

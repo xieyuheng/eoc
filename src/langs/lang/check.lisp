@@ -16,18 +16,23 @@
     (exit [:message "(check-type-equal?) fail"
            :lhs lhs :rhs rhs :exp exp])))
 
+(define (list-map-zip f left right)
+  (list-map
+   (lambda (zipped)
+     (f (list-first zipped)
+        (list-second zipped)))
+   (list-zip left right)))
+
 (claim check-op (-> op? (list? type?) exp? type?))
 
 (define (check-op op arg-types exp)
   (= entry (record-get op operator-types))
   (= expected-arg-types (list-first entry))
   (= return-type (list-second entry))
-  (list-map
-   (lambda (pair)
-     (= expected-arg-type (list-first pair))
-     (= arg-type (list-second pair))
-     (check-type-equal? arg-type expected-arg-type exp))
-   (list-zip expected-arg-types arg-types))
+  (list-map-zip
+   (lambda (expected-arg-type arg-type)
+     (check-type-equal? expected-arg-type arg-type exp))
+   expected-arg-types arg-types)
   return-type)
 
 ;; (claim check-exp (-> env? exp? (tau exp? type?)))
