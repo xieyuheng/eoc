@@ -2,8 +2,9 @@
 
 (define (test-program expected sexp)
   (= program (parse-program sexp))
+  (= program (check-program program))
   (= value (eval-program program))
-  (assert-equal value expected))
+  (assert-equal expected value))
 
 (test-program
  8

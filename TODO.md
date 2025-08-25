@@ -1,7 +1,5 @@
 # migrate langs/lang
 
-[lang] test with check
-
 update occam for `list-map-zip`
 [lang] `check` -- `check-op` -- refactor with `list-map-zip`
 
