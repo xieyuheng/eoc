@@ -1,9 +1,14 @@
 # migrate lang
 
-[lang] `check` -- `check-exp`
 [lang] `check` -- `check-program`
 [lang] test with check
+
+update occam for `list-map-zip`
 [lang] `check` -- `check-op` -- refactor with `list-map-zip`
+
+update occam for `tau`
+[lang] `check` -- `check-exp` -- fix claim with `tau`
+[lang] `check` -- `check-exp` -- refactor -- `=` support pattern
 
 # migrate c-lang
 
