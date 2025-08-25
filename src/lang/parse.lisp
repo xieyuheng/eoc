@@ -7,7 +7,7 @@
     (`(let ((,name ,rhs)) ,body)
      (let-exp name (parse-exp rhs) (parse-exp body)))
     ((cons op args)
-     (prim-exp op (list-map args parse-exp)))
+     (prim-exp op (list-map parse-exp args)))
     (atom
      (cond ((int? atom)
             (int-exp atom))
