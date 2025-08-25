@@ -1,5 +1,3 @@
-update occam to use `assert-equal` and `list-map`
-
 # migrate lang
 
 [lang] `parse-program`
