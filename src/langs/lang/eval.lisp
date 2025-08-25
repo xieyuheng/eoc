@@ -31,6 +31,6 @@
     (['- [x y]]
      (isub (eval-exp x env) (eval-exp y env)))
     (['- [x]]
-     (isub 0 (eval-exp x env)))
+     (ineg (eval-exp x env)))
     (_
      (exit "unknown handled prim exp"))))
