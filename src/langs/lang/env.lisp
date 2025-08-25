@@ -1,8 +1,10 @@
+(import-all "index.lisp")
+
 (define-data env?
   empty-env
-  (cons-env (name symbol?) (value anything?) (rest env?)))
+  (cons-env (name symbol?) (value value?) (rest env?)))
 
-(claim env-lookup (-> symbol? env? anything?))
+(claim env-lookup (-> symbol? env? value?))
 
 (define (env-lookup name env)
   (match env

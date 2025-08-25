@@ -1,5 +1,6 @@
-(include "exp.lisp")
+(include "value.lisp")
 (include "type.lisp")
+(include "exp.lisp")
 (include "program.lisp")
 (include "env.lisp")
 (include "check.lisp")

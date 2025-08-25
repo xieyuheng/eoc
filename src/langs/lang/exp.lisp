@@ -1,3 +1,5 @@
+(import-all "index.lisp")
+
 ;; <exp> ::= (Int <int>)
 ;;         | (Var <var>)
 ;;         | (Prim 'read ())

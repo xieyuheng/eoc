@@ -1,13 +1,13 @@
 (import-all "index.lisp")
 
-(claim eval-program (-> program? anything?))
+(claim eval-program (-> program? value?))
 
 (define (eval-program program)
   (match program
     ((make-program info exp)
      (eval-exp exp empty-env))))
 
-(claim eval-exp (-> exp? env? anything?))
+(claim eval-exp (-> exp? env? value?))
 
 (define (eval-exp exp env)
   (match exp
@@ -20,7 +20,7 @@
      (= new-env (cons-env name (eval-exp rhs env) env))
      (eval-exp body new-env))))
 
-(claim eval-prim (-> symbol? (list? exp?) env? anything?))
+(claim eval-prim (-> symbol? (list? exp?) env? value?))
 
 (define (eval-prim op args env)
   (match [op args]

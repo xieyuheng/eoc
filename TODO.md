@@ -1,6 +1,5 @@
 # migrate lang
 
-[lang] `value`
 [lang] `check` -- `check-op`
 [lang] `check` -- `check-exp`
 [lang] `check` -- `check-program`
