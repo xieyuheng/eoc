@@ -6,11 +6,11 @@
   (match exp
     ((int-exp n) n)
     ((var-exp name)
-     (env-lookup-value env name))
+     (env-lookup-value name env))
     ((prim-exp op args)
      (eval-prim op args env))
     ((let-exp name rhs body)
-     (= new-env (env-set-value env name (eval-exp rhs env)))
+     (= new-env (cons-env name (eval-exp rhs env) env))
      (eval-exp body new-env))))
 
 (claim eval-prim (-> symbol? (list? exp?) env? anything?))
