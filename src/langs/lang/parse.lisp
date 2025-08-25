@@ -9,7 +9,12 @@
     ((cons op args)
      (prim-exp op (list-map parse-exp args)))
     (atom
-     (cond ((int? atom)
-            (int-exp atom))
-           (else
-            (var-exp atom))))))
+     (cond ((int? atom) (int-exp atom))
+           (else (var-exp atom))))))
+
+(claim parse-program (-> sexp? program?))
+
+(define (parse-program sexp)
+  (match sexp
+    (`(program ,info ,body)
+     (make-program info (parse-exp body)))))
