@@ -1,8 +1,4 @@
-update occam for `=` support pattern
 [lang] `check` -- `check-exp` -- refactor -- `=` support pattern
-
-update occam for `when` and `unless`
-
 update occam for `tau`
 [lang] `check` -- `check-exp` -- fix claim with `tau`
 
