@@ -1,7 +1,5 @@
 # migrate langs/lang
 
-check use `ctx` instead of `env`
-
 update occam for `tau`
 [lang] `check` -- `check-exp` -- fix claim with `tau`
 [lang] `check` -- `check-exp` -- refactor -- `=` support pattern

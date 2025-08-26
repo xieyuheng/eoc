@@ -3,6 +3,7 @@
 (include "exp.lisp")
 (include "program.lisp")
 (include "env.lisp")
+(include "ctx.lisp")
 (include "check.lisp")
 (include "eval.lisp")
 (include "parse.lisp")
