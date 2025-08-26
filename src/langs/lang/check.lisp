@@ -1,5 +1,7 @@
 (import-all "index.lisp")
 
+(claim operator-types (record? (tau (list? type?) type?)))
+
 (define operator-types
   [:+ [[int-t int-t] int-t]
    :- [[int-t int-t] int-t]])
@@ -26,7 +28,7 @@
                 arg-types)
   return-type)
 
-;; (claim check-exp (-> exp? ctx? (tau exp? type?)))
+(claim check-exp (-> exp? ctx? (tau exp? type?)))
 
 (define (check-exp exp ctx)
   (match exp

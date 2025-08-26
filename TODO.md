@@ -1,6 +1,3 @@
-update occam for `tau`
-[lang] `check` -- `check-exp` -- fix claim with `tau`
-
 # migrate langs/c
 
 TODO
