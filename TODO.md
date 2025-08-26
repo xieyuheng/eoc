@@ -1,7 +1,5 @@
 # migrate langs/lang
 
-update occam for `list-map-zip`
-
 [lang] `check` -- `check-op` -- refactor with `list-map-zip`
 
 maybe fix `check-exp` arg order

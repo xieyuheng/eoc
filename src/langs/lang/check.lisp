@@ -16,13 +16,6 @@
     (exit [:message "(check-type-equal?) fail"
            :exp exp :lhs lhs :rhs rhs])))
 
-(define (list-map-zip f left right)
-  (list-map
-   (lambda (zipped)
-     (f (list-first zipped)
-        (list-second zipped)))
-   (list-zip left right)))
-
 (claim check-op (-> op? (list? type?) exp? type?))
 
 (define (check-op op arg-types exp)
