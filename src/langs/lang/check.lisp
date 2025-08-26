@@ -11,8 +11,7 @@
 (claim check-type-equal? (-> exp? type? type? void?))
 
 (define (check-type-equal? exp lhs rhs)
-  (if (type-equal? lhs rhs)
-    void
+  (unless (type-equal? lhs rhs)
     (exit [:message "(check-type-equal?) fail"
            :exp exp :lhs lhs :rhs rhs])))
 

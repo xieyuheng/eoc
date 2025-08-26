@@ -1,4 +1,3 @@
-[lang] `check` -- `check-exp` -- refactor -- `=` support pattern
 update occam for `tau`
 [lang] `check` -- `check-exp` -- fix claim with `tau`
 
