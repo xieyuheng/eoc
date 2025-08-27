@@ -14,7 +14,7 @@
 
 (define (check-type-equal? exp lhs rhs)
   (unless (type-equal? lhs rhs)
-    (exit [:message "(check-type-equal?) fail"
+    (exit [:who 'check-type-equal?
            :exp exp :lhs lhs :rhs rhs])))
 
 (claim check-op (-> op? (list? type?) exp? type?))

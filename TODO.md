@@ -1,15 +1,15 @@
-# migrate langs/c
+# migrate c
 
-[c] parse
 [c] format
+[c] eval
 
-# migrate langs/x86
+# migrate x86
 
-TODO
+[x86] TODO
 
 # migrate passes
 
-TODO
+[pass] TODO
 
 # old
 

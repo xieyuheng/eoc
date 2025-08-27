@@ -12,12 +12,14 @@
 ;;          | (Seq <stmt> <tail>)
 ;; <c-program> ::= (CProgram <info> ((<label> . <tail>) … ))
 
-(define atom-exp? (union var-exp? int-exp?))
-
 (define-data exp?
   (var-exp (name symbol?))
   (int-exp (value int?))
   (prim-exp (op op?) (args (list? atom-exp?))))
+
+(define op? symbol?)
+
+(define atom-exp? (union var-exp? int-exp?))
 
 (define-data stmt?
   (assign-stmt (var var-exp?) (rhs exp?)))
@@ -27,10 +29,14 @@
 ;; not the name of the data type.
 
 (define-data seq?
-  (last-seq (exp exp?))
+  (return-seq (result exp?))
   (cons-seq (stmt stmt?) (tail seq?)))
+
+(define-data program?
+  (make-program
+   (info info?)
+   (seqs (list? (tau label? seq?)))))
 
 (define info? anything?)
 
-(define-data program?
-  (make-program (info info?) (seqs (list? seq?))))
+(define label? symbol?)
