@@ -1,6 +1,8 @@
 # migrate langs/c
 
-TODO
+[c] program
+[c] parse
+[c] format
 
 # migrate langs/x86
 
