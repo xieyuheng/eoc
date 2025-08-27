@@ -2,12 +2,8 @@
 
 (define (test-program expected sexp)
   (= program (parse-program sexp))
-  ;; (= program (check-program program))
-  ;; (= value (eval-program program))
-  ;; (assert-equal expected value)
-  (writeln (format-sexp sexp))
-  (writeln (format-sexp (format-program program)))
-  (println program))
+  (= value (eval-program program))
+  (assert-equal expected value))
 
 (test-program
  1

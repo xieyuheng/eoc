@@ -1,5 +1,12 @@
 (import-all "index.lisp")
 
+(claim parse-program (-> sexp? program?))
+
+(define (parse-program sexp)
+  (match sexp
+    (`(program ,info ,body)
+     (make-program info (parse-exp body)))))
+
 (claim parse-exp (-> sexp? exp?))
 
 (define (parse-exp sexp)
@@ -11,10 +18,3 @@
     (atom
      (cond ((int? atom) (int-exp atom))
            (else (var-exp atom))))))
-
-(claim parse-program (-> sexp? program?))
-
-(define (parse-program sexp)
-  (match sexp
-    (`(program ,info ,body)
-     (make-program info (parse-exp body)))))

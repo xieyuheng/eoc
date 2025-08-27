@@ -1,7 +1,3 @@
-# migrate c
-
-[c] eval
-
 # migrate x86
 
 [x86] TODO
