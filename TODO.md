@@ -1,6 +1,5 @@
 # migrate c
 
-[c] format
 [c] eval
 
 # migrate x86

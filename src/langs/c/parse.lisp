@@ -10,7 +10,8 @@
 (claim parse-seq-entry (-> sexp? (tau label? seq?)))
 
 (define (parse-seq-entry sexp)
-  [(car sexp) (parse-seq (cdr sexp))])
+  (= (cons label rest) sexp)
+  [label (parse-seq rest)])
 
 (claim parse-seq (-> sexp? seq?))
 
@@ -18,14 +19,14 @@
   (match sexp
     (`((return ,result))
      (return-seq (parse-exp result)))
-    ((cons head rest)
-     (cons-seq (parse-stmt head) (parse-seq rest)))))
+    ((cons head tail)
+     (cons-seq (parse-stmt head) (parse-seq tail)))))
 
 (claim parse-stmt (-> sexp? stmt?))
 
 (define (parse-stmt sexp)
   (match sexp
-    (`(assign ,name ,rhs)
+    (`(= ,name ,rhs)
      (assign-stmt (var-exp name) (parse-exp rhs)))))
 
 (claim parse-exp (-> sexp? exp?))

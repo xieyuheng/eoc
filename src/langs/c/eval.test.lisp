@@ -5,7 +5,9 @@
   ;; (= program (check-program program))
   ;; (= value (eval-program program))
   ;; (assert-equal expected value)
-  program)
+  (writeln (format-sexp sexp))
+  (writeln (format-sexp (format-program program)))
+  (println program))
 
 (test-program
  1
@@ -19,7 +21,7 @@
  '(program
    ()
    ((start
-     (assign x 1)
+     (= x 1)
      (return x)))))
 
 (test-program
@@ -34,5 +36,5 @@
  '(program
    ()
    ((start
-     (assign x (+ 1 2))
+     (= x (+ 1 2))
      (return x)))))
