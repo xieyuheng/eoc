@@ -1,6 +1,5 @@
 # migrate langs/c
 
-[c] program
 [c] parse
 [c] format
 

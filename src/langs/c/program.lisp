@@ -29,3 +29,8 @@
 (define-data seq?
   (last-seq (exp exp?))
   (cons-seq (stmt stmt?) (tail seq?)))
+
+(define info? anything?)
+
+(define-data program?
+  (make-program (info info?) (seqs (list? seq?))))
