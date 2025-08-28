@@ -1,5 +1,5 @@
-# migrate x86
-
+[c] program -- use record instead of alist
+[x86] program -- use record instead of alist
 [x86] format
 
 # migrate passes

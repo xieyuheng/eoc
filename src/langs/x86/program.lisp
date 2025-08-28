@@ -20,11 +20,9 @@
 (define-data program?
   (make-program
    (info info?)
-   (blocks (list? (tau label? block?)))))
+   (blocks (list? (tau symbol? block?)))))
 
 (define info? anything?)
-
-(define label? symbol?)
 
 (define-data block?
   (make-block
@@ -38,9 +36,9 @@
 (define op? symbol?)
 
 (define-data special-instr?
-  (callq (label label?) (arity int-non-negative?))
+  (callq (label symbol?) (arity int-non-negative?))
   retq
-  (jmp (label label?)))
+  (jmp (label symbol?)))
 
 (define-data arg?
   (imm (value int?))

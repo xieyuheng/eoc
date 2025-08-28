@@ -7,7 +7,7 @@
     (`(program ,info ,seqs)
      (make-program info (list-map parse-seq-entry seqs)))))
 
-(claim parse-seq-entry (-> sexp? (tau label? seq?)))
+(claim parse-seq-entry (-> sexp? (tau symbol? seq?)))
 
 (define (parse-seq-entry sexp)
   (= (cons label rest) sexp)

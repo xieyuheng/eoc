@@ -15,11 +15,9 @@
 (define-data program?
   (make-program
    (info info?)
-   (seqs (list? (tau label? seq?)))))
+   (seqs (list? (tau symbol? seq?)))))
 
 (define info? anything?)
-
-(define label? symbol?)
 
 ;; the book uses <tail> but it is a wrong name,
 ;; because it is the name of the field,
