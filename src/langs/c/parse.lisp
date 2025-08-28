@@ -5,13 +5,7 @@
 (define (parse-program sexp)
   (match sexp
     (`(program ,info ,seqs)
-     (make-program info (list-map parse-seq-entry seqs)))))
-
-(claim parse-seq-entry (-> sexp? (tau symbol? seq?)))
-
-(define (parse-seq-entry sexp)
-  (= (cons label rest) sexp)
-  [label (parse-seq rest)])
+     (make-program info (record-map parse-seq seqs)))))
 
 (claim parse-seq (-> sexp? seq?))
 

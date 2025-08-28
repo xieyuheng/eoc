@@ -15,7 +15,7 @@
 (define-data program?
   (make-program
    (info info?)
-   (seqs (list? (tau symbol? seq?)))))
+   (seqs (record? seq?))))
 
 (define info? anything?)
 

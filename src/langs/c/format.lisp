@@ -5,11 +5,7 @@
 (define (format-program program)
   (match program
     ((make-program info seqs)
-     `(program ,info ,(list-map format-seq-entry seqs)))))
-
-(define (format-seq-entry entry)
-  (= [label seq] entry)
-  (cons label (format-seq seq)))
+     `(program ,info ,(record-map format-seq seqs)))))
 
 (define (format-seq seq)
   (match seq

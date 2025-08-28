@@ -9,28 +9,28 @@
  1
  '(program
    ()
-   ((start
-     (return 1)))))
+   (:start
+    ((return 1)))))
 
 (test-program
  1
  '(program
    ()
-   ((start
-     (= x 1)
+   (:start
+    ((= x 1)
      (return x)))))
 
 (test-program
  3
  '(program
    ()
-   ((start
-     (return (+ 1 2))))))
+   (:start
+    ((return (+ 1 2))))))
 
 (test-program
  3
  '(program
    ()
-   ((start
-     (= x (+ 1 2))
+   (:start
+    ((= x (+ 1 2))
      (return x)))))
