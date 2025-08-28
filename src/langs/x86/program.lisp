@@ -20,7 +20,7 @@
 (define-data program?
   (make-program
    (info info?)
-   (blocks (list? (tau symbol? block?)))))
+   (blocks (record? block?))))
 
 (define info? anything?)
 

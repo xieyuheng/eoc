@@ -1,4 +1,3 @@
-[x86] program -- use record instead of alist
 [x86] format
 
 # migrate passes
