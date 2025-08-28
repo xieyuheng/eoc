@@ -1,1 +1,1 @@
-['program [] [:start ['block [] ["movq %rax, %rax" "callq f, 2" "retq"]]]]
+['program [] [:start [[] ["movq 10(%rax), %rax" "movq %rax, %rax" "callq f, 2" "retq"]]]]

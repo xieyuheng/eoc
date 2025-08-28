@@ -12,7 +12,7 @@
 (define (format-block block)
   (match block
     ((make-block info instrs)
-     `(block ,info ,(list-map format-instr instrs)))))
+     `(,info ,(list-map format-instr instrs)))))
 
 (claim format-instr (-> instr? string?))
 
