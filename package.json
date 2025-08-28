@@ -4,6 +4,6 @@
     "test": "bash scripts/run-src.sh"
   },
   "dependencies": {
-    "@xieyuheng/occam-lisp.js": "^0.1.29"
+    "@xieyuheng/occam-lisp.js": "^0.1.30"
   }
 }

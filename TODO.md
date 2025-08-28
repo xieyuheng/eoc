@@ -1,5 +1,3 @@
-[x86] format.test
-
 # migrate passes
 
 [pass] TODO

@@ -40,7 +40,6 @@
   retq
   (jmp (label symbol?)))
 
-
 (define-data arg?
   (var (name symbol?))
   (imm (value int?))
