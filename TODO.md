@@ -1,6 +1,5 @@
 # migrate x86
 
-[x86] program
 [x86] format
 
 # migrate passes

@@ -12,26 +12,6 @@
 ;;          | (Seq <stmt> <tail>)
 ;; <c-program> ::= (CProgram <info> ((<label> . <tail>) … ))
 
-(define-data exp?
-  (var-exp (name symbol?))
-  (int-exp (value int?))
-  (prim-exp (op op?) (args (list? atom-exp?))))
-
-(define op? symbol?)
-
-(define atom-exp? (union var-exp? int-exp?))
-
-(define-data stmt?
-  (assign-stmt (var var-exp?) (rhs exp?)))
-
-;; <tail> is a wrong name,
-;; because it is the name of the field,
-;; not the name of the data type.
-
-(define-data seq?
-  (return-seq (result exp?))
-  (cons-seq (stmt stmt?) (tail seq?)))
-
 (define-data program?
   (make-program
    (info info?)
@@ -40,3 +20,23 @@
 (define info? anything?)
 
 (define label? symbol?)
+
+;; the book uses <tail> but it is a wrong name,
+;; because it is the name of the field,
+;; not the name of the data type.
+
+(define-data seq?
+  (return-seq (result exp?))
+  (cons-seq (stmt stmt?) (tail seq?)))
+
+(define-data stmt?
+  (assign-stmt (var var-exp?) (rhs exp?)))
+
+(define-data exp?
+  (var-exp (name symbol?))
+  (int-exp (value int?))
+  (prim-exp (op op?) (args (list? atom-exp?))))
+
+(define op? symbol?)
+
+(define atom-exp? (union var-exp? int-exp?))
