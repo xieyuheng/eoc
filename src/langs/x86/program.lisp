@@ -40,7 +40,11 @@
   retq
   (jmp (label symbol?)))
 
+
 (define-data arg?
+  (var (name symbol?))
   (imm (value int?))
-  (reg (name symbol?))
-  (deref (reg reg?) (offset int?)))
+  (reg (name reg-name?))
+  (deref (name reg-name?) (offset int?)))
+
+(define reg-name? symbol?)

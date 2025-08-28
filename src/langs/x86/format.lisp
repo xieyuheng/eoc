@@ -1,50 +1,50 @@
 (import-all "index.lisp")
 
-;; (claim format-program (-> program? sexp?))
+(claim format-program (-> program? sexp?))
 
-;; (define (format-program program)
-;;   (match program
-;;     ((make-program info blocks)
-;;      `(program ,info ,(alist-map-value blocks format-block)))))
+(define (format-program program)
+  (match program
+    ((make-program info blocks)
+     `(program ,info ,(record-map format-block blocks)))))
 
-;; (claim format-block (-> block? sexp?))
+(claim format-block (-> block? sexp?))
 
-;; (define (format-block block)
-;;   (match block
-;;     ((Block info instr*)
-;;      `(block ,info ,(map format-instr instr*)))))
+(define (format-block block)
+  (match block
+    ((make-block info instrs)
+     `(block ,info ,(list-map format-instr instrs)))))
 
-;; (claim format-instr (-> instr? (list? string?)))
+(claim format-instr (-> instr? string?))
 
-;; (define (format-instr instr)
-;;   (list (format-instr-string instr)))
+(define (format-instr instr)
+  (cond ((general-instr? instr)
+         (= [op args] instr)
+         (string-append-many
+          [(format-sexp op) " "
+           (string-join ", " (list-map format-arg args))]))
+        ((special-instr? instr)
+         (match instr
+           ((callq target arity)
+            (string-append-many
+             ["callq " (format-sexp target) ", " (format-sexp arity)]))
+           (retq
+            (string-append-many
+             ["retq"]))
+           ((jmp target)
+            (string-append-many
+             ["jmp " (format-sexp target)]))))))
 
-;; (claim format-instr-string (-> instr? string?))
+(claim format-arg (-> arg? string?))
 
-;; (define (format-instr-string instr)
-;;   (match instr
-;;     ((Instr name arg*)
-;;      (~a #:separator " "
-;;          name (apply ~a #:separator ", " (map format-arg arg*))))
-;;     ((Callq target arity)
-;;      (~a #:separator " "
-;;          "callq" (~a #:separator ", " target arity)))
-;;     ((Retq)
-;;      (~a #:separator " "
-;;          "retq"))
-;;     ((Jmp target)
-;;      (~a #:separator " "
-;;          "jmp" target))))
-
-;; (claim format-arg (-> arg? string?))
-
-;; (define (format-arg arg)
-;;   (match arg
-;;     ((Var name)
-;;      (~a name))
-;;     ((Imm value)
-;;      (~a "$" value))
-;;     ((Reg name)
-;;      (~a "%" name))
-;;     ((Deref reg offset)
-;;      (~a offset "(" "%" reg ")"))))
+(define (format-arg arg)
+  (match arg
+    ((var name)
+     (format-sexp name))
+    ((imm value)
+     (string-append "$" (format-sexp value)))
+    ((reg name)
+     (string-append "%" (format-sexp name)))
+    ((deref name offset)
+     (string-append-many
+      [(format-sexp offset)
+       "(" "%" (format-sexp name) ")"]))))

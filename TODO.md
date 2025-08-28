@@ -1,4 +1,6 @@
-[x86] format
+update occam -- for `string-append-many` and `string-join`
+
+[x86] format.test
 
 # migrate passes
 
