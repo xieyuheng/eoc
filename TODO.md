@@ -1,6 +1,17 @@
 # migrate passes
 
-[pass] TODO
+[pass] 010-uniquify.lisp
+[pass] 010-uniquify.test.lisp
+[pass] 020-remove-complex-operands.lisp
+[pass] 020-remove-complex-operands.test.lisp
+[pass] 030-explicate-control.lisp
+[pass] 030-explicate-control.test.lisp
+[pass] 040-select-instructions.lisp
+[pass] 040-select-instructions.test.lisp
+[pass] 050-assign-homes.lisp
+[pass] 050-assign-homes.test.lisp
+[pass] 060-patch-instructions.lisp
+[pass] 070-prelude-and-conclusion.lisp
 
 # old
 
@@ -22,8 +33,3 @@
 > 9 Dynamic Typing
 > 10 Gradual Typing
 > 11 Generics
-
-# later
-
-[lang] x86-evaluator
-[lang] x86-pseudo-evaluator
