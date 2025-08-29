@@ -1,4 +1,4 @@
-(import-all "../langs/s/index.lisp")
+(import-all "deps.lisp")
 (import-all "010-uniquify.lisp")
 
 (define (test-program expected program-sexp)

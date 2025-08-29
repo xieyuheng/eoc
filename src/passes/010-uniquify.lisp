@@ -1,4 +1,4 @@
-(import-all "../langs/s/index.lisp")
+(import-all "deps.lisp")
 
 (claim uniquify (-> program? program?))
 
