@@ -13,12 +13,12 @@
 (define (uniquify-exp name-counts exp)
   (match exp
     ((var-exp name)
-     (var-exp (format-name name name-counts)))
+     (var-exp (format-name-in-counts name name-counts)))
     ((int-exp n)
      (int-exp n))
     ((let-exp name rhs body)
      (= new-name-counts (name-count-once name name-counts))
-     (let-exp (format-name name new-name-counts)
+     (let-exp (format-name-in-counts name new-name-counts)
               (uniquify-exp name-counts rhs)
               (uniquify-exp new-name-counts body)))
     ((prim-exp op args)
@@ -30,7 +30,7 @@
     (record-set name 1 name-counts)
     (record-set name (iadd 1 count) name-counts)))
 
-(define (format-name name name-counts)
+(define (format-name-in-counts name name-counts)
   (= count (record-get name name-counts))
   (if (null? count)
     name
