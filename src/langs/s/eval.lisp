@@ -4,7 +4,7 @@
 
 (define (eval-program program)
   (match program
-    ((make-program info exp)
+    ((cons-program info exp)
      (eval-exp exp empty-env))))
 
 (claim eval-exp (-> exp? env? value?))

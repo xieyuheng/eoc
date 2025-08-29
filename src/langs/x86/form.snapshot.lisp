@@ -1,10 +1,10 @@
 (import-all "index.lisp")
 
 (form-program
- (make-program
+ (cons-program
   []
   [:start
-   (make-block
+   (cons-block
     []
     [['movq [(deref 'rax 10) (reg 'rax)]]
      ['movq [(reg 'rax) (reg 'rax)]]

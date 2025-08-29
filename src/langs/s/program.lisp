@@ -3,6 +3,6 @@
 ;; <program> ::= (Program '() <exp>)
 
 (define-data program?
-  (make-program
+  (cons-program
    (info anything?)
    (body exp?)))

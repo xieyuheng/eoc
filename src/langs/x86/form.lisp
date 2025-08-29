@@ -4,14 +4,14 @@
 
 (define (form-program program)
   (match program
-    ((make-program info blocks)
+    ((cons-program info blocks)
      `(program ,info ,(record-map form-block blocks)))))
 
 (claim form-block (-> block? sexp?))
 
 (define (form-block block)
   (match block
-    ((make-block info instrs)
+    ((cons-block info instrs)
      `(,info ,(list-map format-instr instrs)))))
 
 (claim format-instr (-> instr? string?))

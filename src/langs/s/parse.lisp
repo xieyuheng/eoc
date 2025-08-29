@@ -5,7 +5,7 @@
 (define (parse-program sexp)
   (match sexp
     (`(program ,info ,body)
-     (make-program info (parse-exp body)))))
+     (cons-program info (parse-exp body)))))
 
 (claim parse-exp (-> sexp? exp?))
 

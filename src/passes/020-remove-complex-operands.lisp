@@ -2,8 +2,8 @@
 
 (define (rco-program program)
   (match program
-    ((make-program info body)
-     (make-program info (rco-exp body)))))
+    ((cons-program info body)
+     (cons-program info (rco-exp body)))))
 
 (claim rco-exp (-> exp? exp?))
 
@@ -18,17 +18,17 @@
     ((prim-exp op args)
      (= [new-args bindings-list] (list-unzip (list-map rco-atom args)))
      (= bindings (list-append-many bindings-list))
-     (make-lets bindings (prim-exp op new-args)))))
+     (cons-lets bindings (prim-exp op new-args)))))
 
-(claim make-lets
+(claim cons-lets
   (-> (list? (tau symbol? exp?)) exp? exp?))
 
-(define (make-lets bindings base-exp)
+(define (cons-lets bindings base-exp)
   (match bindings
     ('()
      base-exp)
     ((cons [name exp] rest-bindings)
-     (make-lets rest-bindings (let-exp name exp base-exp)))))
+     (cons-lets rest-bindings (let-exp name exp base-exp)))))
 
 (claim rco-atom
   (-> exp? (tau exp? (list? (tau symbol? exp?)))))

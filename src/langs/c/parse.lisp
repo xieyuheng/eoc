@@ -5,7 +5,7 @@
 (define (parse-program sexp)
   (match sexp
     (`(program ,info ,seqs)
-     (make-program info (record-map parse-seq seqs)))))
+     (cons-program info (record-map parse-seq seqs)))))
 
 (claim parse-seq (-> sexp? seq?))
 

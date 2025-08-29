@@ -4,7 +4,7 @@
 
 (define (eval-program program)
   (match program
-    ((make-program info [:start seq])
+    ((cons-program info [:start seq])
      (eval-seq seq empty-env))))
 
 (claim eval-seq (-> seq? env? value?))

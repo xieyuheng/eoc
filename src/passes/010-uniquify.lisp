@@ -4,8 +4,8 @@
 
 (define (uniquify program)
   (match program
-    ((make-program info body)
-     (make-program info (uniquify-exp [] body)))))
+    ((cons-program info body)
+     (cons-program info (uniquify-exp [] body)))))
 
 (claim uniquify-exp
   (-> (record? int-non-negative?) exp? exp?))

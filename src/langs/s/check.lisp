@@ -48,7 +48,7 @@
 
 (define (check-program program)
   (match program
-    ((make-program info body)
+    ((cons-program info body)
      (= [body^ body-type] (check-exp body empty-ctx))
      (check-type-equal? body body-type int-t)
-     (make-program info body^))))
+     (cons-program info body^))))

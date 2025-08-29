@@ -13,7 +13,7 @@
 ;; <c-program> ::= (CProgram <info> ((<label> . <tail>) … ))
 
 (define-data program?
-  (make-program
+  (cons-program
    (info info?)
    (seqs (record? seq?))))
 

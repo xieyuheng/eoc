@@ -4,7 +4,7 @@
 
 (define (form-program program)
   (match program
-    ((make-program info seqs)
+    ((cons-program info seqs)
      `(program ,info ,(record-map form-seq seqs)))))
 
 (define (form-seq seq)

@@ -18,14 +18,14 @@
 ;; <x86Int> ::= (X86Program <info> ((<label> . <block>) … ))
 
 (define-data program?
-  (make-program
+  (cons-program
    (info info?)
    (blocks (record? block?))))
 
 (define info? anything?)
 
 (define-data block?
-  (make-block
+  (cons-block
    (info info?)
    (instrs (list? instr?))))
 

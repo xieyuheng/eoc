@@ -4,7 +4,7 @@
 
 (define (form-program program)
   (match program
-    ((make-program info body)
+    ((cons-program info body)
      `(program ,info ,(form-exp body)))))
 
 (claim form-exp (-> exp? sexp?))
