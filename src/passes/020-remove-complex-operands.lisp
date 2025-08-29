@@ -18,17 +18,17 @@
     ((prim-exp op args)
      (= [new-args bindings-list] (list-unzip (list-map rco-atom args)))
      (= bindings (list-append-many bindings-list))
-     (cons-lets bindings (prim-exp op new-args)))))
+     (make-lets bindings (prim-exp op new-args)))))
 
-(claim cons-lets
+(claim make-lets
   (-> (list? (tau symbol? exp?)) exp? exp?))
 
-(define (cons-lets bindings base-exp)
+(define (make-lets bindings base-exp)
   (match bindings
     ('()
      base-exp)
     ((cons [name exp] rest-bindings)
-     (cons-lets rest-bindings (let-exp name exp base-exp)))))
+     (make-lets rest-bindings (let-exp name exp base-exp)))))
 
 (claim rco-atom
   (-> exp? (tau exp? (list? (tau symbol? exp?)))))
