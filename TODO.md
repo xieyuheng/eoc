@@ -1,13 +1,13 @@
 # migrate passes
 
 [pass] 020-remove-complex-operands.lisp
-[pass] 020-remove-complex-operands.test.lisp
+[pass] 020-remove-complex-operands.snapshot.lisp
 [pass] 030-explicate-control.lisp
-[pass] 030-explicate-control.test.lisp
+[pass] 030-explicate-control.snapshot.lisp
 [pass] 040-select-instructions.lisp
-[pass] 040-select-instructions.test.lisp
+[pass] 040-select-instructions.snapshot.lisp
 [pass] 050-assign-homes.lisp
-[pass] 050-assign-homes.test.lisp
+[pass] 050-assign-homes.snapshot.lisp
 [pass] 060-patch-instructions.lisp
 [pass] 070-prelude-and-conclusion.lisp
 
