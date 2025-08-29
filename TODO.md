@@ -1,7 +1,5 @@
 # migrate passes
 
-[pass] 010-uniquify.lisp
-[pass] 010-uniquify.test.lisp
 [pass] 020-remove-complex-operands.lisp
 [pass] 020-remove-complex-operands.test.lisp
 [pass] 030-explicate-control.lisp
