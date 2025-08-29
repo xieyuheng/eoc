@@ -1,15 +1,15 @@
 (import-all "index.lisp")
 
-(claim format-program (-> program? sexp?))
+(claim form-program (-> program? sexp?))
 
-(define (format-program program)
+(define (form-program program)
   (match program
     ((make-program info blocks)
-     `(program ,info ,(record-map format-block blocks)))))
+     `(program ,info ,(record-map form-block blocks)))))
 
-(claim format-block (-> block? sexp?))
+(claim form-block (-> block? sexp?))
 
-(define (format-block block)
+(define (form-block block)
   (match block
     ((make-block info instrs)
      `(,info ,(list-map format-instr instrs)))))
@@ -21,7 +21,7 @@
          (= [op args] instr)
          (string-append-many
           [(format-sexp op) " "
-           (string-join ", " (list-map format-arg args))]))
+           (string-join ", " (list-map form-arg args))]))
         ((special-instr? instr)
          (match instr
            ((callq target arity)
@@ -34,9 +34,9 @@
             (string-append-many
              ["jmp " (format-sexp target)]))))))
 
-(claim format-arg (-> arg? string?))
+(claim form-arg (-> arg? string?))
 
-(define (format-arg arg)
+(define (form-arg arg)
   (match arg
     ((var name)
      (format-sexp name))

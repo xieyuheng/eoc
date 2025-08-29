@@ -1,6 +1,6 @@
 (include "program.lisp")
 (include "parse.lisp")
-(include "format.lisp")
+(include "form.lisp")
 (include "value.lisp")
 (include "env.lisp")
 (include "eval.lisp")

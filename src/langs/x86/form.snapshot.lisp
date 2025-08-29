@@ -1,6 +1,6 @@
 (import-all "index.lisp")
 
-(format-program
+(form-program
  (make-program
   []
   [:start

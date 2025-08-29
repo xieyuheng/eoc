@@ -5,8 +5,8 @@
   (= program-0 (parse-program program-sexp))
   (= program-1 (uniquify program-0))
   (= result (eval-program program-1))
-  (write "000 ") (writeln (format-sexp (format-program program-0)))
-  (write "010 ") (writeln (format-sexp (format-program program-1)))
+  (write "000 ") (writeln (format-sexp (form-program program-0)))
+  (write "010 ") (writeln (format-sexp (form-program program-1)))
   (assert-equal expected result))
 
 (test-program

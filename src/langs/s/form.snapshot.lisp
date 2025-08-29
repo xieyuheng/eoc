@@ -3,7 +3,7 @@
 (define (echo-program sexp)
   (pipe sexp
     parse-program
-    format-program
+    form-program
     format-sexp
     writeln))
 

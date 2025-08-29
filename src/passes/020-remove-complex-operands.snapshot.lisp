@@ -7,9 +7,9 @@
   (= program-1 (uniquify program-0))
   (= program-2 (rco-program program-1))
   ;; (= result (eval-program program-2))
-  (write "000 ") (writeln (format-sexp (format-program program-0)))
-  (write "010 ") (writeln (format-sexp (format-program program-1)))
-  (write "020 ") (writeln (format-sexp (format-program program-2)))
+  (write "000 ") (writeln (format-sexp (form-program program-0)))
+  (write "010 ") (writeln (format-sexp (form-program program-1)))
+  (write "020 ") (writeln (format-sexp (form-program program-2)))
   ;; (assert-equal expected result)
   )
 
