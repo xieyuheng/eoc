@@ -1,1 +1,1 @@
-(define value? anything?)
+(define value? int?)
