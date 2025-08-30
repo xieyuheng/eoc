@@ -5,22 +5,24 @@
 (define (eval-program program)
   (match program
     ((cons-program info exp)
-     (eval-exp exp empty-env))))
+     (eval-exp exp []))))
 
-(claim eval-exp (-> exp? env? value?))
+(claim eval-exp
+  (-> exp? (record? value?) value?))
 
 (define (eval-exp exp env)
   (match exp
     ((int-exp n) n)
     ((var-exp name)
-     (env-lookup name env))
+     (record-get name env))
     ((prim-exp op args)
      (eval-prim op args env))
     ((let-exp name rhs body)
-     (= new-env (cons-env name (eval-exp rhs env) env))
+     (= new-env (record-set name (eval-exp rhs env) env))
      (eval-exp body new-env))))
 
-(claim eval-prim (-> symbol? (list? exp?) env? value?))
+(claim eval-prim
+  (-> symbol? (list? exp?) (record? value?) value?))
 
 (define (eval-prim op args env)
   (match [op args]

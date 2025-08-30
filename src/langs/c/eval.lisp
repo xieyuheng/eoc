@@ -5,9 +5,10 @@
 (define (eval-c-program c-program)
   (match c-program
     ((cons-c-program info [:start seq])
-     (eval-seq seq empty-env))))
+     (eval-seq seq []))))
 
-(claim eval-seq (-> seq? env? value?))
+(claim eval-seq
+  (-> seq? (record? value?) value?))
 
 (define (eval-seq seq env)
   (match seq
@@ -16,24 +17,27 @@
     ((cons-seq stmt tail)
      (eval-seq tail (eval-stmt stmt env)))))
 
-(claim eval-stmt (-> stmt? env? env?))
+(claim eval-stmt
+  (-> stmt? (record? value?) (record? value?)))
 
 (define (eval-stmt stmt env)
   (match stmt
     ((assign-stmt (var-c-exp name) rhs)
-     (cons-env name (eval-c-exp rhs env) env))))
+     (record-set name (eval-c-exp rhs env) env))))
 
-(claim eval-c-exp (-> c-exp? env? value?))
+(claim eval-c-exp
+  (-> c-exp? (record? value?) value?))
 
 (define (eval-c-exp c-exp env)
   (match c-exp
     ((int-c-exp n) n)
     ((var-c-exp name)
-     (env-lookup name env))
+     (record-get name env))
     ((prim-c-exp op args)
      (eval-prim op args env))))
 
-(claim eval-prim (-> symbol? (list? c-exp-atom?) env? value?))
+(claim eval-prim
+  (-> symbol? (list? c-exp-atom?) (record? value?) value?))
 
 (define (eval-prim op args env)
   (match [op args]
