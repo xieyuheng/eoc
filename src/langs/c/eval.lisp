@@ -1,10 +1,10 @@
 (import-all "index.lisp")
 
-(claim eval-program (-> program? value?))
+(claim eval-c-program (-> c-program? value?))
 
-(define (eval-program program)
-  (match program
-    ((cons-program info [:start seq])
+(define (eval-c-program c-program)
+  (match c-program
+    ((cons-c-program info [:start seq])
      (eval-seq seq empty-env))))
 
 (claim eval-seq (-> seq? env? value?))

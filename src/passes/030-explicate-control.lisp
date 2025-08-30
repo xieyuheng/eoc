@@ -1,11 +1,11 @@
 (import-all "deps.lisp")
 
-(claim explicate-control (-> program? c/program?))
+(claim explicate-control (-> program? c/c-program?))
 
 (define (explicate-control program)
   (match program
     ((cons-program info body)
-     (c/cons-program info [:start (explicate-seq body)]))))
+     (c/cons-c-program info [:start (explicate-seq body)]))))
 
 (claim explicate-seq (-> exp? c/seq?))
 

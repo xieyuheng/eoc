@@ -1,35 +1,35 @@
 (import-all "index.lisp")
 
-(define (test-program expected sexp)
-  (= program (parse-program sexp))
-  (= value (eval-program program))
+(define (test-c-program expected sexp)
+  (= c-program (parse-c-program sexp))
+  (= value (eval-c-program c-program))
   (assert-equal expected value))
 
-(test-program
+(test-c-program
  1
- '(program
+ '(c-program
    ()
    (:start
     ((return 1)))))
 
-(test-program
+(test-c-program
  1
- '(program
+ '(c-program
    ()
    (:start
     ((= x 1)
      (return x)))))
 
-(test-program
+(test-c-program
  3
- '(program
+ '(c-program
    ()
    (:start
     ((return (+ 1 2))))))
 
-(test-program
+(test-c-program
  3
- '(program
+ '(c-program
    ()
    (:start
     ((= x (+ 1 2))

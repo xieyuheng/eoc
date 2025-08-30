@@ -1,11 +1,11 @@
 (import-all "index.lisp")
 
-(claim form-program (-> program? sexp?))
+(claim form-c-program (-> c-program? sexp?))
 
-(define (form-program program)
-  (match program
-    ((cons-program info seqs)
-     `(program ,info ,(record-map form-seq seqs)))))
+(define (form-c-program c-program)
+  (match c-program
+    ((cons-c-program info seqs)
+     `(c-program ,info ,(record-map form-seq seqs)))))
 
 (define (form-seq seq)
   (match seq

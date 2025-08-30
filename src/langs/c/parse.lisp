@@ -1,11 +1,11 @@
 (import-all "index.lisp")
 
-(claim parse-program (-> sexp? program?))
+(claim parse-c-program (-> sexp? c-program?))
 
-(define (parse-program sexp)
+(define (parse-c-program sexp)
   (match sexp
-    (`(program ,info ,seqs)
-     (cons-program info (record-map parse-seq seqs)))))
+    (`(c-program ,info ,seqs)
+     (cons-c-program info (record-map parse-seq seqs)))))
 
 (claim parse-seq (-> sexp? seq?))
 

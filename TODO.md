@@ -1,4 +1,9 @@
-[c] use `c` as preifx
+[c] c-env
+[c] c-value
+[c] c-exp
+[c] c-stmt
+[c] c-seq
+
 [X86] use `X86` as preifx
 
 quit using `include-as`

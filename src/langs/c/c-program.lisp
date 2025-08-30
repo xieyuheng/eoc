@@ -12,8 +12,8 @@
 ;;          | (Seq <stmt> <tail>)
 ;; <c-program> ::= (CProgram <info> ((<label> . <tail>) … ))
 
-(define-data program?
-  (cons-program
+(define-data c-program?
+  (cons-c-program
    (info info?)
    (seqs (record? seq?))))
 
