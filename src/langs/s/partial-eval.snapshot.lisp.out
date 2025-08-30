@@ -1,0 +1,8 @@
+> (program () 8)
+= (program () 8)
+> (program () (- 8))
+= (program () -8)
+> (program () (+ (+ 8) (- 8)))
+= (program () 0)
+> (program () (let ((x 8)) (+ x x)))
+= (program () 16)
