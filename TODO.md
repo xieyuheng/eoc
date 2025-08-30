@@ -1,3 +1,5 @@
+remove `env?` just use `(record? value?)`
+
 recall the book
 
 [pass] 050-assign-homes.lisp

@@ -1,6 +1,5 @@
 (import-all "index.lisp")
 (import-all "type.lisp")
-(import-all "ctx.lisp")
 
 (claim operator-types (record? (tau (list? type?) type?)))
 
@@ -31,12 +30,12 @@
                 arg-types)
   return-type)
 
-(claim check-exp (-> exp? ctx? (tau exp? type?)))
+(claim check-exp (-> exp? (record? type?) (tau exp? type?)))
 
 (define (check-exp exp ctx)
   (match exp
     ((var-exp name)
-     [(var-exp name) (ctx-lookup name ctx)])
+     [(var-exp name) (record-get name ctx)])
     ((int-exp value)
      [(int-exp value) int-t])
     ((prim-exp op args)
@@ -44,7 +43,7 @@
      [(prim-exp op args^) (check-op op types exp)])
     ((let-exp name rhs body)
      (= [rhs^ rhs-type] (check-exp rhs ctx))
-     (= [body^ body-type] (check-exp body (cons-ctx name rhs-type ctx)))
+     (= [body^ body-type] (check-exp body (record-set name rhs-type ctx)))
      [(let-exp name rhs^ body^) body-type])))
 
 (claim check-program (-> program? program?))
@@ -52,6 +51,6 @@
 (define (check-program program)
   (match program
     ((cons-program info body)
-     (= [body^ body-type] (check-exp body empty-ctx))
+     (= [body^ body-type] (check-exp body []))
      (check-type-equal? body body-type int-t)
      (cons-program info body^))))
