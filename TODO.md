@@ -1,3 +1,10 @@
+[c] use `c` as preifx
+[X86] use `X86` as preifx
+
+quit using `include-as`
+
+rename `parse-*` to `match-*`
+
 [pass] 040-select-instructions.lisp
 [pass] 040-select-instructions.snapshot.lisp
 
