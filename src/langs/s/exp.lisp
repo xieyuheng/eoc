@@ -1,13 +1,5 @@
 (import-all "index.lisp")
 
-;; <exp> ::= (Int <int>)
-;;         | (Var <var>)
-;;         | (Prim 'read ())
-;;         | (Prim '- (<exp>))
-;;         | (Prim '+ (<exp> <exp>))
-;;         | (Prim '- (<exp> <exp>))
-;;         | (Let <var> <exp> <exp>)
-
 (define-data exp?
   (var-exp (name symbol?))
   (int-exp (value int?))

@@ -1,9 +1,10 @@
 [c] c-exp
 [X86] x86-program
 
-quit using `include-as`
+[pass] quit using `include-as`
+[c] & [s] rename `parse-*` to `match-*`
 
-rename `parse-*` to `match-*`
+[X86] remove bnf comments
 
 [pass] 040-select-instructions.lisp
 [pass] 040-select-instructions.snapshot.lisp

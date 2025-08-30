@@ -1,17 +1,5 @@
 (import-all "index.lisp")
 
-;; <atm> ::= (Int <int>)
-;;         | (Var <var>)
-;; <exp> ::= <atm>
-;;         | (Prim 'read ())
-;;         | (Prim '- (<atm>))
-;;         | (Prim '+ (<atm> <atm>))
-;;         | (Prim '- (<atm> <atm>))
-;; <stmt> ::= (Assign (Var <var>) <exp>)
-;; <tail> ::= (Return <exp>)
-;;          | (Seq <stmt> <tail>)
-;; <c-program> ::= (CProgram <info> ((<label> . <tail>) … ))
-
 (define-data c-program?
   (cons-c-program
    (info info?)
