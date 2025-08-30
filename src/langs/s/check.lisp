@@ -4,7 +4,8 @@
 
 (define operator-types
   [:+ [[int-t int-t] int-t]
-   :- [[int-t int-t] int-t]])
+   :- [[int-t int-t] int-t]
+   :show [[int-t] int-t]])
 
 (claim type-equal? (-> type? type? bool?))
 

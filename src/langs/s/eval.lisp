@@ -24,6 +24,10 @@
 
 (define (eval-prim op args env)
   (match [op args]
+    (['show [x]]
+     (= value (eval-exp x env))
+     (println value)
+     value)
     (['+ [x y]]
      (iadd (eval-exp x env) (eval-exp y env)))
     (['+ [x]]
@@ -33,4 +37,5 @@
     (['- [x]]
      (ineg (eval-exp x env)))
     (_
-     (exit "unknown handled prim exp"))))
+     (exit [:who 'eval-prim
+            :message "unknown handled prim exp"]))))
