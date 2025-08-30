@@ -46,4 +46,5 @@
     (['- [x]]
      (ineg (eval-exp x env)))
     (_
-     (exit "unknown handled prim exp"))))
+     (exit [:who 'eval-prim
+            :message "unknown handled prim exp"]))))
