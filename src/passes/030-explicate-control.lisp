@@ -18,20 +18,20 @@
     ((let-exp name rhs body)
      (explicate-assign name rhs (explicate-seq body)))
     ((prim-exp op args)
-     (c/return-seq (c/prim-exp op (list-map explicate-atom args))))))
+     (c/return-seq (c/prim-exp op (list-map to-c/exp args))))))
 
-(claim explicate-atom (-> exp? c/exp?))
+(claim to-c/exp (-> exp? c/exp?))
 
-(define (explicate-atom exp)
+(define (to-c/exp exp)
   (match exp
     ((var-exp name)
      (c/var-exp name))
     ((int-exp n)
      (c/int-exp n))
     ((prim-exp op args)
-     (c/prim-exp op (list-map explicate-atom args)))))
+     (c/prim-exp op (list-map to-c/exp args)))))
 
-(claim explicate-assign (-> name? exp? c/seq? c/seq?))
+(claim explicate-assign (-> symbol? exp? c/seq? c/seq?))
 
 (define (explicate-assign name rhs seq)
   (match rhs
@@ -39,7 +39,7 @@
      (= seq2 (explicate-seq body))
      (explicate-assign name2 rhs2 (seq-append name seq2 seq)))
     (_
-     (c/cons-seq (c/assign-stmt (c/var-exp name) rhs) seq))))
+     (c/cons-seq (c/assign-stmt (c/var-exp name) (to-c/exp rhs)) seq))))
 
 (claim seq-append (-> symbol? c/seq? c/seq? c/seq?))
 

@@ -1,5 +1,3 @@
-[pass] 030-explicate-control.snapshot.lisp
-
 [pass] 040-select-instructions.lisp
 [pass] 040-select-instructions.snapshot.lisp
 

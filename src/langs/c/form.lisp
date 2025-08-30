@@ -27,7 +27,4 @@
     ((var-exp name) name)
     ((int-exp value) value)
     ((prim-exp op args)
-     (cons op (list-map form-exp args)))
-    ((let-exp name rhs body)
-     `(let ((,name ,(form-exp rhs)))
-        ,(form-exp body)))))
+     (cons op (list-map form-exp args)))))
