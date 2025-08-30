@@ -34,4 +34,4 @@
   (= count (record-get name name-counts))
   (if (null? count)
     name
-    (format-name-with-count name count)))
+    (symbol-append-subscript name count)))
