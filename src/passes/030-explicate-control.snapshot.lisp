@@ -3,8 +3,8 @@
 (import-all "020-remove-complex-operands.lisp")
 (import-all "030-explicate-control.lisp")
 
-(define (test-program expected program-sexp)
-  (= program-0 (parse-program program-sexp))
+(define (test-program expected sexp)
+  (= program-0 (parse-program sexp))
   (= program-1 (uniquify program-0))
   (= program-2 (rco-program program-1))
   (= result (eval-program program-2))

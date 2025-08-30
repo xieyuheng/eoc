@@ -1,8 +1,8 @@
 (import-all "deps.lisp")
 (import-all "010-uniquify.lisp")
 
-(define (test-program expected program-sexp)
-  (= program-0 (parse-program program-sexp))
+(define (test-program expected sexp)
+  (= program-0 (parse-program sexp))
   (= program-1 (uniquify program-0))
   (= result (eval-program program-1))
   (write "000 ") (writeln (format-sexp (form-program program-0)))
