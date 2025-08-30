@@ -1,3 +1,6 @@
+update occam for `format-subscript` and `symbol-append-subscript`
+move `freshen` back to 020-remove-complex-operands.lisp and remove `utils`
+
 # migrate passes
 
 [pass] 030-explicate-control.lisp
