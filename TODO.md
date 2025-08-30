@@ -1,5 +1,3 @@
-[X86] x86-program
-
 [pass] quit using `include-as`
 [c] & [s] rename `parse-*` to `match-*`
 

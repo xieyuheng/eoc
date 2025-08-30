@@ -1,7 +1,7 @@
 (import-all "index.lisp")
 
-(form-program
- (cons-program
+(form-x86-program
+ (cons-x86-program
   []
   [:start
    (cons-block

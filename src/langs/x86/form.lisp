@@ -1,11 +1,11 @@
 (import-all "index.lisp")
 
-(claim form-program (-> program? sexp?))
+(claim form-x86-program (-> x86-program? sexp?))
 
-(define (form-program program)
-  (match program
-    ((cons-program info blocks)
-     `(program ,info ,(record-map form-block blocks)))))
+(define (form-x86-program x86-program)
+  (match x86-program
+    ((cons-x86-program info blocks)
+     `(x86-program ,info ,(record-map form-block blocks)))))
 
 (claim form-block (-> block? sexp?))
 

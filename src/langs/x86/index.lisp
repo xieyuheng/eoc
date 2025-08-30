@@ -1,2 +1,2 @@
-(include "program.lisp")
+(include "x86-program.lisp")
 (include "form.lisp")

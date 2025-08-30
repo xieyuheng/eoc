@@ -1,7 +1,7 @@
 (import-all "index.lisp")
 
-(define-data program?
-  (cons-program
+(define-data x86-program?
+  (cons-x86-program
    (info info?)
    (blocks (record? block?))))
 
