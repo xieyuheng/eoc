@@ -3,12 +3,13 @@
 
 [pass] 050-assign-homes.lisp
 
+[pass] 040-select-instructions.lisp -- maybe use `read` instead of `show`
+[pass] 040-select-instructions.lisp -- fix `select-instr-assign` call of `show_int`
+
 > 2 Integers and Variables
 
 [c] check -- required by 050-assign-homes
-
 [x86] x86-info?
-
 [pass] 050-assign-homes
 [pass] 050-assign-homes -- test
 [pass] 060-patch-instructions
