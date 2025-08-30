@@ -1,8 +1,8 @@
-(include "value.lisp")
+(include "../../value/index.lisp")
+
 (include "type.lisp")
 (include "exp.lisp")
 (include "program.lisp")
-(include "env.lisp")
 (include "ctx.lisp")
 (include "check.lisp")
 (include "eval.lisp")

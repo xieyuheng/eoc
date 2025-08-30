@@ -1,10 +1,5 @@
-[c] c-env
-[c] c-value
 [c] c-exp
-[c] c-stmt
-[c] c-seq
-
-[X86] use `X86` as preifx
+[X86] x86-program
 
 quit using `include-as`
 
