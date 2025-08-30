@@ -3,8 +3,6 @@
 [pass] quit using `include-as`
 [c] & [s] rename `parse-*` to `match-*`
 
-[X86] remove bnf comments
-
 [pass] 040-select-instructions.lisp
 [pass] 040-select-instructions.snapshot.lisp
 
