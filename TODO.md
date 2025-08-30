@@ -1,7 +1,8 @@
-[pass] 030-explicate-control.lisp
 [pass] 030-explicate-control.snapshot.lisp
+
 [pass] 040-select-instructions.lisp
 [pass] 040-select-instructions.snapshot.lisp
+
 [pass] 050-assign-homes.lisp
 
 > 2 Integers and Variables
