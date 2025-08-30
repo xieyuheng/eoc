@@ -14,9 +14,7 @@
 
 (define instr? (union general-instr? special-instr?))
 
-(define general-instr? (tau op? (list? arg?)))
-
-(define op? symbol?)
+(define general-instr? (tau symbol? (list? arg?)))
 
 (define-data special-instr?
   (callq (label symbol?) (arity int-non-negative?))

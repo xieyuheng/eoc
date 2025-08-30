@@ -21,8 +21,6 @@
 (define-data c-exp?
   (var-c-exp (name symbol?))
   (int-c-exp (value int?))
-  (prim-c-exp (op op?) (args (list? c-atom?))))
-
-(define op? symbol?)
+  (prim-c-exp (op symbol?) (args (list? c-atom?))))
 
 (define c-atom? (union var-c-exp? int-c-exp?))

@@ -18,7 +18,7 @@
     (exit [:who 'check-type-equal?
            :exp exp :lhs lhs :rhs rhs])))
 
-(claim check-op (-> op? (list? type?) exp? type?))
+(claim check-op (-> symbol? (list? type?) exp? type?))
 
 (define (check-op op arg-types exp)
   (= entry (record-get op operator-types))
