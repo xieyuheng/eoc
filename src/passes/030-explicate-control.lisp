@@ -1,37 +1,37 @@
 (import-all "deps.lisp")
 
-(claim explicate-control (-> program? c/c-program?))
+(claim explicate-control (-> program? c-program?))
 
 (define (explicate-control program)
   (match program
     ((cons-program info body)
-     (c/cons-c-program info [:start (explicate-seq body)]))))
+     (cons-c-program info [:start (explicate-seq body)]))))
 
-(claim explicate-seq (-> exp? c/seq?))
+(claim explicate-seq (-> exp? seq?))
 
 (define (explicate-seq exp)
   (match exp
     ((var-exp name)
-     (c/return-seq (c/var-c-exp name)))
+     (return-seq (var-c-exp name)))
     ((int-exp n)
-     (c/return-seq (c/int-c-exp n)))
+     (return-seq (int-c-exp n)))
     ((let-exp name rhs body)
      (explicate-assign name rhs (explicate-seq body)))
     ((prim-exp op args)
-     (c/return-seq (c/prim-c-exp op (list-map to-c-exp args))))))
+     (return-seq (prim-c-exp op (list-map to-c-exp args))))))
 
-(claim to-c-exp (-> exp? c/c-exp?))
+(claim to-c-exp (-> exp? c-exp?))
 
 (define (to-c-exp exp)
   (match exp
     ((var-exp name)
-     (c/var-c-exp name))
+     (var-c-exp name))
     ((int-exp n)
-     (c/int-c-exp n))
+     (int-c-exp n))
     ((prim-exp op args)
-     (c/prim-c-exp op (list-map to-c-exp args)))))
+     (prim-c-exp op (list-map to-c-exp args)))))
 
-(claim explicate-assign (-> symbol? exp? c/seq? c/seq?))
+(claim explicate-assign (-> symbol? exp? seq? seq?))
 
 (define (explicate-assign name rhs seq)
   (match rhs
@@ -39,13 +39,13 @@
      (= seq2 (explicate-seq body))
      (explicate-assign name2 rhs2 (seq-append name seq2 seq)))
     (_
-     (c/cons-seq (c/assign-stmt (c/var-c-exp name) (to-c-exp rhs)) seq))))
+     (cons-seq (assign-stmt (var-c-exp name) (to-c-exp rhs)) seq))))
 
-(claim seq-append (-> symbol? c/seq? c/seq? c/seq?))
+(claim seq-append (-> symbol? seq? seq? seq?))
 
 (define (seq-append name top-seq bottom-seq)
   (match top-seq
-    ((c/return-seq exp)
-     (c/cons-seq (c/assign-stmt (c/var-c-exp name) exp) bottom-seq))
-    ((c/cons-seq stmt next-seq)
-     (c/cons-seq stmt (seq-append name next-seq bottom-seq)))))
+    ((return-seq exp)
+     (cons-seq (assign-stmt (var-c-exp name) exp) bottom-seq))
+    ((cons-seq stmt next-seq)
+     (cons-seq stmt (seq-append name next-seq bottom-seq)))))

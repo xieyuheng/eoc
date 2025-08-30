@@ -9,11 +9,11 @@
   (= program-2 (rco-program program-1))
   (= result (eval-program program-2))
   (= c-program-3 (explicate-control program-2))
-  (= c-result (c/eval-c-program c-program-3))
+  (= c-result (eval-c-program c-program-3))
   (write "000 ") (writeln (format-sexp (form-program program-0)))
   (write "010 ") (writeln (format-sexp (form-program program-1)))
   (write "020 ") (writeln (format-sexp (form-program program-2)))
-  (write "030 ") (writeln (format-sexp (c/form-c-program c-program-3)))
+  (write "030 ") (writeln (format-sexp (form-c-program c-program-3)))
   (assert-equal expected result)
   (assert-equal expected c-result))
 

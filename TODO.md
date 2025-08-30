@@ -1,5 +1,3 @@
-[pass] quit using `include-as`
-
 [pass] 040-select-instructions.lisp
 [pass] 040-select-instructions.snapshot.lisp
 
