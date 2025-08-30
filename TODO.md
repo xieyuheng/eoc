@@ -1,7 +1,7 @@
-use `read` instead of `show` -- by `read-line` & `parse-sexp`
-
 [pass] 050-assign-homes.lisp
 [pass] 050-assign-homes.snapshot.lisp
+
+[pass] 040-select-instructions -- fix the code for calling `show_int`
 
 > 2 Integers and Variables
 
