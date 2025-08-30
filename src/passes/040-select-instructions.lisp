@@ -12,7 +12,7 @@
      (= block (cons-block [] (select-instr-seq seq)))
      (cons-x86-program info [:start block]))))
 
-(claim select-instr-atom (-> c-atom? arg?))
+(claim select-instr-atom (-> c-exp-atom? arg?))
 
 (define (select-instr-atom atom)
   (match atom

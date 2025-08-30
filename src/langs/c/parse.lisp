@@ -28,14 +28,14 @@
 (define (parse-c-exp sexp)
   (match sexp
     ((cons op args)
-     (prim-c-exp op (list-map parse-c-atom args)))
-    (_ (parse-c-atom sexp))))
+     (prim-c-exp op (list-map parse-atom args)))
+    (_ (parse-atom sexp))))
 
-(claim parse-c-atom (-> sexp? c-atom?))
+(claim parse-atom (-> sexp? c-exp-atom?))
 
-(define (parse-c-atom sexp)
+(define (parse-atom sexp)
   (cond ((int? sexp) (int-c-exp sexp))
         ((symbol? sexp) (var-c-exp sexp))
-        (else (exit [:who 'parse-c-atom
+        (else (exit [:who 'parse-atom
                      :message "unhandled sexp"
                      :sexp sexp]))))

@@ -5,6 +5,8 @@ recall the book
 
 [pass] 040-select-instructions -- fix the code for calling `show_int`
 
+- in nodejs, we can not read from stdin sync-ly
+
 > 2 Integers and Variables
 
 [c] check -- required by 050-assign-homes

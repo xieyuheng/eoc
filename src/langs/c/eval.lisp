@@ -33,7 +33,7 @@
     ((prim-c-exp op args)
      (eval-prim op args env))))
 
-(claim eval-prim (-> symbol? (list? c-atom?) env? value?))
+(claim eval-prim (-> symbol? (list? c-exp-atom?) env? value?))
 
 (define (eval-prim op args env)
   (match [op args]
