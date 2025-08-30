@@ -48,9 +48,9 @@
  42
  '(program
    ()
-   (let ((y (let ((x.1 20))
-              (let ((x.2 22))
-                (+ x.1 x.2)))))
+   (let ((y (let ((x 20))
+              (let ((z 22))
+                (+ x z)))))
      y)) )
 
 (test-program

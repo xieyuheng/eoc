@@ -5,8 +5,10 @@
 
 > 2 Integers and Variables
 
-[lang] c-checker -- required by 050-assign-homes
-[syntax] extract X86Info
+[c] check -- required by 050-assign-homes
+
+[x86] x86-info?
+
 [pass] 050-assign-homes
 [pass] 050-assign-homes -- test
 [pass] 060-patch-instructions
