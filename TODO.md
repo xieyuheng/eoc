@@ -1,6 +1,3 @@
-[pass] 040-select-instructions.lisp
-[pass] 040-select-instructions.snapshot.lisp
-
 [pass] 050-assign-homes.lisp
 
 [pass] 040-select-instructions.lisp -- maybe use `read` instead of `show`

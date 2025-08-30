@@ -10,7 +10,7 @@
   (match c-program
     ((cons-c-program info [:start seq])
      (= block (cons-block [] (select-instr-seq seq)))
-     (x86-program info [:start block]))))
+     (cons-x86-program info [:start block]))))
 
 (claim select-instr-atom (-> c-atom? arg?))
 
@@ -45,19 +45,19 @@
      [['addq [(select-instr-atom arg2) (var-arg name)]]])
     ((assign-stmt (var-c-exp name) (prim-c-exp '+ [arg1 (var-c-exp name)]))
      [['addq [(select-instr-atom arg1) (var-arg name)]]])
-    ((assign-stmt var rhs)
-     (select-instr-assign var rhs))))
+    ((assign-stmt (var-c-exp name) rhs)
+     (select-instr-assign (var-arg name) rhs))))
 
 (claim select-instr-seq (-> seq? (list? instr?)))
 
 (define (select-instr-seq seq)
   (match seq
     ((cons-seq stmt next-seq)
-     (append (select-instr-stmt stmt)
-             (select-instr-seq next-seq)))
+     (list-append (select-instr-stmt stmt)
+                  (select-instr-seq next-seq)))
     ((return-seq (prim-c-exp 'read []))
      [(callq 'read_int)
       (jmp 'conclusion)])
     ((return-seq exp)
-     (append (select-instr-assign (reg-arg 'rax) exp)
-             [(jmp 'conclusion)]))))
+     (list-append (select-instr-assign (reg-arg 'rax) exp)
+                  [(jmp 'conclusion)]))))
