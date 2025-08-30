@@ -12,7 +12,7 @@
 (define (eval-seq seq env)
   (match seq
     ((return-seq result)
-     (eval-exp result env))
+     (eval-c-exp result env))
     ((cons-seq stmt tail)
      (eval-seq tail (eval-stmt stmt env)))))
 
@@ -21,11 +21,11 @@
 (define (eval-stmt stmt env)
   (match stmt
     ((assign-stmt (var-exp name) rhs)
-     (cons-env name (eval-exp rhs env) env))))
+     (cons-env name (eval-c-exp rhs env) env))))
 
-(claim eval-exp (-> exp? env? value?))
+(claim eval-c-exp (-> exp? env? value?))
 
-(define (eval-exp exp env)
+(define (eval-c-exp exp env)
   (match exp
     ((int-exp n) n)
     ((var-exp name)
@@ -38,13 +38,13 @@
 (define (eval-prim op args env)
   (match [op args]
     (['+ [x y]]
-     (iadd (eval-exp x env) (eval-exp y env)))
+     (iadd (eval-c-exp x env) (eval-c-exp y env)))
     (['+ [x]]
-     (eval-exp x env))
+     (eval-c-exp x env))
     (['- [x y]]
-     (isub (eval-exp x env) (eval-exp y env)))
+     (isub (eval-c-exp x env) (eval-c-exp y env)))
     (['- [x]]
-     (ineg (eval-exp x env)))
+     (ineg (eval-c-exp x env)))
     (_
      (exit [:who 'eval-prim
             :message "unknown handled prim exp"]))))
