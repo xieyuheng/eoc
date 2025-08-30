@@ -1,13 +1,7 @@
-(import-all "index.lisp")
-
 (define-data c-program?
   (cons-c-program
    (info anything?)
    (seqs (record? seq?))))
-
-;; the book uses <tail> but it is a wrong name,
-;; because it is the name of the field,
-;; not the name of the data type.
 
 (define-data seq?
   (return-seq (result c-exp?))

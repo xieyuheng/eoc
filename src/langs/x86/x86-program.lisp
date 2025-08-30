@@ -1,5 +1,3 @@
-(import-all "index.lisp")
-
 (define-data x86-program?
   (cons-x86-program
    (info anything?)

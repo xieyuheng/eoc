@@ -1,3 +1,5 @@
+recall the book
+
 [pass] 050-assign-homes.lisp
 [pass] 050-assign-homes.snapshot.lisp
 
