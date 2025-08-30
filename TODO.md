@@ -1,7 +1,5 @@
 # migrate passes
 
-[pass] extract utils about name
-
 [pass] 030-explicate-control.lisp
 [pass] 030-explicate-control.snapshot.lisp
 [pass] 040-select-instructions.lisp
