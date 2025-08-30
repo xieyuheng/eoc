@@ -2,10 +2,8 @@
 
 (define-data c-program?
   (cons-c-program
-   (info info?)
+   (info anything?)
    (seqs (record? seq?))))
-
-(define info? anything?)
 
 ;; the book uses <tail> but it is a wrong name,
 ;; because it is the name of the field,

@@ -2,14 +2,12 @@
 
 (define-data x86-program?
   (cons-x86-program
-   (info info?)
+   (info anything?)
    (blocks (record? block?))))
-
-(define info? anything?)
 
 (define-data block?
   (cons-block
-   (info info?)
+   (info anything?)
    (instrs (list? instr?))))
 
 (define instr? (union general-instr? special-instr?))
