@@ -1,4 +1,3 @@
-[c] c-exp
 [X86] x86-program
 
 [pass] quit using `include-as`

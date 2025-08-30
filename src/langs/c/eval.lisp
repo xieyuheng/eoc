@@ -20,20 +20,20 @@
 
 (define (eval-stmt stmt env)
   (match stmt
-    ((assign-stmt (var-exp name) rhs)
+    ((assign-stmt (var-c-exp name) rhs)
      (cons-env name (eval-c-exp rhs env) env))))
 
-(claim eval-c-exp (-> exp? env? value?))
+(claim eval-c-exp (-> c-exp? env? value?))
 
-(define (eval-c-exp exp env)
-  (match exp
-    ((int-exp n) n)
-    ((var-exp name)
+(define (eval-c-exp c-exp env)
+  (match c-exp
+    ((int-c-exp n) n)
+    ((var-c-exp name)
      (env-lookup name env))
-    ((prim-exp op args)
+    ((prim-c-exp op args)
      (eval-prim op args env))))
 
-(claim eval-prim (-> symbol? (list? atom-exp?) env? value?))
+(claim eval-prim (-> symbol? (list? c-atom?) env? value?))
 
 (define (eval-prim op args env)
   (match [op args]
@@ -47,4 +47,4 @@
      (ineg (eval-c-exp x env)))
     (_
      (exit [:who 'eval-prim
-            :message "unknown handled prim exp"]))))
+            :message "unknown handled prim c-exp"]))))

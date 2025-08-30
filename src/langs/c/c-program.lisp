@@ -12,17 +12,17 @@
 ;; not the name of the data type.
 
 (define-data seq?
-  (return-seq (result exp?))
+  (return-seq (result c-exp?))
   (cons-seq (stmt stmt?) (tail seq?)))
 
 (define-data stmt?
-  (assign-stmt (var var-exp?) (rhs exp?)))
+  (assign-stmt (var var-c-exp?) (rhs c-exp?)))
 
-(define-data exp?
-  (var-exp (name symbol?))
-  (int-exp (value int?))
-  (prim-exp (op op?) (args (list? atom-exp?))))
+(define-data c-exp?
+  (var-c-exp (name symbol?))
+  (int-c-exp (value int?))
+  (prim-c-exp (op op?) (args (list? c-atom?))))
 
 (define op? symbol?)
 
-(define atom-exp? (union var-exp? int-exp?))
+(define c-atom? (union var-c-exp? int-c-exp?))

@@ -12,24 +12,24 @@
 (define (explicate-seq exp)
   (match exp
     ((var-exp name)
-     (c/return-seq (c/var-exp name)))
+     (c/return-seq (c/var-c-exp name)))
     ((int-exp n)
-     (c/return-seq (c/int-exp n)))
+     (c/return-seq (c/int-c-exp n)))
     ((let-exp name rhs body)
      (explicate-assign name rhs (explicate-seq body)))
     ((prim-exp op args)
-     (c/return-seq (c/prim-exp op (list-map to-c/exp args))))))
+     (c/return-seq (c/prim-c-exp op (list-map to-c-exp args))))))
 
-(claim to-c/exp (-> exp? c/exp?))
+(claim to-c-exp (-> exp? c/c-exp?))
 
-(define (to-c/exp exp)
+(define (to-c-exp exp)
   (match exp
     ((var-exp name)
-     (c/var-exp name))
+     (c/var-c-exp name))
     ((int-exp n)
-     (c/int-exp n))
+     (c/int-c-exp n))
     ((prim-exp op args)
-     (c/prim-exp op (list-map to-c/exp args)))))
+     (c/prim-c-exp op (list-map to-c-exp args)))))
 
 (claim explicate-assign (-> symbol? exp? c/seq? c/seq?))
 
@@ -39,13 +39,13 @@
      (= seq2 (explicate-seq body))
      (explicate-assign name2 rhs2 (seq-append name seq2 seq)))
     (_
-     (c/cons-seq (c/assign-stmt (c/var-exp name) (to-c/exp rhs)) seq))))
+     (c/cons-seq (c/assign-stmt (c/var-c-exp name) (to-c-exp rhs)) seq))))
 
 (claim seq-append (-> symbol? c/seq? c/seq? c/seq?))
 
 (define (seq-append name top-seq bottom-seq)
   (match top-seq
     ((c/return-seq exp)
-     (c/cons-seq (c/assign-stmt (c/var-exp name) exp) bottom-seq))
+     (c/cons-seq (c/assign-stmt (c/var-c-exp name) exp) bottom-seq))
     ((c/cons-seq stmt next-seq)
      (c/cons-seq stmt (seq-append name next-seq bottom-seq)))))

@@ -10,21 +10,21 @@
 (define (form-seq seq)
   (match seq
     ((return-seq result)
-     `((return ,(form-exp result))))
+     `((return ,(form-c-exp result))))
     ((cons-seq stmt tail)
      (cons (form-stmt stmt)
            (form-seq tail)))))
 
 (define (form-stmt stmt)
   (match stmt
-    ((assign-stmt (var-exp name) rhs)
-     `(= ,name ,(form-exp rhs)))))
+    ((assign-stmt (var-c-exp name) rhs)
+     `(= ,name ,(form-c-exp rhs)))))
 
-(claim form-exp (-> exp? sexp?))
+(claim form-c-exp (-> c-exp? sexp?))
 
-(define (form-exp exp)
-  (match exp
-    ((var-exp name) name)
-    ((int-exp value) value)
-    ((prim-exp op args)
-     (cons op (list-map form-exp args)))))
+(define (form-c-exp c-exp)
+  (match c-exp
+    ((var-c-exp name) name)
+    ((int-c-exp value) value)
+    ((prim-c-exp op args)
+     (cons op (list-map form-c-exp args)))))
