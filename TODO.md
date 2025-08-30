@@ -1,7 +1,6 @@
 # migrate passes
 
-[pass] 020-remove-complex-operands.lisp -- fix `rco-atom` -- call `freshen`
-[pass] 020-remove-complex-operands.snapshot.lisp
+[pass] extract utils about name
 
 [pass] 030-explicate-control.lisp
 [pass] 030-explicate-control.snapshot.lisp
