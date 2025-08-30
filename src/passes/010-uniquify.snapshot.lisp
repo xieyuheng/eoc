@@ -1,5 +1,5 @@
 (import-all "deps.lisp")
-(import-all "010-uniquify.lisp")
+(import-all "index.lisp")
 
 (define (test-program expected sexp)
   (= program-0 (parse-program sexp))

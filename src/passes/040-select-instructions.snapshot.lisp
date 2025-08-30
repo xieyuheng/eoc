@@ -1,8 +1,5 @@
 (import-all "deps.lisp")
-(import-all "010-uniquify.lisp")
-(import-all "020-remove-complex-operands.lisp")
-(import-all "030-explicate-control.lisp")
-(import-all "040-select-instructions.lisp")
+(import-all "index.lisp")
 
 (define (test-program expected sexp)
   (= program-0 (parse-program sexp))
