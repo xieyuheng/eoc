@@ -14,7 +14,12 @@
   (match exp
     ((int-exp n) n)
     ((var-exp name)
-     (record-get name env))
+     (= found (record-get name env))
+     (when (null? found)
+       (exit [:who 'eval-exp
+              :message "undefined name"
+              :name name]))
+     found)
     ((prim-exp op args)
      (eval-prim op args env))
     ((let-exp name rhs body)
@@ -40,4 +45,5 @@
      (ineg (eval-exp x env)))
     (_
      (exit [:who 'eval-prim
-            :message "unknown handled prim exp"]))))
+            :message "unknown handled prim exp"
+            :op op :args args]))))

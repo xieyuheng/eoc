@@ -41,7 +41,7 @@
 (define (partial-eval-neg r)
   (match r
     ((int-exp n)
-     (int-exp (isub 0 n)))
+     (int-exp (ineg n)))
     (_
      (prim-exp '- [r]))))
 
@@ -49,12 +49,12 @@
   (match [r1 r2]
     ([(int-exp n1) (int-exp n2)]
      (int-exp (iadd n1 n2)))
-    ([_ _]
+    (_
      (prim-exp '+ [r1 r2]))))
 
 (define (partial-eval-sub r1 r2)
   (match [r1 r2]
     ([(int-exp n1) (int-exp n2)]
      (int-exp (isub n1 n2)))
-    ([_ _]
+    (_
      (prim-exp '- [r1 r2]))))
