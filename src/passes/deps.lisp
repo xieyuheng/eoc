@@ -1,3 +1,3 @@
-(include "../langs/s/index.lisp")
-(include "../langs/c/index.lisp")
-(include "../langs/x86/index.lisp")
+(include-all "../langs/s/index.lisp")
+(include-all "../langs/c/index.lisp")
+(include-all "../langs/x86/index.lisp")

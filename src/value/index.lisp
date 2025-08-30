@@ -1,2 +1,2 @@
-(include "value.lisp")
-(include "env.lisp")
+(include-all "value.lisp")
+(include-all "env.lisp")
