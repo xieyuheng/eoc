@@ -1,9 +1,7 @@
 (include "../../value/index.lisp")
 
-(include "type.lisp")
 (include "program.lisp")
-(include "ctx.lisp")
-(include "check.lisp")
-(include "eval.lisp")
-(include "parse.lisp")
-(include "form.lisp")
+(include-only "check.lisp" check-program)
+(include-only "eval.lisp" eval-program)
+(include-only "parse.lisp" parse-program)
+(include-only "form.lisp" form-program)

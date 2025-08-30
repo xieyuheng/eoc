@@ -1,4 +1,5 @@
 (import-all "index.lisp")
+(import-all "type.lisp")
 
 (define-data ctx?
   empty-ctx

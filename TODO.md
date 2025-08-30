@@ -1,5 +1,4 @@
 [pass] quit using `include-as`
-[c] & [s] rename `parse-*` to `match-*`
 
 [pass] 040-select-instructions.lisp
 [pass] 040-select-instructions.snapshot.lisp

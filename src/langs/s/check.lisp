@@ -1,4 +1,6 @@
 (import-all "index.lisp")
+(import-all "type.lisp")
+(import-all "ctx.lisp")
 
 (claim operator-types (record? (tau (list? type?) type?)))
 
