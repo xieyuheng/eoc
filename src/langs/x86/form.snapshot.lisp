@@ -6,7 +6,7 @@
   [:start
    (cons-block
     []
-    [['movq [(deref 'rax 10) (reg 'rax)]]
-     ['movq [(reg 'rax) (reg 'rax)]]
+    [['movq [(deref-arg 'rax 10) (reg-arg 'rax)]]
+     ['movq [(reg-arg 'rax) (reg-arg 'rax)]]
      (callq 'f 2)
      retq])]))

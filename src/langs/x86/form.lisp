@@ -38,13 +38,13 @@
 
 (define (form-arg arg)
   (match arg
-    ((var name)
+    ((var-arg name)
      (format-sexp name))
-    ((imm value)
+    ((imm-arg value)
      (string-append "$" (format-sexp value)))
-    ((reg name)
+    ((reg-arg name)
      (string-append "%" (format-sexp name)))
-    ((deref name offset)
+    ((deref-arg name offset)
      (string-append-many
       [(format-sexp offset)
        "(" "%" (format-sexp name) ")"]))))

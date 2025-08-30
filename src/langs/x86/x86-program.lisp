@@ -20,10 +20,10 @@
   (jmp (label symbol?)))
 
 (define-data arg?
-  (var (name symbol?))
-  (imm (value int?))
-  (reg (name reg-name?))
-  (deref (name reg-name?) (offset int?)))
+  (var-arg (name symbol?))
+  (imm-arg (value int?))
+  (reg-arg (name reg-name?))
+  (deref-arg (name reg-name?) (offset int?)))
 
 ;; TODO fix reg-name?
 
