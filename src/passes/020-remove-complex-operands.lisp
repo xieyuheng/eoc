@@ -46,7 +46,7 @@
     ((prim-exp op args)
      (= [new-args bindings-list] (list-unzip (list-map rco-atom args)))
      (= bindings (list-append-many bindings-list))
-     (= name (freshen 'tmp))
+     (= name (freshen '_))
      [(var-exp name)
       (cons [name (prim-exp op new-args)] bindings)])))
 
