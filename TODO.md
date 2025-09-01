@@ -1,16 +1,10 @@
-recall the book
-
-[pass] 050-assign-homes.lisp
-[pass] 050-assign-homes.snapshot.lisp
-
-[pass] 040-select-instructions -- fix the code for calling `show_int`
-
-- in nodejs, we can not read from stdin sync-ly
-
 > 2 Integers and Variables
 
+[pass] 050-assign-homes
+[pass] 040-select-instructions -- fix the code for calling `show_int`
+- in nodejs, we can not read from stdin sync-ly
 [c] check -- required by 050-assign-homes
-[x86] x86-info?
+[x86] setup `x86-info?`
 [pass] 050-assign-homes
 [pass] 050-assign-homes -- test
 [pass] 060-patch-instructions
