@@ -9,6 +9,8 @@
 [pass] 050-assign-homes -- test
 [pass] 060-patch-instructions
 [pass] 070-prelude-and-conclusion
+[pass] [maybe] rename `020-remove-complex-operands` to `020-unnest`
+- to avoid using the `rco` abbr.
 
 > 3 Register Allocation
 > 4 Booleans and Conditionals

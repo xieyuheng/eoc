@@ -29,11 +29,18 @@
 ;; instructions. This pass converts each LVar operation to a short
 ;; sequence of instructions that accomplishes the same task.
 
+;; TODO
 ;; (include "050-assign-homes.lisp" assign-homes)
 ;; replaces variables with registers or stack locations.
 
+;; TODO
 ;; (include "060-patch-instructions.lisp" patch-instructions)
-;; TODO
+;; uses a reserved register to fix invalid arguments problem.
+;; recall that only one argument of an x86 instruction
+;; may be a memory access, but assign-homes might be
+;; forced to assign both arguments to memory locations.
 
-;; (include "070-prelude-and-conclusion.lisp" prelude-and-conclusion)
 ;; TODO
+;; (include "070-prelude-and-conclusion.lisp" prelude-and-conclusion)
+;; places the program instructions inside a `main` function
+;; with instructions for the prelude and conclusion.
