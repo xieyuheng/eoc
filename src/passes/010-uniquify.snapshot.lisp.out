@@ -3,4 +3,4 @@
 000 (program () (let ((x 32)) (+ (let ((x 10)) x) x)))
 010 (program () (let ((x₁ 32)) (+ (let ((x₂ 10)) x₂) x₁)))
 000 (program () (let ((x (let ((x 4)) (+ x 1)))) (+ x 2)))
-010 (program () (let ((x₁ (let ((x₁ 4)) (+ x₁ 1)))) (+ x₁ 2)))
+010 (program () (let ((x₁ (let ((x₂ 4)) (+ x₂ 1)))) (+ x₁ 2)))

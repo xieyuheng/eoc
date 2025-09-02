@@ -18,8 +18,11 @@
      (int-exp n))
     ((let-exp name rhs body)
      (= new-name-counts (name-count-once name name-counts))
+     ;; unlike the code of the book,
+     ;; because we do not use side effect,
+     ;; both rhs and both need to use the new-name-counts.
      (let-exp (format-name-in-counts name new-name-counts)
-              (uniquify-exp name-counts rhs)
+              (uniquify-exp new-name-counts rhs)
               (uniquify-exp new-name-counts body)))
     ((prim-exp op args)
      (prim-exp op (list-map (uniquify-exp name-counts) args)))))
