@@ -19,6 +19,12 @@
      (+ x 10))))
 
 (test-program
+ 10
+ '(program
+   ()
+   (+ (+ 1 2) (+ 3 4))))
+
+(test-program
  15
  '(program
    ()
