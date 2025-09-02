@@ -37,4 +37,4 @@
   (= count (record-get name name-counts))
   (if (null? count)
     name
-    (symbol-append-subscript name count)))
+    (symbol-append name (string-to-symbol (format-subscript count)))))

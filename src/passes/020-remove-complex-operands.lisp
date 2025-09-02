@@ -55,4 +55,4 @@
 (define (freshen name)
   (= count (record-get 'count freshen-state))
   (record-set! 'count (iadd 1 count) freshen-state)
-  (symbol-append-subscript name (iadd 1 count)))
+  (symbol-append name (string-to-symbol (format-subscript (iadd 1 count)))))
