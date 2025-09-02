@@ -4,9 +4,9 @@
 (define (test-program expected sexp)
   (= program-0 (parse-program sexp))
   (= program-1 (uniquify program-0))
-  (= result (eval-program program-1))
   (write "000 ") (writeln (format-sexp (form-program program-0)))
   (write "010 ") (writeln (format-sexp (form-program program-1)))
+  (= result (eval-program program-1))
   (assert-equal expected result))
 
 (test-program
