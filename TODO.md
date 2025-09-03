@@ -5,8 +5,6 @@
 - in nodejs, we can not read from stdin sync-ly
 [c] check -- required by 050-assign-homes
 [x86] setup `x86-info?`
-[pass] 050-assign-homes
-[pass] 050-assign-homes -- test
 [pass] 060-patch-instructions
 [pass] 070-prelude-and-conclusion
 [pass] [maybe] rename `020-remove-complex-operands` to `020-unnest`
