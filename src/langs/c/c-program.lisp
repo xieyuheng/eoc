@@ -1,3 +1,10 @@
+(export
+  c-program? cons-c-program
+  seq? return-seq cons-seq
+  stmt? assign-stmt
+  c-exp? var-c-exp int-c-exp prim-c-exp
+  c-exp-atom?)
+
 (define-data c-program?
   (cons-c-program
    (info anything?)

@@ -1,3 +1,7 @@
+(export
+  program? cons-program
+  exp? var-exp int-exp prim-exp let-exp)
+
 (define-data program?
   (cons-program
    (info anything?)

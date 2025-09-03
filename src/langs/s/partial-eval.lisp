@@ -1,5 +1,7 @@
 (import-all "index.lisp")
 
+(export partial-eval-program)
+
 (claim partial-eval-program (-> program? program?))
 
 (define (partial-eval-program program)

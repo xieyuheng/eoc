@@ -1,5 +1,7 @@
 (import-all "deps.lisp")
 
+(export explicate-control)
+
 (claim explicate-control (-> program? c-program?))
 
 (define (explicate-control program)

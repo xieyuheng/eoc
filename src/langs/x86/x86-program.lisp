@@ -1,3 +1,11 @@
+(export
+  x86-program? cons-x86-program
+  block? cons-block
+  instr? general-instr? special-instr?
+  callq retq jmp
+  arg? var-arg imm-arg reg-arg deref-arg
+  reg-name?)
+
 (define-data x86-program?
   (cons-x86-program
    (info anything?)

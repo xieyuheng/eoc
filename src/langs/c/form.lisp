@@ -1,5 +1,7 @@
 (import-all "index.lisp")
 
+(export form-c-program form-c-exp)
+
 (claim form-c-program (-> c-program? sexp?))
 
 (define (form-c-program c-program)

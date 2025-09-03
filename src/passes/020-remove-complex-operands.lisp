@@ -1,5 +1,7 @@
 (import-all "deps.lisp")
 
+(export rco-program)
+
 (define (rco-program program)
   (match program
     ((cons-program info body)

@@ -1,6 +1,8 @@
 (import-all "index.lisp")
 (import-all "type.lisp")
 
+(export check-program)
+
 (claim operator-types (record? (tau (list? type?) type?)))
 
 (define operator-types

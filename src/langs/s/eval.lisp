@@ -1,5 +1,7 @@
 (import-all "index.lisp")
 
+(export eval-program)
+
 (claim eval-program (-> program? value?))
 
 (define (eval-program program)

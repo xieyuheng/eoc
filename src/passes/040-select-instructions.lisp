@@ -4,6 +4,8 @@
 ;; variables, so we add an AST node of the form (Var var) to the arg
 ;; nonterminal of the x86Int abstract syntax.
 
+(export select-instructions)
+
 (claim select-instructions (-> c-program? x86-program?))
 
 (define (select-instructions c-program)

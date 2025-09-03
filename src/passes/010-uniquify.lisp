@@ -1,5 +1,7 @@
 (import-all "deps.lisp")
 
+(export uniquify)
+
 (claim uniquify (-> program? program?))
 
 (define (uniquify program)

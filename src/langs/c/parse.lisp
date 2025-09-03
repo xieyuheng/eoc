@@ -1,5 +1,7 @@
 (import-all "index.lisp")
 
+(export parse-c-program)
+
 (claim parse-c-program (-> sexp? c-program?))
 
 (define (parse-c-program sexp)

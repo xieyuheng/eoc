@@ -1,5 +1,7 @@
 (import-all "index.lisp")
 
+(export form-x86-program)
+
 (claim form-x86-program (-> x86-program? sexp?))
 
 (define (form-x86-program x86-program)
