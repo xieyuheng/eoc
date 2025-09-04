@@ -23,7 +23,9 @@
     ((prim-exp op args)
      (return-seq (prim-c-exp op (list-map to-c-exp args))))))
 
-(claim to-c-exp (-> atom-operand-exp? c-exp?))
+(claim to-c-exp
+  (-> (inter atom-operand-exp? (negate let-exp?))
+      c-exp?))
 
 (define (to-c-exp exp)
   (match exp
