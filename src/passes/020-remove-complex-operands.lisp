@@ -40,6 +40,12 @@
 ;;       (let ((_₁ (+ 1 2)))
 ;;         (+ _₁ _₃))))
 
+;; TODO `rco-arg` and `rco-args` use writer monad,
+;; we should make this explicit.
+
+;; TODO we should also avoid side effect on state
+;; by using state monad.
+
 (claim rco-args
   (-> state? (list? exp?)
       (tau (list? exp?)
