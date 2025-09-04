@@ -1,4 +1,3 @@
-[pass] add post condition of `020-remove-complex-operands` to `030-explicate-control`
 update `occam-lisp` for `list-all?` and `list-any?`
 
 > 2 Integers and Variables
