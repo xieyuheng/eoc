@@ -38,7 +38,7 @@
    (let ((y (let ((x 20))
               (+ x (let ((x 22))
                      x)))))
-     y)) )
+     y)))
 
 (test-program
  42
@@ -47,7 +47,7 @@
    (let ((y (let ((x 20))
               (let ((z 22))
                 (+ x z)))))
-     y)) )
+     y)))
 
 (test-program
  6
@@ -56,4 +56,4 @@
    (let ((z (let ((y (let ((x 6))
                        x)))
               y)))
-     z)) )
+     z)))

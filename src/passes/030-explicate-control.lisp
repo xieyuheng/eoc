@@ -35,16 +35,17 @@
 
 (claim explicate-assign (-> symbol? exp? seq? seq?))
 
-;; The abbreviation `cont` is for continuation because it contains
+;; The third parameter is called `continuation` because it contains
 ;; the generated code that should come after the current assignment.
 
-(define (explicate-assign name rhs cont)
+(define (explicate-assign name rhs continuation)
   (match rhs
     ((let-exp name2 rhs2 body)
      (= seq2 (explicate-seq body))
-     (explicate-assign name2 rhs2 (seq-append name seq2 cont)))
+     (explicate-assign name2 rhs2 (seq-append name seq2 continuation)))
     (_
-     (cons-seq (assign-stmt (var-c-exp name) (to-c-exp rhs)) cont))))
+     (cons-seq (assign-stmt (var-c-exp name) (to-c-exp rhs))
+               continuation))))
 
 (claim seq-append (-> symbol? seq? seq? seq?))
 
