@@ -33,7 +33,7 @@
 (define (list-all? p list)
   (cond ((list-empty? list) true)
         ((not (p (car list))) false)
-        (else true)))
+        (else (list-all? p (cdr list)))))
 
 (claim rco-exp (-> state? exp? atom-operand-exp?))
 
