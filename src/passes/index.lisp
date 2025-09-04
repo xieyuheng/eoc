@@ -18,7 +18,7 @@
   ;; We refer to nonatomic expressions as _complex_.
   ;; This pass introduces temporary variables to hold
   ;; the results of complex subexpressions.
-  rco-program unnested-exp?)
+  rco-program atom-operand-exp?)
 
 (include "030-explicate-control.lisp"
   ;; makes the execution order of the program explicit.

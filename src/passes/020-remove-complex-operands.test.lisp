@@ -2,10 +2,10 @@
 (import-all "index.lisp")
 
 (assert
-  (unnested-exp?
+  (atom-operand-exp?
    (prim-exp '+ [(var-exp 'x) (int-exp 1)])))
 
 (assert-not
-  (unnested-exp?
+  (atom-operand-exp?
    (prim-exp '+ [(prim-exp '+ [(var-exp 'x) (int-exp 1)])
                  (int-exp 1)])))

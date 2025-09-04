@@ -1,11 +1,7 @@
-update `occam-lisp` for `list-every?`
+[pass] add post condition of `020-remove-complex-operands` to `030-explicate-control`
+update `occam-lisp` for `list-all?` and `list-any?`
 
 > 2 Integers and Variables
-
-[pass] [maybe] rename `020-remove-complex-operands` to `020-unnest`
-- to avoid using the `rco` abbr.
-
-[pass] add post condition of `020-remove-complex-operands` to `030-explicate-control`
 
 [pass] 050-assign-homes
 [pass] 040-select-instructions -- fix the code for calling `show_int`
