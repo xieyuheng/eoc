@@ -1,6 +1,6 @@
 (import-all "deps.lisp")
 
-(export rco-program)
+(export rco-program unnested-exp?)
 
 (define (rco-program program)
   (match program
@@ -16,7 +16,26 @@
   (record-set! 'count (iadd 1 count) state)
   (symbol-append name (string-to-symbol (format-subscript (iadd 1 count)))))
 
-(claim rco-exp (-> state? exp? exp?))
+(claim unnested-exp? (-> exp? bool?))
+
+(define (unnested-exp? exp)
+  (match exp
+    ((var-exp name)
+     true)
+    ((int-exp n)
+     true)
+    ((let-exp name rhs body)
+     (and (unnested-exp? rhs)
+          (unnested-exp? body)))
+    ((prim-exp op args)
+     (list-every? atom-exp? args))))
+
+(define (list-every? p list)
+  (cond ((list-empty? list) true)
+        ((not (p (car list))) false)
+        (else true)))
+
+(claim rco-exp (-> state? exp? unnested-exp?))
 
 (define (rco-exp state exp)
   (match exp
@@ -48,8 +67,8 @@
 
 (claim rco-args
   (-> state? (list? exp?)
-      (tau (list? exp?)
-           (list? (tau symbol? exp?)))))
+      (tau (list? unnested-exp?)
+           (list? (tau symbol? unnested-exp?)))))
 
 (define (rco-args state args)
   (= [new-args bindings-list] (list-unzip (list-map (rco-arg state) args)))
@@ -57,8 +76,8 @@
 
 (claim rco-arg
   (-> state? exp?
-      (tau exp?
-           (list? (tau symbol? exp?)))))
+      (tau unnested-exp?
+           (list? (tau symbol? unnested-exp?)))))
 
 (define (rco-arg state arg)
   (match arg

@@ -1,6 +1,7 @@
 (export
   program? cons-program
-  exp? var-exp int-exp prim-exp let-exp)
+  exp? var-exp int-exp prim-exp let-exp
+  atom-exp?)
 
 (define-data program?
   (cons-program
@@ -12,3 +13,5 @@
   (int-exp (value int?))
   (prim-exp (op symbol?) (args (list? exp?)))
   (let-exp (name symbol?) (rhs exp?) (body exp?)))
+
+(define atom-exp? (union var-exp? int-exp?))

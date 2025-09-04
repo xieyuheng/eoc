@@ -22,3 +22,7 @@
 010 (program () (let ((z₁ (let ((y₁ (let ((x₁ 6)) x₁))) y₁))) z₁))
 020 (program () (let ((z₁ (let ((y₁ (let ((x₁ 6)) x₁))) y₁))) z₁))
 030 (c-program () (:start ((= x₁ 6) (= y₁ x₁) (= z₁ y₁) (return z₁))))
+000 (program () (let ((x (+ (+ 1 2) (+ 3 4)))) (+ x 5)))
+010 (program () (let ((x₁ (+ (+ 1 2) (+ 3 4)))) (+ x₁ 5)))
+020 (program () (let ((x₁ (let ((_₂ (+ 3 4))) (let ((_₁ (+ 1 2))) (+ _₁ _₂))))) (+ x₁ 5)))
+030 (c-program () (:start ((= _₂ (+ 3 4)) (= _₁ (+ 1 2)) (= x₁ (+ _₁ _₂)) (return (+ x₁ 5)))))
