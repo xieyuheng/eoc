@@ -3,9 +3,12 @@
 
 (assert
   (atom-operand-exp?
-   (prim-exp '+ [(var-exp 'x) (int-exp 1)])))
+   (parse-exp '(+ x 1))))
 
 (assert-not
   (atom-operand-exp?
-   (prim-exp '+ [(prim-exp '+ [(var-exp 'x) (int-exp 1)])
-                 (int-exp 1)])))
+   (parse-exp '(+ (+ x 1) 1))))
+
+(assert
+  (atom-operand-exp?
+   (parse-exp '(let ((y (+ x 1))) (+ y 1)))))
