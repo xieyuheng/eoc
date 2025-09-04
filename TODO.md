@@ -1,9 +1,7 @@
-update occam-lisp for `read-line`
-
 > 2 Integers and Variables
 
 [pass] 050-assign-homes
-[pass] 040-select-instructions -- `read` by `read-line` and `parse-sexp`
+[pass] 040-select-instructions -- `random-dice` by `random-int`
 [c] check -- required by 050-assign-homes
 [x86] setup `x86-info?`
 [pass] 060-patch-instructions
