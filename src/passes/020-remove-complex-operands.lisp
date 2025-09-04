@@ -30,11 +30,6 @@
     ((prim-exp op args)
      (list-all? atom-exp? args))))
 
-(define (list-all? p list)
-  (cond ((list-empty? list) true)
-        ((not (p (car list))) false)
-        (else (list-all? p (cdr list)))))
-
 (claim rco-exp (-> state? exp? atom-operand-exp?))
 
 (define (rco-exp state exp)

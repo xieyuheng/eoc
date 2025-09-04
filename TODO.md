@@ -1,5 +1,3 @@
-update `occam-lisp` for `list-all?` and `list-any?`
-
 > 2 Integers and Variables
 
 [pass] 050-assign-homes
