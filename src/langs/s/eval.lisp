@@ -33,10 +33,8 @@
 
 (define (eval-prim op args env)
   (match [op args]
-    (['show [x]]
-     (= value (eval-exp x env))
-     (println value)
-     value)
+    (['random-dice []]
+     (iadd 1 (random-int 0 5)))
     (['+ [x y]]
      (iadd (eval-exp x env) (eval-exp y env)))
     (['+ [x]]

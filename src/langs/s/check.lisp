@@ -8,7 +8,7 @@
 (define operator-types
   [:+ [[int-t int-t] int-t]
    :- [[int-t int-t] int-t]
-   :show [[int-t] int-t]])
+   :random-dice [[] int-t]])
 
 (claim type-equal? (-> type? type? bool?))
 
