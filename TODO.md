@@ -1,8 +1,9 @@
+update occam-lisp for `read-line`
+
 > 2 Integers and Variables
 
 [pass] 050-assign-homes
-[pass] 040-select-instructions -- fix the code for calling `show_int`
-- in nodejs, we can not read from stdin sync-ly
+[pass] 040-select-instructions -- `read` by `read-line` and `parse-sexp`
 [c] check -- required by 050-assign-homes
 [x86] setup `x86-info?`
 [pass] 060-patch-instructions
