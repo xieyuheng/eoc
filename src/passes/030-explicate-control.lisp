@@ -40,18 +40,20 @@
 
 (define (explicate-assign name rhs continuation)
   (match rhs
-    ((let-exp name2 rhs2 body)
-     (= seq2 (explicate-seq body))
-     (explicate-assign name2 rhs2 (seq-append name seq2 continuation)))
+    ((let-exp rhs-name rhs-rhs rhs-body)
+     (explicate-assign
+      rhs-name rhs-rhs
+      (seq-append name (explicate-seq rhs-body) continuation)))
     (_
-     (cons-seq (assign-stmt (var-c-exp name) (to-c-exp rhs))
-               continuation))))
+     (= stmt (assign-stmt (var-c-exp name) (to-c-exp rhs)))
+     (cons-seq stmt continuation))))
 
 (claim seq-append (-> symbol? seq? seq? seq?))
 
-(define (seq-append name top-seq bottom-seq)
+(define (seq-append top-result-name top-seq bottom-seq)
   (match top-seq
     ((return-seq exp)
-     (cons-seq (assign-stmt (var-c-exp name) exp) bottom-seq))
-    ((cons-seq stmt next-seq)
-     (cons-seq stmt (seq-append name next-seq bottom-seq)))))
+     (= stmt (assign-stmt (var-c-exp top-result-name) exp))
+     (cons-seq stmt bottom-seq))
+    ((cons-seq stmt top-next-seq)
+     (cons-seq stmt (seq-append top-result-name top-next-seq bottom-seq)))))
