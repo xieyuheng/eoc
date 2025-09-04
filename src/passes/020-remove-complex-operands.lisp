@@ -30,9 +30,10 @@
      (= [new-args bindings] (rco-args state args))
      (make-lets bindings (prim-exp op new-args)))))
 
-;; we must use (list? (tau symbol? exp?)) instead of (record? exp?),
+;; we must use `(list? (tau symbol? exp?))` instead of `(record? exp?)`,
 ;; because we need to control the order of entries.
 ;; the binding of the inner arg should be cons-ed at the out side.
+;; for example:
 ;; > (+ (+ 1 2) (+ 3 (+ 4 5)))
 ;; = (let ((_₂ (+ 4 5)))
 ;;     (let ((_₃ (+ 3 _₂)))
@@ -61,6 +62,8 @@
      [(int-exp n) []])
     ((let-exp name rhs body)
      (= [new-body bindings] (rco-arg state body))
+     ;; use `rco-exp` instead of `rco-arg` on `rhs`,
+     ;; `rco-arg` should only be used on exp at the arg position.
      [new-body
       (cons [name (rco-exp state rhs)] bindings)])
     ((prim-exp op args)

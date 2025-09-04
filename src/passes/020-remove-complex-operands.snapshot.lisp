@@ -8,8 +8,7 @@
   (write "000 ") (writeln (format-sexp (form-program program-0)))
   (write "010 ") (writeln (format-sexp (form-program program-1)))
   (write "020 ") (writeln (format-sexp (form-program program-2)))
-  (= result (eval-program program-2))
-  (assert-equal expected result))
+  (assert-equal expected (eval-program program-2)))
 
 (test-program
  42

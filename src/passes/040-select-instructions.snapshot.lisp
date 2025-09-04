@@ -12,10 +12,8 @@
   (write "020 ") (writeln (format-sexp (form-program program-2)))
   (write "030 ") (writeln (format-sexp (form-c-program c-program-3)))
   (write "040 ") (writeln (format-sexp (form-x86-program x86-program-4)))
-  (= result (eval-program program-2))
-  (= c-result (eval-c-program c-program-3))
-  (assert-equal expected result)
-  (assert-equal expected c-result))
+  (assert-equal expected (eval-program program-2))
+  (assert-equal expected (eval-c-program c-program-3)))
 
 (test-program
  42
