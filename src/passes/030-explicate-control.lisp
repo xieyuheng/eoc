@@ -14,14 +14,10 @@
 
 (define (explicate-seq exp)
   (match exp
-    ((var-exp name)
-     (return-seq (var-c-exp name)))
-    ((int-exp n)
-     (return-seq (int-c-exp n)))
     ((let-exp name rhs body)
      (explicate-assign name rhs (explicate-seq body)))
-    ((prim-exp op args)
-     (return-seq (prim-c-exp op (list-map to-c-exp args))))))
+    (_
+     (return-seq (to-c-exp exp)))))
 
 (claim to-c-exp
   (-> (inter atom-operand-exp? (negate let-exp?))

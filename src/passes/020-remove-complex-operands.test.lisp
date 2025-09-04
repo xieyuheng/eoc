@@ -12,3 +12,7 @@
 (assert
   (atom-operand-exp?
    (parse-exp '(let ((y (+ x 1))) (+ y 1)))))
+
+(assert-not
+  (atom-operand-exp?
+   (parse-exp '(let ((y (+ (+ x 1) 1))) (+ y 1)))))
