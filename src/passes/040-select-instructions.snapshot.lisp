@@ -1,7 +1,7 @@
 (import-all "deps.lisp")
 (import-all "index.lisp")
 
-(define (test-program expected sexp)
+(define (test-program predicate sexp)
   (= program-0 (parse-program sexp))
   (= program-1 (uniquify program-0))
   (= program-2 (rco-program program-1))
@@ -12,11 +12,11 @@
   (write "020 ") (writeln (format-sexp (form-program program-2)))
   (write "030 ") (writeln (format-sexp (form-c-program c-program-3)))
   (write "040 ") (writeln (format-sexp (form-x86-program x86-program-4)))
-  (assert-equal expected (eval-program program-2))
-  (assert-equal expected (eval-c-program c-program-3)))
+  (assert (predicate (eval-program program-2)))
+  (assert (predicate (eval-c-program c-program-3))))
 
 (test-program
- 42
+ (equal? 42)
  '(program
    ()
    (let ((y (let ((x 20))
@@ -25,7 +25,7 @@
      y)))
 
 (test-program
- 42
+ (equal? 42)
  '(program
    ()
    (let ((y (let ((x 20))
@@ -34,10 +34,24 @@
      y)))
 
 (test-program
- 6
+ (equal? 6)
  '(program
    ()
    (let ((z (let ((y (let ((x 6))
                        x)))
               y)))
      z)))
+
+(test-program
+ (equal? 42)
+ '(program
+   ()
+   (let ((a 42))
+     (let ((b a))
+       b))))
+
+(test-program
+ int?
+ '(program
+   ()
+   (- (random-dice))))

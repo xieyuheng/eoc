@@ -1,8 +1,13 @@
 > 2 Integers and Variables
 
-[pass] 050-assign-homes
-[c] check -- required by 050-assign-homes
-[x86] setup `x86-info?`
+[c] `check-c-program` -- required by `050-assign-homes`
+[c] `c-info?` -- with `locals-types`
+
+[x86] `x86-info?` -- with `locals-types`
+
+[pass] 050-assign-homes -- with `:stack-space`
+[pass] 050-assign-homes -- finish
+
 [pass] 060-patch-instructions
 [pass] 070-prelude-and-conclusion
 

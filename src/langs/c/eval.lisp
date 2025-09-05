@@ -51,6 +51,10 @@
      (isub (eval-c-exp x env) (eval-c-exp y env)))
     (['- [x]]
      (ineg (eval-c-exp x env)))
+    (['random-dice []]
+     (iadd 1 (random-int 0 5)))
     (_
      (exit [:who 'eval-prim
-            :message "unknown handled prim c-exp"]))))
+            :message "unknown handled prim c-exp"
+            :op op
+            :args args]))))

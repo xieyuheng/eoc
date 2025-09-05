@@ -35,8 +35,7 @@
 
 (include "050-assign-homes.lisp"
   ;; replaces variables with registers or stack locations.
-  ;; TODO assign-homes
-  )
+  assign-homes)
 
 (include "060-patch-instructions.lisp"
   ;; uses a reserved register to fix invalid arguments problem.

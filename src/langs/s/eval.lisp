@@ -33,8 +33,6 @@
 
 (define (eval-prim op args env)
   (match [op args]
-    (['random-dice []]
-     (iadd 1 (random-int 0 5)))
     (['+ [x y]]
      (iadd (eval-exp x env) (eval-exp y env)))
     (['+ [x]]
@@ -43,6 +41,8 @@
      (isub (eval-exp x env) (eval-exp y env)))
     (['- [x]]
      (ineg (eval-exp x env)))
+    (['random-dice []]
+     (iadd 1 (random-int 0 5)))
     (_
      (exit [:who 'eval-prim
             :message "unknown handled prim exp"
