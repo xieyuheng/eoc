@@ -1,7 +1,5 @@
 > 2 Integers and Variables
 
-[s] re order code of check.lisp
-
 [c] `check-c-program` -- required by `050-assign-homes`
 [c] `c-info?` -- with `locals-types`
 

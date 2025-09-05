@@ -2,32 +2,27 @@
 
 (export check-program)
 
-(claim operator-types (record? (tau (list? type?) type?)))
+(claim check-program
+  (-> program? program?))
 
-(define operator-types
-  [:+ [[int-t int-t] int-t]
-   :- [[int-t int-t] int-t]
-   :random-dice [[] int-t]])
+(define (check-program program)
+  (match program
+    ((cons-program info body)
+     (= [body^ body-type] (check-exp body []))
+     (check-type-equal? body body-type int-t)
+     (cons-program info body^))))
 
-(claim check-type-equal? (-> exp? type? type? void?))
+(claim check-type-equal?
+  (-> exp? type? type? void?))
 
 (define (check-type-equal? exp lhs rhs)
   (unless (type-equal? lhs rhs)
     (exit [:who 'check-type-equal?
            :exp exp :lhs lhs :rhs rhs])))
 
-(claim check-op (-> symbol? (list? type?) exp? type?))
-
-(define (check-op op arg-types exp)
-  (= entry (record-get op operator-types))
-  (= expected-arg-types (list-first entry))
-  (= return-type (list-second entry))
-  (list-map-zip (check-type-equal? exp)
-                expected-arg-types
-                arg-types)
-  return-type)
-
-(claim check-exp (-> exp? (record? type?) (tau exp? type?)))
+(claim check-exp
+  (-> exp? (record? type?)
+      (tau exp? type?)))
 
 ;; `^` postfix is like `-checked`.
 
@@ -45,11 +40,23 @@
      (= [body^ body-type] (check-exp body (record-set name rhs-type ctx)))
      [(let-exp name rhs^ body^) body-type])))
 
-(claim check-program (-> program? program?))
+(claim check-op
+  (-> symbol? (list? type?) exp?
+      type?))
 
-(define (check-program program)
-  (match program
-    ((cons-program info body)
-     (= [body^ body-type] (check-exp body []))
-     (check-type-equal? body body-type int-t)
-     (cons-program info body^))))
+(define (check-op op arg-types exp)
+  (= entry (record-get op operator-types))
+  (= expected-arg-types (list-first entry))
+  (= return-type (list-second entry))
+  (list-map-zip (check-type-equal? exp)
+                expected-arg-types
+                arg-types)
+  return-type)
+
+(claim operator-types
+  (record? (tau (list? type?) type?)))
+
+(define operator-types
+  [:+ [[int-t int-t] int-t]
+   :- [[int-t int-t] int-t]
+   :random-dice [[] int-t]])
