@@ -24,8 +24,6 @@
   (-> exp? (record? type?)
       (tau exp? type?)))
 
-;; `^` postfix is like `-checked`.
-
 (define (check-exp exp ctx)
   (match exp
     ((var-exp name)

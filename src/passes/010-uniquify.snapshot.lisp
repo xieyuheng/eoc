@@ -2,8 +2,8 @@
 (import-all "index.lisp")
 
 (define (test-program expected sexp)
-  (= program-0 (parse-program sexp))
-  (= program-1 (uniquify program-0))
+  (= program-0 (check-program (parse-program sexp)))
+  (= program-1 (check-program (uniquify program-0)))
   (write "000 ") (writeln (format-sexp (form-program program-0)))
   (write "010 ") (writeln (format-sexp (form-program program-1)))
   (assert-equal expected (eval-program program-1)))
