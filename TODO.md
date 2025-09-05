@@ -1,9 +1,14 @@
 > 2 Integers and Variables
 
+[s] re order code of check.lisp
+
 [c] `check-c-program` -- required by `050-assign-homes`
 [c] `c-info?` -- with `locals-types`
 
 [x86] `x86-info?` -- with `locals-types`
+
+[x86] `eval-pseudo-x86`
+[x86] `eval-x86`
 
 [pass] 050-assign-homes -- with `:stack-space`
 [pass] 050-assign-homes -- finish

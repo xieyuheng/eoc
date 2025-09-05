@@ -1,5 +1,4 @@
 (import-all "index.lisp")
-(import-all "type.lisp")
 
 (export check-program)
 
@@ -9,10 +8,6 @@
   [:+ [[int-t int-t] int-t]
    :- [[int-t int-t] int-t]
    :random-dice [[] int-t]])
-
-(claim type-equal? (-> type? type? bool?))
-
-(define (type-equal? lhs rhs) (equal? lhs rhs))
 
 (claim check-type-equal? (-> exp? type? type? void?))
 
