@@ -1,5 +1,7 @@
 > 2 Integers and Variables
 
+[pass] 040-select-instructions -- fix the use of `test-program`
+
 [c] `check-c-program` -- required by `050-assign-homes`
 [c] `c-info?` -- with `locals-types`
 
