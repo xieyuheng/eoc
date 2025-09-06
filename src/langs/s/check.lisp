@@ -31,12 +31,12 @@
     ((prim-exp op args)
      (= [args^ arg-types] (list-unzip (list-map (swap check-exp ctx) args)))
      (= return-type (check-op op arg-types))
-     (when (null? return-type)
+     (if (null? return-type)
        (exit [:who 'check-exp
               :message "fail on prim-exp"
-              :exp exp :arg-types arg-types]))
-     [(prim-exp op args^)
-      return-type])
+              :exp exp :arg-types arg-types])
+       [(prim-exp op args^)
+        return-type]))
     ((let-exp name rhs body)
      (= [rhs^ rhs-type] (check-exp rhs ctx))
      (= [body^ body-type] (check-exp body (record-set name rhs-type ctx)))

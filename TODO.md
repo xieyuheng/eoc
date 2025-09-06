@@ -1,5 +1,4 @@
-[s] test check-program error
-[c] test check-c-program error
+[c] check-c-program.error.lisp
 
 > 2 Integers and Variables
 
