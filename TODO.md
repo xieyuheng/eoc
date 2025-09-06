@@ -1,5 +1,7 @@
-[c] reuse of `check-op`
 [s] `check-op` check arity
+
+test check-program error
+test check-c-program error
 
 > 2 Integers and Variables
 

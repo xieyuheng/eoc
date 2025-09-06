@@ -1,4 +1,5 @@
 (import-all "index.lisp")
+(import "../s/check-op.lisp" check-op)
 
 (export check-c-program)
 
@@ -63,33 +64,10 @@
       int-t])
     ((prim-c-exp op args)
      (= [args^ arg-types] (list-unzip (list-map (swap check-c-exp ctx) args)))
+     (= return-type (check-op op arg-types))
+     (when (null? return-type)
+       (exit [:who 'check-c-exp
+              :message "fail on prim-c-exp"
+              :c-exp c-exp :arg-types arg-types]))
      [(prim-c-exp op args^)
-      (check-op op arg-types c-exp)])))
-
-(claim check-op
-  (-> symbol? (list? type?) c-exp?
-      type?))
-
-(define (check-op op arg-types c-exp)
-  (= entry (record-get op operator-types))
-  (= expected-arg-types (list-first entry))
-  (= return-type (list-second entry))
-  (list-map-zip
-   (lambda (expected-arg-type arg-type)
-     (unless (type-equal? expected-arg-type arg-type)
-       (exit [:who 'check-op
-              :op op :c-exp c-exp
-              :expected-arg-type expected-arg-type
-              :arg-type arg-type])))
-   expected-arg-types
-   arg-types)
-  return-type)
-
-(claim operator-types
-  (record? (tau (list? type?) type?)))
-
-(define operator-types
-  [:iadd [[int-t int-t] int-t]
-   :isub [[int-t int-t] int-t]
-   :ineg [[int-t] int-t]
-   :random-dice [[] int-t]])
+      return-type])))
