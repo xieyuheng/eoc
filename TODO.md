@@ -1,7 +1,5 @@
 > 2 Integers and Variables
 
-[s] check -- inline `check-type-equal?` into `check-op` -- for better error report
-
 [c] `check-c-program` -- `check-stmt`
 [c] `check-c-program` -- `check-c-exp`
 

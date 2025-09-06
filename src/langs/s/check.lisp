@@ -41,18 +41,16 @@
   (= entry (record-get op operator-types))
   (= expected-arg-types (list-first entry))
   (= return-type (list-second entry))
-  (list-map-zip (check-type-equal? exp)
-                expected-arg-types
-                arg-types)
+  (list-map-zip
+   (lambda (expected-arg-type arg-type)
+     (unless (type-equal? expected-arg-type arg-type)
+       (exit [:who 'check-op
+              :op op :exp exp
+              :expected-arg-type expected-arg-type
+              :arg-type arg-type])))
+   expected-arg-types
+   arg-types)
   return-type)
-
-(claim check-type-equal?
-  (-> exp? type? type? void?))
-
-(define (check-type-equal? exp lhs rhs)
-  (unless (type-equal? lhs rhs)
-    (exit [:who 'check-type-equal?
-           :exp exp :lhs lhs :rhs rhs])))
 
 (claim operator-types
   (record? (tau (list? type?) type?)))
