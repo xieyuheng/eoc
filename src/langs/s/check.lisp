@@ -1,5 +1,4 @@
 (import-all "index.lisp")
-(import "check-op.lisp" check-op)
 
 (export check-program)
 

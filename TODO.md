@@ -1,4 +1,4 @@
-[s] `check-op` check arity
+`check-op` check arity
 
 test check-program error
 test check-c-program error
