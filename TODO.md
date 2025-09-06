@@ -1,4 +1,3 @@
-[c] `test-program` use `assert-all`
 [s] `test-program` use `assert-all`
 [pass] `test-program` use `assert-all`
 
