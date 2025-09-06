@@ -1,3 +1,4 @@
+(import-all "deps.lisp")
 (import-all "index.lisp")
 
 (form-x86-program
