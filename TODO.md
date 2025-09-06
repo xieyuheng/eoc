@@ -1,3 +1,6 @@
+s/deps.lisp
+c/deps.lisp
+
 `check-op` check arity
 
 test check-program error

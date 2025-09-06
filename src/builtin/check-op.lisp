@@ -1,4 +1,4 @@
-(import-all "../value/index.lisp")
+(import-all "deps.lisp")
 
 (export check-op)
 
