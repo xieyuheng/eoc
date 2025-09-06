@@ -1,4 +1,4 @@
 (program () 8)
-(program () (- 8))
-(program () (+ (+ 8) (- 8)))
-(program () (let ((x 8)) (+ x x)))
+(program () (ineg 8))
+(program () (iadd 8 (ineg 8)))
+(program () (let ((x 8)) (iadd x x)))

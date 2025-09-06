@@ -43,13 +43,11 @@
 
 (define (eval-prim op args env)
   (match [op args]
-    (['+ [x y]]
+    (['iadd [x y]]
      (iadd (eval-c-exp x env) (eval-c-exp y env)))
-    (['+ [x]]
-     (eval-c-exp x env))
-    (['- [x y]]
+    (['isub [x y]]
      (isub (eval-c-exp x env) (eval-c-exp y env)))
-    (['- [x]]
+    (['ineg [x]]
      (ineg (eval-c-exp x env)))
     (['random-dice []]
      (iadd 1 (random-int 0 5)))

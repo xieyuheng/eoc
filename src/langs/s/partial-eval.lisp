@@ -23,16 +23,14 @@
      (int-exp n))
     ((prim-exp 'random-dice [])
      (prim-exp 'random-dice []))
-    ((prim-exp '+ [e])
-     (partial-eval-exp e env))
-    ((prim-exp '- [e])
+    ((prim-exp 'ineg [e])
      (partial-eval-neg
       (partial-eval-exp e env)))
-    ((prim-exp '+ [e1 e2])
+    ((prim-exp 'iadd [e1 e2])
      (partial-eval-add
       (partial-eval-exp e1 env)
       (partial-eval-exp e2 env)))
-    ((prim-exp '- [e1 e2])
+    ((prim-exp 'isub [e1 e2])
      (partial-eval-sub
       (partial-eval-exp e1 env)
       (partial-eval-exp e2 env)))

@@ -11,10 +11,10 @@
  '(program () 8))
 
 (echo-program
- '(program () (- 8)))
+ '(program () (ineg 8)))
 
 (echo-program
- '(program () (+ (+ 8) (- 8))))
+ '(program () (iadd 8 (ineg 8))))
 
 (echo-program
- '(program () (let ((x 8)) (+ x x))))
+ '(program () (let ((x 8)) (iadd x x))))

@@ -11,22 +11,19 @@
  '(program () 8))
 
 (test-program
- '(program () (- 8)))
+ '(program () (ineg 8)))
 
 (test-program
- '(program () (let ((x 8)) (+ x x))))
+ '(program () (let ((x 8)) (iadd x x))))
 
 (test-program
  '(program () x))
 
 (test-program
- '(program () (+ x x)))
+ '(program () (iadd x x)))
 
 (test-program
- '(program () (+ (+ 8) x)))
+ '(program () (iadd (ineg 8) x)))
 
 (test-program
- '(program () (+ (+ 8 8) (- x))))
-
-(test-program
- '(program () (+ (+ 8 8) (+ x))))
+ '(program () (iadd (iadd 8 8) (ineg x))))

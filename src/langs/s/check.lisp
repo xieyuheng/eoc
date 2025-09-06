@@ -60,6 +60,7 @@
   (record? (tau (list? type?) type?)))
 
 (define operator-types
-  [:+ [[int-t int-t] int-t]
-   :- [[int-t int-t] int-t]
+  [:iadd [[int-t int-t] int-t]
+   :isub [[int-t int-t] int-t]
+   :ineg [[int-t] int-t]
    :random-dice [[] int-t]])

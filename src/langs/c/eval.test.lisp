@@ -25,12 +25,12 @@
  '(c-program
    ()
    (:start
-    ((return (+ 1 2))))))
+    ((return (iadd 1 2))))))
 
 (test-c-program
  3
  '(c-program
    ()
    (:start
-    ((= x (+ 1 2))
+    ((= x (iadd 1 2))
      (return x)))))

@@ -1,13 +1,12 @@
-change operator `+` and `-` to `iadd` and `isub` -- to fix arity
-add operator `ineg`
-
-update occam-lisp for `list-find`
+[pass] change operator `+` and `-` to `iadd` and `isub` -- to fix arity
 
 > 2 Integers and Variables
 
 [s] refactor the use of `check-op`
 `check-op` check arity
 [c] refactor the use of `check-op`
+
+update occam-lisp for `list-find`
 
 [c] `c-info?` -- with `locals-types`
 [c] fix `form-info`
