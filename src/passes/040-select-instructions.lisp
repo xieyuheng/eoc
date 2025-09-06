@@ -32,9 +32,9 @@
 
 (define (select-instr-stmt stmt)
   (match stmt
-    ((assign-stmt (var-c-exp name) (prim-c-exp '+ [(var-c-exp name) arg2]))
+    ((assign-stmt (var-c-exp name) (prim-c-exp 'iadd [(var-c-exp name) arg2]))
      [['addq [(select-instr-atom arg2) (var-arg name)]]])
-    ((assign-stmt (var-c-exp name) (prim-c-exp '+ [arg1 (var-c-exp name)]))
+    ((assign-stmt (var-c-exp name) (prim-c-exp 'iadd [arg1 (var-c-exp name)]))
      [['addq [(select-instr-atom arg1) (var-arg name)]]])
     ((assign-stmt (var-c-exp name) rhs)
      (select-instr-assign (var-arg name) rhs))))
@@ -50,10 +50,10 @@
     ((prim-c-exp 'random-dice [])
      [(callq 'random_dice 0)
       ['movq [(reg-arg 'rax) arg]]])
-    ((prim-c-exp '- [arg1])
+    ((prim-c-exp 'ineg [arg1])
      [['movq [(select-instr-atom arg1) arg]]
       ['negq [arg]]])
-    ((prim-c-exp '+ [arg1 arg2])
+    ((prim-c-exp 'iadd [arg1 arg2])
      [['movq [(select-instr-atom arg1) arg]]
       ['addq [(select-instr-atom arg2) arg]]])))
 

@@ -13,21 +13,21 @@
  '(program
    ()
    (let ((x 4))
-     (- 8 x))))
+     (isub 8 x))))
 
 (test-program
  42
  '(program
    ()
    (let ((x 32))
-     (+ (let ((x 10))
-          x)
-        x))))
+     (iadd (let ((x 10))
+             x)
+           x))))
 
 (test-program
  7
  '(program
    ()
    (let ((x (let ((x 4))
-              (+ x 1))))
-     (+ x 2))))
+              (iadd x 1))))
+     (iadd x 2))))

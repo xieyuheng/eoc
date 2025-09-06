@@ -23,21 +23,21 @@
  42
  '(program
    ()
-   (+ 20 22)))
+   (iadd 20 22)))
 
 (test-program
  42
  '(program
    ()
-   (+ 20 (+ 11 11))))
+   (iadd 20 (iadd 11 11))))
 
 (test-program
  42
  '(program
    ()
    (let ((y (let ((x 20))
-              (+ x (let ((x 22))
-                     x)))))
+              (iadd x (let ((x 22))
+                        x)))))
      y)))
 
 (test-program
@@ -46,7 +46,7 @@
    ()
    (let ((y (let ((x 20))
               (let ((z 22))
-                (+ x z)))))
+                (iadd x z)))))
      y)))
 
 (test-program
@@ -62,5 +62,5 @@
  15
  '(program
    ()
-   (let ((x (+ (+ 1 2) (+ 3 4))))
-     (+ x 5))))
+   (let ((x (iadd (iadd 1 2) (iadd 3 4))))
+     (iadd x 5))))

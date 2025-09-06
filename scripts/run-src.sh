@@ -2,8 +2,7 @@
 
 bin="npx occam-lisp.js run --debug=true"
 ext=lisp
-# dir=src
-dir=src/langs
+dir=src
 
 for file in $(find $dir -name "*.test.${ext}"); do
     echo "[test] $file"

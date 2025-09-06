@@ -14,20 +14,20 @@
  42
  '(program
    ()
-   (let ((x (+ 42 (- 10))))
-     (+ x 10))))
+   (let ((x (iadd 42 (ineg 10))))
+     (iadd x 10))))
 
 (test-program
  10
  '(program
    ()
-   (+ (+ 1 2) (+ 3 4))))
+   (iadd (iadd 1 2) (iadd 3 4))))
 
 (test-program
  15
  '(program
    ()
-   (+ (+ 1 2) (+ 3 (+ 4 5)))))
+   (iadd (iadd 1 2) (iadd 3 (iadd 4 5)))))
 
 (test-program
  42

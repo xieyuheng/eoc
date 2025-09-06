@@ -48,11 +48,11 @@
 ;; because we need to control the order of entries.
 ;; the binding of the inner arg should be cons-ed at the out side.
 ;; for example:
-;; > (+ (+ 1 2) (+ 3 (+ 4 5)))
-;; = (let ((_₂ (+ 4 5)))
-;;     (let ((_₃ (+ 3 _₂)))
-;;       (let ((_₁ (+ 1 2)))
-;;         (+ _₁ _₃))))
+;; > (iadd (iadd 1 2) (iadd 3 (iadd 4 5)))
+;; = (let ((_₂ (iadd 4 5)))
+;;     (let ((_₃ (iadd 3 _₂)))
+;;       (let ((_₁ (iadd 1 2)))
+;;         (iadd _₁ _₃))))
 
 ;; TODO `rco-arg` and `rco-args` use writer monad,
 ;; we should make this explicit.

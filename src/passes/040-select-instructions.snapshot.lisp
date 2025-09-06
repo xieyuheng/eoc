@@ -20,8 +20,8 @@
  '(program
    ()
    (let ((y (let ((x 20))
-              (+ x (let ((x 22))
-                     x)))))
+              (iadd x (let ((x 22))
+                        x)))))
      y)))
 
 (test-program
@@ -30,7 +30,7 @@
    ()
    (let ((y (let ((x 20))
               (let ((z 22))
-                (+ x z)))))
+                (iadd x z)))))
      y)))
 
 (test-program
@@ -54,4 +54,10 @@
  int?
  '(program
    ()
-   (- (random-dice))))
+   (ineg (random-dice))))
+
+(test-program
+ int?
+ '(program
+   ()
+   (iadd (random-dice) (random-dice))))

@@ -1,5 +1,3 @@
-[pass] change operator `+` and `-` to `iadd` and `isub` -- to fix arity
-
 > 2 Integers and Variables
 
 [s] refactor the use of `check-op`
