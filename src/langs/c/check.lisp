@@ -9,24 +9,27 @@
   (match c-program
     ((cons-c-program info [:start seq])
      (= ctx [])
-     (= t (check-seq ctx seq))
+     (= t (check-seq seq ctx))
      ;; TODO check t
      (cons-c-program (record-set :locals-types ctx info) [:start seq]))))
 
 (claim check-seq
-  (-> (record? type?) seq? type?))
+  (-> seq? (record? type?)
+      type?))
 
-(define (check-seq ctx seq)
+(define (check-seq seq ctx)
   (match seq
     ((return-seq result)
-     (= [result^ result-type] (check-c-exp ctx result))
+     (= [result^ result-type] (check-c-exp result ctx))
      result-type)
     ((cons-seq stmt tail)
-     (check-stmt ctx stmt)
-     (check-seq ctx stmt))))
+     (check-stmt stmt ctx)
+     (check-seq stmt ctx))))
 
 (claim check-stmt
-  (-> (record? type?) stmt? void?))
+  (->  stmt? (record? type?)
+       void?))
 
 (claim check-c-exp
-  (-> (record? type?) c-exp? (tau c-exp? type?)))
+  (-> c-exp? (record? type?)
+      (tau c-exp? type?)))
