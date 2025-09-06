@@ -12,8 +12,8 @@
   (write "020 ") (writeln (format-sexp (form-program program-2)))
   (write "030 ") (writeln (format-sexp (form-c-program c-program-3)))
   (write "040 ") (writeln (format-sexp (form-x86-program x86-program-4)))
-  (assert (predicate (eval-program program-2)))
-  (assert (predicate (eval-c-program c-program-3))))
+  (assert-the predicate (eval-program program-2))
+  (assert-the predicate (eval-c-program c-program-3)))
 
 (test-program
  (equal? 42)
