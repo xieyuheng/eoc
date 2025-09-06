@@ -1,7 +1,8 @@
 > 2 Integers and Variables
 
-[c] `check-c-program` -- `check-stmt`
 [c] `check-c-program` -- `check-c-exp`
+
+[pass] use `check-c-program`
 
 [c] `c-info?` -- with `locals-types`
 

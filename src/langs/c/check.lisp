@@ -9,8 +9,12 @@
   (match c-program
     ((cons-c-program info [:start seq])
      (= ctx [])
-     (= t (check-seq seq ctx))
-     ;; TODO check t
+     (= result-type (check-seq seq ctx))
+     (unless (type-equal? result-type int-t)
+       (exit [:who 'check-c-program
+                   :message "expected result-type to be int-t"
+                   :seq seq
+                   :result-type result-type]))
      (cons-c-program (record-set :locals-types ctx info) [:start seq]))))
 
 (claim check-seq
@@ -29,6 +33,19 @@
 (claim check-stmt
   (->  stmt? (record? type?)
        void?))
+
+(define (check-stmt stmt ctx)
+  (match stmt
+    ((assign-stmt (var-c-exp name) rhs)
+     (= [rhs^ rhs-type] (check-c-exp rhs ctx))
+     (= found-type (record-get name ctx))
+     (if (null? found-type)
+       (record-set! name rhs-type ctx)
+       (unless (type-equal? rhs-type found-type)
+         (exit [:who check-stmt
+                :stmt stmt
+                :rhs-type rhs-type
+                :found-type found-type]))))))
 
 (claim check-c-exp
   (-> c-exp? (record? type?)
