@@ -29,8 +29,13 @@
       int-t])
     ((prim-exp op args)
      (= [args^ arg-types] (list-unzip (list-map (swap check-exp ctx) args)))
+     (= return-type (check-op op arg-types))
+     (when (null? return-type)
+       (exit [:who 'check-exp
+              :message "fail on prim-exp"
+              :exp exp :arg-types arg-types]))
      [(prim-exp op args^)
-      (check-op op arg-types exp)])
+      return-type])
     ((let-exp name rhs body)
      (= [rhs^ rhs-type] (check-exp rhs ctx))
      (= [body^ body-type] (check-exp body (record-set name rhs-type ctx)))
@@ -38,23 +43,22 @@
       body-type])))
 
 (claim check-op
-  (-> symbol? (list? type?) exp?
-      type?))
+  (-> symbol? (list? type?)
+      (union type? null?)))
 
-(define (check-op op arg-types exp)
-  (= entry (record-get op operator-types))
-  (= expected-arg-types (list-first entry))
-  (= return-type (list-second entry))
-  (list-map-zip
-   (lambda (expected-arg-type arg-type)
-     (unless (type-equal? expected-arg-type arg-type)
-       (exit [:who 'check-op
-              :op op :exp exp
-              :expected-arg-type expected-arg-type
-              :arg-type arg-type])))
-   expected-arg-types
-   arg-types)
-  return-type)
+(define (check-op op arg-types)
+  (= op-entry (record-get op operator-types))
+  (if (null? op-entry)
+    null
+    (begin
+      (= [expected-arg-types return-type] op-entry)
+      (if (list-all?
+           (lambda (arg-type-pair)
+             (= [expected-arg-type arg-type] arg-type-pair)
+             (type-equal? expected-arg-type arg-type))
+           (list-zip expected-arg-types arg-types))
+        return-type
+        null))))
 
 (claim operator-types
   (record? (tau (list? type?) type?)))

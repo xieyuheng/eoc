@@ -1,8 +1,7 @@
-> 2 Integers and Variables
+[c] reuse of `check-op`
+[s] `check-op` check arity
 
-[s] refactor the use of `check-op`
-`check-op` check arity
-[c] refactor the use of `check-op`
+> 2 Integers and Variables
 
 [c] `c-info?` -- with `locals-types`
 [c] fix `form-info`
