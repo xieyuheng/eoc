@@ -7,14 +7,14 @@
 (define (form-c-program c-program)
   (match c-program
     ((cons-c-program info seqs)
-     `(c-program ,(form-c-info info) ,(record-map form-seq seqs)))))
+     `(c-program ,(form-info info) ,(record-map form-seq seqs)))))
 
-(define (form-c-info c-info)
-  (match c-info
-    ([]
-     [])
+(define (form-info info)
+  (match info
     ([:locals-types locals-types]
-     [:locals-types (record-map form-type locals-types)])))
+     [:locals-types (record-map form-type locals-types)])
+    ([]
+     [])))
 
 (define (form-seq seq)
   (match seq

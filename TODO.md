@@ -1,9 +1,13 @@
 > 2 Integers and Variables
 
+[s] refactor the use of `check-op`
+[c] refactor the use of `check-op`
+
 [c] `c-info?` -- with `locals-types`
-[c] fix `form-c-info`
+[c] fix `form-info`
 
 [x86] `x86-info?` -- with `locals-types`
+[x86] fix `form-info`
 
 [x86] `eval-pseudo-x86`
 [x86] `eval-x86`

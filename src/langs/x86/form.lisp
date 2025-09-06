@@ -7,7 +7,14 @@
 (define (form-x86-program x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     `(x86-program ,info ,(record-map form-block blocks)))))
+     `(x86-program ,(form-info info) ,(record-map form-block blocks)))))
+
+(define (form-info info)
+  (match info
+    ([:locals-types locals-types]
+     [:locals-types (record-map form-type locals-types)])
+    ([]
+     [])))
 
 (claim form-block (-> block? sexp?))
 

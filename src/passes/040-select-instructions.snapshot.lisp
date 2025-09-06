@@ -5,7 +5,7 @@
   (= program-0 (check-program (parse-program sexp)))
   (= program-1 (check-program (uniquify program-0)))
   (= program-2 (check-program (rco-program program-1)))
-  (= c-program-3 (explicate-control program-2))
+  (= c-program-3 (check-c-program (explicate-control program-2)))
   (= x86-program-4 (select-instructions c-program-3))
   (write "000 ") (writeln (format-sexp (form-program program-0)))
   (write "010 ") (writeln (format-sexp (form-program program-1)))
