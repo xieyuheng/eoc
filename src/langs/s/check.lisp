@@ -22,16 +22,20 @@
 (define (check-exp exp ctx)
   (match exp
     ((var-exp name)
-     [(var-exp name) (record-get name ctx)])
+     [(var-exp name)
+      (record-get name ctx)])
     ((int-exp value)
-     [(int-exp value) int-t])
+     [(int-exp value)
+      int-t])
     ((prim-exp op args)
      (= [args^ arg-types] (list-unzip (list-map (swap check-exp ctx) args)))
-     [(prim-exp op args^) (check-op op arg-types exp)])
+     [(prim-exp op args^)
+      (check-op op arg-types exp)])
     ((let-exp name rhs body)
      (= [rhs^ rhs-type] (check-exp rhs ctx))
      (= [body^ body-type] (check-exp body (record-set name rhs-type ctx)))
-     [(let-exp name rhs^ body^) body-type])))
+     [(let-exp name rhs^ body^)
+      body-type])))
 
 (claim check-op
   (-> symbol? (list? type?) exp?

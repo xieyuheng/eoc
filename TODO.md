@@ -1,10 +1,7 @@
 > 2 Integers and Variables
 
-[c] `check-c-program` -- `check-c-exp`
-
-[pass] use `check-c-program`
-
 [c] `c-info?` -- with `locals-types`
+[c] fix `form-c-info`
 
 [x86] `x86-info?` -- with `locals-types`
 
