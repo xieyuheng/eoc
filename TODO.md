@@ -4,8 +4,6 @@
 `check-op` check arity
 [c] refactor the use of `check-op`
 
-update occam-lisp for `list-find`
-
 [c] `c-info?` -- with `locals-types`
 [c] fix `form-info`
 
