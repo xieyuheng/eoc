@@ -1,4 +1,4 @@
-[s] `test-program` use `assert-all`
+[s] extract eval-run.test.lisp
 [pass] `test-program` use `assert-all`
 
 [s] test check-program error
