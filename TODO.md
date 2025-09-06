@@ -1,4 +1,3 @@
-c/deps.lisp
 x86/deps.lisp
 
 test check-program error
