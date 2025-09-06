@@ -12,13 +12,16 @@
     null
     (begin
       (= [expected-arg-types return-type] op-entry)
-      (if (list-all?
-           (lambda (arg-type-pair)
-             (= [expected-arg-type arg-type] arg-type-pair)
-             (type-equal? expected-arg-type arg-type))
-           (list-zip expected-arg-types arg-types))
-        return-type
-        null))))
+      (cond ((not (equal? (list-length expected-arg-types)
+                          (list-length arg-types)))
+             null)
+            ((list-all?
+                (lambda (arg-type-pair)
+                  (= [expected-arg-type arg-type] arg-type-pair)
+                  (type-equal? expected-arg-type arg-type))
+                (list-zip expected-arg-types arg-types))
+               return-type)
+            (else null)))))
 
 (claim operator-types
   (record? (tau (list? type?) type?)))
