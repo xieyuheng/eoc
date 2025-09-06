@@ -1,5 +1,3 @@
-[pass] `test-program` use `assert-all`
-
 [s] test check-program error
 [c] test check-c-program error
 
