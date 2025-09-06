@@ -1,7 +1,5 @@
-s/deps.lisp
 c/deps.lisp
-
-`check-op` check arity
+x86/deps.lisp
 
 test check-program error
 test check-c-program error

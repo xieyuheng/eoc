@@ -1,3 +1,4 @@
+(import-all "deps.lisp")
 (import-all "index.lisp")
 
 (define (echo-program sexp)
