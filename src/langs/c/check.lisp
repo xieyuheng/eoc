@@ -10,7 +10,7 @@
     ((cons-c-program info [:start seq])
      (= ctx [])
      (= t (check-seq ctx seq))
-     ;; check t
+     ;; TODO check t
      (cons-c-program (record-set :locals-types ctx info) [:start seq]))))
 
 (claim check-seq

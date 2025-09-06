@@ -9,16 +9,11 @@
   (match program
     ((cons-program info body)
      (= [body^ body-type] (check-exp body []))
-     (check-type-equal? body body-type int-t)
+     (unless (type-equal? body-type int-t)
+       (exit [:who 'check-program
+              :message "expected body-type to be int-t"
+              :body body :body-type body-type]))
      (cons-program info body^))))
-
-(claim check-type-equal?
-  (-> exp? type? type? void?))
-
-(define (check-type-equal? exp lhs rhs)
-  (unless (type-equal? lhs rhs)
-    (exit [:who 'check-type-equal?
-           :exp exp :lhs lhs :rhs rhs])))
 
 (claim check-exp
   (-> exp? (record? type?)
@@ -31,8 +26,8 @@
     ((int-exp value)
      [(int-exp value) int-t])
     ((prim-exp op args)
-     (= [args^ types] (list-unzip (list-map (swap check-exp ctx) args)))
-     [(prim-exp op args^) (check-op op types exp)])
+     (= [args^ arg-types] (list-unzip (list-map (swap check-exp ctx) args)))
+     [(prim-exp op args^) (check-op op arg-types exp)])
     ((let-exp name rhs body)
      (= [rhs^ rhs-type] (check-exp rhs ctx))
      (= [body^ body-type] (check-exp body (record-set name rhs-type ctx)))
@@ -50,6 +45,14 @@
                 expected-arg-types
                 arg-types)
   return-type)
+
+(claim check-type-equal?
+  (-> exp? type? type? void?))
+
+(define (check-type-equal? exp lhs rhs)
+  (unless (type-equal? lhs rhs)
+    (exit [:who 'check-type-equal?
+           :exp exp :lhs lhs :rhs rhs])))
 
 (claim operator-types
   (record? (tau (list? type?) type?)))
