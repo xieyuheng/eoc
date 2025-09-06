@@ -44,5 +44,5 @@
      (iadd 1 (random-int 0 5)))
     (_
      (exit [:who 'eval-prim
-            :message "unknown handled prim exp"
+            :message "unhandled prim exp"
             :op op :args args]))))

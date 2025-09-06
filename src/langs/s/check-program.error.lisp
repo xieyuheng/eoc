@@ -3,5 +3,5 @@
 
 (check-program
  (parse-program
-  ;; wrong arity, `iadd` should take two arguments.
+  ;; wrong arity
   '(program () (iadd 8))))

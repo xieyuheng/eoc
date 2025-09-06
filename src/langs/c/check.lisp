@@ -13,9 +13,9 @@
      (= result-type (check-seq seq ctx))
      (unless (type-equal? result-type int-t)
        (exit [:who 'check-c-program
-                   :message "expected result-type to be int-t"
-                   :seq seq
-                   :result-type result-type]))
+              :message "expected result-type to be int-t"
+              :seq seq
+              :result-type result-type]))
      (cons-c-program (record-set 'locals-types ctx info) [:start seq]))))
 
 (claim check-seq
@@ -45,7 +45,7 @@
          (record-set! name rhs-type ctx)
          void)
        (unless (type-equal? rhs-type found-type)
-         (exit [:who check-stmt
+         (exit [:who 'check-stmt
                 :stmt stmt
                 :rhs-type rhs-type
                 :found-type found-type]))))))
@@ -65,9 +65,9 @@
     ((prim-c-exp op args)
      (= [args^ arg-types] (list-unzip (list-map (swap check-c-exp ctx) args)))
      (= return-type (check-op op arg-types))
-     (when (null? return-type)
+     (if (null? return-type)
        (exit [:who 'check-c-exp
               :message "fail on prim-c-exp"
-              :c-exp c-exp :arg-types arg-types]))
-     [(prim-c-exp op args^)
-      return-type])))
+              :c-exp c-exp :arg-types arg-types])
+       [(prim-c-exp op args^)
+        return-type]))))
