@@ -1,5 +1,9 @@
-test check-program error
-test check-c-program error
+[c] `test-program` use `assert-all`
+[s] `test-program` use `assert-all`
+[pass] `test-program` use `assert-all`
+
+[s] test check-program error
+[c] test check-c-program error
 
 > 2 Integers and Variables
 
@@ -11,8 +15,6 @@ test check-c-program error
 
 [x86] `eval-pseudo-x86`
 [x86] `eval-x86`
-
-[pass] 040-select-instructions -- fix the use of `test-program`
 
 [pass] 050-assign-homes -- with `:stack-space`
 [pass] 050-assign-homes -- finish
