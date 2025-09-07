@@ -33,14 +33,11 @@
   (-> (record? type?) instr?
       instr?))
 
-;; (define (assign-homes-instr ctx instr)
-;;   (match i
-;;     [(Instr op (list e1))
-;;      (Instr op (list (assign-homes-imm e1 ls)))]
-;;     [(Instr op (list e1 e2))
-;;      (Instr op (list (assign-homes-imm e1 ls) (assign-homes-imm e2 ls)))]
-;;     [else i]
-;;     ))
+(define (assign-homes-instr ctx instr)
+  (match instr
+    ([op args]
+     [op (list-map (assign-homes-imm ctx) args)])
+    (_ instr)))
 
 ;; (define (assign-homes-imm i ls)
 ;;   (match i

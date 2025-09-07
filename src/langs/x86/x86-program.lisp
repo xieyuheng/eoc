@@ -25,9 +25,12 @@
    (info anything?)
    (instrs (list? instr?))))
 
-(define instr? (union general-instr? special-instr?))
+(define instr?
+  (union general-instr?
+         special-instr?))
 
-(define general-instr? (tau symbol? (list? arg?)))
+(define general-instr?
+  (tau symbol? (list? arg?)))
 
 (define-data special-instr?
   (callq (label symbol?) (arity int-non-negative?))

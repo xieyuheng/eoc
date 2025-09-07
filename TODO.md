@@ -1,6 +1,5 @@
 > 2 Integers and Variables
 
-[pass] 050-assign-homes -- `assign-homes-instr`
 [pass] 050-assign-homes -- `assign-homes-imm` & `find-index`
 [pass] 050-assign-homes -- test
 
