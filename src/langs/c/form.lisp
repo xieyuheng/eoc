@@ -11,11 +11,13 @@
      `(c-program ,(form-info info) ,(record-map form-seq seqs)))))
 
 (define (form-info info)
-  (match info
-    ([:locals-types locals-types]
-     [:locals-types (record-map form-type locals-types)])
-    ([]
-     [])))
+  (= record [])
+  (= locals-types (record-get 'locals-types info))
+  (unless (null? locals-types)
+    (record-set!
+     'locals-types (record-map form-type locals-types)
+     record))
+  record)
 
 (define (form-seq seq)
   (match seq

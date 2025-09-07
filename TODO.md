@@ -1,7 +1,7 @@
 > 2 Integers and Variables
 
-[c] fix `form-info`
-[x86] fix `form-info`
+[c] & [x86] refactor `form-info`
+[builtin] refactor `check-op`
 
 [x86] `eval-pseudo-x86`
 [x86] `eval-x86`
