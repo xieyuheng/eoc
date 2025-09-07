@@ -19,6 +19,7 @@
                 (lambda (arg-type-pair)
                   (= [expected-arg-type arg-type] arg-type-pair)
                   (type-equal? expected-arg-type arg-type))
+                ;; (apply type-equal?)
                 (list-zip expected-arg-types arg-types))
                return-type)
             (else null)))))

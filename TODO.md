@@ -1,3 +1,5 @@
+update occam-lisp for `apply`
+
 > 2 Integers and Variables
 
 [c] `c-info?` -- with `locals-types`
