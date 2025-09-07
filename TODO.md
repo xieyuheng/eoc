@@ -1,5 +1,3 @@
-ambr locals-types ctx
-
 > 2 Integers and Variables
 
 [pass] 050-assign-homes -- `assign-homes-instr`

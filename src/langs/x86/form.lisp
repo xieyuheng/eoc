@@ -12,10 +12,10 @@
 
 (define (form-info info)
   (= record [])
-  (= locals-types (record-get 'locals-types info))
-  (unless (null? locals-types)
+  (= ctx (record-get 'ctx info))
+  (unless (null? ctx)
     (record-set!
-     'locals-types (record-map form-type locals-types)
+     'ctx (record-map form-type ctx)
      record))
   record)
 

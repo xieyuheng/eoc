@@ -5,7 +5,7 @@
 
 (claim check-c-program
   (-> c-program?
-      (c-program-with? (tau :locals-types (record? type?)))))
+      (c-program-with? (tau :ctx (record? type?)))))
 
 (define (check-c-program c-program)
   (match c-program
@@ -17,7 +17,7 @@
               :message "expected result-type to be int-t"
               :seq seq
               :result-type result-type]))
-     (cons-c-program (record-set 'locals-types ctx info) [:start seq]))))
+     (cons-c-program (record-set 'ctx ctx info) [:start seq]))))
 
 (claim check-seq
   (-> seq? (record? type?)
