@@ -1,4 +1,4 @@
-update occam-lisp for `record-find-index` and `list-find-index`
+update x-lisp for `record-find-index` and `list-find-index`
 
 > 2 Integers and Variables
 
