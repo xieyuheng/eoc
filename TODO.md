@@ -1,16 +1,19 @@
+ambr locals-types ctx
+
 > 2 Integers and Variables
+
+[pass] 050-assign-homes -- `assign-homes-instr`
+[pass] 050-assign-homes -- `assign-homes-imm` & `find-index`
+[pass] 050-assign-homes -- test
+
+[pass] 060-patch-instructions
+[pass] 070-prelude-and-conclusion
 
 [builtin] improve `check-op`
 [c] & [x86] improve `form-info`
 
 [x86] `eval-pseudo-x86`
 [x86] `eval-x86`
-
-[pass] 050-assign-homes -- with `:stack-space`
-[pass] 050-assign-homes -- finish
-
-[pass] 060-patch-instructions
-[pass] 070-prelude-and-conclusion
 
 > 3 Register Allocation
 > 4 Booleans and Conditionals

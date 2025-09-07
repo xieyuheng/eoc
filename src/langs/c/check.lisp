@@ -5,8 +5,7 @@
 
 (claim check-c-program
   (-> c-program?
-      (c-program-with?
-       (tau :locals-types (record? type?)))))
+      (c-program-with? (tau :locals-types (record? type?)))))
 
 (define (check-c-program c-program)
   (match c-program
