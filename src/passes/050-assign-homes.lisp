@@ -46,6 +46,7 @@
 (define (assign-homes-imm ctx arg)
   (match arg
     ((var-arg name)
-     (= offset (imul -8 (iadd 1 (record-find-index ctx name))))
+     (= index (list-find-index (equal? name) (record-keys ctx)))
+     (= offset (imul -8 (iadd 1 index)))
      (deref-arg 'rbp offset))
     (_ arg)))

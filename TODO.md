@@ -1,5 +1,3 @@
-update x-lisp for `record-find-index` and `list-find-index`
-
 > 2 Integers and Variables
 
 [pass] 050-assign-homes -- test

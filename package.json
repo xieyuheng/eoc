@@ -4,6 +4,6 @@
     "test": "bash scripts/run-src.sh"
   },
   "dependencies": {
-    "@xieyuheng/x-lisp.js": "^0.1.50"
+    "@xieyuheng/x-lisp.js": "^0.1.51"
   }
 }
