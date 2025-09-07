@@ -1,7 +1,5 @@
 > 2 Integers and Variables
 
-[pass] 050-assign-homes -- test
-
 [pass] 060-patch-instructions
 [pass] 070-prelude-and-conclusion
 
