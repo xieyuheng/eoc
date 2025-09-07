@@ -7,19 +7,15 @@
       (union type? null?)))
 
 (define (check-op op arg-types)
-  (= op-entry (record-get op operator-types))
-  (if (null? op-entry)
-    null
-    (begin
-      (= [expected-arg-types return-type] op-entry)
-      (cond ((not (equal? (list-length expected-arg-types)
-                          (list-length arg-types)))
-             null)
-            ((list-all?
-              (apply type-equal?)
-              (list-zip expected-arg-types arg-types))
-             return-type)
-            (else null)))))
+  (match (record-get op operator-types)
+    ((escape null) null)
+    ([expected-arg-types return-type]
+     (if (and (equal? (list-length expected-arg-types)
+                      (list-length arg-types))
+              (list-all? (apply type-equal?)
+                         (list-zip expected-arg-types arg-types)))
+       return-type
+       null))))
 
 (claim operator-types
   (record? (tau (list? type?) type?)))
