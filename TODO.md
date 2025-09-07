@@ -1,7 +1,5 @@
 > 2 Integers and Variables
 
-x86-program-with?
-
 [c] fix `form-info`
 [x86] fix `form-info`
 

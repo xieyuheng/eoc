@@ -2,7 +2,10 @@
 
 (export assign-homes)
 
-(claim assign-homes (-> x86-program? x86-program?))
+(claim assign-homes
+  (-> (x86-program-with?
+       (tau :locals-types (record? type?)))
+      x86-program?))
 
 (define (assign-homes x86-program)
   x86-program
