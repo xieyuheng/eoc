@@ -1,9 +1,8 @@
 > 2 Integers and Variables
 
-[c] `c-info?` -- with `locals-types`
-[c] fix `form-info`
+x86-program-with?
 
-[x86] `x86-info?` -- with `locals-types`
+[c] fix `form-info`
 [x86] fix `form-info`
 
 [x86] `eval-pseudo-x86`
