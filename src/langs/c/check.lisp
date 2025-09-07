@@ -65,9 +65,9 @@
     ((prim-c-exp op args)
      (= [args^ arg-types] (list-unzip (list-map (swap check-c-exp ctx) args)))
      (= return-type (check-op op arg-types))
-     (if (null? return-type)
+     (when (null? return-type)
        (exit [:who 'check-c-exp
               :message "fail on prim-c-exp"
-              :c-exp c-exp :arg-types arg-types])
-       [(prim-c-exp op args^)
-        return-type]))))
+              :c-exp c-exp :arg-types arg-types]))
+     [(prim-c-exp op args^)
+      return-type])))

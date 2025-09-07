@@ -1,5 +1,3 @@
-update occam-lisp for better (unless) and (when)
-
 > 2 Integers and Variables
 
 [c] `c-info?` -- with `locals-types`
