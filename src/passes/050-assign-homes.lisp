@@ -39,16 +39,13 @@
      [op (list-map (assign-homes-imm ctx) args)])
     (_ instr)))
 
-;; (define (assign-homes-imm i ls)
-;;   (match i
-;;     [(Reg reg) (Reg reg)]
-;;     [(Imm int) (Imm int)]
-;;     [(Var v) (Deref 'rbp (* -8 (find-index v (cdr ls))))]
-;;     ))
+(claim assign-homes-imm
+  (-> (record? type?) arg?
+      arg?))
 
-;; (define (find-index v ls)
-;;   (cond
-;;    ;;[(eq? v (Var-name (car ls))) 1]
-;;    [(eq? v (car ls)) 1]
-;;    [else (add1 (find-index v (cdr ls)))]
-;;    ))
+(define (assign-homes-imm ctx arg)
+  (match arg
+    ((var-arg name)
+     (= offset (imul -8 (iadd 1 (record-find-index ctx name))))
+     (deref-arg 'rbp offset))
+    (_ arg)))

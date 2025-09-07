@@ -1,6 +1,7 @@
+update occam-lisp for `record-find-index` and `list-find-index`
+
 > 2 Integers and Variables
 
-[pass] 050-assign-homes -- `assign-homes-imm` & `find-index`
 [pass] 050-assign-homes -- test
 
 [pass] 060-patch-instructions
