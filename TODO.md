@@ -1,11 +1,9 @@
 > 2 Integers and Variables
 
-[pass] 070-prolog-and-epilog -- test
+compiler as a command line program
 
 [x86] `format-x86-program`
 [x86] `form-x86-program` -- should not print string
-
-compiler as a command line program
 
 [compile] `compile`
 [compile] `compile` -- test -- remove pass tests
