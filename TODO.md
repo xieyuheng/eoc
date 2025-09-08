@@ -1,7 +1,5 @@
 > 2 Integers and Variables
-ambr prolog
-ambr epilog epilog
-[pass] 070-prolog-and-epilog
+
 [pass] 070-prolog-and-epilog -- test
 
 [x86] `format-x86-program`
