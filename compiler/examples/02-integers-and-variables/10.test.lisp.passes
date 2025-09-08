@@ -1,0 +1,8 @@
+000 (program () (let ((x (iadd (iadd 1 2) (iadd 3 4)))) (iadd x 5)))
+010 (program () (let ((x₁ (iadd (iadd 1 2) (iadd 3 4)))) (iadd x₁ 5)))
+020 (program () (let ((x₁ (let ((_₂ (iadd 3 4))) (let ((_₁ (iadd 1 2))) (iadd _₁ _₂))))) (iadd x₁ 5)))
+030 (c-program (:ctx (:_₂ int-t :_₁ int-t :x₁ int-t)) (:start ((= _₂ (iadd 3 4)) (= _₁ (iadd 1 2)) (= x₁ (iadd _₁ _₂)) (return (iadd x₁ 5)))))
+040 (x86-program (:ctx (:_₂ int-t :_₁ int-t :x₁ int-t)) (:start (() ("movq $3, _₂" "addq $4, _₂" "movq $1, _₁" "addq $2, _₁" "movq _₁, x₁" "addq _₂, x₁" "movq x₁, %rax" "addq $5, %rax" "jmp epilog"))))
+050 (x86-program (:ctx (:_₂ int-t :_₁ int-t :x₁ int-t)) (:start (() ("movq $3, -8(%rbp)" "addq $4, -8(%rbp)" "movq $1, -16(%rbp)" "addq $2, -16(%rbp)" "movq -16(%rbp), -24(%rbp)" "addq -8(%rbp), -24(%rbp)" "movq -24(%rbp), %rax" "addq $5, %rax" "jmp epilog"))))
+060 (x86-program (:ctx (:_₂ int-t :_₁ int-t :x₁ int-t)) (:start (() ("movq $3, -8(%rbp)" "addq $4, -8(%rbp)" "movq $1, -16(%rbp)" "addq $2, -16(%rbp)" "movq -16(%rbp), %rax" "movq %rax, -24(%rbp)" "movq -8(%rbp), %rax" "addq %rax, -24(%rbp)" "movq -24(%rbp), %rax" "addq $5, %rax" "jmp epilog"))))
+070 (x86-program (:ctx (:_₂ int-t :_₁ int-t :x₁ int-t)) (:start (() ("movq $3, -8(%rbp)" "addq $4, -8(%rbp)" "movq $1, -16(%rbp)" "addq $2, -16(%rbp)" "movq -16(%rbp), %rax" "movq %rax, -24(%rbp)" "movq -8(%rbp), %rax" "addq %rax, -24(%rbp)" "movq -24(%rbp), %rax" "addq $5, %rax" "jmp epilog")) :main (() ("pushq %rbp" "movq %rsp, %rbp" "subq $16, %rsp" "jmp start")) :epilog (() ("addq $16, %rsp" "popq %rbp" "retq"))))
