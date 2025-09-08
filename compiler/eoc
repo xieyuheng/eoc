@@ -1,17 +1,21 @@
 #!/usr/bin/env -S npx @xieyuheng/x-lisp.js run --debug=true
 
-(import-all "src/compile/index.lisp")
+(import-all "src/passes/index.lisp")
 
 (match (current-command-line-args)
-  (['compile file]
-   (println [:file file])
-   (x86(compile-program)))
+  (['trace-passes input]
+   (= file (symbol-to-string input))
+   (= text (file-get file))
+   (= exp-sexp (parse-sexp text))
+   (= program-sexp `(program () ,exp-sexp))
+   (= program (parse-program program-sexp))
+   (trace-passes program))
   (['help] (print-help))
   (_ (print-help)))
 
 (define (print-help)
   (writeln "commands:")
-  (writeln "  compile <file> -- compile a source")
+  (writeln "  trace-passes <file> -- trace all passes for snapshot testing")
   (writeln "  help -- display help information")
   (writeln "")
   (writeln "default command: help"))

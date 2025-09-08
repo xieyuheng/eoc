@@ -1,6 +1,6 @@
 > 2 Integers and Variables
 
-[cli] `eoc` -- `trace-passes` command -- print to stdout
+setup scripts/trace-tests.sh
 
 [compile] `compile`
 [compile] `compile` -- test -- remove pass tests
