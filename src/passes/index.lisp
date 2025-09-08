@@ -47,5 +47,4 @@
 (include "070-prelude-and-conclusion.lisp"
   ;; places the program instructions inside a `main` function
   ;; with instructions for the prelude and conclusion.
-  ;; TODO prelude-and-conclusion
-  )
+  prelude-and-conclusion)

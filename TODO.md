@@ -1,6 +1,10 @@
 > 2 Integers and Variables
 
 [pass] 070-prelude-and-conclusion
+[pass] 070-prelude-and-conclusion -- test
+
+[x86] `format-x86-program`
+[x86] `form-x86-program` -- should not print string
 
 compiler as a command line program
 
@@ -14,6 +18,8 @@ move test to `examples/`
 
 [x86] `eval-pseudo-x86`
 [x86] `eval-x86`
+
+> 2.11 Challenge: Partial Evaluator for LVar
 
 > 3 Register Allocation
 > 4 Booleans and Conditionals
