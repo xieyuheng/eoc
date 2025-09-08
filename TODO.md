@@ -1,6 +1,6 @@
 > 2 Integers and Variables
 
-[pass] 060-patch-instructions
+[pass] 060-patch-instructions -- test
 [pass] 070-prelude-and-conclusion
 
 [builtin] improve `check-op`
