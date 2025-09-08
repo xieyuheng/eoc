@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 
-bin="./eoc trace-passes"
+bin="./eoc compile"
 ext=lisp
 dir=examples
 
 for file in $(find $dir -name "*.test.${ext}"); do
-    echo "[trace-passes] $file"
-    ${bin} $file > $file.passes
+    echo "[compile] $file"
+    ${bin} $file > $file.s
 done

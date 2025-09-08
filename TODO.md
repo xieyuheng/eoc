@@ -1,7 +1,5 @@
 > 2 Integers and Variables
 
-setup compile-tests.sh
-
 [x86] `form-x86-program` -- should not use string -- use sexp instead
 
 - we already have `format-x86-program` which uses string

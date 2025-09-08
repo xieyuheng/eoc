@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "test:lisp": "sh scripts/run-src.sh",
-    "test:eoc": "sh scripts/trace-tests.sh",
+    "test:eoc": "sh scripts/trace-tests.sh && sh scripts/compile-tests.sh",
     "test": "npm run test:lisp && npm run test:eoc"
   },
   "dependencies": {
