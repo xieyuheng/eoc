@@ -44,7 +44,7 @@
   ;; forced to assign both arguments to memory locations.
   patch-instructions)
 
-(include "070-prelude-and-conclusion.lisp"
+(include "070-prolog-and-epilog.lisp"
   ;; places the program instructions inside a `main` function
   ;; with instructions for the prelude and conclusion.
-  prelude-and-conclusion)
+  prolog-and-epilog)

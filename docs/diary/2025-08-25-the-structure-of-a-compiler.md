@@ -25,7 +25,7 @@ passes/
 - 050-assign-homes
 - 050-assign-homes.test
 - 060-patch-instructions
-- 070-prelude-and-conclusion
+- 070-prolog-and-epilog
 ```
 
 每个语言都有一个顶层的 program 数据类型。

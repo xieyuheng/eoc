@@ -1,7 +1,7 @@
 > 2 Integers and Variables
 
-[pass] 070-prelude-and-conclusion
-[pass] 070-prelude-and-conclusion -- test
+[pass] 070-prolog-and-epilog
+[pass] 070-prolog-and-epilog -- test
 
 [x86] `format-x86-program`
 [x86] `form-x86-program` -- should not print string
