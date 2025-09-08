@@ -1,9 +1,5 @@
 > 2 Integers and Variables
 
-[x86] `form-x86-program` -- should not use string -- use sexp instead
-
-- we already have `format-x86-program` which uses string
-
 [x86] fix `format-x86-program`
 
 [builtin] improve `check-op`

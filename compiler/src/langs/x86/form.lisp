@@ -26,37 +26,31 @@
     ((cons-block info instrs)
      `(,info ,(list-map form-instr instrs)))))
 
-(claim form-instr (-> instr? string?))
+(claim form-instr (-> instr? sexp?))
 
 (define (form-instr instr)
   (cond ((general-instr? instr)
          (= [op args] instr)
-         (string-append-many
-          [(format-sexp op) " "
-           (string-join ", " (list-map form-arg args))]))
+         (cons op (list-map form-arg args)))
         ((special-instr? instr)
          (match instr
            ((callq target arity)
-            (string-append-many
-             ["callq " (format-sexp target) ", " (format-sexp arity)]))
+            ['callq target arity])
            (retq
-            (string-append-many
-             ["retq"]))
+            ['retq])
            ((jmp target)
-            (string-append-many
-             ["jmp " (format-sexp target)]))))))
+            ['jmp target])))))
 
-(claim form-arg (-> arg? string?))
+(claim form-arg (-> arg? sexp?))
 
 (define (form-arg arg)
   (match arg
     ((var-arg name)
-     (format-sexp name))
+     name)
     ((imm-arg value)
-     (string-append "$" (format-sexp value)))
+     (string-to-symbol (string-append "$" (format-sexp value))))
     ((reg-arg name)
-     (string-append "%" (format-sexp name)))
+     (string-to-symbol (string-append "%" (format-sexp name))))
     ((deref-arg name offset)
-     (string-append-many
-      [(format-sexp offset)
-       "(" "%" (format-sexp name) ")"]))))
+     (= reg-name (string-to-symbol (string-append "%" (format-sexp name))))
+     ['deref reg-name offset])))
