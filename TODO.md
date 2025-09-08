@@ -1,6 +1,10 @@
 > 2 Integers and Variables
 
-move snapshot tests to `examples/`
+remove more snapshots tests to passes
+
+- 010-uniquify.snapshot.lisp
+- 020-remove-complex-operands.snapshot.lisp
+- 030-explicate-control.snapshot.lisp
 
 [x86] `format-x86-program`
 [x86] `form-x86-program` -- should not use string
