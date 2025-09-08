@@ -1,6 +1,5 @@
 > 2 Integers and Variables
 
-remove 020-remove-complex-operands.snapshot.lisp
 remove more snapshots tests to passes
 
 [x86] `format-x86-program`
