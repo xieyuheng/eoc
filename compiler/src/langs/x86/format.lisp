@@ -20,8 +20,12 @@
      (= label-string (string-append (symbol-to-string label) ":\n"))
      (string-append-many
       (cons label-string
-            (list-map (swap string-append "\n")
-                      (list-map format-instr instrs)))))))
+            (list-map (compose indent-instr format-instr)
+                      instrs))))))
+
+(define (indent-instr instr-string)
+  (string-append-many
+   ["    " instr-string "\n"]))
 
 (claim format-instr (-> instr? string?))
 

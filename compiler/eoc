@@ -3,6 +3,14 @@
 (import-all "src/index.lisp")
 
 (match (current-command-line-args)
+  (['compile input]
+   (= file (symbol-to-string input))
+   (= text (file-get file))
+   (= exp-sexp (parse-sexp text))
+   (= program-sexp `(program () ,exp-sexp))
+   (= program (parse-program program-sexp))
+   (= x86-program (compile-program program))
+   (writeln (format-x86-program x86-program)))
   (['trace-passes input]
    (= file (symbol-to-string input))
    (= text (file-get file))
@@ -15,6 +23,7 @@
 
 (define (print-help)
   (writeln "commands:")
+  (writeln "  compile <file> -- compile a file")
   (writeln "  trace-passes <file> -- trace all passes for snapshot testing")
   (writeln "  help -- display help information")
   (writeln "")

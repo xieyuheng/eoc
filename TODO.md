@@ -1,6 +1,6 @@
 > 2 Integers and Variables
 
-[cli] `compile` command -- call `compile-program` and `format-x86-program` just print to stdout
+setup compile-tests.sh
 
 [x86] `form-x86-program` -- should not use string -- use sexp instead
 
