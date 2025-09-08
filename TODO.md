@@ -1,5 +1,3 @@
-move code to `compiler/` -- there will be `runtime/` for c source code
-
 > 2 Integers and Variables
 
 compiler as a command line program
