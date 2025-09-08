@@ -1,6 +1,5 @@
 > 2 Integers and Variables
 
-remove `compile/` for now
 move snapshot tests to `examples/`
 
 [x86] `format-x86-program`
@@ -11,6 +10,8 @@ move snapshot tests to `examples/`
 
 [x86] `eval-pseudo-x86`
 [x86] `eval-x86`
+
+[passes] 040-select-instructions -- support `isub`
 
 > 2.11 Challenge: Partial Evaluator for LVar
 
