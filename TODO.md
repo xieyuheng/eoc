@@ -1,7 +1,5 @@
 > 2 Integers and Variables
 
-remove more snapshots tests to passes
-
 [x86] `format-x86-program`
 [x86] `form-x86-program` -- should not use string
 
