@@ -1,12 +1,12 @@
 > 2 Integers and Variables
 
-compiler as a command line program
-
-[x86] `format-x86-program`
-[x86] `form-x86-program` -- should not use string
+[cli] `eoc` -- `compile` command -- print to stdout
 
 [compile] `compile`
 [compile] `compile` -- test -- remove pass tests
+
+[x86] `format-x86-program`
+[x86] `form-x86-program` -- should not use string
 
 move test to `examples/`
 

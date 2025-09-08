@@ -1,0 +1,14 @@
+#!/usr/bin/env -S npx @xieyuheng/x-lisp.js run --debug=true
+
+(match (current-command-line-args)
+  (['compile file]
+   (println [:file file]))
+  (['help] (print-help))
+  (_ (print-help)))
+
+(define (print-help)
+  (writeln "commands:")
+  (writeln "  compile <file> -- compile a source")
+  (writeln "  help -- display help information")
+  (writeln "")
+  (writeln "default command: help"))
