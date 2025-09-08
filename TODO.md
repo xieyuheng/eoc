@@ -1,6 +1,6 @@
 > 2 Integers and Variables
 
-[cli] `eoc` -- `compile` command -- print to stdout
+[cli] `eoc` -- `trace-passes` command -- print to stdout
 
 [compile] `compile`
 [compile] `compile` -- test -- remove pass tests

@@ -1,8 +1,11 @@
 #!/usr/bin/env -S npx @xieyuheng/x-lisp.js run --debug=true
 
+(import-all "src/compile/index.lisp")
+
 (match (current-command-line-args)
   (['compile file]
-   (println [:file file]))
+   (println [:file file])
+   (x86(compile-program)))
   (['help] (print-help))
   (_ (print-help)))
 

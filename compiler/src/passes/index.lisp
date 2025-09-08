@@ -48,3 +48,7 @@
   ;; places the program instructions inside a `main` function
   ;; with instructions for the prolog and epilog.
   prolog-and-epilog)
+
+(include "trace-passes.lisp"
+  ;; trace all the passes for snapshot testing.
+  trace-passes)

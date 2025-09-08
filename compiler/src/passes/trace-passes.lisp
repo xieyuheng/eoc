@@ -1,0 +1,25 @@
+(import-all "deps.lisp")
+(import-all "index.lisp")
+
+(export trace-passes)
+
+(claim trace-passes
+  (-> program? void?))
+
+(define (trace-passes program)
+  (= program-0 (check-program program))
+  (= program-1 (check-program (uniquify program-0)))
+  (= program-2 (check-program (rco-program program-1)))
+  (= c-program-3 (check-c-program (explicate-control program-2)))
+  (= x86-program-4 (select-instructions c-program-3))
+  (= x86-program-5 (assign-homes x86-program-4))
+  (= x86-program-6 (patch-instructions x86-program-5))
+  (= x86-program-7 (prolog-and-epilog x86-program-6))
+  (write "000 ") (writeln (format-sexp (form-program program-0)))
+  (write "010 ") (writeln (format-sexp (form-program program-1)))
+  (write "020 ") (writeln (format-sexp (form-program program-2)))
+  (write "030 ") (writeln (format-sexp (form-c-program c-program-3)))
+  (write "040 ") (writeln (format-sexp (form-x86-program x86-program-4)))
+  (write "050 ") (writeln (format-sexp (form-x86-program x86-program-5)))
+  (write "060 ") (writeln (format-sexp (form-x86-program x86-program-6)))
+  (write "070 ") (writeln (format-sexp (form-x86-program x86-program-7))))
