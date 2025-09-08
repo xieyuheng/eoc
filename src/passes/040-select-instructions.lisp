@@ -23,10 +23,10 @@
                   (select-instr-seq next-seq)))
     ((return-seq (prim-c-exp 'random-dice []))
      [(callq 'random_dice 0)
-      (jmp 'conclusion)])
+      (jmp 'epilog)])
     ((return-seq exp)
      (list-append (select-instr-assign (reg-arg 'rax) exp)
-                  [(jmp 'conclusion)]))))
+                  [(jmp 'epilog)]))))
 
 (claim select-instr-stmt (-> stmt? (list? instr?)))
 

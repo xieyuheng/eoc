@@ -46,5 +46,5 @@
 
 (include "070-prolog-and-epilog.lisp"
   ;; places the program instructions inside a `main` function
-  ;; with instructions for the prelude and conclusion.
+  ;; with instructions for the prolog and epilog.
   prolog-and-epilog)
