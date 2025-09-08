@@ -1,5 +1,5 @@
-000 (program () (let ((x 4)) (isub 8 x)))
-010 (program () (let ((x₁ 4)) (isub 8 x₁)))
+000 (program () (let ((x 4)) (iadd 8 x)))
+010 (program () (let ((x₁ 4)) (iadd 8 x₁)))
 000 (program () (let ((x 32)) (iadd (let ((x 10)) x) x)))
 010 (program () (let ((x₁ 32)) (iadd (let ((x₂ 10)) x₂) x₁)))
 000 (program () (let ((x (let ((x 4)) (iadd x 1)))) (iadd x 2)))

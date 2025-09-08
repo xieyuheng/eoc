@@ -1,6 +1,6 @@
 #!/usr/bin/env -S npx @xieyuheng/x-lisp.js run --debug=true
 
-(import-all "src/passes/index.lisp")
+(import-all "src/index.lisp")
 
 (match (current-command-line-args)
   (['trace-passes input]

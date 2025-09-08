@@ -1,14 +1,10 @@
 > 2 Integers and Variables
 
-setup scripts/trace-tests.sh
-
-[compile] `compile`
-[compile] `compile` -- test -- remove pass tests
+remove `compile/` for now
+move snapshot tests to `examples/`
 
 [x86] `format-x86-program`
 [x86] `form-x86-program` -- should not use string
-
-move test to `examples/`
 
 [builtin] improve `check-op`
 [c] & [x86] improve `form-info`

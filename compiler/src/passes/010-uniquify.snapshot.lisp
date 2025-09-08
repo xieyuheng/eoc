@@ -9,11 +9,11 @@
   (assert-the predicate (eval-program program-1)))
 
 (test-program
- (equal? 4)
+ (equal? 12)
  '(program
    ()
    (let ((x 4))
-     (isub 8 x))))
+     (iadd 8 x))))
 
 (test-program
  (equal? 42)
