@@ -1,13 +1,15 @@
 > 2 Integers and Variables
 
 [x86] `format-x86-program`
-[x86] `form-x86-program` -- should not use string
+[compile] `compile-program`
+[cli] `compile` command -- call `compile-program` and `format-x86-program` just print to stdout
+
+[x86] `form-x86-program` -- should not use string -- use sexp instead
+
+- we already have `format-x86-program` which uses string
 
 [builtin] improve `check-op`
 [c] & [x86] improve `form-info`
-
-[x86] `eval-pseudo-x86`
-[x86] `eval-x86`
 
 [passes] 040-select-instructions -- support `isub`
 

@@ -24,11 +24,11 @@
 (define (form-block block)
   (match block
     ((cons-block info instrs)
-     `(,info ,(list-map format-instr instrs)))))
+     `(,info ,(list-map form-instr instrs)))))
 
-(claim format-instr (-> instr? string?))
+(claim form-instr (-> instr? string?))
 
-(define (format-instr instr)
+(define (form-instr instr)
   (cond ((general-instr? instr)
          (= [op args] instr)
          (string-append-many
