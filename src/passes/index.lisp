@@ -42,9 +42,7 @@
   ;; recall that only one argument of an x86 instruction
   ;; may be a memory access, but assign-homes might be
   ;; forced to assign both arguments to memory locations.
-  ;; TODO patch-instructions
-  )
-
+  patch-instructions)
 
 (include "070-prelude-and-conclusion.lisp"
   ;; places the program instructions inside a `main` function

@@ -1,7 +1,13 @@
 > 2 Integers and Variables
 
-[pass] 060-patch-instructions -- test
 [pass] 070-prelude-and-conclusion
+
+compiler as a command line program
+
+[compile] `compile`
+[compile] `compile` -- test -- remove pass tests
+
+move test to `examples/`
 
 [builtin] improve `check-op`
 [c] & [x86] improve `form-info`
