@@ -1,9 +1,11 @@
+move code to `compiler/` -- there will be `runtime/` for c source code
+
 > 2 Integers and Variables
 
 compiler as a command line program
 
 [x86] `format-x86-program`
-[x86] `form-x86-program` -- should not print string
+[x86] `form-x86-program` -- should not use string
 
 [compile] `compile`
 [compile] `compile` -- test -- remove pass tests
