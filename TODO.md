@@ -1,12 +1,13 @@
 > 2 Integers and Variables
 
-[x86] `format-x86-program`
 [compile] `compile-program`
 [cli] `compile` command -- call `compile-program` and `format-x86-program` just print to stdout
 
 [x86] `form-x86-program` -- should not use string -- use sexp instead
 
 - we already have `format-x86-program` which uses string
+
+[x86] fix `format-x86-program`
 
 [builtin] improve `check-op`
 [c] & [x86] improve `form-info`
