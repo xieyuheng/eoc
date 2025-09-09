@@ -3,10 +3,17 @@
 (import-all "src/index.lisp")
 
 (match (current-command-line-args)
+  (['compile input :output output]
+   (= file (symbol-to-string input))
+   (= x86-program (compile-program (load-program file)))
+   (file-set! (symbol-to-string output)
+              (format-x86-program x86-program)))
+
   (['compile input]
    (= file (symbol-to-string input))
    (= x86-program (compile-program (load-program file)))
    (write (format-x86-program x86-program)))
+
   (['trace-passes input]
    (= file (symbol-to-string input))
    (trace-passes (load-program file)))
