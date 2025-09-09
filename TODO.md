@@ -1,9 +1,6 @@
 > 2 Integers and Variables
 
-[x86] fix `format-x86-program`
-
-- run compiled code -- gcc runtime.o -z noexecstack
-
+add scripts to test compiled assembler programs
 setup `runtime/` as a c project
 [passes] 040-select-instructions -- support `isub`
 

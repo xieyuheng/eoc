@@ -1,3 +1,4 @@
+        .global main
 start:
         movq $42, -8(%rbp)
         movq -8(%rbp), %rax
@@ -13,4 +14,3 @@ epilog:
         addq $16, %rsp
         popq %rbp
         retq
-

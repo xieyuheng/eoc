@@ -9,8 +9,9 @@
   (match x86-program
     ((cons-x86-program info blocks)
      (string-append-many
-      (list-map format-block-entry
-                (record-entries blocks))))))
+      (cons "        .global main\n"
+            (list-map format-block-entry
+                      (record-entries blocks)))))))
 
 (claim format-block-entry (-> (tau symbol? block?) sexp?))
 

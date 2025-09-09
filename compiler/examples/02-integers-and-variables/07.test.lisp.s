@@ -1,3 +1,4 @@
+        .global main
 start:
         callq random_dice, 0
         movq %rax, -8(%rbp)
@@ -15,4 +16,3 @@ epilog:
         addq $16, %rsp
         popq %rbp
         retq
-

@@ -6,7 +6,7 @@
   (['compile input]
    (= file (symbol-to-string input))
    (= x86-program (compile-program (load-program file)))
-   (writeln (format-x86-program x86-program)))
+   (write (format-x86-program x86-program)))
   (['trace-passes input]
    (= file (symbol-to-string input))
    (trace-passes (load-program file)))
