@@ -4,17 +4,6 @@ bin="npx x-lisp.js run --debug=true"
 ext=lisp
 dir=src
 
-for file in $(find $dir -name "*.test.${ext}"); do
-    echo "[test] $file"
-    ${bin} $file
-done
-
-for file in $(find $dir -name "*.snapshot.${ext}"); do
-    echo "[snapshot] $file"
-    ${bin} $file > $file.out
-done
-
-for file in $(find $dir -name "*.error.${ext}"); do
-    echo "[error] $file"
-    ${bin} $file > $file.err || true
-done
+find $dir -name "*.test.${ext}" | parallel -v ${bin} {}
+find $dir -name "*.snapshot.${ext}" | parallel -v ${bin} {} ">" {}.out
+find $dir -name "*.error.${ext}" | parallel -v ${bin} {} ">" {}.err "||" true
