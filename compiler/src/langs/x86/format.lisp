@@ -25,7 +25,7 @@
 
 (define (indent-instr instr-string)
   (string-append-many
-   ["    " instr-string "\n"]))
+   ["        " instr-string "\n"]))
 
 (claim format-instr (-> instr? string?))
 
