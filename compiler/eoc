@@ -5,21 +5,19 @@
 (match (current-command-line-args)
   (['compile input]
    (= file (symbol-to-string input))
-   (= text (file-get file))
-   (= exp-sexp (parse-sexp text))
-   (= program-sexp `(program () ,exp-sexp))
-   (= program (parse-program program-sexp))
-   (= x86-program (compile-program program))
+   (= x86-program (compile-program (load-program file)))
    (writeln (format-x86-program x86-program)))
   (['trace-passes input]
    (= file (symbol-to-string input))
-   (= text (file-get file))
-   (= exp-sexp (parse-sexp text))
-   (= program-sexp `(program () ,exp-sexp))
-   (= program (parse-program program-sexp))
-   (trace-passes program))
+   (trace-passes (load-program file)))
   (['help] (print-help))
   (_ (print-help)))
+
+(define (load-program file)
+  (parse-program
+   `(program
+     ()
+     ,(parse-sexp (file-get file)))))
 
 (define (print-help)
   (writeln "commands:")
