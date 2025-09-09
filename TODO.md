@@ -1,6 +1,3 @@
-run trace-tests.sh in parallel
-update x-lisp.js to let variable match null from record
-
 > 2 Integers and Variables
 
 add scripts to test compiled assembler programs

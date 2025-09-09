@@ -4,7 +4,4 @@ bin="./eoc trace-passes"
 ext=lisp
 dir=examples
 
-for file in $(find $dir -name "*.test.${ext}"); do
-    echo "[trace-passes] $file"
-    ${bin} $file > $file.passes
-done
+find $dir -name "*.test.${ext}" | parallel -v ${bin} {} ">" {}.passes
