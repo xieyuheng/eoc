@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
 bin="./eoc trace-compile"
-ext=lisp
-dir=examples
 
-find $dir -name "*.${ext}" | parallel -v ${bin} {} ">" {}.passes
+find examples -name "*.lisp" | parallel -v ${bin} {} ">" {}.passes
