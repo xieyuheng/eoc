@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-bin="./eoc trace-passes"
+bin="./eoc trace-compile"
 ext=lisp
 dir=examples
 

@@ -7,9 +7,9 @@
    (= file (symbol-to-string input))
    (= x86-program (compile-program (load-program file)))
    (write (format-x86-program x86-program)))
-  (['trace-passes input]
+  (['trace-compile input]
    (= file (symbol-to-string input))
-   (trace-passes (load-program file)))
+   (trace-compile (load-program file)))
   (['help] (print-help))
   (_ (print-help)))
 
@@ -22,7 +22,7 @@
 (define (print-help)
   (writeln "commands:")
   (writeln "  compile <file> -- compile a file")
-  (writeln "  trace-passes <file> -- trace all passes for snapshot testing")
+  (writeln "  trace-compile <file> -- trace all passes for snapshot testing")
   (writeln "  help -- display help information")
   (writeln "")
   (writeln "default command: help"))

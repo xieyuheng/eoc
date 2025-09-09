@@ -49,6 +49,6 @@
   ;; with instructions for the prolog and epilog.
   prolog-and-epilog)
 
-(include "trace-passes.lisp"
+(include "trace-compile.lisp"
   ;; trace all the passes for snapshot testing.
-  trace-passes)
+  trace-compile)
