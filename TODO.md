@@ -2,9 +2,9 @@
 
 [x86] fix `format-x86-program`
 
-[builtin] improve `check-op`
-[c] & [x86] improve `form-info`
+- run compiled code -- gcc runtime.o -z noexecstack
 
+setup `runtime/` as a c project
 [passes] 040-select-instructions -- support `isub`
 
 > 2.11 Challenge: Partial Evaluator for LVar
@@ -18,3 +18,10 @@
 > 9 Dynamic Typing
 > 10 Gradual Typing
 > 11 Generics
+
+# improve
+
+> Change x-lisp to improve the following code.
+
+[builtin] improve `check-op`
+[c] & [x86] improve `form-info`
