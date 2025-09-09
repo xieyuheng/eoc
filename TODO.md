@@ -1,8 +1,10 @@
 > 2 Integers and Variables
 
-add scripts to test compiled assembler programs
 setup `runtime/` as a c project
+`runtime/` -- `random_dice`
+main in `runtime/` -- callback to assembly
 [passes] 040-select-instructions -- support `isub`
+add scripts to test compiled assembler programs
 
 > 2.11 Challenge: Partial Evaluator for LVar
 
