@@ -1,5 +1,3 @@
-drop .test. postfix from examples/
-
 > 2 Integers and Variables
 
 add scripts to test compiled assembler programs
