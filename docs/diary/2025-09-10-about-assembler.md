@@ -13,6 +13,10 @@ date: 2025-09-10
 - 把 instruction 翻译成 machine code。
 - 同时把 label 翻译成 machine code 中的相对位置。
 
+另外，为了形成对操作系统而言的可执行文件，
+汇编器还需要把所生成的纯机器码包裹在可执行文件格式中，
+比如在 linux 的 elf 格式中。
+
 但是汇编器的本质是 byte layer （类似 brick layer）。
 比如看 uxn 的汇编器，在其中用 byte 就直接生成 byte，
 类似默认就是 db 或者 dw。
