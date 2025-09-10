@@ -45,7 +45,7 @@
   patch-instructions)
 
 (include "070-prolog-and-epilog.lisp"
-  ;; places the program instructions inside a `main` function
+  ;; places the program instructions inside a `begin` function
   ;; with instructions for the prolog and epilog.
   prolog-and-epilog)
 

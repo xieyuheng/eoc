@@ -1,11 +1,11 @@
-        .global main
+        .global begin
 start:
         movq $42, -8(%rbp)
         movq -8(%rbp), %rax
         movq %rax, -16(%rbp)
         movq -16(%rbp), %rax
         jmp epilog
-main:
+begin:
         pushq %rbp
         movq %rsp, %rbp
         subq $16, %rsp

@@ -8,7 +8,7 @@
 (define (prolog-and-epilog x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     (= blocks (record-set 'main prolog-block blocks))
+     (= blocks (record-set 'begin prolog-block blocks))
      (= blocks (record-set 'epilog epilog-block blocks))
      (cons-x86-program info blocks))))
 

@@ -9,7 +9,7 @@
   (match x86-program
     ((cons-x86-program info blocks)
      (string-append-many
-      (cons "        .global main\n"
+      (cons "        .global begin\n"
             (list-map format-block-entry
                       (record-entries blocks)))))))
 

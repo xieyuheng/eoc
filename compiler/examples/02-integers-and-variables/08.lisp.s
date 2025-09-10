@@ -1,9 +1,9 @@
-        .global main
+        .global begin
 start:
         movq $20, %rax
         addq $22, %rax
         jmp epilog
-main:
+begin:
         pushq %rbp
         movq %rsp, %rbp
         subq $16, %rsp
