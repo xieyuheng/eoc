@@ -1,11 +1,11 @@
 > 2 Integers and Variables
 
-`runtime/` -- rename `app` to `eoc-runtime`
-`runtime/` -- `random_dice`
-main in `runtime/` -- callback to assembly
-[passes] 040-select-instructions -- support `isub`
 call gcc from x-lisp -- need more builtin about exec
+
 add scripts to test compiled assembler programs
+
+`runtime/` -- `random_dice`
+[passes] 040-select-instructions -- support `isub`
 
 > 2.11 Challenge: Partial Evaluator for LVar
 

@@ -32,29 +32,25 @@ cflags = \
 src = $(shell find src -name '*.c')
 headers = $(shell find src -name '*.h')
 lib = $(patsubst src/%, lib/%, $(patsubst %.c, %.o, $(src)))
-app = app
-bin = bin/$(app)
 
-.PHONY: all run test-packages test-self test clean
+.PHONY: all run clean
 
-all: bin/$(app)
+all: begin
 
-run: bin/$(app)
-	./bin/$(app)
+run: begin
+	./begin
 
-test-packages: bin/$(app)
-	./bin/$(app) test-packages
+begin: runtime.o begin.o
+	$(cc) $^ $(ldflags) -o $@
 
-test-self: bin/$(app)
-	./bin/$(app) test-self
+begin.o: begin.c
+	$(cc) -r $^ $(ldflags) -o begin.o
 
-test: test-packages test-self
-
-bin/$(app): $(lib) lib/$(app).o
-	mkdir -p $(dir $@); $(cc) $^ $(ldflags) -o $@
+runtime.o: runtime.c $(lib)
+	$(cc) -r $^ $(ldflags) -o runtime.o
 
 lib/%.o: src/%.c $(headers)
 	mkdir -p $(dir $@); $(cc) -c $(cflags) $< -o $@
 
 clean:
-	rm -rf lib bin
+	rm -rf lib runtime.o begin.o begin
