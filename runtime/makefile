@@ -35,16 +35,16 @@ lib = $(patsubst src/%, lib/%, $(patsubst %.c, %.o, $(src)))
 
 .PHONY: all run clean
 
-all: start
+all: begin
 
-run: start
-	./start
+run: begin
+	./begin
 
-start: runtime.o start.o
+begin: runtime.o begin.o
 	$(cc) $^ $(ldflags) -o $@
 
-start.o: start.c
-	$(cc) -r $^ $(ldflags) -o start.o
+begin.o: begin.c
+	$(cc) -r $^ $(ldflags) -o begin.o
 
 runtime.o: runtime.c $(lib)
 	$(cc) -r $^ $(ldflags) -o runtime.o
@@ -53,4 +53,4 @@ lib/%.o: src/%.c $(headers)
 	mkdir -p $(dir $@); $(cc) -c $(cflags) $< -o $@
 
 clean:
-	rm -rf lib runtime.o start.o start
+	rm -rf lib runtime.o begin.o begin

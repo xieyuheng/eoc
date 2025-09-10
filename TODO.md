@@ -1,6 +1,6 @@
 > 2 Integers and Variables
 
-[compiler] call gcc from x-lisp -- need more builtin about exec
+call gcc from x-lisp -- need more builtin about exec
 
 add scripts to test compiled assembler programs
 
