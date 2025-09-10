@@ -3,6 +3,6 @@
 #include "src/commands/index.h"
 
 uint64_t
-begin(void) {
+start(void) {
     return 42;
 }
