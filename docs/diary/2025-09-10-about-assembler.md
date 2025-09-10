@@ -15,7 +15,9 @@ date: 2025-09-10
 
 另外，为了形成对操作系统而言的可执行文件，
 汇编器还需要把所生成的纯机器码包裹在可执行文件格式中，
-比如在 linux 的 elf 格式中。
+比如在 linux 的 ELF 格式中，
+或者包裹在 object file 中（也是 ELF），
+然后再用 system linker（linux 的 ld）生成可执行文件。
 
 但是汇编器的本质是 byte layer （类似 brick layer）。
 比如看 uxn 的汇编器，在其中用 byte 就直接生成 byte，
