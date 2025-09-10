@@ -5,6 +5,7 @@ tmp
 
 # build
 
+begin
 bin
 lib
 
