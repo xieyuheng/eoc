@@ -4,7 +4,6 @@
 
 add scripts to test compiled assembler programs
 
-`runtime/` -- `random_dice`
 [passes] 040-select-instructions -- support `isub`
 
 > 2.11 Challenge: Partial Evaluator for LVar
