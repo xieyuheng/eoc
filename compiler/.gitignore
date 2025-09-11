@@ -2,8 +2,8 @@
 lib
 
 # eoc
-.exe
-.o
+*.exe
+*.o
 
 # vitest
 coverage
