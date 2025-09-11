@@ -15,9 +15,9 @@
     (if (equal? 1 optimization-level)
       (compose check-program partial-eval-program)
       identity)
-    uniquify check-program
-    rco-program check-program
-    explicate-control check-c-program
+    (compose check-program uniquify)
+    (compose check-program rco-program)
+    (compose check-c-program explicate-control)
     select-instructions
     assign-homes
     patch-instructions
