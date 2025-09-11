@@ -1,7 +1,5 @@
 > 2 Integers and Variables
 
-rename compile to compile-assembly
-
 new compile command to compile to exe -- with `:output` option
 [compile] `compile-exe` -- call gcc from x-lisp -- need more builtin about exec
 

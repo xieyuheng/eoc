@@ -3,7 +3,7 @@
 (import-all "src/index.lisp")
 
 (match (current-command-line-args)
-  (['compile input]
+  (['compile-assembly input]
    (= file (symbol-to-string input))
    (= x86-program (compile-program (load-program file)))
    (write (format-x86-program x86-program)))
@@ -23,8 +23,8 @@
 
 (define (print-help)
   (writeln "commands:")
-  (writeln "  compile <file> -- compile a file")
-  (writeln "  compile-passes <file> -- output all passes for snapshot testing")
+  (writeln "  compile-assembly <file> -- compile a file to assembly")
+  (writeln "  compile-passes <file> -- output all compiler passes for snapshot testing")
   (writeln "  help -- display help information")
   (writeln "")
   (writeln "default command: help"))
