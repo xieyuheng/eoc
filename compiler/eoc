@@ -26,25 +26,19 @@
   (_
    (print-help)))
 
-;; TODO lazy value can not be passed to array
-;; need deep walk
-
 (define runtime-file
   (path-join [(current-module-directory) "../runtime/runtime.o"]))
 
 (define (generate-exe x86-program output-file)
   (= asm-file (string-append output-file ".s"))
-  (= runtime-file (path-join [(current-module-directory) "../runtime/runtime.o"]))
-  (file-set! asm-file (format-x86-program x86-program))
-  (system-shell-run
-   (string-append-many
-    ["cc " asm-file " " runtime-file " -o " output-file])))
+  (file-save asm-file (format-x86-program x86-program))
+  (system-shell-run "cc" [asm-file runtime-file "-o" output-file]))
 
 (define (load-program file)
   (parse-program
    `(program
      ()
-     ,(parse-sexp (file-get file)))))
+     ,(parse-sexp (file-load file)))))
 
 (define (print-help)
   (writeln "commands:")
