@@ -1,0 +1,8 @@
+000 (program () (let ((x (let ((x 4)) (iadd x 1)))) (iadd x 2)))
+010 (program () (let ((x₁ (let ((x₂ 4)) (iadd x₂ 1)))) (iadd x₁ 2)))
+020 (program () (let ((x₁ (let ((x₂ 4)) (iadd x₂ 1)))) (iadd x₁ 2)))
+030 (c-program (:ctx (:x₂ int-t :x₁ int-t)) (:start ((= x₂ 4) (= x₁ (iadd x₂ 1)) (return (iadd x₁ 2)))))
+040 (x86-program (:ctx (:x₂ int-t :x₁ int-t)) (:start (() ((movq $4 x₂) (movq x₂ x₁) (addq $1 x₁) (movq x₁ %rax) (addq $2 %rax) (jmp epilog)))))
+050 (x86-program (:ctx (:x₂ int-t :x₁ int-t)) (:start (() ((movq $4 (deref %rbp -8)) (movq (deref %rbp -8) (deref %rbp -16)) (addq $1 (deref %rbp -16)) (movq (deref %rbp -16) %rax) (addq $2 %rax) (jmp epilog)))))
+060 (x86-program (:ctx (:x₂ int-t :x₁ int-t)) (:start (() ((movq $4 (deref %rbp -8)) (movq (deref %rbp -8) %rax) (movq %rax (deref %rbp -16)) (addq $1 (deref %rbp -16)) (movq (deref %rbp -16) %rax) (addq $2 %rax) (jmp epilog)))))
+070 (x86-program (:ctx (:x₂ int-t :x₁ int-t)) (:start (() ((movq $4 (deref %rbp -8)) (movq (deref %rbp -8) %rax) (movq %rax (deref %rbp -16)) (addq $1 (deref %rbp -16)) (movq (deref %rbp -16) %rax) (addq $2 %rax) (jmp epilog))) :begin (() ((pushq %rbp) (movq %rsp %rbp) (subq $16 %rsp) (jmp start))) :epilog (() ((addq $16 %rsp) (popq %rbp) (retq)))))
