@@ -2,7 +2,7 @@
 #include "src/config.h"
 #include "src/commands/index.h"
 
-uint64_t
+int64_t
 begin(void) {
-    return 42;
+    return -42;
 }

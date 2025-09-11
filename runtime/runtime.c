@@ -2,11 +2,15 @@
 #include "src/config.h"
 #include "src/commands/index.h"
 
-uint64_t begin(void);
+int64_t begin(void);
+
+int64_t random_dice(void) {
+    return 6;
+}
 
 int
 main(int argc, char *argv[]) {
     uint64_t result = begin();
-    printf("%u\n", result);
+    printf("%lld\n", result);
     return 0;
 }
