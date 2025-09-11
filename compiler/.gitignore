@@ -1,6 +1,10 @@
 # typescript
 lib
 
+# eoc
+.exe
+.o
+
 # vitest
 coverage
 
