@@ -25,37 +25,37 @@
     ((prim-exp 'random-dice [])
      (prim-exp 'random-dice []))
     ((prim-exp 'ineg [e])
-     (partial-eval-neg
+     (partial-eval-ineg
       (partial-eval-exp e env)))
     ((prim-exp 'iadd [e1 e2])
-     (partial-eval-add
+     (partial-eval-iadd
       (partial-eval-exp e1 env)
       (partial-eval-exp e2 env)))
     ((prim-exp 'isub [e1 e2])
-     (partial-eval-sub
+     (partial-eval-isub
       (partial-eval-exp e1 env)
       (partial-eval-exp e2 env)))
     ((let-exp name rhs body)
      (= new-env (record-set name (partial-eval-exp rhs env) env))
      (partial-eval-exp body new-env))))
 
-(define (partial-eval-neg r)
+(define (partial-eval-ineg r)
   (match r
     ((int-exp n)
      (int-exp (ineg n)))
     (_
-     (prim-exp '- [r]))))
+     (prim-exp 'ineg [r]))))
 
-(define (partial-eval-add r1 r2)
+(define (partial-eval-iadd r1 r2)
   (match [r1 r2]
     ([(int-exp n1) (int-exp n2)]
      (int-exp (iadd n1 n2)))
     (_
-     (prim-exp '+ [r1 r2]))))
+     (prim-exp 'iadd [r1 r2]))))
 
-(define (partial-eval-sub r1 r2)
+(define (partial-eval-isub r1 r2)
   (match [r1 r2]
     ([(int-exp n1) (int-exp n2)]
      (int-exp (isub n1 n2)))
     (_
-     (prim-exp '- [r1 r2]))))
+     (prim-exp 'isub [r1 r2]))))

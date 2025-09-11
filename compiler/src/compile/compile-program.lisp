@@ -8,6 +8,7 @@
 (define (compile-program program)
   (pipe program
     check-program
+    partial-eval-program check-program
     uniquify check-program
     rco-program check-program
     explicate-control check-c-program

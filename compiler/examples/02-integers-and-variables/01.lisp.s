@@ -1,8 +1,6 @@
         .global begin
 start:
-        movq $4, -8(%rbp)
-        movq $8, %rax
-        addq -8(%rbp), %rax
+        movq $12, %rax
         jmp epilog
 begin:
         pushq %rbp

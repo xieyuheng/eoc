@@ -1,3 +1,7 @@
+skip `partial-eval-program` from frontend
+
+add flag to compile about optimization -- to control optimization like `partial-eval-program`
+
 > 3 Register Allocation
 > 4 Booleans and Conditionals
 > 5 Loops and Dataflow Analysis
