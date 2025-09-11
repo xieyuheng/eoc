@@ -30,16 +30,11 @@
 ;; need deep walk
 
 (define runtime-file
-  (path-join
-   [(current-module-directory)
-    "../runtime/runtime.o"]))
+  (path-join [(current-module-directory) "../runtime/runtime.o"]))
 
 (define (generate-exe x86-program output-file)
   (= asm-file (string-append output-file ".s"))
-  (= runtime-file
-     (path-join
-      [(current-module-directory)
-       "../runtime/runtime.o"]))
+  (= runtime-file (path-join [(current-module-directory) "../runtime/runtime.o"]))
   (file-set! asm-file (format-x86-program x86-program))
   (system-shell-run
    (string-append-many
