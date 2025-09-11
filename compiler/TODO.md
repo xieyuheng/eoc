@@ -1,6 +1,5 @@
 > 2 Integers and Variables
 
-rename scripts to `test-`
 rename trace-compile to compile-passes
 rename compile to compile-assembly
 
