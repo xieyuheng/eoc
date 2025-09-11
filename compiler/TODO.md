@@ -1,9 +1,5 @@
 > 2.11 Challenge: Partial Evaluator for LVar
 
-(compile-passes) take `optimization-level`
-
-eoc commands take `:compile-program`
-
 test script about `.O1.`
 
 ```

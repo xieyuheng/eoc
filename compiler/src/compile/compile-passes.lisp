@@ -1,24 +1,42 @@
 (import-all "deps.lisp")
+(import "compile-program.lisp" optimization-level?)
 
 (export compile-passes)
 
 (claim compile-passes
-  (-> program? void?))
+  (-> optimization-level? program?
+      void?))
 
-(define (compile-passes program)
-  (= program-0 (check-program program))
-  (= program-1 (check-program (uniquify program-0)))
-  (= program-2 (check-program (rco-program program-1)))
-  (= c-program-3 (check-c-program (explicate-control program-2)))
-  (= x86-program-4 (select-instructions c-program-3))
-  (= x86-program-5 (assign-homes x86-program-4))
-  (= x86-program-6 (patch-instructions x86-program-5))
-  (= x86-program-7 (prolog-and-epilog x86-program-6))
-  (write "000 ") (writeln (format-sexp (form-program program-0)))
-  (write "010 ") (writeln (format-sexp (form-program program-1)))
-  (write "020 ") (writeln (format-sexp (form-program program-2)))
-  (write "030 ") (writeln (format-sexp (form-c-program c-program-3)))
-  (write "040 ") (writeln (format-sexp (form-x86-program x86-program-4)))
-  (write "050 ") (writeln (format-sexp (form-x86-program x86-program-5)))
-  (write "060 ") (writeln (format-sexp (form-x86-program x86-program-6)))
-  (write "070 ") (writeln (format-sexp (form-x86-program x86-program-7))))
+(define (constant x y) x)
+
+(define (identity x) x)
+
+(define (compile-passes optimization-level program)
+  (pipe program
+    check-program (log-program "000")
+    (if (equal? 1 optimization-level)
+      (compose (log-program "001") check-program partial-eval-program)
+      identity)
+    uniquify check-program (log-program "010")
+    rco-program check-program (log-program "020")
+    explicate-control check-c-program (log-c-program "030")
+    select-instructions (log-x86-program "040")
+    assign-homes (log-x86-program "050")
+    patch-instructions (log-x86-program "060")
+    prolog-and-epilog (log-x86-program "070")
+    (constant void)))
+
+(define (log-program tag program)
+  (write tag) (write " ")
+  (writeln (format-sexp (form-program program)))
+  program)
+
+(define (log-c-program tag c-program)
+  (write tag) (write " ")
+  (writeln (format-sexp (form-c-program c-program)))
+  c-program)
+
+(define (log-x86-program tag x86-program)
+  (write tag) (write " ")
+  (writeln (format-sexp (form-x86-program x86-program)))
+  x86-program)

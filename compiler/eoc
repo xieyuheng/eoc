@@ -6,7 +6,7 @@
   (['compile input :output output :optimization-level optimization-level]
    (= input-file (symbol-to-string input))
    (= program (load-program input-file))
-   (= x86-program (compile-program program optimization-level))
+   (= x86-program (compile-program optimization-level program))
    (= output-file (if (null? output)
                     (string-append input-file ".exe")
                     (symbol-to-string output)))
@@ -15,12 +15,13 @@
   (['compile-assembly input :optimization-level optimization-level]
    (= input-file (symbol-to-string input))
    (= program (load-program input-file))
-   (= x86-program (compile-program program optimization-level))
+   (= x86-program (compile-program optimization-level program))
    (write (format-x86-program x86-program)))
 
-  (['compile-passes input]
+  (['compile-passes input :optimization-level optimization-level]
    (= input-file (symbol-to-string input))
-   (compile-passes (load-program input-file)))
+   (= program (load-program input-file))
+   (compile-passes optimization-level program))
 
   (['help]
    (print-help))
