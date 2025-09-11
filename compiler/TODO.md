@@ -5,7 +5,26 @@
 - add flag to compile about optimization -- to control optimization like `partial-eval-program`
 
 eoc commands take `:compile-program`
+
 test script about `.O1.`
+
+```
+00.lisp
+
+=>
+
+00.lisp.exe*
+00.lisp.exe.out
+00.lisp.passes
+00.lisp.s
+
+=> :optimization-level 1
+
+00.lisp.O1.exe*
+00.lisp.O1.exe.out
+00.lisp.O1.passes
+00.lisp.O1.s
+```
 
 `partial-eval` -- handle the following case:
 
