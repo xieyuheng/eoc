@@ -40,7 +40,7 @@
          (match instr
            ((callq target arity)
             (string-append-many
-             ["callq " (format-sexp target) ", " (format-sexp arity)]))
+             ["callq " (format-sexp target)]))
            (retq
             (string-append-many
              ["retq"]))

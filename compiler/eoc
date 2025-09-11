@@ -38,8 +38,15 @@
   (= asm-file (path-join [tmp-directory asm-id]))
   (directory-create-recursively (file-directory asm-file))
   (file-save asm-file (format-x86-program x86-program))
-  (system-shell-run "cc" [asm-file runtime-file "-o" output-file])
-  (file-remove asm-file))
+  (= [:exit-code exit-code :stdout stdout :stderr stderr]
+     (system-shell-run "cc" [asm-file runtime-file "-o" output-file]))
+  (if (equal? exit-code 0)
+    (file-remove asm-file)
+    (begin
+      (write stderr)
+      (exit [:who 'generate-exe
+                  :message "c compiler fail"
+                  :output-file output-file]))))
 
 (define (load-program file)
   (parse-program

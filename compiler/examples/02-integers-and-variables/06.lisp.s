@@ -1,6 +1,6 @@
         .global begin
 start:
-        callq random_dice, 0
+        callq random_dice
         movq %rax, -8(%rbp)
         movq -8(%rbp), %rax
         negq %rax
