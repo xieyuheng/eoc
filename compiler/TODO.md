@@ -1,10 +1,6 @@
 > 2 Integers and Variables
 
-add scripts to snapshot compiled program output
-
 [passes] 040-select-instructions -- support `isub`
-
-> 2.11 Challenge: Partial Evaluator for LVar
 
 > 3 Register Allocation
 > 4 Booleans and Conditionals
@@ -22,3 +18,7 @@ add scripts to snapshot compiled program output
 
 [builtin] improve `check-op`
 [c] & [x86] improve `form-info`
+
+# later
+
+> 2.11 Challenge: Partial Evaluator for LVar
