@@ -1,7 +1,3 @@
-> 2 Integers and Variables
-
-[passes] 040-select-instructions -- support `isub`
-
 > 3 Register Allocation
 > 4 Booleans and Conditionals
 > 5 Loops and Dataflow Analysis

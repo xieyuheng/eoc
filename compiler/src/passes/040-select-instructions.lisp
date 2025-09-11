@@ -55,7 +55,10 @@
       ['negq [arg]]])
     ((prim-c-exp 'iadd [arg1 arg2])
      [['movq [(select-instr-atom arg1) arg]]
-      ['addq [(select-instr-atom arg2) arg]]])))
+      ['addq [(select-instr-atom arg2) arg]]])
+    ((prim-c-exp 'isub [arg1 arg2])
+     [['movq [(select-instr-atom arg1) arg]]
+      ['subq [(select-instr-atom arg2) arg]]])))
 
 (claim select-instr-atom (-> c-exp-atom? arg?))
 
