@@ -1,6 +1,7 @@
         .global begin
 start:
-        movq $42, %rax
+        movq $20, %rax
+        addq $22, %rax
         jmp epilog
 begin:
         pushq %rbp

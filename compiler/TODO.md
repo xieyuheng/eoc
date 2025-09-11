@@ -1,5 +1,3 @@
-skip `partial-eval-program` from frontend
-
 add flag to compile about optimization -- to control optimization like `partial-eval-program`
 
 > 3 Register Allocation
