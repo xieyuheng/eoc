@@ -1,6 +1,13 @@
 > 2.11 Challenge: Partial Evaluator for LVar
 
-add flag to compile about optimization -- to control optimization like `partial-eval-program`
+(compile-passes) & (compile-program) take `:optimization-level`
+
+- add flag to compile about optimization -- to control optimization like `partial-eval-program`
+
+eoc commands take `:compile-program`
+test script about `.O1.`
+
+`partial-eval` -- handle the following case:
 
 ```
 (+ 1 (+ (random-dice) 1))
