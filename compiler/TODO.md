@@ -1,7 +1,8 @@
 > 2 Integers and Variables
 
-new compile command to compile to exe -- with `:output` option
-[compile] `compile-exe` -- call gcc from x-lisp -- need more builtin about exec
+update x-lisp.js for `system-shell-run` to take command and args
+
+[eoc] `generate-exe` use tmp file
 
 add scripts to snapshot compiled program output
 

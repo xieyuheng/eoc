@@ -3,17 +3,47 @@
 (import-all "src/index.lisp")
 
 (match (current-command-line-args)
+  (['compile input :output output]
+   (= input-file (symbol-to-string input))
+   (= x86-program (compile-program (load-program input-file)))
+   (= output-file (if (null? output)
+                    (string-append input-file ".exe")
+                    (symbol-to-string output)))
+   (generate-exe x86-program output-file))
+
   (['compile-assembly input]
-   (= file (symbol-to-string input))
-   (= x86-program (compile-program (load-program file)))
+   (= input-file (symbol-to-string input))
+   (= x86-program (compile-program (load-program input-file)))
    (write (format-x86-program x86-program)))
+
   (['compile-passes input]
-   (= file (symbol-to-string input))
-   (compile-passes (load-program file)))
+   (= input-file (symbol-to-string input))
+   (compile-passes (load-program input-file)))
+
   (['help]
    (print-help))
+
   (_
    (print-help)))
+
+;; TODO lazy value can not be passed to array
+;; need deep walk
+
+(define runtime-file
+  (path-join
+   [(current-module-directory)
+    "../runtime/runtime.o"]))
+
+(define (generate-exe x86-program output-file)
+  (= asm-file (string-append output-file ".s"))
+  (= runtime-file
+     (path-join
+      [(current-module-directory)
+       "../runtime/runtime.o"]))
+  (file-set! asm-file (format-x86-program x86-program))
+  (system-shell-run
+   (string-append-many
+    ["cc " asm-file " " runtime-file " -o " output-file])))
 
 (define (load-program file)
   (parse-program
