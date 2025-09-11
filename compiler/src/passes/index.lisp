@@ -48,7 +48,3 @@
   ;; places the program instructions inside a `begin` function
   ;; with instructions for the prolog and epilog.
   prolog-and-epilog)
-
-(include "trace-compile.lisp"
-  ;; trace all the passes for snapshot testing.
-  trace-compile)

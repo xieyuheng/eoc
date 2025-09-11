@@ -1,6 +1,5 @@
 > 2 Integers and Variables
 
-rename trace-compile to compile-passes
 rename compile to compile-assembly
 
 new compile command to compile to exe -- with `:output` option

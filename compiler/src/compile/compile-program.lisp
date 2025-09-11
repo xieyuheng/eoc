@@ -1,7 +1,6 @@
 (import-all "deps.lisp")
 
-(export
-  compile-program)
+(export compile-program)
 
 (claim compile-program
   (-> program? x86-program?))

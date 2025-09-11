@@ -1,12 +1,11 @@
 (import-all "deps.lisp")
-(import-all "index.lisp")
 
-(export trace-compile)
+(export compile-passes)
 
-(claim trace-compile
+(claim compile-passes
   (-> program? void?))
 
-(define (trace-compile program)
+(define (compile-passes program)
   (= program-0 (check-program program))
   (= program-1 (check-program (uniquify program-0)))
   (= program-2 (check-program (rco-program program-1)))

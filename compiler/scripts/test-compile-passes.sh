@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-bin="./eoc trace-compile"
+bin="./eoc compile-passes"
 
 find examples -name "*.lisp" | parallel -v ${bin} {} ">" {}.passes
