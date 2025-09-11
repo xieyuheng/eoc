@@ -1,4 +1,12 @@
+> 2.11 Challenge: Partial Evaluator for LVar
+
 add flag to compile about optimization -- to control optimization like `partial-eval-program`
+
+```
+(+ 1 (+ (random-dice) 1))
+=>
+(+ 2 (random-dice))
+```
 
 > 3 Register Allocation
 > 4 Booleans and Conditionals
@@ -16,7 +24,3 @@ add flag to compile about optimization -- to control optimization like `partial-
 
 [builtin] improve `check-op`
 [c] & [x86] improve `form-info`
-
-# later
-
-> 2.11 Challenge: Partial Evaluator for LVar
