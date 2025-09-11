@@ -29,10 +29,17 @@
 (define runtime-file
   (path-join [(current-module-directory) "../runtime/runtime.o"]))
 
+(define tmp-directory "/tmp/eoc")
+
 (define (generate-exe x86-program output-file)
-  (= asm-file (string-append output-file ".s"))
+  (= output-id (string-replace "/" "-" output-file))
+  (= asm-id (string-append-many
+             [output-id "." (format-sexp (random-int 0 10000)) ".s"]))
+  (= asm-file (path-join [tmp-directory asm-id]))
+  (directory-create-recursively (file-directory asm-file))
   (file-save asm-file (format-x86-program x86-program))
-  (system-shell-run "cc" [asm-file runtime-file "-o" output-file]))
+  (system-shell-run "cc" [asm-file runtime-file "-o" output-file])
+  (file-remove asm-file))
 
 (define (load-program file)
   (parse-program

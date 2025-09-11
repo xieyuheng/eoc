@@ -2,6 +2,8 @@
 
 [eoc] `generate-exe` use tmp file
 
+- update x-lisp.js for `string-replace` & `file-directory`
+
 add scripts to snapshot compiled program output
 
 [passes] 040-select-instructions -- support `isub`
