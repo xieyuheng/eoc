@@ -10,8 +10,10 @@
   (['trace-compile input]
    (= file (symbol-to-string input))
    (trace-compile (load-program file)))
-  (['help] (print-help))
-  (_ (print-help)))
+  (['help]
+   (print-help))
+  (_
+   (print-help)))
 
 (define (load-program file)
   (parse-program

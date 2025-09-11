@@ -1,8 +1,13 @@
 > 2 Integers and Variables
 
-[compiler] call gcc from x-lisp -- need more builtin about exec
+rename scripts to `test-`
+rename trace-compile to compile-passes
+rename compile to compile-assembly
 
-add scripts to test compiled assembler programs
+new compile command to compile to exe -- with `:output` option
+[compile] `compile-exe` -- call gcc from x-lisp -- need more builtin about exec
+
+add scripts to snapshot compiled program output
 
 [passes] 040-select-instructions -- support `isub`
 
