@@ -1,8 +1,6 @@
 > 2.11 Challenge: Partial Evaluator for LVar
 
-(compile-passes) & (compile-program) take `:optimization-level`
-
-- add flag to compile about optimization -- to control optimization like `partial-eval-program`
+(compile-passes) take `optimization-level`
 
 eoc commands take `:compile-program`
 

@@ -2,13 +2,20 @@
 
 (export compile-program)
 
-(claim compile-program
-  (-> program? x86-program?))
+(define (optimization-level? x)
+  (list-member? x [null 1]))
 
-(define (compile-program program)
+(claim compile-program
+  (-> program? optimization-level? x86-program?))
+
+(define (identity x) x)
+
+(define (compile-program program optimization-level)
   (pipe program
     check-program
-    ;; partial-eval-program check-program
+    (if (equal? 1 optimization-level)
+      (compose check-program partial-eval-program)
+      identity)
     uniquify check-program
     rco-program check-program
     explicate-control check-c-program
