@@ -6,6 +6,6 @@
     "test": "npm run test:lisp && npm run test:eoc"
   },
   "dependencies": {
-    "@xieyuheng/x-lisp.js": "^0.1.56"
+    "@xieyuheng/x-lisp.js": "^0.1.57"
   }
 }
