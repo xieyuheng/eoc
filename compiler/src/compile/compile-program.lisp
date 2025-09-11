@@ -9,8 +9,6 @@
   (-> optimization-level? program?
       x86-program?))
 
-(define (identity x) x)
-
 (define (compile-program optimization-level program)
   (pipe program
     check-program

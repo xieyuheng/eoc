@@ -7,10 +7,6 @@
   (-> optimization-level? program?
       void?))
 
-(define (constant x y) x)
-
-(define (identity x) x)
-
 (define (compile-passes optimization-level program)
   (pipe program
     (compose (log-program "000") check-program)
