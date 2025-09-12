@@ -1,6 +1,6 @@
 > 2.11 Challenge: Partial Evaluator for LVar
 
-`partial-eval` -- handle the following case:
+[pass] `partial-eval` -- handle the following case:
 
 ```
 (+ 1 (+ (random-dice) 1))

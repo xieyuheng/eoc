@@ -6,6 +6,9 @@
 ;; which deal with these differences one at a time.
 ;; Each of these steps is called a pass of the compiler.
 
+(include "001-partial-eval.lisp"
+  partial-eval-program)
+
 (include "010-uniquify.lisp"
   ;; deals with the shadowing of variables
   ;; by renaming every variable to a unique name.

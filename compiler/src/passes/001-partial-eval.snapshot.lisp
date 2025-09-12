@@ -1,6 +1,5 @@
 (import-all "deps.lisp")
 (import-all "index.lisp")
-(import-all "partial-eval.lisp")
 
 (define (test-program sexp)
   (= program (parse-program sexp))
