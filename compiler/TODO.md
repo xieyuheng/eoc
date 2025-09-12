@@ -1,13 +1,3 @@
-> 2.11 Challenge: Partial Evaluator for LVar
-
-[pass] `partial-eval` -- handle the following case:
-
-```
-(+ 1 (+ (random-dice) 1))
-=>
-(+ 2 (random-dice))
-```
-
 > 3 Register Allocation
 > 4 Booleans and Conditionals
 > 5 Loops and Dataflow Analysis

@@ -47,8 +47,13 @@
 
 (define (partial-eval-iadd r1 r2)
   (match [r1 r2]
+    ([(int-exp n1) (prim-exp 'iadd [(int-exp n2) e])]
+     (prim-exp 'iadd [(int-exp (iadd n1 n2)) e]))
     ([(int-exp n1) (int-exp n2)]
      (int-exp (iadd n1 n2)))
+    ;; keep int on the left of iadd.
+    ([r1 (int-exp n2)]
+     (partial-eval-iadd r2 r1))
     (_
      (prim-exp 'iadd [r1 r2]))))
 
