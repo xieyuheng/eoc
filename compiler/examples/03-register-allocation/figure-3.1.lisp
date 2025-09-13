@@ -1,5 +1,3 @@
-;; A running example for register allocation.
-
 (let ((v 1))
   (let ((w 42))
     (let ((x (iadd v 7)))
