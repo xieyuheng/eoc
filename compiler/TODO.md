@@ -3,7 +3,7 @@
 [maybe]  extract `location?` from `arg?`
 
 > We refer to variables, stack locations, and registers collectively
-> as _locations_. 
+> as _locations_.
 
 > 3.2 Liveness Analysis
 > 3.3 Build the Interference Graph
