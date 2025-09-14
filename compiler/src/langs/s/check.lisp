@@ -39,6 +39,6 @@
       return-type])
     ((let-exp name rhs body)
      (= [rhs^ rhs-type] (check-exp rhs ctx))
-     (= [body^ body-type] (check-exp body (record-set name rhs-type ctx)))
+     (= [body^ body-type] (check-exp body (record-put name rhs-type ctx)))
      [(let-exp name rhs^ body^)
       body-type])))

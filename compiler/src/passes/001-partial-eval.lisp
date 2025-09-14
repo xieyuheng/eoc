@@ -35,7 +35,7 @@
       (partial-eval-exp e1 env)
       (partial-eval-exp e2 env)))
     ((let-exp name rhs body)
-     (= new-env (record-set name (partial-eval-exp rhs env) env))
+     (= new-env (record-put name (partial-eval-exp rhs env) env))
      (partial-eval-exp body new-env))))
 
 (define (partial-eval-ineg r)

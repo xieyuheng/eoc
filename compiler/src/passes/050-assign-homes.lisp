@@ -12,7 +12,7 @@
      (= ctx (record-get 'ctx info))
      (= stack-space (calc-stack-space ctx))
      (cons-x86-program
-      (record-set 'stack-space stack-space info)
+      (record-put 'stack-space stack-space info)
       (record-map (assign-homes-block ctx) blocks)))))
 
 (claim calc-stack-space (-> (record? type?) int?))

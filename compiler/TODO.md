@@ -6,6 +6,9 @@
 > as _locations_.
 
 > 3.2 Liveness Analysis
+
+[pass] `uncover-live` -- we need design set API in x-lisp before writing this pass
+
 > 3.3 Build the Interference Graph
 > 3.4 Graph Coloring via Sudoku
 > 3.5 Patch Instructions

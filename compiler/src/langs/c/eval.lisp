@@ -26,7 +26,7 @@
 (define (eval-stmt stmt env)
   (match stmt
     ((assign-stmt (var-c-exp name) rhs)
-     (record-set name (eval-c-exp rhs env) env))))
+     (record-put name (eval-c-exp rhs env) env))))
 
 (claim eval-c-exp
   (-> c-exp? (record? value?) value?))

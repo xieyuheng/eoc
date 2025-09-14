@@ -32,8 +32,8 @@
 (define (name-count-once name name-counts)
   (= count (record-get name name-counts))
   (if (null? count)
-    (record-set name 1 name-counts)
-    (record-set name (iadd 1 count) name-counts)))
+    (record-put name 1 name-counts)
+    (record-put name (iadd 1 count) name-counts)))
 
 (define (format-name-in-counts name name-counts)
   (= count (record-get name name-counts))

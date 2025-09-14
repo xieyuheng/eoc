@@ -14,7 +14,7 @@
   (= record [])
   (= ctx (record-get 'ctx info))
   (unless (null? ctx)
-    (record-set! 'ctx (record-map form-type ctx) record))
+    (record-put! 'ctx (record-map form-type ctx) record))
   record)
 
 (claim form-block (-> block? sexp?))

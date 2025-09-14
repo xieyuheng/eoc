@@ -13,7 +13,7 @@
 
 (define (freshen state name)
   (= count (record-get 'count state))
-  (record-set! 'count (iadd 1 count) state)
+  (record-put! 'count (iadd 1 count) state)
   (symbol-append name (string-to-symbol (format-subscript (iadd 1 count)))))
 
 (claim atom-operand-exp? (-> exp? bool?))

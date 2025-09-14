@@ -17,7 +17,7 @@
               :message "expected result-type to be int-t"
               :seq seq
               :result-type result-type]))
-     (cons-c-program (record-set 'ctx ctx info) [:start seq]))))
+     (cons-c-program (record-put 'ctx ctx info) [:start seq]))))
 
 (claim check-seq
   (-> seq? (record? type?)
@@ -43,7 +43,7 @@
      (= found-type (record-get name ctx))
      (if (null? found-type)
        (begin
-         (record-set! name rhs-type ctx)
+         (record-put! name rhs-type ctx)
          void)
        (unless (type-equal? rhs-type found-type)
          (exit [:who 'check-stmt

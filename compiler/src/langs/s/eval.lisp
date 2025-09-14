@@ -26,7 +26,7 @@
     ((prim-exp op args)
      (eval-prim op args env))
     ((let-exp name rhs body)
-     (= new-env (record-set name (eval-exp rhs env) env))
+     (= new-env (record-put name (eval-exp rhs env) env))
      (eval-exp body new-env))))
 
 (claim eval-prim
