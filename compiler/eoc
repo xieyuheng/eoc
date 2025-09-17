@@ -48,8 +48,8 @@
     (begin
       (write stderr)
       (exit [:who 'generate-exe
-                  :message "c compiler fail"
-                  :output-file output-file]))))
+             :message "c compiler fail"
+             :output-file output-file]))))
 
 (define (load-program file)
   (parse-program
