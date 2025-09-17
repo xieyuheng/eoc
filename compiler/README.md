@@ -6,7 +6,7 @@ The code is written in
 Install it by:
 
 ```sh
-npm install -g @xieyuheng/x-lisp.js
+npm install @xieyuheng/x-lisp.js
 ```
 
 ## Development
