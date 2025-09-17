@@ -1,4 +1,4 @@
-name: Node.js CI
+name: test
 
 on:
   push:
@@ -11,11 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: compiler
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: latest
-      - run: npm ci
-      - run: sh scripts/test-all.sh
+      - working-directory: runtime
+        run: make
+      - working-directory: compiler
+        run: npm ci && sh scripts/test-all.sh
