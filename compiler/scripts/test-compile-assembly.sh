@@ -1,9 +1,12 @@
 #!/usr/bin/env sh
 
+set -e
+
+parallel="parallel -v --halt now,fail=1"
 bin="./eoc compile-assembly"
 
-find examples -name "*.lisp" | parallel -v ${bin} {} ">" {}.s
+find examples -name "*.lisp" | $parallel $bin {} ">" {}.s
 
 bin="./eoc compile-assembly :optimization-level 1"
 
-find examples -name "*.lisp" | parallel -v ${bin} {} ">" {}.O1.s
+find examples -name "*.lisp" | $parallel $bin {} ">" {}.O1.s
