@@ -1,5 +1,3 @@
-update x-lisp for `pretty-print` -- use `pretty-print` in `log-x86-program`
-
 > 03 Register Allocation
 
 > 3.3 Build the Interference Graph
@@ -24,3 +22,7 @@ update x-lisp for `pretty-print` -- use `pretty-print` in `log-x86-program`
 
 [builtin] improve `check-op`
 [c] & [x86] improve `form-info`
+
+# later
+
+update x-lisp for `pretty-print` -- use `pretty-print` in `log-x86-program`
