@@ -2,7 +2,7 @@
 
 > 3.2 Liveness Analysis
 
-[x86] `block-with-info?` and `live-info?`
+[pass] `live-info?`
 [pass] `uncover-live` -- fix schema
 [pass] `uncover-live`
 

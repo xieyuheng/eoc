@@ -3,6 +3,7 @@
   x86-program-with-info?
   x86-program-with-block?
   block? cons-block
+  block-with-info?
   instr? general-instr? special-instr?
   callq retq jmp
   operand? var-rand imm-rand reg-rand deref-rand
@@ -33,6 +34,13 @@
   (cons-block
    (info anything?)
    (instrs (list? instr?))))
+
+(claim block-with-info?
+  (-> (-> anything? bool?) block?
+      bool?))
+
+(define (block-with-info? info-p block)
+  (info-p (cons-block-info block)))
 
 (define instr?
   (union general-instr?
