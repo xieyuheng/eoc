@@ -32,10 +32,10 @@
 
 (define (format-instr instr)
   (cond ((general-instr? instr)
-         (= [op args] instr)
+         (= [op rands] instr)
          (string-append-many
           [(format-sexp op) " "
-           (string-join ", " (list-map format-rand args))]))
+           (string-join ", " (list-map format-rand rands))]))
         ((special-instr? instr)
          (match instr
            ((callq target arity)

@@ -51,8 +51,65 @@
     (swap set-difference (uncover-live-instr-write instr))
     (set-union (uncover-live-instr-read instr))))
 
+(define caller-saved-registers
+  '(rax rcx rdx rsi rdi r8 r9 r10 r11))
+
+(define callee-saved-registers
+  '(rsp rbp rbx r12 r13 r14 r15))
+
+(define argument-registers
+  '(rdi rsi rdx rcx r8 r9))
+
 (define (uncover-live-instr-read instr)
-  {})
+  (match instr
+    ((callq label arity)
+     (pipe argument-registers
+       (list-map reg-rand)
+       (list-take arity)
+       list-to-set))
+    (retq
+     {(reg-rand 'rsp) (reg-rand 'rax)})
+    ((jmp 'epilog)
+     {(reg-rand 'rsp) (reg-rand 'rax)})
+    (['addq [src dest]]
+     (set-union
+      (uncover-live-operand src)
+      (uncover-live-operand dest)))
+    (['subq [src dest]]
+     (set-union
+      (uncover-live-operand src)
+      (uncover-live-operand dest)))
+    (['movq [src dest]]
+     (uncover-live-operand src))
+    (['negq [dest]]
+     (uncover-live-operand dest))
+    ([op rands]
+     (exit [:who 'uncover-live-instr-read
+            :message "unknown op"
+            :op op :rands rands]))))
 
 (define (uncover-live-instr-write instr)
-  {})
+  (match instr
+    ((callq label arity)
+     (pipe caller-saved-registers
+       (list-map reg-rand)
+       list-to-set))
+    (retq
+     {(reg-rand 'rsp)})
+    ((jmp 'epilog)
+     {(reg-rand 'rsp) (reg-rand 'rax)})
+    (['addq [src dest]]
+     (uncover-live-operand dest))
+    (['subq [src dest]]
+     (uncover-live-operand dest))
+    (['movq [src dest]]
+     (uncover-live-operand src))
+    (['negq [dest]]
+     (uncover-live-operand dest))
+    ([op rands]
+     (exit [:who 'uncover-live-instr-write
+            :message "unknown op"
+            :op op :rands rands]))))
+
+(define (uncover-live-operand operand)
+  (if (location-operand? operand) {operand} {}))
