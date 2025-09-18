@@ -25,31 +25,34 @@
 (define (uncover-live-block block)
   (match block
     ((cons-block info instrs)
+     (= live-before-sets (uncover-live-before* instrs {}))
      (cons-block
-      [:live-after-instrs (uncover-live-after instrs {})
-       :live-before-block {}]
+      ;; [:live-after-instrs (list-push live-before-sets {})
+      ;;  :live-before-block (list-head live-before-sets)]
+      [:live-after-instrs (list-append live-before-sets [{}])
+       :live-before-block (list-head live-before-sets)]
       instrs))))
 
-(claim uncover-live-after
+(claim uncover-live-before*
   (-> (list? instr?) (set? location-operand?)
       (list? (set? location-operand?))))
 
-(define (uncover-live-after instrs last-live-set)
+(define (uncover-live-before* instrs last-live-set)
   (list-fold-right
    (lambda (instr live-sets)
-     (cons (uncover-live-instr instr (list-first live-sets))
+     (cons (uncover-live-before instr (list-first live-sets))
            live-sets))
    [last-live-set]
    instrs))
 
-(claim uncover-live-instr
+(claim uncover-live-before
   (-> instr? (set? location-operand?)
       (set? location-operand?)))
 
-(define (uncover-live-instr instr next-live-set)
+(define (uncover-live-before instr next-live-set)
   (pipe next-live-set
-    (swap set-difference (uncover-live-instr-write instr))
-    (set-union (uncover-live-instr-read instr))))
+    (swap set-difference (uncover-live-write instr))
+    (set-union (uncover-live-read instr))))
 
 (define caller-saved-registers
   '(rax rcx rdx rsi rdi r8 r9 r10 r11))
@@ -60,7 +63,7 @@
 (define argument-registers
   '(rdi rsi rdx rcx r8 r9))
 
-(define (uncover-live-instr-read instr)
+(define (uncover-live-read instr)
   (match instr
     ((callq label arity)
      (pipe argument-registers
@@ -84,11 +87,11 @@
     (['negq [dest]]
      (uncover-live-operand dest))
     ([op rands]
-     (exit [:who 'uncover-live-instr-read
+     (exit [:who 'uncover-live-read
             :message "unknown op"
             :op op :rands rands]))))
 
-(define (uncover-live-instr-write instr)
+(define (uncover-live-write instr)
   (match instr
     ((callq label arity)
      (pipe caller-saved-registers
@@ -107,7 +110,7 @@
     (['negq [dest]]
      (uncover-live-operand dest))
     ([op rands]
-     (exit [:who 'uncover-live-instr-write
+     (exit [:who 'uncover-live-write
             :message "unknown op"
             :op op :rands rands]))))
 

@@ -2,7 +2,9 @@
 
 > 3.2 Liveness Analysis
 
-[pass] `uncover-live-block` -- compute `:live-before-block`
+update x-lisp for `list-push`
+check `uncover-live` result
+update x-lisp for `pretty-print`
 
 > 3.3 Build the Interference Graph
 > 3.4 Graph Coloring via Sudoku
