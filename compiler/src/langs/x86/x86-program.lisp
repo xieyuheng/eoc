@@ -43,6 +43,9 @@
   (reg-arg (name reg-name?))
   (deref-arg (name reg-name?) (offset int?)))
 
+(define location-arg?
+  (union var-arg? reg-arg? deref-arg?))
+
 (define reg-name-list
   (list-append '(rsp rbp rax  rbx  rcx  rdx  rsi  rdi)
                '(r8  r9  r10  r11  r12  r13  r14  r15)))
