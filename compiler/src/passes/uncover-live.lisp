@@ -5,8 +5,8 @@
 (claim live-info? (-> anything? bool?))
 
 (define live-info?
-  (tau :live-before (list? (set? location-operand?))
-       :live-after (list? (set? location-operand?))))
+  (tau :live-after-instrs (list? (set? location-operand?))
+       :live-before-block (set? location-operand?)))
 
 (claim uncover-live
   (-> x86-program?
@@ -25,5 +25,14 @@
 (define (uncover-live-block block)
   (match block
     ((cons-block info instrs)
-     (cons-block [:live-before [] :live-after []]
-                 instrs))))
+     (cons-block
+      [:live-after-instrs (uncover-live-after instrs {})
+       :live-before-block {}]
+      instrs))))
+
+(claim uncover-live-after
+  (-> (list? instr?) (set? location-operand?)
+      (list? (set? location-operand?))))
+
+(define (uncover-live-after instrs initial-set)
+  [initial-set])

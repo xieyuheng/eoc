@@ -22,7 +22,7 @@
 (define (form-block block)
   (match block
     ((cons-block info instrs)
-     `(,info ,(list-map form-instr instrs)))))
+     `(() ,(list-map form-instr instrs)))))
 
 (claim form-instr (-> instr? sexp?))
 
