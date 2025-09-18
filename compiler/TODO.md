@@ -2,6 +2,7 @@
 
 > 3.2 Liveness Analysis
 
+[pass] `uncover-live-instr-read|write`
 [pass] `uncover-live-block` -- compute `:live-before-block`
 
 > 3.3 Build the Interference Graph
