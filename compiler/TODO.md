@@ -2,9 +2,7 @@
 
 > 3.2 Liveness Analysis
 
-[pass] `live-info?`
-[pass] `uncover-live` -- fix schema
-[pass] `uncover-live`
+[pass] `uncover-live-block`
 
 > 3.3 Build the Interference Graph
 > 3.4 Graph Coloring via Sudoku

@@ -7,6 +7,7 @@
   instr? general-instr? special-instr?
   callq retq jmp
   operand? var-rand imm-rand reg-rand deref-rand
+  location-operand?
   reg-name?)
 
 (define-data x86-program?
