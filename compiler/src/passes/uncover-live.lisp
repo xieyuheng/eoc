@@ -27,9 +27,7 @@
     ((cons-block info instrs)
      (= live-before-sets (uncover-live-before* instrs {}))
      (cons-block
-      ;; [:live-after-instrs (list-push live-before-sets {})
-      ;;  :live-before-block (list-head live-before-sets)]
-      [:live-after-instrs (list-append live-before-sets [{}])
+      [:live-after-instrs (list-push {} live-before-sets)
        :live-before-block (list-head live-before-sets)]
       instrs))))
 

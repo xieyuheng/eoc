@@ -1,5 +1,4 @@
-update x-lisp for `list-push`
-update x-lisp for `pretty-print`
+update x-lisp for `pretty-print` -- use `pretty-print` in `log-x86-program`
 
 > 03 Register Allocation
 
