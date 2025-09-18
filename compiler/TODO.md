@@ -2,7 +2,11 @@
 
 > 3.2 Liveness Analysis
 
-[pass] `uncover-live` -- using set
+ambr program-with program-with-info
+`*program-with-info` should be `inter` with `*program?`
+`x86-program-with-block?`
+
+[pass] `uncover-live` -- use `block-with?` and `live-info?`
 
 > 3.3 Build the Interference Graph
 > 3.4 Graph Coloring via Sudoku

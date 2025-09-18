@@ -36,6 +36,15 @@
   ;; sequence of instructions that accomplishes the same task.
   select-instructions)
 
+(include "uncover-live.lisp"
+  ;; The `uncover-live` pass performs _liveness analysis_; that is, it
+  ;; discovers which variables are in use in different regions of a
+  ;; program. A variable or register is _live_ at a program point if its
+  ;; current value is used at some later point in the program.
+  ;; `uncover-live` stores the result as list of sets
+  ;; under :live-before and :live-after of block info.
+  uncover-live)
+
 (include "assign-homes.lisp"
   ;; replaces variables with registers or stack locations.
   assign-homes)
