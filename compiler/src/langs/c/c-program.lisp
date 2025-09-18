@@ -15,10 +15,8 @@
   (-> (-> anything? bool?) c-program?
       bool?))
 
-(define (c-program-with-info? info-p)
-  (lambda (c-program)
-    (and (c-program? c-program)
-         (info-p (cons-c-program-info c-program)))))
+(define (c-program-with-info? info-p c-program)
+  (info-p (cons-c-program-info c-program)))
 
 (define-data seq?
   (return-seq (result c-exp?))
