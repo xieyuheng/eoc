@@ -2,9 +2,9 @@
 
 > 3.2 Liveness Analysis
 
-`x86-program-with-block?`
-
-[pass] `uncover-live` -- use `block-with?` and `live-info?`
+[x86] `block-with?` and `live-info?`
+[pass] `uncover-live` -- fix schema
+[pass] `uncover-live`
 
 > 3.3 Build the Interference Graph
 > 3.4 Graph Coloring via Sudoku

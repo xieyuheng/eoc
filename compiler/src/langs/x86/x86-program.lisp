@@ -1,6 +1,7 @@
 (export
   x86-program? cons-x86-program
   x86-program-with-info?
+  x86-program-with-block?
   block? cons-block
   instr? general-instr? special-instr?
   callq retq jmp
@@ -20,6 +21,17 @@
   (lambda (x86-program)
     (and (x86-program? x86-program)
          (info-p (cons-x86-program-info x86-program)))))
+
+(claim x86-program-with-block?
+  (-> (-> block? bool?) x86-program?
+      bool?))
+
+(define (x86-program-with-block? block-p)
+  (lambda (x86-program)
+    (and (x86-program? x86-program)
+         (list-all?
+          block-p
+          (record-values (cons-x86-program-blocks x86-program))))))
 
 (define-data block?
   (cons-block
