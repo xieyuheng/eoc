@@ -1,6 +1,6 @@
 (import-all "deps.lisp")
 
-(export uncover-live)
+(export uncover-live uncover-live-before uncover-live-before*)
 
 (claim live-info? (-> anything? bool?))
 
@@ -106,7 +106,7 @@
     (['subq [src dest]]
      (uncover-live-operand dest))
     (['movq [src dest]]
-     (uncover-live-operand src))
+     (uncover-live-operand dest))
     (['negq [dest]]
      (uncover-live-operand dest))
     ([op rands]

@@ -1,10 +1,7 @@
-> 03 Register Allocation
-
-> 3.2 Liveness Analysis
-
 update x-lisp for `list-push`
-check `uncover-live` result
 update x-lisp for `pretty-print`
+
+> 03 Register Allocation
 
 > 3.3 Build the Interference Graph
 > 3.4 Graph Coloring via Sudoku
