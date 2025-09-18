@@ -2,7 +2,6 @@
 
 > 3.2 Liveness Analysis
 
-`*program-with-info` should be `inter` with `*program?`
 `x86-program-with-block?`
 
 [pass] `uncover-live` -- use `block-with?` and `live-info?`

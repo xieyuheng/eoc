@@ -17,7 +17,8 @@
 
 (define (c-program-with-info? info-p)
   (lambda (c-program)
-    (info-p (cons-c-program-info c-program))))
+    (and (c-program? c-program)
+         (info-p (cons-c-program-info c-program)))))
 
 (define-data seq?
   (return-seq (result c-exp?))

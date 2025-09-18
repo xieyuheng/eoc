@@ -18,7 +18,8 @@
 
 (define (x86-program-with-info? info-p)
   (lambda (x86-program)
-    (info-p (cons-x86-program-info x86-program))))
+    (and (x86-program? x86-program)
+         (info-p (cons-x86-program-info x86-program)))))
 
 (define-data block?
   (cons-block
