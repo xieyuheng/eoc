@@ -4,7 +4,7 @@
   block? cons-block
   instr? general-instr? special-instr?
   callq retq jmp
-  arg? var-arg imm-arg reg-arg deref-arg
+  operand? var-rand imm-rand reg-rand deref-rand
   reg-name?)
 
 (define-data x86-program?
@@ -30,21 +30,21 @@
          special-instr?))
 
 (define general-instr?
-  (tau symbol? (list? arg?)))
+  (tau symbol? (list? operand?)))
 
 (define-data special-instr?
   (callq (label symbol?) (arity int-non-negative?))
   retq
   (jmp (label symbol?)))
 
-(define-data arg?
-  (var-arg (name symbol?))
-  (imm-arg (value int?))
-  (reg-arg (name reg-name?))
-  (deref-arg (name reg-name?) (offset int?)))
+(define-data operand?
+  (var-rand (name symbol?))
+  (imm-rand (value int?))
+  (reg-rand (name reg-name?))
+  (deref-rand (name reg-name?) (offset int?)))
 
-(define location-arg?
-  (union var-arg? reg-arg? deref-arg?))
+(define location-operand?
+  (union var-rand? reg-rand? deref-rand?))
 
 (define reg-name-list
   (list-append '(rsp rbp rax  rbx  rcx  rdx  rsi  rdi)

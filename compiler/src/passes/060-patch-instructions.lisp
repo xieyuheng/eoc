@@ -23,8 +23,8 @@
 
 (define (patch-instr instr)
   (match instr
-    ([op [(deref-arg reg-name-1 offset-1)
-          (deref-arg reg-name-2 offset-2)]]
-     [['movq [(deref-arg reg-name-1 offset-1) (reg-arg 'rax)]]
-      [op [(reg-arg 'rax) (deref-arg reg-name-2 offset-2)]]])
+    ([op [(deref-rand reg-name-1 offset-1)
+          (deref-rand reg-name-2 offset-2)]]
+     [['movq [(deref-rand reg-name-1 offset-1) (reg-rand 'rax)]]
+      [op [(reg-rand 'rax) (deref-rand reg-name-2 offset-2)]]])
     (_ [instr])))

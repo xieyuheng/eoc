@@ -17,9 +17,9 @@
 (define prolog-block
   (cons-block
    []
-   [['pushq [(reg-arg 'rbp)]]
-    ['movq [(reg-arg 'rsp) (reg-arg 'rbp)]]
-    ['subq [(imm-arg 16) (reg-arg 'rsp)]]
+   [['pushq [(reg-rand 'rbp)]]
+    ['movq [(reg-rand 'rsp) (reg-rand 'rbp)]]
+    ['subq [(imm-rand 16) (reg-rand 'rsp)]]
     (jmp 'start)]))
 
 (claim epilog-block block?)
@@ -27,6 +27,6 @@
 (define epilog-block
   (cons-block
    []
-   [['addq [(imm-arg 16) (reg-arg 'rsp)]]
-    ['popq [(reg-arg 'rbp)]]
+   [['addq [(imm-rand 16) (reg-rand 'rsp)]]
+    ['popq [(reg-rand 'rbp)]]
     retq]))

@@ -40,13 +40,13 @@
     (_ instr)))
 
 (claim assign-homes-imm
-  (-> (record? type?) arg?
-      arg?))
+  (-> (record? type?) operand?
+      operand?))
 
 (define (assign-homes-imm ctx arg)
   (match arg
-    ((var-arg name)
+    ((var-rand name)
      (= index (list-find-index (equal? name) (record-keys ctx)))
      (= offset (imul -8 (iadd 1 index)))
-     (deref-arg 'rbp offset))
+     (deref-rand 'rbp offset))
     (_ arg)))

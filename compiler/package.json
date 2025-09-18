@@ -1,4 +1,8 @@
 {
+  "private": true,
+  "scripts": {
+    "test": "sh scripts/test-all.sh"
+  },
   "dependencies": {
     "@xieyuheng/x-lisp.js": "^0.2.0"
   }

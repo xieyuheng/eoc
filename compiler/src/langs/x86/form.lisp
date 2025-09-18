@@ -29,7 +29,7 @@
 (define (form-instr instr)
   (cond ((general-instr? instr)
          (= [op args] instr)
-         (cons op (list-map form-arg args)))
+         (cons op (list-map form-rand args)))
         ((special-instr? instr)
          (match instr
            ((callq target arity)
@@ -39,16 +39,16 @@
            ((jmp target)
             ['jmp target])))))
 
-(claim form-arg (-> arg? sexp?))
+(claim form-rand (-> operand? sexp?))
 
-(define (form-arg arg)
+(define (form-rand arg)
   (match arg
-    ((var-arg name)
+    ((var-rand name)
      name)
-    ((imm-arg value)
+    ((imm-rand value)
      (string-to-symbol (string-append "$" (format-sexp value))))
-    ((reg-arg name)
+    ((reg-rand name)
      (string-to-symbol (string-append "%" (format-sexp name))))
-    ((deref-arg name offset)
+    ((deref-rand name offset)
      (= reg-name (string-to-symbol (string-append "%" (format-sexp name))))
      ['deref reg-name offset])))

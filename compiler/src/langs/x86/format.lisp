@@ -35,7 +35,7 @@
          (= [op args] instr)
          (string-append-many
           [(format-sexp op) " "
-           (string-join ", " (list-map format-arg args))]))
+           (string-join ", " (list-map format-rand args))]))
         ((special-instr? instr)
          (match instr
            ((callq target arity)
@@ -48,17 +48,17 @@
             (string-append-many
              ["jmp " (format-sexp target)]))))))
 
-(claim format-arg (-> arg? string?))
+(claim format-rand (-> operand? string?))
 
-(define (format-arg arg)
+(define (format-rand arg)
   (match arg
-    ((var-arg name)
+    ((var-rand name)
      (format-sexp name))
-    ((imm-arg value)
+    ((imm-rand value)
      (string-append "$" (format-sexp value)))
-    ((reg-arg name)
+    ((reg-rand name)
      (string-append "%" (format-sexp name)))
-    ((deref-arg name offset)
+    ((deref-rand name offset)
      (string-append-many
       [(format-sexp offset)
        "(" "%" (format-sexp name) ")"]))))
