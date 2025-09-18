@@ -35,6 +35,5 @@
 
 (define (log-x86-program tag x86-program)
   (write tag) (write " ")
-  (writeln (format-sexp (form-x86-program x86-program)))
-  ;; (println x86-program)
+  (println x86-program)
   x86-program)

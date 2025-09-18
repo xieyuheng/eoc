@@ -2,7 +2,6 @@
 
 > 3.2 Liveness Analysis
 
-[x86] remove `form-x86-program`
 [pass] `uncover-live-block` -- compute `:live-before-block`
 
 > 3.3 Build the Interference Graph
