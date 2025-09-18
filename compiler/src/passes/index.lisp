@@ -6,15 +6,15 @@
 ;; which deal with these differences one at a time.
 ;; Each of these steps is called a pass of the compiler.
 
-(include "001-partial-eval.lisp"
+(include "partial-eval.lisp"
   partial-eval-program)
 
-(include "010-uniquify.lisp"
+(include "uniquify.lisp"
   ;; deals with the shadowing of variables
   ;; by renaming every variable to a unique name.
   uniquify)
 
-(include "020-remove-complex-operands.lisp"
+(include "remove-complex-operands.lisp"
   ;; ensures that each subexpression of a primitive operation
   ;; or function call is a variable or integer,
   ;; that is, an _atomic_ expression.
@@ -23,31 +23,31 @@
   ;; the results of complex subexpressions.
   rco-program atom-operand-exp?)
 
-(include "030-explicate-control.lisp"
+(include "explicate-control.lisp"
   ;; makes the execution order of the program explicit.
   ;; It converts the abstract syntax tree representation into a graph
   ;; in which each node is a labeled sequence of statements
   ;; and the edges are `goto` statements.
   explicate-control)
 
-(include "040-select-instructions.lisp"
+(include "select-instructions.lisp"
   ;; handles the difference between s operations and x86
   ;; instructions. This pass converts each LVar operation to a short
   ;; sequence of instructions that accomplishes the same task.
   select-instructions)
 
-(include "050-assign-homes.lisp"
+(include "assign-homes.lisp"
   ;; replaces variables with registers or stack locations.
   assign-homes)
 
-(include "060-patch-instructions.lisp"
+(include "patch-instructions.lisp"
   ;; uses a reserved register to fix invalid arguments problem.
   ;; recall that only one argument of an x86 instruction
   ;; may be a memory access, but assign-homes might be
   ;; forced to assign both arguments to memory locations.
   patch-instructions)
 
-(include "070-prolog-and-epilog.lisp"
+(include "prolog-and-epilog.lisp"
   ;; places the program instructions inside a `begin` function
   ;; with instructions for the prolog and epilog.
   prolog-and-epilog)
