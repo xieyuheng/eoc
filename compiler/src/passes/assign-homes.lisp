@@ -3,7 +3,7 @@
 (export assign-homes)
 
 (claim assign-homes
-  (-> (x86-program-with? (tau :ctx (record? type?)))
+  (-> (x86-program-with-info? (tau :ctx (record? type?)))
       x86-program?))
 
 (define (assign-homes x86-program)

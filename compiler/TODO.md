@@ -2,7 +2,6 @@
 
 > 3.2 Liveness Analysis
 
-ambr program-with program-with-info
 `*program-with-info` should be `inter` with `*program?`
 `x86-program-with-block?`
 

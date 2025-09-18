@@ -1,6 +1,6 @@
 (export
   x86-program? cons-x86-program
-  x86-program-with?
+  x86-program-with-info?
   block? cons-block
   instr? general-instr? special-instr?
   callq retq jmp
@@ -12,11 +12,11 @@
    (info anything?)
    (blocks (record? block?))))
 
-(claim x86-program-with?
+(claim x86-program-with-info?
   (-> (-> anything? bool?) x86-program?
       bool?))
 
-(define (x86-program-with? info-p)
+(define (x86-program-with-info? info-p)
   (lambda (x86-program)
     (info-p (cons-x86-program-info x86-program))))
 
