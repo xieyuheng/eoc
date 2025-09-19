@@ -1,3 +1,5 @@
+[c] improve `form-info` -- by `record-update`
+
 > 3.3 Build the Interference Graph
 > 3.4 Graph Coloring via Sudoku
 > 3.5 Patch Instructions
@@ -19,7 +21,6 @@
 > Change x-lisp to improve the following code.
 
 [builtin] improve `check-op`
-[c] & [x86] improve `form-info`
 
 # later
 

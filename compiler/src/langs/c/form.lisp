@@ -17,6 +17,11 @@
     (record-put! 'ctx (record-map form-type ctx) record))
   record)
 
+;; (define (form-info info)
+;;   (record-update
+;;    [:ctx (record-map form-type)]
+;;    info))
+
 (define (form-seq seq)
   (match seq
     ((return-seq result)
