@@ -1,5 +1,5 @@
 (export
-  c-program? cons-c-program
+  c-program? @c-program
   c-program-with-info?
   seq? return-seq cons-seq
   stmt? assign-stmt
@@ -7,7 +7,7 @@
   c-exp-atom?)
 
 (define-data c-program?
-  (cons-c-program
+  (@c-program
    (info anything?)
    (seqs (record? seq?))))
 
@@ -16,7 +16,7 @@
       bool?))
 
 (define (c-program-with-info? info-p c-program)
-  (info-p (cons-c-program-info c-program)))
+  (info-p (@c-program-info c-program)))
 
 (define-data seq?
   (return-seq (result c-exp?))

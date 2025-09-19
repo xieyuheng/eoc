@@ -10,9 +10,9 @@
 
 (define (select-instructions c-program)
   (match c-program
-    ((cons-c-program info [:start seq])
-     (= block (cons-block [] (select-instr-seq seq)))
-     (cons-x86-program info [:start block]))))
+    ((@c-program info [:start seq])
+     (= block (@block [] (select-instr-seq seq)))
+     (@x86-program info [:start block]))))
 
 (claim select-instr-seq (-> seq? (list? instr?)))
 

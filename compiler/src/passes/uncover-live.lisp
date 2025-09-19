@@ -15,8 +15,8 @@
 
 (define (uncover-live x86-program)
   (match x86-program
-    ((cons-x86-program info blocks)
-     (cons-x86-program info (record-map uncover-live-block blocks)))))
+    ((@x86-program info blocks)
+     (@x86-program info (record-map uncover-live-block blocks)))))
 
 (claim uncover-live-block
   (-> block?
@@ -24,9 +24,9 @@
 
 (define (uncover-live-block block)
   (match block
-    ((cons-block info instrs)
+    ((@block info instrs)
      (= live-before-sets (uncover-live-before* instrs {}))
-     (cons-block
+     (@block
       [:live-after-instrs (list-push {} live-before-sets)
        :live-before-block (list-head live-before-sets)]
       instrs))))

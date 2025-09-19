@@ -7,7 +7,7 @@
 
 (define (format-x86-program x86-program)
   (match x86-program
-    ((cons-x86-program info blocks)
+    ((@x86-program info blocks)
      (string-append-many
       (cons "        .global begin\n"
             (list-map format-block-entry
@@ -17,7 +17,7 @@
 
 (define (format-block-entry entry)
   (match entry
-    ([label (cons-block info instrs)]
+    ([label (@block info instrs)]
      (= label-string (string-append (symbol-to-string label) ":\n"))
      (string-append-many
       (cons label-string

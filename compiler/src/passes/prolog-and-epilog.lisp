@@ -7,15 +7,15 @@
 
 (define (prolog-and-epilog x86-program)
   (match x86-program
-    ((cons-x86-program info blocks)
+    ((@x86-program info blocks)
      (= blocks (record-put 'begin prolog-block blocks))
      (= blocks (record-put 'epilog epilog-block blocks))
-     (cons-x86-program info blocks))))
+     (@x86-program info blocks))))
 
 (claim prolog-block block?)
 
 (define prolog-block
-  (cons-block
+  (@block
    []
    [['pushq [(reg-rand 'rbp)]]
     ['movq [(reg-rand 'rsp) (reg-rand 'rbp)]]
@@ -25,7 +25,7 @@
 (claim epilog-block block?)
 
 (define epilog-block
-  (cons-block
+  (@block
    []
    [['addq [(imm-rand 16) (reg-rand 'rsp)]]
     ['popq [(reg-rand 'rbp)]]

@@ -7,16 +7,16 @@
 
 (define (patch-instructions x86-program)
   (match x86-program
-    ((cons-x86-program info blocks)
-     (cons-x86-program info (record-map patch-block blocks)))))
+    ((@x86-program info blocks)
+     (@x86-program info (record-map patch-block blocks)))))
 
 (claim patch-block
   (-> block? block?))
 
 (define (patch-block block)
   (match block
-    ((cons-block info instrs)
-     (cons-block info (list-append-map patch-instr instrs)))))
+    ((@block info instrs)
+     (@block info (list-append-map patch-instr instrs)))))
 
 (claim patch-instr
   (-> instr? (list? instr?)))

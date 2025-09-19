@@ -1,11 +1,11 @@
 (export
-  program? cons-program
+  program? @program
   exp? var-exp int-exp prim-exp let-exp
   var-exp? int-exp? prim-exp? let-exp?
   atom-exp?)
 
 (define-data program?
-  (cons-program
+  (@program
    (info anything?)
    (body exp?)))
 

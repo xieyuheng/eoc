@@ -1,5 +1,7 @@
 > 03 Register Allocation
 
+use match for single sum type
+
 > 3.3 Build the Interference Graph
 > 3.4 Graph Coloring via Sudoku
 > 3.5 Patch Instructions

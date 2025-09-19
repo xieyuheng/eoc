@@ -9,7 +9,7 @@
 
 (define (check-c-program c-program)
   (match c-program
-    ((cons-c-program info [:start seq])
+    ((@c-program info [:start seq])
      (= ctx [])
      (= result-type (check-seq seq ctx))
      (unless (type-equal? result-type int-t)
@@ -17,7 +17,7 @@
               :message "expected result-type to be int-t"
               :seq seq
               :result-type result-type]))
-     (cons-c-program (record-put 'ctx ctx info) [:start seq]))))
+     (@c-program (record-put 'ctx ctx info) [:start seq]))))
 
 (claim check-seq
   (-> seq? (record? type?)

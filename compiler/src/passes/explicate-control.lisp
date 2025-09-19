@@ -7,8 +7,8 @@
 
 (define (explicate-control program)
   (match program
-    ((cons-program info body)
-     (cons-c-program info [:start (explicate-seq body)]))))
+    ((@program info body)
+     (@c-program info [:start (explicate-seq body)]))))
 
 (claim explicate-seq (-> atom-operand-exp? seq?))
 
