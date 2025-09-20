@@ -39,7 +39,7 @@
 
 ;; `rco-exp` -- making the operand position of an exp atomic.
 
-;; the binding of the inner arg should be cons-ed at the out side.
+;; the bind of the inner arg should be cons-ed at the out side.
 ;; for example:
 ;;
 ;;     > (iadd (iadd 1 2) (iadd 3 (iadd 4 5)))
@@ -59,18 +59,20 @@
     ((let-exp name rhs body)
      (let-exp name (rco-exp state rhs) (rco-exp state body)))
     ((prim-exp op args)
-     (= [bindings new-args] (rco-atom-many state args))
-     (prepend-lets bindings (prim-exp op new-args)))))
+     (= [binds new-args] (rco-atom-many state args))
+     (prepend-lets binds (prim-exp op new-args)))))
+
+(define bind? (tau symbol? atom-operand-exp?))
 
 (claim prepend-lets
-  (-> (list? (tau symbol? exp?)) exp? exp?))
+  (-> (list? bind?) exp? exp?))
 
-(define (prepend-lets bindings exp)
-  (match bindings
+(define (prepend-lets binds exp)
+  (match binds
     ([]
      exp)
-    ((cons [name rhs] rest-bindings)
-     (let-exp name rhs (prepend-lets rest-bindings exp)))))
+    ((cons [name rhs] rest-binds)
+     (let-exp name rhs (prepend-lets rest-binds exp)))))
 
 ;; `rco-atom` -- making an exp atomic.
 
@@ -89,7 +91,7 @@
 
 (claim rco-atom
   (-> state? exp?
-      (tau (list? (tau symbol? atom-operand-exp?))
+      (tau (list? bind?)
            atom-operand-exp?)))
 
 (define (rco-atom state exp)
@@ -99,22 +101,22 @@
     ((int-exp n)
      [[] (int-exp n)])
     ((let-exp name rhs body)
-     (= [bindings new-body] (rco-atom state body))
+     (= [binds new-body] (rco-atom state body))
      ;; use `rco-exp` instead of `rco-atom` on `rhs`,
      ;; `rco-atom` should only be used on exp at the operand position.
-     [(cons [name (rco-exp state rhs)] bindings)
+     [(cons [name (rco-exp state rhs)] binds)
       new-body])
     ((prim-exp op args)
-     (= [bindings new-args] (rco-atom-many state args))
+     (= [binds new-args] (rco-atom-many state args))
      (= name (freshen state '_))
-     [(list-push [name (prim-exp op new-args)] bindings)
+     [(list-push [name (prim-exp op new-args)] binds)
       (var-exp name)])))
 
 (claim rco-atom-many
   (-> state? (list? exp?)
-      (tau (list? (tau symbol? atom-operand-exp?))
+      (tau (list? bind?)
            (list? atom-operand-exp?))))
 
 (define (rco-atom-many state exps)
-  (= [bindings-list new-exps] (list-unzip (list-map (rco-atom state) exps)))
-  [(list-append-many bindings-list) new-exps])
+  (= [binds-list new-exps] (list-unzip (list-map (rco-atom state) exps)))
+  [(list-append-many binds-list) new-exps])
