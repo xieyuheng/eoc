@@ -33,9 +33,9 @@
 (define (select-instr-stmt stmt)
   (match stmt
     ((assign-stmt (var-c-exp name) (prim-c-exp 'iadd [(var-c-exp name) arg2]))
-     [['addq [(select-instr-atom arg2) (var-rand name)]]])
+     [['addq [(select-operand arg2) (var-rand name)]]])
     ((assign-stmt (var-c-exp name) (prim-c-exp 'iadd [arg1 (var-c-exp name)]))
-     [['addq [(select-instr-atom arg1) (var-rand name)]]])
+     [['addq [(select-operand arg1) (var-rand name)]]])
     ((assign-stmt (var-c-exp name) rhs)
      (select-instr-assign (var-rand name) rhs))))
 
@@ -44,25 +44,25 @@
 (define (select-instr-assign arg rhs)
   (match rhs
     ((int-c-exp value)
-     [['movq [(select-instr-atom rhs) arg]]])
+     [['movq [(select-operand rhs) arg]]])
     ((var-c-exp name)
-     [['movq [(select-instr-atom rhs) arg]]])
+     [['movq [(select-operand rhs) arg]]])
     ((prim-c-exp 'random-dice [])
      [(callq 'random_dice 0)
       ['movq [(reg-rand 'rax) arg]]])
     ((prim-c-exp 'ineg [arg1])
-     [['movq [(select-instr-atom arg1) arg]]
+     [['movq [(select-operand arg1) arg]]
       ['negq [arg]]])
     ((prim-c-exp 'iadd [arg1 arg2])
-     [['movq [(select-instr-atom arg1) arg]]
-      ['addq [(select-instr-atom arg2) arg]]])
+     [['movq [(select-operand arg1) arg]]
+      ['addq [(select-operand arg2) arg]]])
     ((prim-c-exp 'isub [arg1 arg2])
-     [['movq [(select-instr-atom arg1) arg]]
-      ['subq [(select-instr-atom arg2) arg]]])))
+     [['movq [(select-operand arg1) arg]]
+      ['subq [(select-operand arg2) arg]]])))
 
-(claim select-instr-atom (-> atom-c-exp? operand?))
+(claim select-operand (-> atom-c-exp? operand?))
 
-(define (select-instr-atom atom)
+(define (select-operand atom)
   (match atom
     ((int-c-exp value) (imm-rand value))
     ((var-c-exp name) (var-rand name))))
