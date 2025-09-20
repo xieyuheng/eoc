@@ -44,7 +44,7 @@
     ((let-exp name rhs body)
      (let-exp name (rco-exp state rhs) (rco-exp state body)))
     ((prim-exp op args)
-     (= [new-args bindings] (rco-args state args))
+     (= [new-args bindings] (rco-operands state args))
      (prepend-lets bindings (prim-exp op new-args)))))
 
 (claim prepend-lets
@@ -67,40 +67,40 @@
 ;;            (iadd _₁ _₃))))
 
 
-;; TODO `rco-arg` and `rco-args` use writer monad,
+;; TODO `rco-operand` and `rco-operands` use writer monad,
 ;; we should make this explicit.
 
 ;; TODO we should also avoid side effect on state
 ;; by using state monad.
 
-(claim rco-args
+(claim rco-operands
   (-> state? (list? exp?)
       (tau (list? atom-operand-exp?)
            (list? (tau symbol? atom-operand-exp?)))))
 
-(define (rco-args state args)
-  (= [new-args bindings-list] (list-unzip (list-map (rco-arg state) args)))
+(define (rco-operands state args)
+  (= [new-args bindings-list] (list-unzip (list-map (rco-operand state) args)))
   [new-args (list-append-many bindings-list)])
 
-(claim rco-arg
+(claim rco-operand
   (-> state? exp?
       (tau atom-operand-exp?
            (list? (tau symbol? atom-operand-exp?)))))
 
-(define (rco-arg state arg)
+(define (rco-operand state arg)
   (match arg
     ((var-exp name)
      [(var-exp name) []])
     ((int-exp n)
      [(int-exp n) []])
     ((let-exp name rhs body)
-     (= [new-body bindings] (rco-arg state body))
-     ;; use `rco-exp` instead of `rco-arg` on `rhs`,
-     ;; `rco-arg` should only be used on exp at the arg position.
+     (= [new-body bindings] (rco-operand state body))
+     ;; use `rco-exp` instead of `rco-operand` on `rhs`,
+     ;; `rco-operand` should only be used on exp at the operand position.
      [new-body
       (cons [name (rco-exp state rhs)] bindings)])
     ((prim-exp op args)
-     (= [new-args bindings] (rco-args state args))
+     (= [new-args bindings] (rco-operands state args))
      (= name (freshen state '_))
      [(var-exp name)
       (list-push [name (prim-exp op new-args)] bindings)])))
