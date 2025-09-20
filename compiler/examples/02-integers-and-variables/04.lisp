@@ -1,4 +1,4 @@
-(let ((z (let ((y (let ((x 6))
+(let ((z (let ((y (let ((x (ineg 42)))
                     x)))
            y)))
-  z)
+  (ineg z))
