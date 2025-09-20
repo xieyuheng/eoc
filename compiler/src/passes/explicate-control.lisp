@@ -8,14 +8,18 @@
 (define (explicate-control program)
   (match program
     ((@program info body)
-     (@c-program info [:start (explicate-seq body)]))))
+     (@c-program info [:start (explicate-tail body)]))))
 
-(claim explicate-seq (-> atom-operand-exp? seq?))
+;; `explicate-tail` -- explicate an exp at tail position.
+;;   thus this structural recursion is directed
+;;   by the shape of input exp.
 
-(define (explicate-seq exp)
+(claim explicate-tail (-> atom-operand-exp? seq?))
+
+(define (explicate-tail exp)
   (match exp
     ((let-exp name rhs body)
-     (explicate-assign name rhs (explicate-seq body)))
+     (explicate-assign name rhs (explicate-tail body)))
     (_
      (return-seq (to-c-exp exp)))))
 
@@ -41,19 +45,21 @@
 (define (explicate-assign name rhs continuation)
   (match rhs
     ((let-exp rhs-name rhs-rhs rhs-body)
-     (explicate-assign
-      rhs-name rhs-rhs
-      (seq-append name (explicate-seq rhs-body) continuation)))
+     ;; `rhs-body` is not at tail position,
+     ;; but we temporarily view it as if it is at tail position,
+     ;; the result will be prepend to the real continuation.
+     (= continuation (prepend-assign name (explicate-tail rhs-body) continuation))
+     (explicate-assign rhs-name rhs-rhs continuation))
     (_
      (= stmt (assign-stmt (var-c-exp name) (to-c-exp rhs)))
      (cons-seq stmt continuation))))
 
-(claim seq-append (-> symbol? seq? seq? seq?))
+(claim prepend-assign (-> symbol? seq? seq? seq?))
 
-(define (seq-append top-result-name top-seq bottom-seq)
+(define (prepend-assign top-result-name top-seq bottom-seq)
   (match top-seq
     ((return-seq exp)
      (= stmt (assign-stmt (var-c-exp top-result-name) exp))
      (cons-seq stmt bottom-seq))
     ((cons-seq stmt top-next-seq)
-     (cons-seq stmt (seq-append top-result-name top-next-seq bottom-seq)))))
+     (cons-seq stmt (prepend-assign top-result-name top-next-seq bottom-seq)))))

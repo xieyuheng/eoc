@@ -20,8 +20,8 @@
   (symbol-append name (string-to-symbol (format-subscript (iadd 1 count)))))
 
 ;; `atom-operand-exp?` -- defines the grammer of the result exp of `rco-exp`.
-;;    this grammer will direct (by result type) the implementation
-;;    of structural recursive functions -- `rco-exp` and `rco-atom`.
+;;   this grammer will direct (by result type) the implementation
+;;   of structural recursive functions -- `rco-exp` and `rco-atom`.
 
 (claim atom-operand-exp? (-> exp? bool?))
 
