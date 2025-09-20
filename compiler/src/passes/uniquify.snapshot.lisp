@@ -2,10 +2,10 @@
 (import-all "index.lisp")
 
 (define (test-program sexp)
-  (= program (parse-program sexp))
-  (= program-1 (uniquify program))
-  (write "> ") (writeln (format-sexp (form-program program)))
-  (write "= ") (writeln (format-sexp (form-program program-1))))
+  (= program-0 (parse-program sexp))
+  (write "000 ") (writeln (format-sexp (form-program program-0)))
+  (= program-1 (uniquify program-0))
+  (write "010 ") (writeln (format-sexp (form-program program-1))))
 
 (test-program
  '(program

@@ -2,7 +2,7 @@
 001 (program () 42)
 010 (program () 42)
 020 (program () 42)
-030 (c-program (:ctx ()) (:start ((return 42))))
+030 (c-program () (:start ((return 42))))
 040 (@x86-program [:ctx []] [:start (@block [] [['movq [(imm-rand 42) (reg-rand 'rax)]] (jmp 'epilog)])])
 050 (@x86-program [:ctx []] [:start (@block [:live-after-instrs [{(reg-rand 'rsp)} {(reg-rand 'rsp) (reg-rand 'rax)} {} {}] :live-before-block {(reg-rand 'rsp)}] [['movq [(imm-rand 42) (reg-rand 'rax)]] (jmp 'epilog)])])
 060 (@x86-program [:ctx [] :stack-space 0] [:start (@block [:live-after-instrs [{(reg-rand 'rsp)} {(reg-rand 'rsp) (reg-rand 'rax)} {} {}] :live-before-block {(reg-rand 'rsp)}] [['movq [(imm-rand 42) (reg-rand 'rax)]] (jmp 'epilog)])])

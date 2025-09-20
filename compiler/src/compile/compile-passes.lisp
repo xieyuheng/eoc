@@ -9,13 +9,13 @@
 
 (define (compile-passes optimization-level program)
   (pipe program
-    (compose (log-program "000") check-program)
+    (compose check-program (log-program "000"))
     (if (equal? 1 optimization-level)
-      (compose (log-program "001") check-program partial-eval-program)
+      (compose check-program (log-program "001") partial-eval-program)
       identity)
-    (compose (log-program "010") check-program uniquify)
-    (compose (log-program "020") check-program rco-program)
-    (compose (log-c-program "030") check-c-program explicate-control)
+    (compose check-program (log-program "010") uniquify)
+    (compose check-program (log-program "020") rco-program)
+    (compose check-c-program (log-c-program "030") explicate-control)
     (compose (log-x86-program "040") select-instructions)
     (compose (log-x86-program "050") uncover-live)
     (compose (log-x86-program "060") assign-homes)

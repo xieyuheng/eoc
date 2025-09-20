@@ -1,7 +1,7 @@
 000 (program () (let ((a 42)) (let ((b a)) b)))
 010 (program () (let ((a₁ 42)) (let ((b₁ a₁)) b₁)))
 020 (program () (let ((a₁ 42)) (let ((b₁ a₁)) b₁)))
-030 (c-program (:ctx (:a₁ int-t :b₁ int-t)) (:start ((= a₁ 42) (= b₁ a₁) (return b₁))))
+030 (c-program () (:start ((= a₁ 42) (= b₁ a₁) (return b₁))))
 040 (@x86-program [:ctx [:a₁ int-t :b₁ int-t]] [:start (@block [] [['movq [(imm-rand 42) (var-rand 'a₁)]] ['movq [(var-rand 'a₁) (var-rand 'b₁)]] ['movq [(var-rand 'b₁) (reg-rand 'rax)]] (jmp 'epilog)])])
 050 (@x86-program [:ctx [:a₁ int-t :b₁ int-t]] [:start (@block [:live-after-instrs [{(reg-rand 'rsp)} {(var-rand 'a₁) (reg-rand 'rsp)} {(var-rand 'b₁) (reg-rand 'rsp)} {(reg-rand 'rsp) (reg-rand 'rax)} {} {}] :live-before-block {(reg-rand 'rsp)}] [['movq [(imm-rand 42) (var-rand 'a₁)]] ['movq [(var-rand 'a₁) (var-rand 'b₁)]] ['movq [(var-rand 'b₁) (reg-rand 'rax)]] (jmp 'epilog)])])
 060 (@x86-program [:ctx [:a₁ int-t :b₁ int-t] :stack-space 16] [:start (@block [:live-after-instrs [{(reg-rand 'rsp)} {(var-rand 'a₁) (reg-rand 'rsp)} {(var-rand 'b₁) (reg-rand 'rsp)} {(reg-rand 'rsp) (reg-rand 'rax)} {} {}] :live-before-block {(reg-rand 'rsp)}] [['movq [(imm-rand 42) (deref-rand 'rbp -8)]] ['movq [(deref-rand 'rbp -8) (deref-rand 'rbp -16)]] ['movq [(deref-rand 'rbp -16) (reg-rand 'rax)]] (jmp 'epilog)])])

@@ -4,7 +4,7 @@
 
 (claim check-op
   (-> symbol? (list? type?)
-      (optional? type?)))
+      (union type? null?)))
 
 (define (check-op op arg-types)
   (match (record-get op operator-types)

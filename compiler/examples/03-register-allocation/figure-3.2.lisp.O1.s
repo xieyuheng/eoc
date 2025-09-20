@@ -4,9 +4,9 @@ start:
         movq %rax, -8(%rbp)
         callq random_dice
         movq %rax, -16(%rbp)
-        movq -16(%rbp), %rax
-        movq %rax, -24(%rbp)
         movq -8(%rbp), %rax
+        movq %rax, -24(%rbp)
+        movq -16(%rbp), %rax
         addq %rax, -24(%rbp)
         movq $42, %rax
         addq -24(%rbp), %rax

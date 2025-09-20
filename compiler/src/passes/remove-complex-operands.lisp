@@ -2,10 +2,13 @@
 
 (export rco-program atom-operand-exp?)
 
+(claim rco-program (-> program? program?))
+
 (define (rco-program program)
   (match program
     ((@program info body)
-     (@program info (rco-exp [:count 0] body)))))
+     (= state [:count 0])
+     (@program info (rco-exp state body)))))
 
 (define state? (tau :count int-non-negative?))
 
@@ -42,17 +45,27 @@
      (let-exp name (rco-exp state rhs) (rco-exp state body)))
     ((prim-exp op args)
      (= [new-args bindings] (rco-args state args))
-     (make-lets bindings (prim-exp op new-args)))))
+     (prepend-lets bindings (prim-exp op new-args)))))
 
-;; we must use `(list? (tau symbol? exp?))` instead of `(record? exp?)`,
-;; because we need to control the order of entries.
+(claim prepend-lets
+  (-> (list? (tau symbol? exp?)) exp? exp?))
+
+(define (prepend-lets bindings exp)
+  (match bindings
+    ([]
+     exp)
+    ((cons [name rhs] rest-bindings)
+     (let-exp name rhs (prepend-lets rest-bindings exp)))))
+
 ;; the binding of the inner arg should be cons-ed at the out side.
 ;; for example:
-;; > (iadd (iadd 1 2) (iadd 3 (iadd 4 5)))
-;; = (let ((_₂ (iadd 4 5)))
-;;     (let ((_₃ (iadd 3 _₂)))
-;;       (let ((_₁ (iadd 1 2)))
-;;         (iadd _₁ _₃))))
+;;
+;;    > (iadd (iadd 1 2) (iadd 3 (iadd 4 5)))
+;;    = (let ((_₁ (iadd 1 2)))
+;;        (let ((_₂ (iadd 4 5)))
+;;          (let ((_₃ (iadd 3 _₂)))
+;;            (iadd _₁ _₃))))
+
 
 ;; TODO `rco-arg` and `rco-args` use writer monad,
 ;; we should make this explicit.
@@ -90,14 +103,4 @@
      (= [new-args bindings] (rco-args state args))
      (= name (freshen state '_))
      [(var-exp name)
-      (cons [name (prim-exp op new-args)] bindings)])))
-
-(claim make-lets
-  (-> (list? (tau symbol? exp?)) exp? exp?))
-
-(define (make-lets bindings base-exp)
-  (match bindings
-    ([]
-     base-exp)
-    ((cons [name exp] rest-bindings)
-     (make-lets rest-bindings (let-exp name exp base-exp)))))
+      (list-push [name (prim-exp op new-args)] bindings)])))
