@@ -33,6 +33,20 @@
     ((prim-exp op args)
      (list-all? atom-exp? args))))
 
+;; `rco-exp` -- making the operand position of an exp atomic.
+;; `atom-operand-exp?` -- defines the grammer of the result exp of `rco-exp`.
+;;    this grammer will direct the implementation
+;;    of structural recursive functions -- `rco-exp` and `rco-atom`.
+
+;; the binding of the inner arg should be cons-ed at the out side.
+;; for example:
+;;
+;;     > (iadd (iadd 1 2) (iadd 3 (iadd 4 5)))
+;;     = (let ((_₁ (iadd 1 2)))
+;;         (let ((_₂ (iadd 4 5)))
+;;           (let ((_₃ (iadd 3 _₂)))
+;;             (iadd _₁ _₃))))
+
 (claim rco-exp (-> state? exp? atom-operand-exp?))
 
 (define (rco-exp state exp)
@@ -44,7 +58,7 @@
     ((let-exp name rhs body)
      (let-exp name (rco-exp state rhs) (rco-exp state body)))
     ((prim-exp op args)
-     (= [new-args bindings] (rco-operands state args))
+     (= [new-args bindings] (rco-atom-many state args))
      (prepend-lets bindings (prim-exp op new-args)))))
 
 (claim prepend-lets
@@ -57,50 +71,42 @@
     ((cons [name rhs] rest-bindings)
      (let-exp name rhs (prepend-lets rest-bindings exp)))))
 
-;; the binding of the inner arg should be cons-ed at the out side.
-;; for example:
-;;
-;;    > (iadd (iadd 1 2) (iadd 3 (iadd 4 5)))
-;;    = (let ((_₁ (iadd 1 2)))
-;;        (let ((_₂ (iadd 4 5)))
-;;          (let ((_₃ (iadd 3 _₂)))
-;;            (iadd _₁ _₃))))
+;; `rco-atom` -- making an exp atomic.
 
-
-;; TODO `rco-operand` and `rco-operands` use writer monad,
+;; TODO `rco-atom` and `rco-atom-many` use writer monad,
 ;; we should make this explicit.
 
 ;; TODO we should also avoid side effect on state
 ;; by using state monad.
 
-(claim rco-operands
-  (-> state? (list? exp?)
-      (tau (list? atom-operand-exp?)
-           (list? (tau symbol? atom-operand-exp?)))))
-
-(define (rco-operands state args)
-  (= [new-args bindings-list] (list-unzip (list-map (rco-operand state) args)))
-  [new-args (list-append-many bindings-list)])
-
-(claim rco-operand
+(claim rco-atom
   (-> state? exp?
       (tau atom-operand-exp?
            (list? (tau symbol? atom-operand-exp?)))))
 
-(define (rco-operand state arg)
-  (match arg
+(define (rco-atom state exp)
+  (match exp
     ((var-exp name)
      [(var-exp name) []])
     ((int-exp n)
      [(int-exp n) []])
     ((let-exp name rhs body)
-     (= [new-body bindings] (rco-operand state body))
-     ;; use `rco-exp` instead of `rco-operand` on `rhs`,
-     ;; `rco-operand` should only be used on exp at the operand position.
+     (= [new-body bindings] (rco-atom state body))
+     ;; use `rco-exp` instead of `rco-atom` on `rhs`,
+     ;; `rco-atom` should only be used on exp at the operand position.
      [new-body
       (cons [name (rco-exp state rhs)] bindings)])
     ((prim-exp op args)
-     (= [new-args bindings] (rco-operands state args))
+     (= [new-args bindings] (rco-atom-many state args))
      (= name (freshen state '_))
      [(var-exp name)
       (list-push [name (prim-exp op new-args)] bindings)])))
+
+(claim rco-atom-many
+  (-> state? (list? exp?)
+      (tau (list? atom-operand-exp?)
+           (list? (tau symbol? atom-operand-exp?)))))
+
+(define (rco-atom-many state exps)
+  (= [new-exps bindings-list] (list-unzip (list-map (rco-atom state) exps)))
+  [new-exps (list-append-many bindings-list)])
