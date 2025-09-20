@@ -34,10 +34,9 @@
      (prim-exp op (list-map (uniquify-exp name-counts name-table) args)))))
 
 (define (count-name name name-counts)
-  (= count (record-get name name-counts))
-  (if (null? count)
-    (record-put name 1 name-counts)
-    (record-put name (iadd 1 count) name-counts)))
+  (record-upsert
+   (record-unit name (lambda (count) (if (null? count) 1 (iadd 1 count))))
+   name-counts))
 
 (define (generate-name-in-counts name name-counts)
   (= count (record-get name name-counts))
