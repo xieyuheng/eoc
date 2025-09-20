@@ -1,4 +1,3 @@
-[c] improve `form-info` -- by `record-update`
 [pass] `uniquify` -- improve `name-count-once` by `record-upsert`
 
 > 3.3 Build the Interference Graph

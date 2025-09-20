@@ -11,16 +11,9 @@
      `(c-program ,(form-info info) ,(record-map form-seq seqs)))))
 
 (define (form-info info)
-  (= record [])
-  (= ctx (record-get 'ctx info))
-  (unless (null? ctx)
-    (record-put! 'ctx (record-map form-type ctx) record))
-  record)
-
-;; (define (form-info info)
-;;   (record-update
-;;    [:ctx (record-map form-type)]
-;;    info))
+  (record-update
+   [:ctx (record-map form-type)]
+   info))
 
 (define (form-seq seq)
   (match seq
