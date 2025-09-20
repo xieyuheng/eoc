@@ -1,6 +1,6 @@
 (import-all "deps.lisp")
 
-(export rco-program simple-operand-exp?)
+(export rco-program atomic-operand-exp?)
 
 (claim rco-program (-> program? program?))
 
@@ -19,21 +19,21 @@
   (record-put! 'count (iadd 1 count) state)
   (symbol-append name (string-to-symbol (format-subscript (iadd 1 count)))))
 
-(claim simple-operand-exp? (-> exp? bool?))
+(claim atomic-operand-exp? (-> exp? bool?))
 
-(define (simple-operand-exp? exp)
+(define (atomic-operand-exp? exp)
   (match exp
     ((var-exp name)
      true)
     ((int-exp n)
      true)
     ((let-exp name rhs body)
-     (and (simple-operand-exp? rhs)
-          (simple-operand-exp? body)))
+     (and (atomic-operand-exp? rhs)
+          (atomic-operand-exp? body)))
     ((prim-exp op args)
      (list-all? atom-exp? args))))
 
-(claim rco-exp (-> state? exp? simple-operand-exp?))
+(claim rco-exp (-> state? exp? atomic-operand-exp?))
 
 (define (rco-exp state exp)
   (match exp
@@ -75,8 +75,8 @@
 
 (claim rco-operands
   (-> state? (list? exp?)
-      (tau (list? simple-operand-exp?)
-           (list? (tau symbol? simple-operand-exp?)))))
+      (tau (list? atomic-operand-exp?)
+           (list? (tau symbol? atomic-operand-exp?)))))
 
 (define (rco-operands state args)
   (= [new-args bindings-list] (list-unzip (list-map (rco-operand state) args)))
@@ -84,8 +84,8 @@
 
 (claim rco-operand
   (-> state? exp?
-      (tau simple-operand-exp?
-           (list? (tau symbol? simple-operand-exp?)))))
+      (tau atomic-operand-exp?
+           (list? (tau symbol? atomic-operand-exp?)))))
 
 (define (rco-operand state arg)
   (match arg
