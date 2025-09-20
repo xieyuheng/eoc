@@ -45,22 +45,8 @@
 (define (explicate-assign name rhs continuation)
   (match rhs
     ((let-exp rhs-name rhs-rhs rhs-body)
-     ;; `rhs-body` is not at tail position,
-     ;; but we temporarily view it as so,
-     ;; and call `explicate-tail` on it,
-     ;; the result will be prepend to the real continuation.
-     (= continuation (prepend-assign name (explicate-tail rhs-body) continuation))
+     (= continuation (explicate-assign name rhs-body continuation))
      (explicate-assign rhs-name rhs-rhs continuation))
     (_
      (= stmt (assign-stmt (var-c-exp name) (to-c-exp rhs)))
      (cons-seq stmt continuation))))
-
-(claim prepend-assign (-> symbol? seq? seq? seq?))
-
-(define (prepend-assign top-result-name top-seq bottom-seq)
-  (match top-seq
-    ((return-seq exp)
-     (= stmt (assign-stmt (var-c-exp top-result-name) exp))
-     (cons-seq stmt bottom-seq))
-    ((cons-seq stmt top-next-seq)
-     (cons-seq stmt (prepend-assign top-result-name top-next-seq bottom-seq)))))
