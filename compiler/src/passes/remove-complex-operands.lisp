@@ -19,7 +19,9 @@
   (record-put! 'count (iadd 1 count) state)
   (symbol-append name (string-to-symbol (format-subscript (iadd 1 count)))))
 
-;; `atom-operand-exp?` -- defines the grammer of the result exp of `rco-exp`.
+;; (atom-operand-exp?)
+;;
+;;   defines the grammer of the result exp of `rco-exp`.
 ;;   this grammer will direct (by result type) the implementation
 ;;   of structural recursive functions -- `rco-exp` and `rco-atom`.
 
@@ -37,16 +39,18 @@
     ((prim-exp op args)
      (list-all? atom-exp? args))))
 
-;; `rco-exp` -- making the operand position of an exp atomic.
-
-;; the bind of the inner arg should be cons-ed at the out side.
+;; (rco-exp)
+;;
+;;   making the operand position of an exp atomic.
+;;   the bind of the inner arg should be cons-ed at the out side.
+;;
 ;; example:
 ;;
-;;     > (iadd (iadd 1 2) (iadd 3 (iadd 4 5)))
-;;     = (let ((_₁ (iadd 1 2)))
-;;         (let ((_₂ (iadd 4 5)))
-;;           (let ((_₃ (iadd 3 _₂)))
-;;             (iadd _₁ _₃))))
+;;   > (iadd (iadd 1 2) (iadd 3 (iadd 4 5)))
+;;   = (let ((_₁ (iadd 1 2)))
+;;       (let ((_₂ (iadd 4 5)))
+;;         (let ((_₃ (iadd 3 _₂)))
+;;           (iadd _₁ _₃))))
 
 (claim rco-exp (-> state? exp? atom-operand-exp?))
 
@@ -74,20 +78,22 @@
     ((cons [name rhs] rest-binds)
      (let-exp name rhs (prepend-lets rest-binds exp)))))
 
-;; `rco-atom` -- making an exp atomic.
-
+;; (rco-atom)
+;;
+;;   making an exp atomic.
+;;
 ;; example:
 ;;
-;;     > (iadd 3 (iadd 4 5))
-;;     = [[[_₂ (iadd 4 5)]
-;;         [_₃ (iadd 3 _₂)]]
-;;        _₃]
-
-;; TODO `rco-atom` and `rco-atom-many` use writer monad,
-;; we should make this explicit.
-
-;; TODO we should also avoid side effect on state
-;; by using state monad.
+;;   > (iadd 3 (iadd 4 5))
+;;   = [[[_₂ (iadd 4 5)]
+;;       [_₃ (iadd 3 _₂)]]
+;;      _₃]
+;;
+;; - TODO `rco-atom` and `rco-atom-many` use writer monad,
+;;   we should make this explicit.
+;;
+;; - TODO we should also avoid side effect on state
+;;   by using state monad.
 
 (claim rco-atom
   (-> state? exp?

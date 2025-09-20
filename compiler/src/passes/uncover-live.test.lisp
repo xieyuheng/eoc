@@ -2,17 +2,19 @@
 (import-all "index.lisp")
 (import-all "uncover-live.lisp")
 
-;;   |               {a} - {a} + {} = {}
-;; 1 | movq $5, a
-;;   |               {a} - {b} + {} = {a}
-;; 2 | movq $30, b
-;;   |               {c} - {c} + {a} = {a}
-;; 3 | movq a, c
-;;   |               {b, c} - {b} + {} = {c}
-;; 4 | movq $10, b
-;;   |               {} - {c} + {b, c} = {b, c}
-;; 5 | addq b, c
-;;   |               {}
+;; example:
+;;
+;;     |               {a} - {a} + {} = {}
+;;   1 | movq $5, a
+;;     |               {a} - {b} + {} = {a}
+;;   2 | movq $30, b
+;;     |               {c} - {c} + {a} = {a}
+;;   3 | movq a, c
+;;     |               {b, c} - {b} + {} = {c}
+;;   4 | movq $10, b
+;;     |               {} - {c} + {b, c} = {b, c}
+;;   5 | addq b, c
+;;     |               {}
 
 (assert-equal
   [{}

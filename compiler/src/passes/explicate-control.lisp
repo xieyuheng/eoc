@@ -10,16 +10,18 @@
     ((@program info body)
      (@c-program info [:start (explicate-tail body)]))))
 
-;; `explicate-tail` -- explicate an exp at tail position.
+;; (explicate-tail)
+;;
+;;   explicate an exp at tail position.
 ;;   thus this structural recursion is directed
 ;;   by the shape of input exp.
-
+;;
 ;; example:
 ;;
-;;     > (let ((x (let ((y (ineg 42))) y))) (ineg x))
-;;     = [(= y (ineg 42))
-;;        (= x y)
-;;        (return (ineg x)]
+;;   > (let ((x (let ((y (ineg 42))) y))) (ineg x))
+;;   = [(= y (ineg 42))
+;;      (= x y)
+;;      (return (ineg x)]
 
 (claim explicate-tail (-> atom-operand-exp? seq?))
 
@@ -46,18 +48,21 @@
 (claim explicate-assign
   (-> symbol? atom-operand-exp? seq? seq?))
 
-;; `explicate-assign` -- explicate an assignment
+
+;; (explicate-assign)
+;;
+;;   explicate an assignment
 ;;   by accumulating a continuation parameter,
 ;;   The third parameter is called "continuation"
 ;;   because it contains the generated code that
 ;;   should come after the current assignment.
-
+;;
 ;; example:
 ;;
-;;     > x (let ((y (ineg 42))) y) (return (ineg x))
-;;     = [(= y (ineg 42))
-;;        (= x y)
-;;        (return (ineg x)]
+;;   > x (let ((y (ineg 42))) y) (return (ineg x))
+;;   = [(= y (ineg 42))
+;;      (= x y)
+;;      (return (ineg x)]
 
 (define (explicate-assign name rhs continuation)
   (match rhs
