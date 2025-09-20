@@ -34,7 +34,7 @@
      (prim-c-exp op (list-map parse-atom args)))
     (_ (parse-atom sexp))))
 
-(claim parse-atom (-> sexp? c-exp-atom?))
+(claim parse-atom (-> sexp? atom-c-exp?))
 
 (define (parse-atom sexp)
   (cond ((int? sexp) (int-c-exp sexp))

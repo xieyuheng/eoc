@@ -60,7 +60,7 @@
      [['movq [(select-instr-atom arg1) arg]]
       ['subq [(select-instr-atom arg2) arg]]])))
 
-(claim select-instr-atom (-> c-exp-atom? operand?))
+(claim select-instr-atom (-> atom-c-exp? operand?))
 
 (define (select-instr-atom atom)
   (match atom

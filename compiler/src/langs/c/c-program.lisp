@@ -4,7 +4,7 @@
   seq? return-seq cons-seq
   stmt? assign-stmt
   c-exp? var-c-exp int-c-exp prim-c-exp
-  c-exp-atom?)
+  atom-c-exp?)
 
 (define-data c-program?
   (@c-program
@@ -28,6 +28,6 @@
 (define-data c-exp?
   (var-c-exp (name symbol?))
   (int-c-exp (value int?))
-  (prim-c-exp (op symbol?) (args (list? c-exp-atom?))))
+  (prim-c-exp (op symbol?) (args (list? atom-c-exp?))))
 
-(define c-exp-atom? (union var-c-exp? int-c-exp?))
+(define atom-c-exp? (union var-c-exp? int-c-exp?))
