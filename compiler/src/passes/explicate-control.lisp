@@ -39,8 +39,11 @@
 (claim explicate-assign
   (-> symbol? atom-operand-exp? seq? seq?))
 
-;; The third parameter is called `continuation` because it contains
-;; the generated code that should come after the current assignment.
+;; `explicate-assign` -- explicate an assignment
+;;   by accumulating a continuation parameter,
+;;   The third parameter is called "continuation"
+;;   because it contains the generated code that
+;;   should come after the current assignment.
 
 (define (explicate-assign name rhs continuation)
   (match rhs
