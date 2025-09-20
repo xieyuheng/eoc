@@ -1,5 +1,5 @@
 (import-all "deps.lisp")
-(import "remove-complex-operands.lisp" atom-operand-exp?)
+(import "remove-complex-operands.lisp" simple-operand-exp?)
 
 (export explicate-control)
 
@@ -10,7 +10,7 @@
     ((@program info body)
      (@c-program info [:start (explicate-seq body)]))))
 
-(claim explicate-seq (-> atom-operand-exp? seq?))
+(claim explicate-seq (-> simple-operand-exp? seq?))
 
 (define (explicate-seq exp)
   (match exp
@@ -20,7 +20,7 @@
      (return-seq (to-c-exp exp)))))
 
 (claim to-c-exp
-  (-> (inter atom-operand-exp? (negate let-exp?))
+  (-> (inter simple-operand-exp? (negate let-exp?))
       c-exp?))
 
 (define (to-c-exp exp)
@@ -33,7 +33,7 @@
      (prim-c-exp op (list-map to-c-exp args)))))
 
 (claim explicate-assign
-  (-> symbol? atom-operand-exp? seq? seq?))
+  (-> symbol? simple-operand-exp? seq? seq?))
 
 ;; The third parameter is called `continuation` because it contains
 ;; the generated code that should come after the current assignment.
