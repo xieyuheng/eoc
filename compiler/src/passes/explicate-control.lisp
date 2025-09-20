@@ -14,6 +14,13 @@
 ;;   thus this structural recursion is directed
 ;;   by the shape of input exp.
 
+;; example:
+;;
+;;     > (let ((x (let ((y (ineg 42))) y))) (ineg x))
+;;     = [(= y (ineg 42))
+;;        (= x y)
+;;        (return (ineg x)]
+
 (claim explicate-tail (-> atom-operand-exp? seq?))
 
 (define (explicate-tail exp)
@@ -44,6 +51,13 @@
 ;;   The third parameter is called "continuation"
 ;;   because it contains the generated code that
 ;;   should come after the current assignment.
+
+;; example:
+;;
+;;     > x (let ((y (ineg 42))) y) (return (ineg x))
+;;     = [(= y (ineg 42))
+;;        (= x y)
+;;        (return (ineg x)]
 
 (define (explicate-assign name rhs continuation)
   (match rhs

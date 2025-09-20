@@ -40,7 +40,7 @@
 ;; `rco-exp` -- making the operand position of an exp atomic.
 
 ;; the bind of the inner arg should be cons-ed at the out side.
-;; for example:
+;; example:
 ;;
 ;;     > (iadd (iadd 1 2) (iadd 3 (iadd 4 5)))
 ;;     = (let ((_₁ (iadd 1 2)))
@@ -76,7 +76,7 @@
 
 ;; `rco-atom` -- making an exp atomic.
 
-;; for example:
+;; example:
 ;;
 ;;     > (iadd 3 (iadd 4 5))
 ;;     = [[[_₂ (iadd 4 5)]
