@@ -21,7 +21,7 @@
 
 > Change x-lisp to improve the following code.
 
-[builtin] improve `check-op`
+[builtin] improve `check-op` -- [maybe] by optional monad
 
 # later
 
