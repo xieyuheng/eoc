@@ -311,3 +311,14 @@ date: 2025-09-10
 
 此时再严格地按照 structural recursion 来写，
 就会发现 `explicate-assign` 根本就应该调用 `explicate-tail`。
+
+# 总结
+
+这是我首次意识到，
+可以通过递归刻画 target type 和 result type 的子集，
+来实现结构清晰的 structural recursion。
+
+这对于写编译器尤其重要，
+因为编译器在于 bridging differences，
+而清晰地把 differences 表达出来，
+就需要这种对 target type 和 result type 的递归刻画。
