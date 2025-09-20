@@ -46,7 +46,8 @@
   (match rhs
     ((let-exp rhs-name rhs-rhs rhs-body)
      ;; `rhs-body` is not at tail position,
-     ;; but we temporarily view it as if it is at tail position,
+     ;; but we temporarily view it as so,
+     ;; and call `explicate-tail` on it,
      ;; the result will be prepend to the real continuation.
      (= continuation (prepend-assign name (explicate-tail rhs-body) continuation))
      (explicate-assign rhs-name rhs-rhs continuation))
