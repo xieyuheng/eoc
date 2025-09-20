@@ -322,3 +322,7 @@ date: 2025-09-10
 因为编译器在于 bridging differences，
 而清晰地把 differences 表达出来，
 就需要这种对 target type 和 result type 的递归刻画。
+
+现在知道这种技巧了，
+再读别的递归函数时（比如 EOPL 中的递归函数时），
+就可以注意一下是否可以做这种递归刻画。
