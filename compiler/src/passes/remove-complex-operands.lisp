@@ -19,6 +19,10 @@
   (record-put! 'count (iadd 1 count) state)
   (symbol-append name (string-to-symbol (format-subscript (iadd 1 count)))))
 
+;; `atom-operand-exp?` -- defines the grammer of the result exp of `rco-exp`.
+;;    this grammer will direct the implementation
+;;    of structural recursive functions -- `rco-exp` and `rco-atom`.
+
 (claim atom-operand-exp? (-> exp? bool?))
 
 (define (atom-operand-exp? exp)
@@ -34,9 +38,6 @@
      (list-all? atom-exp? args))))
 
 ;; `rco-exp` -- making the operand position of an exp atomic.
-;; `atom-operand-exp?` -- defines the grammer of the result exp of `rco-exp`.
-;;    this grammer will direct the implementation
-;;    of structural recursive functions -- `rco-exp` and `rco-atom`.
 
 ;; the binding of the inner arg should be cons-ed at the out side.
 ;; for example:
@@ -58,7 +59,7 @@
     ((let-exp name rhs body)
      (let-exp name (rco-exp state rhs) (rco-exp state body)))
     ((prim-exp op args)
-     (= [new-args bindings] (rco-atom-many state args))
+     (= [bindings new-args] (rco-atom-many state args))
      (prepend-lets bindings (prim-exp op new-args)))))
 
 (claim prepend-lets
@@ -73,6 +74,13 @@
 
 ;; `rco-atom` -- making an exp atomic.
 
+;; for example:
+;;
+;;     > (iadd 3 (iadd 4 5))
+;;     = [[[_₂ (iadd 4 5)]
+;;         [_₃ (iadd 3 _₂)]]
+;;        _₃]
+
 ;; TODO `rco-atom` and `rco-atom-many` use writer monad,
 ;; we should make this explicit.
 
@@ -81,32 +89,32 @@
 
 (claim rco-atom
   (-> state? exp?
-      (tau atom-operand-exp?
-           (list? (tau symbol? atom-operand-exp?)))))
+      (tau (list? (tau symbol? atom-operand-exp?))
+           atom-operand-exp?)))
 
 (define (rco-atom state exp)
   (match exp
     ((var-exp name)
-     [(var-exp name) []])
+     [[] (var-exp name)])
     ((int-exp n)
-     [(int-exp n) []])
+     [[] (int-exp n)])
     ((let-exp name rhs body)
-     (= [new-body bindings] (rco-atom state body))
+     (= [bindings new-body] (rco-atom state body))
      ;; use `rco-exp` instead of `rco-atom` on `rhs`,
      ;; `rco-atom` should only be used on exp at the operand position.
-     [new-body
-      (cons [name (rco-exp state rhs)] bindings)])
+     [(cons [name (rco-exp state rhs)] bindings)
+      new-body])
     ((prim-exp op args)
-     (= [new-args bindings] (rco-atom-many state args))
+     (= [bindings new-args] (rco-atom-many state args))
      (= name (freshen state '_))
-     [(var-exp name)
-      (list-push [name (prim-exp op new-args)] bindings)])))
+     [(list-push [name (prim-exp op new-args)] bindings)
+      (var-exp name)])))
 
 (claim rco-atom-many
   (-> state? (list? exp?)
-      (tau (list? atom-operand-exp?)
-           (list? (tau symbol? atom-operand-exp?)))))
+      (tau (list? (tau symbol? atom-operand-exp?))
+           (list? atom-operand-exp?))))
 
 (define (rco-atom-many state exps)
-  (= [new-exps bindings-list] (list-unzip (list-map (rco-atom state) exps)))
-  [new-exps (list-append-many bindings-list)])
+  (= [bindings-list new-exps] (list-unzip (list-map (rco-atom state) exps)))
+  [(list-append-many bindings-list) new-exps])
