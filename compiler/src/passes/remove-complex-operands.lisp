@@ -21,9 +21,9 @@
 
 ;; (atom-operand-exp?)
 ;;
-;;   defines the grammer of the result exp of `rco-exp`.
+;;   defines the grammer of the result exp of (rco-exp).
 ;;   this grammer will direct (by result type) the implementation
-;;   of structural recursive functions -- `rco-exp` and `rco-atom`.
+;;   of structural recursive functions -- (rco-exp) and (rco-atom).
 
 (claim atom-operand-exp? (-> exp? bool?))
 
@@ -91,7 +91,7 @@
 ;;       [_₃ (iadd 3 _₂)]]
 ;;      _₃]
 ;;
-;; - TODO `rco-atom` and `rco-atom-many` use writer monad,
+;; - TODO (rco-atom) and (rco-atom-many) use writer monad,
 ;;   we should make this explicit.
 ;;
 ;; - TODO we should also avoid side effect on state
@@ -109,8 +109,9 @@
     ((int-exp n)
      [[] (int-exp n)])
     ((let-exp name rhs body)
-     ;; use `rco-exp` instead of `rco-atom` on `rhs`,
-     ;; `rco-atom` should only be used on exp at the operand position.
+     ;; use (rco-exp) instead of (rco-atom) on rhs,
+     ;; (rco-atom) should only be used on
+     ;; exp at the operand position.
      (= rhs-bind [name (rco-exp state rhs)])
      (= [binds new-body] (rco-atom state body))
      [(cons rhs-bind binds)

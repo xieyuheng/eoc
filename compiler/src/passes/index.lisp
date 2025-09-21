@@ -41,7 +41,7 @@
   ;; A variable or register is _live_ at a program point if its
   ;; current value is used at some later point in the program.
   ;; This pass stores the result as list of sets
-  ;; under `:live-before` and `:live-after` in block info.
+  ;; under :live-before and :live-after in block info.
   uncover-live)
 
 (include "assign-homes.lisp"
@@ -56,6 +56,6 @@
   patch-instructions)
 
 (include "prolog-and-epilog.lisp"
-  ;; This pass places the program instructions inside a `begin` function
+  ;; This pass places the program instructions inside a begin function
   ;; with instructions for the prolog and epilog.
   prolog-and-epilog)
