@@ -3,13 +3,18 @@
 
 (export format-x86-program)
 
+(define indentation "        ")
+
+(define (indent-line line)
+  (string-append-many [indentation line "\n"]))
+
 (claim format-x86-program (-> x86-program? string?))
 
 (define (format-x86-program x86-program)
   (match x86-program
     ((@x86-program info blocks)
      (string-append-many
-      (cons "        .global begin\n"
+      (cons (indent-line ".global begin")
             (list-map format-block-entry
                       (record-entries blocks)))))))
 
@@ -21,12 +26,8 @@
      (= label-string (string-append (symbol-to-string label) ":\n"))
      (string-append-many
       (cons label-string
-            (list-map (compose indent-instr format-instr)
+            (list-map (compose indent-line format-instr)
                       instrs))))))
-
-(define (indent-instr instr-string)
-  (string-append-many
-   ["        " instr-string "\n"]))
 
 (claim format-instr (-> instr? string?))
 
