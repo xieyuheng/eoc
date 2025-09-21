@@ -18,10 +18,12 @@
     ((return-seq (prim-c-exp 'random-dice []))
      [(callq 'random_dice 0)
       (jmp 'epilog)])
+    ;; general case: return-seq
     ((return-seq exp)
      (list-append
       (select-instr-assign (reg-rand 'rax) exp)
       [(jmp 'epilog)]))
+    ;; general case: cons-seq
     ((cons-seq stmt next-seq)
      (list-append
       (select-instr-stmt stmt)

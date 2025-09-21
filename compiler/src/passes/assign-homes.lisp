@@ -35,18 +35,18 @@
 
 (define (assign-homes-instr ctx instr)
   (match instr
-    ([op args]
-     [op (list-map (assign-homes-imm ctx) args)])
+    ([op rands]
+     [op (list-map (assign-homes-operand ctx) rands)])
     (_ instr)))
 
-(claim assign-homes-imm
+(claim assign-homes-operand
   (-> (record? type?) operand?
       operand?))
 
-(define (assign-homes-imm ctx arg)
-  (match arg
+(define (assign-homes-operand ctx rand)
+  (match rand
     ((var-rand name)
      (= index (list-find-index (equal? name) (record-keys ctx)))
      (= offset (imul -8 (iadd 1 index)))
      (deref-rand 'rbp offset))
-    (_ arg)))
+    (_ rand)))
