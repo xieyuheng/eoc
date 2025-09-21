@@ -14,26 +14,39 @@
 
 (define (select-instr-seq seq)
   (match seq
-    ((cons-seq stmt next-seq)
-     (list-append
-      (select-instr-stmt stmt)
-      (select-instr-seq next-seq)))
+    ;; special case: tail call
     ((return-seq (prim-c-exp 'random-dice []))
      [(callq 'random_dice 0)
       (jmp 'epilog)])
     ((return-seq exp)
      (list-append
       (select-instr-assign (reg-rand 'rax) exp)
-      [(jmp 'epilog)]))))
+      [(jmp 'epilog)]))
+    ((cons-seq stmt next-seq)
+     (list-append
+      (select-instr-stmt stmt)
+      (select-instr-seq next-seq)))))
 
 (claim select-instr-stmt (-> stmt? (list? instr?)))
 
 (define (select-instr-stmt stmt)
   (match stmt
-    ((assign-stmt (var-c-exp name) (prim-c-exp 'iadd [(var-c-exp name) arg2]))
-     [['addq [(select-operand arg2) (var-rand name)]]])
-    ((assign-stmt (var-c-exp name) (prim-c-exp 'iadd [arg1 (var-c-exp name)]))
-     [['addq [(select-operand arg1) (var-rand name)]]])
+    ;; special case: self iadd -- right
+    ((assign-stmt
+      (var-c-exp self-name)
+      (prim-c-exp 'iadd [(var-c-exp self-name) arg2]))
+     [['addq [(select-operand arg2) (var-rand self-name)]]])
+    ;; special case: self iadd -- left
+    ((assign-stmt
+      (var-c-exp self-name)
+      (prim-c-exp 'iadd [arg1 (var-c-exp self-name)]))
+     [['addq [(select-operand arg1) (var-rand self-name)]]])
+    ;; special case: self isub
+    ((assign-stmt
+      (var-c-exp self-name)
+      (prim-c-exp 'isub [(var-c-exp self-name) arg2]))
+     [['subq [(select-operand arg2) (var-rand self-name)]]])
+    ;; general case: assign
     ((assign-stmt (var-c-exp name) rhs)
      (select-instr-assign (var-rand name) rhs))))
 
