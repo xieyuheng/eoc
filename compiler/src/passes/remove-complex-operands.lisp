@@ -61,7 +61,9 @@
     ((int-exp n)
      (int-exp n))
     ((let-exp name rhs body)
-     (let-exp name (rco-exp state rhs) (rco-exp state body)))
+     (let-exp name
+              (rco-exp state rhs)
+              (rco-exp state body)))
     ((prim-exp op args)
      (= [binds new-args] (rco-atom-many state args))
      (prepend-lets binds (prim-exp op new-args)))))
@@ -107,10 +109,11 @@
     ((int-exp n)
      [[] (int-exp n)])
     ((let-exp name rhs body)
-     (= [binds new-body] (rco-atom state body))
      ;; use `rco-exp` instead of `rco-atom` on `rhs`,
      ;; `rco-atom` should only be used on exp at the operand position.
-     [(cons [name (rco-exp state rhs)] binds)
+     (= rhs-bind [name (rco-exp state rhs)])
+     (= [binds new-body] (rco-atom state body))
+     [(cons rhs-bind binds)
       new-body])
     ((prim-exp op args)
      (= [binds new-args] (rco-atom-many state args))
