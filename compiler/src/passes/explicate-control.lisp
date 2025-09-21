@@ -29,7 +29,7 @@
   (match exp
     ((let-exp name rhs body)
      (explicate-assign name rhs (explicate-tail body)))
-    (_
+    (else
      (return-seq (to-c-exp exp)))))
 
 (claim to-c-exp
@@ -68,6 +68,6 @@
     ((let-exp rhs-name rhs-rhs rhs-body)
      (= continuation (explicate-assign name rhs-body continuation))
      (explicate-assign rhs-name rhs-rhs continuation))
-    (_
+    (else
      (= stmt (assign-stmt (var-c-exp name) (to-c-exp rhs)))
      (cons-seq stmt continuation))))

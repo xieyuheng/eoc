@@ -42,7 +42,7 @@
      (ineg (eval-exp x env)))
     (['random-dice []]
      (iadd 1 (random-int 0 5)))
-    (_
+    (else
      (exit [:who 'eval-prim
             :message "unhandled prim exp"
             :op op :args args]))))

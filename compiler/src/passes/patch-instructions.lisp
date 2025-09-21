@@ -28,4 +28,4 @@
           (deref-rand reg-name-2 offset-2)]]
      [['movq [(deref-rand reg-name-1 offset-1) (reg-rand 'rax)]]
       [op [(reg-rand 'rax) (deref-rand reg-name-2 offset-2)]]])
-    (_ [instr])))
+    (else [instr])))

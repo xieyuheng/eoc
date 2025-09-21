@@ -32,7 +32,7 @@
   (match sexp
     ((cons op args)
      (prim-c-exp op (list-map parse-atom args)))
-    (_ (parse-atom sexp))))
+    (else (parse-atom sexp))))
 
 (claim parse-atom (-> sexp? atom-c-exp?))
 

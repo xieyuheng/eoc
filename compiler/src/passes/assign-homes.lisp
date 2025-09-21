@@ -35,7 +35,7 @@
   (match instr
     ([op rands]
      [op (list-map (assign-homes-operand ctx) rands)])
-    (_ instr)))
+    (else instr)))
 
 (claim assign-homes-operand
   (-> (record? type?) operand?
@@ -47,4 +47,4 @@
      (= index (list-find-index (equal? name) (record-keys ctx)))
      (= offset (imul -8 (iadd 1 index)))
      (deref-rand 'rbp offset))
-    (_ rand)))
+    (else rand)))

@@ -42,7 +42,7 @@
   (match r
     ((int-exp n)
      (int-exp (ineg n)))
-    (_
+    (else
      (prim-exp 'ineg [r]))))
 
 (define (partial-eval-iadd r1 r2)
@@ -54,12 +54,12 @@
     ;; keep int on the left of iadd.
     ([r1 (int-exp n2)]
      (partial-eval-iadd r2 r1))
-    (_
+    (else
      (prim-exp 'iadd [r1 r2]))))
 
 (define (partial-eval-isub r1 r2)
   (match [r1 r2]
     ([(int-exp n1) (int-exp n2)]
      (int-exp (isub n1 n2)))
-    (_
+    (else
      (prim-exp 'isub [r1 r2]))))
