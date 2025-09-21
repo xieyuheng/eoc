@@ -23,3 +23,5 @@ date: 2025-09-22
 可以再增加一个 `(@hex)` literal syntax，
 专门用来表示二进制数据，例如 `(@hex F1 A1 00)`，
 也就是模仿 hex editor 用人类可读的方式表示二进制数据。
+甚至可以一行 16 个 byte 并且给出行号，
+就完全每模仿 hex editor。
