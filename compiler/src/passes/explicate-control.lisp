@@ -21,7 +21,7 @@
 ;;   > (let ((x (let ((y (ineg 42))) y))) (ineg x))
 ;;   = [(= y (ineg 42))
 ;;      (= x y)
-;;      (return (ineg x)]
+;;      (return (ineg x))]
 
 (claim explicate-tail (-> atom-operand-exp? seq?))
 

@@ -107,9 +107,9 @@ date: 2025-09-10
 ;; example:
 ;;
 ;;     > x (let ((y (ineg 42))) y) (return (ineg x))
-;;     = [(= y (ineg 42))
+;;     = ((= y (ineg 42))
 ;;        (= x y)
-;;        (return (ineg x)]
+;;        (return (ineg x))]
 
 (define (explicate-assign name rhs continuation)
   (match rhs
