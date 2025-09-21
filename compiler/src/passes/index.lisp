@@ -50,9 +50,9 @@
 
 (include "patch-instructions.lisp"
   ;; This pass uses a reserved register (rax)
-  ;; to fix x86 instructions with invalid arguments.
+  ;; to fix x86 instructions with invalid operands.
   ;; Since only one argument of an x86 instruction may be memory,
-  ;; but assign-homes might assign both arguments to memory locations.
+  ;; but assign-homes might assign both operands to memory locations.
   patch-instructions)
 
 (include "prolog-and-epilog.lisp"

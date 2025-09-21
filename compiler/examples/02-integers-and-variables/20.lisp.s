@@ -15,9 +15,9 @@ start:
 begin:
         pushq %rbp
         movq %rsp, %rbp
-        subq $16, %rsp
+        subq $32, %rsp
         jmp start
 epilog:
-        addq $16, %rsp
+        addq $32, %rsp
         popq %rbp
         retq

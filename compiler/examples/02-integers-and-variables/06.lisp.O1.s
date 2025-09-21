@@ -8,9 +8,9 @@ start:
 begin:
         pushq %rbp
         movq %rsp, %rbp
-        subq $16, %rsp
+        subq $8, %rsp
         jmp start
 epilog:
-        addq $16, %rsp
+        addq $8, %rsp
         popq %rbp
         retq
