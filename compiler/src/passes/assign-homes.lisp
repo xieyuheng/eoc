@@ -13,15 +13,10 @@
   (match x86-program
     ((@x86-program info blocks)
      (= ctx (record-get 'ctx info))
-     (= stack-space (calc-stack-space ctx))
+     (= stack-space (imul 8 (record-length ctx)))
      (@x86-program
       (record-put 'stack-space stack-space info)
       (record-map (assign-homes-block ctx) blocks)))))
-
-(claim calc-stack-space (-> (record? type?) int?))
-
-(define (calc-stack-space ctx)
-  (imul 8 (record-length ctx)))
 
 (claim assign-homes-block
   (-> (record? type?) block?
