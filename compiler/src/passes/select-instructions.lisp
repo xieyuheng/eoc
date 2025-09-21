@@ -15,14 +15,16 @@
 (define (select-instr-seq seq)
   (match seq
     ((cons-seq stmt next-seq)
-     (list-append (select-instr-stmt stmt)
-                  (select-instr-seq next-seq)))
+     (list-append
+      (select-instr-stmt stmt)
+      (select-instr-seq next-seq)))
     ((return-seq (prim-c-exp 'random-dice []))
      [(callq 'random_dice 0)
       (jmp 'epilog)])
     ((return-seq exp)
-     (list-append (select-instr-assign (reg-rand 'rax) exp)
-                  [(jmp 'epilog)]))))
+     (list-append
+      (select-instr-assign (reg-rand 'rax) exp)
+      [(jmp 'epilog)]))))
 
 (claim select-instr-stmt (-> stmt? (list? instr?)))
 
@@ -35,26 +37,28 @@
     ((assign-stmt (var-c-exp name) rhs)
      (select-instr-assign (var-rand name) rhs))))
 
-(claim select-instr-assign (-> operand? c-exp? (list? instr?)))
+(claim select-instr-assign
+  (-> location-operand? c-exp?
+      (list? instr?)))
 
-(define (select-instr-assign arg rhs)
+(define (select-instr-assign dest rhs)
   (match rhs
     ((int-c-exp value)
-     [['movq [(select-operand rhs) arg]]])
+     [['movq [(select-operand rhs) dest]]])
     ((var-c-exp name)
-     [['movq [(select-operand rhs) arg]]])
+     [['movq [(select-operand rhs) dest]]])
     ((prim-c-exp 'random-dice [])
      [(callq 'random_dice 0)
-      ['movq [(reg-rand 'rax) arg]]])
+      ['movq [(reg-rand 'rax) dest]]])
     ((prim-c-exp 'ineg [arg1])
-     [['movq [(select-operand arg1) arg]]
-      ['negq [arg]]])
+     [['movq [(select-operand arg1) dest]]
+      ['negq [dest]]])
     ((prim-c-exp 'iadd [arg1 arg2])
-     [['movq [(select-operand arg1) arg]]
-      ['addq [(select-operand arg2) arg]]])
+     [['movq [(select-operand arg1) dest]]
+      ['addq [(select-operand arg2) dest]]])
     ((prim-c-exp 'isub [arg1 arg2])
-     [['movq [(select-operand arg1) arg]]
-      ['subq [(select-operand arg2) arg]]])))
+     [['movq [(select-operand arg1) dest]]
+      ['subq [(select-operand arg2) dest]]])))
 
 (claim select-operand (-> atom-c-exp? operand?))
 
