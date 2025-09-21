@@ -45,10 +45,6 @@
     ((prim-exp op args)
      (prim-c-exp op (list-map to-c-exp args)))))
 
-(claim explicate-assign
-  (-> symbol? atom-operand-exp? seq? seq?))
-
-
 ;; (explicate-assign)
 ;;
 ;;   explicate an assignment
@@ -63,6 +59,9 @@
 ;;   = [(= y (ineg 42))
 ;;      (= x y)
 ;;      (return (ineg x)]
+
+(claim explicate-assign
+  (-> symbol? atom-operand-exp? seq? seq?))
 
 (define (explicate-assign name rhs continuation)
   (match rhs

@@ -18,12 +18,10 @@
     ((return-seq (prim-c-exp 'random-dice []))
      [(callq 'random_dice 0)
       (jmp 'epilog)])
-    ;; general case: return-seq
     ((return-seq exp)
      (list-append
       (select-instr-assign (reg-rand 'rax) exp)
       [(jmp 'epilog)]))
-    ;; general case: cons-seq
     ((cons-seq stmt next-seq)
      (list-append
       (select-instr-stmt stmt)
@@ -48,7 +46,6 @@
       (var-c-exp self-name)
       (prim-c-exp 'isub [(var-c-exp self-name) arg2]))
      [['subq [(select-operand arg2) (var-rand self-name)]]])
-    ;; general case: assign
     ((assign-stmt (var-c-exp name) rhs)
      (select-instr-assign (var-rand name) rhs))))
 
