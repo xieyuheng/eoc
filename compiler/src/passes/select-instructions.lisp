@@ -1,9 +1,5 @@
 (import-all "deps.lisp")
 
-;; The target language of this pass is a variant of x86 that still uses
-;; variables, so we add an AST node of the form (Var var) to the arg
-;; nonterminal of the x86Int abstract syntax.
-
 (export select-instructions)
 
 (claim select-instructions (-> c-program? x86-program?))
