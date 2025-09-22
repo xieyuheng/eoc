@@ -1,4 +1,18 @@
 > 3.3 Build the Interference Graph
+
+[pass] `build-interference` -- setup
+
+utils/graph -- setup
+
+[graph] `(make-graph edges)`
+[graph] `(graph-add-vertex! vertex graph)`
+[graph] `(graph-add-edge! source target graph)`
+[graph] `(graph-neighbors vertex graph)` -- returns set
+[graph] `(graph-adjacent? source target)`
+[graph] `(graph-vertices graph)` -- return set
+
+[pass] `build-interference`
+
 > 3.4 Graph Coloring via Sudoku
 > 3.5 Patch Instructions
 > 3.6 Generate Prelude and Conclusion
