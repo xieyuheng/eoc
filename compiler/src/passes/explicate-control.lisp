@@ -12,7 +12,7 @@
 
 ;; (explicate-tail)
 ;;
-;;   explicate an exp at tail position.
+;;   To explicate an exp at tail position.
 ;;   thus this structural recursion is directed
 ;;   by the shape of input exp.
 ;;
@@ -47,8 +47,8 @@
 
 ;; (explicate-assign)
 ;;
-;;   explicate an assignment
-;;   by accumulating a continuation parameter,
+;;   To explicate an assignment by
+;;   accumulating a continuation parameter,
 ;;   The third parameter is called "continuation"
 ;;   because it contains the generated code that
 ;;   should come after the current assignment.

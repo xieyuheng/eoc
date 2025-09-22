@@ -21,7 +21,7 @@
 
 ;; (atom-operand-exp?)
 ;;
-;;   defines the grammer of the result exp of (rco-exp).
+;;   To define the grammer of the result exp of (rco-exp).
 ;;   this grammer will direct (by result type) the implementation
 ;;   of structural recursive functions -- (rco-exp) and (rco-atom).
 
@@ -41,7 +41,7 @@
 
 ;; (rco-exp)
 ;;
-;;   making the operand position of an exp atomic.
+;;   To make the operand position of an exp atomic.
 ;;   the bind of the inner arg should be cons-ed at the out side.
 ;;
 ;; example:
@@ -82,7 +82,7 @@
 
 ;; (rco-atom)
 ;;
-;;   making an exp atomic.
+;;   To make an exp atomic.
 ;;
 ;; example:
 ;;
@@ -109,7 +109,7 @@
     ((int-exp n)
      [[] (int-exp n)])
     ((let-exp name rhs body)
-     ;; use (rco-exp) instead of (rco-atom) on rhs,
+     ;; We use (rco-exp) instead of (rco-atom) on rhs,
      ;; (rco-atom) should only be used on
      ;; exp at the operand position.
      (= rhs-bind [name (rco-exp state rhs)])
