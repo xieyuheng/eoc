@@ -1,7 +1,5 @@
 > 3.3 Build the Interference Graph
 
-[pass] `build-interference` -- setup
-
 utils/graph -- setup
 
 [graph] `(make-graph edges)`

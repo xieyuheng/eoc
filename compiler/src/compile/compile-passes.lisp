@@ -18,9 +18,10 @@
     (compose check-c-program (log-c-program "030") explicate-control)
     (compose (log-x86-program "040") select-instructions)
     (compose (log-x86-program "050") uncover-live)
-    (compose (log-x86-program "060") assign-homes)
-    (compose (log-x86-program "070") patch-instructions)
-    (compose (log-x86-program "080") prolog-and-epilog)
+    (compose (log-x86-program "060") build-interference)
+    (compose (log-x86-program "070") assign-homes)
+    (compose (log-x86-program "080") patch-instructions)
+    (compose (log-x86-program "090") prolog-and-epilog)
     (constant void)))
 
 (define (log-program tag program)

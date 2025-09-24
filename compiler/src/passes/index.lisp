@@ -44,6 +44,10 @@
   ;; under :live-before and :live-after in block info.
   uncover-live)
 
+(include "build-interference.lisp"
+  ;; Build interference graph for each block.
+  build-interference)
+
 (include "assign-homes.lisp"
   ;; To replace variables with registers or stack locations.
   assign-homes)
