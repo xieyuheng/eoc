@@ -22,10 +22,12 @@
   (-> instr? (list? instr?)))
 
 (define (patch-instr instr)
-  (match instr
-    ;; invalid x86 instruction with two memory location operands:
-    ([op [(deref-rand reg-name-1 offset-1)
-          (deref-rand reg-name-2 offset-2)]]
-     [['movq [(deref-rand reg-name-1 offset-1) (reg-rand 'rax)]]
-      [op [(reg-rand 'rax) (deref-rand reg-name-2 offset-2)]]])
-    (else [instr])))
+  (cond ((special-instr? instr) [instr])
+        ((general-instr? instr)
+         (match instr
+           ;; invalid x86 instruction with two memory location operands:
+           ([op [(deref-rand reg-name-1 offset-1)
+                 (deref-rand reg-name-2 offset-2)]]
+            [['movq [(deref-rand reg-name-1 offset-1) (reg-rand 'rax)]]
+             [op [(reg-rand 'rax) (deref-rand reg-name-2 offset-2)]]])
+           (else [instr])))))

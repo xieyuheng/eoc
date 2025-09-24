@@ -32,10 +32,11 @@
       instr?))
 
 (define (assign-homes-instr ctx instr)
-  (match instr
-    ([op rands]
-     [op (list-map (assign-homes-operand ctx) rands)])
-    (else instr)))
+  (if (general-instr? instr)
+    (begin
+      (= [op rands] instr)
+      [op (list-map (assign-homes-operand ctx) rands)])
+    instr))
 
 (claim assign-homes-operand
   (-> (record? type?) operand?

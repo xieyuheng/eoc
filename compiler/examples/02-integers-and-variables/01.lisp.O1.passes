@@ -3,8 +3,8 @@
 010 (program () 12)
 020 (program () 12)
 030 (c-program () (:start ((return 12))))
-040 (@x86-program [:ctx []] [:start (@block [] [['movq [(imm-rand 12) (reg-rand 'rax)]] (jmp 'epilog)])])
-050 (@x86-program [:ctx []] [:start (@block [:live-after-instrs [{(reg-rand 'rsp)} {(reg-rand 'rsp) (reg-rand 'rax)} {} {}] :live-before-block {(reg-rand 'rsp)}] [['movq [(imm-rand 12) (reg-rand 'rax)]] (jmp 'epilog)])])
-060 (@x86-program [:ctx [] :stack-space 0] [:start (@block [:live-after-instrs [{(reg-rand 'rsp)} {(reg-rand 'rsp) (reg-rand 'rax)} {} {}] :live-before-block {(reg-rand 'rsp)}] [['movq [(imm-rand 12) (reg-rand 'rax)]] (jmp 'epilog)])])
-070 (@x86-program [:ctx [] :stack-space 0] [:start (@block [:live-after-instrs [{(reg-rand 'rsp)} {(reg-rand 'rsp) (reg-rand 'rax)} {} {}] :live-before-block {(reg-rand 'rsp)}] [['movq [(imm-rand 12) (reg-rand 'rax)]] (jmp 'epilog)])])
-080 (@x86-program [:ctx [] :stack-space 0] [:start (@block [:live-after-instrs [{(reg-rand 'rsp)} {(reg-rand 'rsp) (reg-rand 'rax)} {} {}] :live-before-block {(reg-rand 'rsp)}] [['movq [(imm-rand 12) (reg-rand 'rax)]] (jmp 'epilog)]) :begin (@block [] [['pushq [(reg-rand 'rbp)]] ['movq [(reg-rand 'rsp) (reg-rand 'rbp)]] (jmp 'start)]) :epilog (@block [] [['popq [(reg-rand 'rbp)]] retq])])
+040 [#@x86-program [:ctx []] [:start [#@block [] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
+050 [#@x86-program [:ctx []] [:start [#@block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]}] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
+060 [#@x86-program [:ctx [] :stack-space 0] [:start [#@block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]}] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
+070 [#@x86-program [:ctx [] :stack-space 0] [:start [#@block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]}] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
+080 [#@x86-program [:ctx [] :stack-space 0] [:start [#@block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]}] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]] :begin [#@block [] [['pushq [[#reg-rand 'rbp]]] ['movq [[#reg-rand 'rsp] [#reg-rand 'rbp]]] [#jmp 'start]]] :epilog [#@block [] [['popq [[#reg-rand 'rbp]]] [#retq]]]]]
