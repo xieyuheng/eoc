@@ -1,1 +1,1 @@
-[:who 'check-exp :message "fail on prim-exp" :exp [#prim-exp 'iadd [[#int-exp 8]]] :arg-types [[#int-t]]]
+[:who 'check-exp :message "fail on prim-exp" :exp [#prim-exp 'iadd [[#int-exp 8]]] :arg-types [#int-t]]
