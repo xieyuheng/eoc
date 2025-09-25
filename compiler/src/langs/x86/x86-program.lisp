@@ -68,5 +68,5 @@
   (list-append '(rsp rbp rax  rbx  rcx  rdx  rsi  rdi)
                '(r8  r9  r10  r11  r12  r13  r14  r15)))
 
-(define reg-name?
-  (swap list-member? reg-name-list))
+(define (reg-name? x)
+  (list-member? x reg-name-list))
