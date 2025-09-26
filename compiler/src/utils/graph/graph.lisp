@@ -4,7 +4,8 @@
   graph? @graph new-graph
   graph-vertices graph-neighbors
   graph-add-vertex!
-  graph-add-edge!)
+  graph-add-edge!
+  graph-adjacent?)
 
 (define-data (graph? V)
   (@graph (vertices (set? V))
@@ -56,3 +57,10 @@
     (hash-put! target {source} neighbor-hash)
     (set-add! source target-neighbors))
   graph)
+
+(claim graph-adjacent?
+  (-> anything? anything? (graph? anything?)
+      bool?))
+
+(define (graph-adjacent? source target graph)
+  (set-member? target (graph-neighbors source graph)))
