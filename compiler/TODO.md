@@ -1,11 +1,12 @@
 > 3.3 Build the Interference Graph
 
-[graph] `(make-graph edges)`
 [graph] `(graph-add-vertex! vertex graph)`
 [graph] `(graph-add-edge! source target graph)`
-[graph] `(graph-neighbors vertex graph)` -- returns set
-[graph] `(graph-adjacent? source target)`
+
 [graph] `(graph-vertices graph)` -- return set
+[graph] `(graph-neighbors vertex graph)` -- returns set
+
+[graph] `(graph-adjacent? source target)`
 
 [pass] `build-interference`
 
