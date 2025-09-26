@@ -1,7 +1,5 @@
 > 3.3 Build the Interference Graph
 
-[graph] `(graph-add-edge! source target graph)`
-
 [graph] `(graph-vertices graph)` -- return set
 [graph] `(graph-neighbors vertex graph)` -- returns set
 
