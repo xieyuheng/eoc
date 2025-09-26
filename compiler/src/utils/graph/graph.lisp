@@ -1,10 +1,11 @@
 ;; undirected simple graph
 
 (export
-  graph? @graph new-graph
+  graph? @graph new-graph make-graph
   graph-vertices graph-neighbors
   graph-add-vertex!
   graph-add-edge!
+  graph-add-edges!
   graph-adjacent?)
 
 (define-data (graph? V)
@@ -63,6 +64,23 @@
     (hash-put! target {source} neighbor-hash)
     (set-add! source target-neighbors))
   graph)
+
+(claim graph-add-edges!
+  (polymorphic (V)
+    (-> (list? (tau V V)) (graph? V)
+        (graph? V))))
+
+(define (graph-add-edges! edges graph)
+  (list-each (swap graph-add-edge! graph) edges)
+  graph)
+
+(claim make-graph
+  (polymorphic (V)
+    (-> (list? (tau V V))
+        (graph? V))))
+
+(define (make-graph edges)
+  (graph-add-edges! edges (new-graph)))
 
 (claim graph-adjacent?
   (polymorphic (V)
