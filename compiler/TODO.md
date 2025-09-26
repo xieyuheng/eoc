@@ -1,8 +1,5 @@
 > 3.3 Build the Interference Graph
 
-[graph] `(graph-vertices graph)` -- return set
-[graph] `(graph-neighbors vertex graph)` -- returns set
-
 [graph] `(graph-adjacent? source target)`
 
 [pass] `build-interference`

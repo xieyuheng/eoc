@@ -2,6 +2,7 @@
 
 (export
   graph? @graph new-graph
+  graph-vertices graph-neighbors
   graph-add-vertex!
   graph-add-edge!)
 
@@ -16,6 +17,20 @@
   (= vertices (@set))
   (= neighbor-hash (@hash))
   (@graph vertices neighbor-hash))
+
+(claim graph-vertices
+  (-> (graph? anything?)
+      (set? anything?)))
+
+(define (graph-vertices graph)
+  (@graph-vertices graph))
+
+(claim graph-neighbors
+  (-> anything? (graph? anything?)
+      (set? anything?)))
+
+(define (graph-neighbors vertex graph)
+  (hash-get vertex (@graph-neighbor-hash graph)))
 
 (claim graph-add-vertex!
   (-> anything? (graph? anything?)
