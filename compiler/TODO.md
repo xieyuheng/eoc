@@ -1,6 +1,4 @@
-> 3.3 Build the Interference Graph
-
-[pass] `build-interference`
+[pass] `build-interference` -- refactor
 
 > 3.4 Graph Coloring via Sudoku
 > 3.5 Patch Instructions

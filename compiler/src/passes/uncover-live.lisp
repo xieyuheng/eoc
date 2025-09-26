@@ -1,6 +1,13 @@
 (import-all "deps.lisp")
 
-(export uncover-live uncover-live-before uncover-live-before*)
+(export
+  uncover-live live-info?
+  uncover-live-before
+  uncover-live-before*
+  uncover-live-read
+  uncover-live-write
+  caller-saved-registers
+  callee-saved-registers)
 
 (claim live-info? (-> anything? bool?))
 
@@ -61,6 +68,9 @@
 (define argument-registers
   '(rdi rsi rdx rcx r8 r9))
 
+(claim uncover-live-read
+  (-> instr? (set? location-operand?)))
+
 (define (uncover-live-read instr)
   (match instr
     ((callq label arity)
@@ -88,6 +98,9 @@
      (exit [:who 'uncover-live-read
             :message "unknown op"
             :op op :rands rands]))))
+
+(claim uncover-live-write
+  (-> instr? (set? location-operand?)))
 
 (define (uncover-live-write instr)
   (match instr
