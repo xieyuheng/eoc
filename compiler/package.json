@@ -5,6 +5,6 @@
     "clean": "sh scripts/clean-compiled-output.sh"
   },
   "dependencies": {
-    "@xieyuheng/x-lisp.js": "^0.4.9"
+    "@xieyuheng/x-lisp.js": "^0.4.10"
   }
 }

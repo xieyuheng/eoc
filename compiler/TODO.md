@@ -1,5 +1,3 @@
-move list-product to std
-
 > 3.4 Graph Coloring via Sudoku
 > 3.5 Patch Instructions
 > 3.6 Generate Prelude and Conclusion
