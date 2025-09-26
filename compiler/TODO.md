@@ -1,8 +1,7 @@
 > 3.3 Build the Interference Graph
 
-utils/graph -- setup
-
 [graph] `(make-graph edges)`
+[graph] `(graph? vertex-p)`
 [graph] `(graph-add-vertex! vertex graph)`
 [graph] `(graph-add-edge! source target graph)`
 [graph] `(graph-neighbors vertex graph)` -- returns set
