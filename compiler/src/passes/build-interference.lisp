@@ -44,27 +44,42 @@
 (define (instr-edges instr live-after-instr)
   (match instr
     ((callq label arity)
-     (= dest-list (list-map reg-rand caller-saved-registers))
-     (pipe dest-list
-       (list-map
-        (lambda (dest)
-          (pipe live-after-instr
-            set-to-list
-            (list-filter (negate (equal? dest)))
-            (list-map (lambda (location) [location dest])))))
-       list-append-many))
+     (list-product-without-diagonal
+      (list-map reg-rand caller-saved-registers)
+      (set-to-list live-after-instr)))
     (['movq [src dest]]
-     (pipe live-after-instr
-       set-to-list
-       (list-filter (negate (union (equal? dest) (equal? src))))
-       (list-map (lambda (location) [location dest]))))
+     (list-product-without-diagonal
+      [dest]
+      (list-filter (negate (equal? src))
+                   (set-to-list live-after-instr))))
     (else
-     (= dest-list (set-to-list (uncover-live-write instr)))
-     (pipe dest-list
-       (list-map
-        (lambda (dest)
-          (pipe live-after-instr
-            set-to-list
-            (list-filter (negate (equal? dest)))
-            (list-map (lambda (location) [location dest])))))
-       list-append-many))))
+     (list-product-without-diagonal
+      (set-to-list (uncover-live-write instr))
+      (set-to-list live-after-instr)))))
+
+(claim list-product
+  (polymorphic (A B)
+    (-> (list? A) (list? B)
+        (list? (tau A B)))))
+
+(define (list-product lhs rhs)
+  (list-append-many
+   (pipe lhs
+     (list-map
+      (lambda (left)
+        (pipe rhs
+          (list-map (lambda (right) [left right]))))))))
+
+(claim list-product-without-diagonal
+  (polymorphic (A B)
+    (-> (list? A) (list? B)
+        (list? (tau A B)))))
+
+(define (list-product-without-diagonal lhs rhs)
+  (list-append-many
+   (pipe lhs
+     (list-map
+      (lambda (left)
+        (pipe rhs
+          (list-filter (negate (equal? left)))
+          (list-map (lambda (right) [left right]))))))))

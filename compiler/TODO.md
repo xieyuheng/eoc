@@ -1,4 +1,4 @@
-[pass] `build-interference` -- refactor
+move list-product to std
 
 > 3.4 Graph Coloring via Sudoku
 > 3.5 Patch Instructions
