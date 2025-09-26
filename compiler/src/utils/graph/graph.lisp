@@ -12,7 +12,7 @@
           (neighbor-hash (hash? V (set? V)))))
 
 (claim new-graph
-  (-> (graph? anything?)))
+  (polymorphic (V) (-> (graph? V))))
 
 (define (new-graph)
   (= vertices (@set))
@@ -20,29 +20,34 @@
   (@graph vertices neighbor-hash))
 
 (claim graph-vertices
-  (-> (graph? anything?)
-      (set? anything?)))
+  (polymorphic (V)
+    (-> (graph? V)
+        (set? V))))
 
 (define (graph-vertices graph)
   (@graph-vertices graph))
 
 (claim graph-neighbors
-  (-> anything? (graph? anything?)
-      (set? anything?)))
+  (polymorphic (V)
+    (-> V (graph? V)
+        (set? V))))
 
 (define (graph-neighbors vertex graph)
   (hash-get vertex (@graph-neighbor-hash graph)))
 
 (claim graph-add-vertex!
-  (-> anything? (graph? anything?)
-      (graph? anything?)))
+  (polymorphic (V)
+    (-> V (graph? V)
+        (graph? V))))
 
 (define (graph-add-vertex! vertex graph)
-  (set-add! vertex (@graph-vertices graph)))
+  (set-add! vertex (@graph-vertices graph))
+  graph)
 
 (claim graph-add-edge!
-  (-> anything? anything? (graph? anything?)
-      (graph? anything?)))
+  (polymorphic (V)
+    (-> V V (graph? V)
+        (graph? V))))
 
 (define (graph-add-edge! source target graph)
   (graph-add-vertex! source graph)
@@ -59,8 +64,9 @@
   graph)
 
 (claim graph-adjacent?
-  (-> anything? anything? (graph? anything?)
-      bool?))
+  (polymorphic (V)
+    (-> V V (graph? V)
+        bool?)))
 
 (define (graph-adjacent? source target graph)
   (set-member? target (graph-neighbors source graph)))

@@ -17,9 +17,13 @@
   (assert-equal {1 3} (graph-neighbors 2 graph))
   (assert-equal {1 2} (graph-neighbors 3 graph))
 
+  (assert ((specific graph-adjacent? int?) 1 2 graph))
+
   (assert (graph-adjacent? 1 2 graph))
   (assert (graph-adjacent? 2 1 graph))
   (assert (graph-adjacent? 2 3 graph))
   (assert (graph-adjacent? 3 2 graph))
   (assert (graph-adjacent? 1 3 graph))
-  (assert (graph-adjacent? 3 1 graph)))
+  (assert (graph-adjacent? 3 1 graph))
+
+  void)
