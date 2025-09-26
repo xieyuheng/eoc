@@ -1,5 +1,8 @@
 > 3.3 Build the Interference Graph
 
+graph-add-edges!
+make-graph
+
 [pass] `build-interference`
 
 > 3.4 Graph Coloring via Sudoku

@@ -46,10 +46,11 @@
 
 (claim graph-add-edge!
   (polymorphic (V)
-    (-> V V (graph? V)
+    (-> (tau V V) (graph? V)
         (graph? V))))
 
-(define (graph-add-edge! source target graph)
+(define (graph-add-edge! edge graph)
+  (= [source target] edge)
   (graph-add-vertex! source graph)
   (graph-add-vertex! target graph)
   (= neighbor-hash (@graph-neighbor-hash graph))
