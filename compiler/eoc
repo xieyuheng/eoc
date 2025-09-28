@@ -44,7 +44,7 @@
   (= [:exit-code exit-code :stdout stdout :stderr stderr]
      (system-shell-run "cc" [asm-file runtime-file "-o" output-file]))
   (if (equal? exit-code 0)
-    (file-remove asm-file)
+    (file-delete asm-file)
     (begin
       (write stderr)
       (exit [:who 'generate-exe
