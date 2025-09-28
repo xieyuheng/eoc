@@ -1,7 +1,7 @@
 ;; undirected simple graph
 
 (export
-  graph? cons-graph make-graph
+  graph? make-graph
   graph-vertices
   graph-neighbors
   graph-add-vertex!

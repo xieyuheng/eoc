@@ -1,4 +1,8 @@
 > 3.4 Graph Coloring via Sudoku
+
+[utils] pqueue -- priority queue
+[passes] allocate-registers
+
 > 3.5 Patch Instructions
 > 3.6 Generate Prelude and Conclusion
 > 3.7 Challenge: Move Biasing
