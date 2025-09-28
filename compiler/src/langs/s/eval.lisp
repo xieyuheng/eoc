@@ -7,7 +7,7 @@
 
 (define (eval-program program)
   (match program
-    ((@program info exp)
+    ((cons-program info exp)
      (eval-exp exp []))))
 
 (claim eval-exp

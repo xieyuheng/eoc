@@ -1,8 +1,8 @@
 (export
-  x86-program? @x86-program
+  x86-program? cons-x86-program
   x86-program-with-info?
   x86-program-with-block?
-  block? @block
+  block? cons-block
   block-with-info?
   instr? general-instr? special-instr?
   callq retq jmp
@@ -11,7 +11,7 @@
   reg-name?)
 
 (define-data x86-program?
-  (@x86-program
+  (cons-x86-program
    (info anything?)
    (blocks (record? block?))))
 
@@ -20,7 +20,7 @@
       bool?))
 
 (define (x86-program-with-info? info-p x86-program)
-  (info-p (@x86-program-info x86-program)))
+  (info-p (cons-x86-program-info x86-program)))
 
 (claim x86-program-with-block?
   (-> (-> block? bool?) x86-program?
@@ -29,10 +29,10 @@
 (define (x86-program-with-block? block-p x86-program)
   (list-all?
    block-p
-   (record-values (@x86-program-blocks x86-program))))
+   (record-values (cons-x86-program-blocks x86-program))))
 
 (define-data block?
-  (@block
+  (cons-block
    (info anything?)
    (instrs (list? instr?))))
 
@@ -41,7 +41,7 @@
       bool?))
 
 (define (block-with-info? info-p block)
-  (info-p (@block-info block)))
+  (info-p (cons-block-info block)))
 
 (define instr?
   (union general-instr?

@@ -7,7 +7,7 @@
 
 (define (form-c-program c-program)
   (match c-program
-    ((@c-program info seqs)
+    ((cons-c-program info seqs)
      `(c-program ,(form-info info) ,(record-map form-seq seqs)))))
 
 (define (form-info info)

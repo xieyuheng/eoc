@@ -1,7 +1,7 @@
 ;; undirected simple graph
 
 (export
-  graph? @graph new-graph make-graph
+  graph? cons-graph new-graph make-graph
   graph-vertices graph-neighbors
   graph-add-vertex!
   graph-add-edge!
@@ -9,7 +9,7 @@
   graph-adjacent?)
 
 (define-data (graph? V)
-  (@graph (vertices (set? V))
+  (cons-graph (vertices (set? V))
           (neighbor-hash (hash? V (set? V)))))
 
 (claim new-graph
@@ -18,7 +18,7 @@
 (define (new-graph)
   (= vertices (@set))
   (= neighbor-hash (@hash))
-  (@graph vertices neighbor-hash))
+  (cons-graph vertices neighbor-hash))
 
 (claim graph-vertices
   (polymorphic (V)
@@ -26,7 +26,7 @@
         (set? V))))
 
 (define (graph-vertices graph)
-  (@graph-vertices graph))
+  (cons-graph-vertices graph))
 
 (claim graph-neighbors
   (polymorphic (V)
@@ -34,7 +34,7 @@
         (set? V))))
 
 (define (graph-neighbors vertex graph)
-  (hash-get vertex (@graph-neighbor-hash graph)))
+  (hash-get vertex (cons-graph-neighbor-hash graph)))
 
 (claim graph-add-vertex!
   (polymorphic (V)
@@ -42,7 +42,7 @@
         (graph? V))))
 
 (define (graph-add-vertex! vertex graph)
-  (set-add! vertex (@graph-vertices graph))
+  (set-add! vertex (cons-graph-vertices graph))
   graph)
 
 (claim graph-add-edge!
@@ -54,7 +54,7 @@
   (= [source target] edge)
   (graph-add-vertex! source graph)
   (graph-add-vertex! target graph)
-  (= neighbor-hash (@graph-neighbor-hash graph))
+  (= neighbor-hash (cons-graph-neighbor-hash graph))
   (= source-neighbors (hash-get source neighbor-hash))
   (if (null? source-neighbors)
     (hash-put! source {target} neighbor-hash)

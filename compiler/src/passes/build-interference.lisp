@@ -18,8 +18,8 @@
 
 (define (build-interference x86-program)
   (match x86-program
-    ((@x86-program info blocks)
-     (@x86-program info (record-map build-interference-block blocks)))))
+    ((cons-x86-program info blocks)
+     (cons-x86-program info (record-map build-interference-block blocks)))))
 
 (claim build-interference-block
   (-> (block-with-info? live-info?)
@@ -28,12 +28,12 @@
 
 (define (build-interference-block block)
   (match block
-    ((@block info instrs)
+    ((cons-block info instrs)
      (= live-after-instrs (record-get 'live-after-instrs info))
      (= graph (make-graph
                (list-append-many
                 (list-map-zip instr-edges instrs live-after-instrs))))
-     (@block
+     (cons-block
       (record-put 'interference-graph graph info)
       instrs))))
 

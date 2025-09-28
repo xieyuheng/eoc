@@ -6,8 +6,8 @@
 
 (define (uniquify program)
   (match program
-    ((@program info body)
-     (@program info (uniquify-exp [] [] body)))))
+    ((cons-program info body)
+     (cons-program info (uniquify-exp [] [] body)))))
 
 (claim uniquify-exp
   (-> (record? int-non-negative?)

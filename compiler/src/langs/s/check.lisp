@@ -8,13 +8,13 @@
 
 (define (check-program program)
   (match program
-    ((@program info body)
+    ((cons-program info body)
      (= [body^ body-type] (check-exp body []))
      (unless (type-equal? body-type int-t)
        (exit [:who 'check-program
               :message "expected body-type to be int-t"
               :body body :body-type body-type]))
-     (@program info body^))))
+     (cons-program info body^))))
 
 (claim check-exp
   (-> exp? (record? type?)

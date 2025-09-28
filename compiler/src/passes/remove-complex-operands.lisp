@@ -6,9 +6,9 @@
 
 (define (rco-program program)
   (match program
-    ((@program info body)
+    ((cons-program info body)
      (= state [:count 0])
-     (@program info (rco-exp state body)))))
+     (cons-program info (rco-exp state body)))))
 
 (define state? (tau :count int-non-negative?))
 

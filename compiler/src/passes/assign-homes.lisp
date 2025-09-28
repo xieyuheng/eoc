@@ -11,10 +11,10 @@
 
 (define (assign-homes x86-program)
   (match x86-program
-    ((@x86-program info blocks)
+    ((cons-x86-program info blocks)
      (= ctx (record-get 'ctx info))
      (= stack-space (imul 8 (record-length ctx)))
-     (@x86-program
+     (cons-x86-program
       (record-put 'stack-space stack-space info)
       (record-map (assign-homes-block ctx) blocks)))))
 
@@ -24,8 +24,8 @@
 
 (define (assign-homes-block ctx block)
   (match block
-    ((@block info instrs)
-     (@block info (list-map (assign-homes-instr ctx) instrs)))))
+    ((cons-block info instrs)
+     (cons-block info (list-map (assign-homes-instr ctx) instrs)))))
 
 (claim assign-homes-instr
   (-> (record? type?) instr?

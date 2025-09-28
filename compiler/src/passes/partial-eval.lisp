@@ -6,8 +6,8 @@
 
 (define (partial-eval-program program)
   (match program
-    ((@program info exp)
-     (@program info (partial-eval-exp exp [])))))
+    ((cons-program info exp)
+     (cons-program info (partial-eval-exp exp [])))))
 
 (claim partial-eval-exp
   (-> exp? (record? exp?) exp?))
