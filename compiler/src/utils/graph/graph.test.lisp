@@ -1,7 +1,7 @@
 (import-all "index.lisp")
 
 (begin
-  (= graph (new-graph))
+  (= graph (make-graph []))
 
   (graph-add-vertex! 1 graph)
   (graph-add-vertex! 2 graph)
