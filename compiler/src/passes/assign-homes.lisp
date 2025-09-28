@@ -3,9 +3,9 @@
 (export assign-homes)
 
 (claim assign-homes
-  (-> (x86-program-with-info?
+  (-> (x86-program/info?
        (tau :ctx (record? type?)))
-      (x86-program-with-info?
+      (x86-program/info?
        (tau :ctx (record? type?)
             :stack-space int?))))
 

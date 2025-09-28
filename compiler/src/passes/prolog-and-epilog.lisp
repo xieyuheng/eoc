@@ -3,7 +3,7 @@
 (export prolog-and-epilog)
 
 (claim prolog-and-epilog
-  (-> (x86-program-with-info?
+  (-> (x86-program/info?
        (tau :stack-space int?))
       x86-program?))
 

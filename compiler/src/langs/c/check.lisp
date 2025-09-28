@@ -5,7 +5,7 @@
 
 (claim check-c-program
   (-> c-program?
-      (c-program-with-info? (tau :ctx (record? type?)))))
+      (c-program/info? (tau :ctx (record? type?)))))
 
 (define (check-c-program c-program)
   (match c-program

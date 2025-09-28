@@ -1,9 +1,9 @@
 (export
   x86-program? cons-x86-program
-  x86-program-with-info?
-  x86-program-with-block?
+  x86-program/info?
+  x86-program/block?
   block? cons-block
-  block-with-info?
+  block/info?
   instr? general-instr? special-instr?
   callq retq jmp
   operand? var-rand imm-rand reg-rand deref-rand
@@ -15,18 +15,18 @@
    (info anything?)
    (blocks (record? block?))))
 
-(claim x86-program-with-info?
+(claim x86-program/info?
   (-> (-> anything? bool?) x86-program?
       bool?))
 
-(define (x86-program-with-info? info-p x86-program)
+(define (x86-program/info? info-p x86-program)
   (info-p (cons-x86-program-info x86-program)))
 
-(claim x86-program-with-block?
+(claim x86-program/block?
   (-> (-> block? bool?) x86-program?
       bool?))
 
-(define (x86-program-with-block? block-p x86-program)
+(define (x86-program/block? block-p x86-program)
   (list-all?
    block-p
    (record-values (cons-x86-program-blocks x86-program))))
@@ -36,11 +36,11 @@
    (info anything?)
    (instrs (list? instr?))))
 
-(claim block-with-info?
+(claim block/info?
   (-> (-> anything? bool?) block?
       bool?))
 
-(define (block-with-info? info-p block)
+(define (block/info? info-p block)
   (info-p (cons-block-info block)))
 
 (define instr?

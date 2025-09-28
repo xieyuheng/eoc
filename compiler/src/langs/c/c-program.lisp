@@ -1,6 +1,6 @@
 (export
   c-program? cons-c-program
-  c-program-with-info?
+  c-program/info?
   seq? return-seq cons-seq
   stmt? assign-stmt
   c-exp? var-c-exp int-c-exp prim-c-exp
@@ -11,11 +11,11 @@
    (info anything?)
    (seqs (record? seq?))))
 
-(claim c-program-with-info?
+(claim c-program/info?
   (-> (-> anything? bool?) c-program?
       bool?))
 
-(define (c-program-with-info? info-p c-program)
+(define (c-program/info? info-p c-program)
   (info-p (cons-c-program-info c-program)))
 
 (define-data seq?
