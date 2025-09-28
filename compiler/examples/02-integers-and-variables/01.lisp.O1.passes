@@ -1,11 +1,44 @@
-000 (program () (let ((x 4)) (iadd 8 x)))
-001 (program () 12)
-010 (program () 12)
-020 (program () 12)
-030 (c-program () (:start ((return 12))))
-040 [#cons-x86-program [:ctx []] [:start [#cons-block [] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
-050 [#cons-x86-program [:ctx []] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]}] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
-060 [#cons-x86-program [:ctx []] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]} :interference-graph [#cons-graph {[#reg-rand 'rax] [#reg-rand 'rsp]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp]} [#reg-rand 'rsp] {[#reg-rand 'rax]})]] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
-070 [#cons-x86-program [:ctx [] :stack-space 0] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]} :interference-graph [#cons-graph {[#reg-rand 'rax] [#reg-rand 'rsp]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp]} [#reg-rand 'rsp] {[#reg-rand 'rax]})]] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
-080 [#cons-x86-program [:ctx [] :stack-space 0] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]} :interference-graph [#cons-graph {[#reg-rand 'rax] [#reg-rand 'rsp]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp]} [#reg-rand 'rsp] {[#reg-rand 'rax]})]] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
-090 [#cons-x86-program [:ctx [] :stack-space 0] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]} :interference-graph [#cons-graph {[#reg-rand 'rax] [#reg-rand 'rsp]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp]} [#reg-rand 'rsp] {[#reg-rand 'rax]})]] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]] :begin [#cons-block [] [['pushq [[#reg-rand 'rbp]]] ['movq [[#reg-rand 'rsp] [#reg-rand 'rbp]]] [#jmp 'start]]] :epilog [#cons-block [] [['popq [[#reg-rand 'rbp]]] #retq]]]]
+program:
+
+  (program () (let ((x 4)) (iadd 8 x)))
+
+partial-eval:
+
+  (program () 12)
+
+uniquify:
+
+  (program () 12)
+
+remove-complex-operands:
+
+  (program () 12)
+
+explicate-control:
+
+  (c-program () (:start ((return 12))))
+
+select-instructions:
+
+  [#cons-x86-program [:ctx []] [:start [#cons-block [] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
+
+uncover-live:
+
+  [#cons-x86-program [:ctx []] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]}] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
+
+build-interference:
+
+  [#cons-x86-program [:ctx []] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]} :interference-graph [#cons-graph {[#reg-rand 'rax] [#reg-rand 'rsp]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp]} [#reg-rand 'rsp] {[#reg-rand 'rax]})]] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
+
+assign-homes:
+
+  [#cons-x86-program [:ctx [] :stack-space 0] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]} :interference-graph [#cons-graph {[#reg-rand 'rax] [#reg-rand 'rsp]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp]} [#reg-rand 'rsp] {[#reg-rand 'rax]})]] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
+
+patch-instructions:
+
+  [#cons-x86-program [:ctx [] :stack-space 0] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]} :interference-graph [#cons-graph {[#reg-rand 'rax] [#reg-rand 'rsp]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp]} [#reg-rand 'rsp] {[#reg-rand 'rax]})]] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
+
+prolog-and-epilog:
+
+  [#cons-x86-program [:ctx [] :stack-space 0] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]} :interference-graph [#cons-graph {[#reg-rand 'rax] [#reg-rand 'rsp]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp]} [#reg-rand 'rsp] {[#reg-rand 'rax]})]] [['movq [[#imm-rand 12] [#reg-rand 'rax]]] [#jmp 'epilog]]] :begin [#cons-block [] [['pushq [[#reg-rand 'rbp]]] ['movq [[#reg-rand 'rsp] [#reg-rand 'rbp]]] [#jmp 'start]]] :epilog [#cons-block [] [['popq [[#reg-rand 'rbp]]] #retq]]]]
+
