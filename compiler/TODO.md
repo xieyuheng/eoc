@@ -1,18 +1,18 @@
 > 3.4 Graph Coloring via Sudoku
 
-[utils] pqueue -- priority queue
+[utils] priority-queue
 
 ```scheme
-(make-max-pqueue)
-(make-min-pqueue)
+(make-max-priority-queue)
+(make-min-priority-queue)
 
-(pqueue-offer! key priority pqueue)
-(pqueue-get key pqueue)
-(pqueue-delete! key pqueue)
+(priority-queue-offer! key priority queue)
+(priority-queue-get key queue)
+(priority-queue-delete! key queue)
 
-(pqueue-peek pqueue)
-(pqueue-poll! pqueue)
-(pqueue-poll-all! pqueue)
+(priority-queue-peek queue)
+(priority-queue-poll! queue)
+(priority-queue-poll-all! queue)
 ```
 
 [passes] allocate-registers

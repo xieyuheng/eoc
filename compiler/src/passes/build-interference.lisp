@@ -50,7 +50,7 @@
     (['movq [src dest]]
      (list-product/no-diagonal
       [dest]
-      (list-select (negate (equal? src))
+      (list-reject (equal? src)
                    (set-to-list live-after-instr))))
     (else
      (list-product/no-diagonal
