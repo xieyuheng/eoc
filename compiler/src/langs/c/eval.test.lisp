@@ -1,4 +1,4 @@
-(import-all "index.lisp")
+(import-all "index")
 
 (define (test-c-program predicate sexp)
   (= c-program (parse-c-program sexp))

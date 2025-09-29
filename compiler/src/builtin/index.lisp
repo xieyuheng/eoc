@@ -1,1 +1,1 @@
-(include "check-op.lisp" check-op)
+(include "check-op" check-op)

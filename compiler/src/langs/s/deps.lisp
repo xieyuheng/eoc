@@ -1,2 +1,2 @@
-(include-all "../../value/index.lisp")
-(include-all "../../builtin/index.lisp")
+(include-all "../../value")
+(include-all "../../builtin")

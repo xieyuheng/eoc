@@ -1,6 +1,6 @@
-(import-all "deps.lisp")
-(import-all "index.lisp")
-(import-all "uncover-live.lisp")
+(import-all "deps")
+(import-all "index")
+(import-all "uncover-live")
 
 ;; example:
 ;;

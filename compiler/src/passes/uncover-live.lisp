@@ -1,4 +1,4 @@
-(import-all "deps.lisp")
+(import-all "deps")
 
 (export
   uncover-live live-info?

@@ -1,1 +1,1 @@
-(include-all "../value/index.lisp")
+(include-all "../value")

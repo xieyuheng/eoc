@@ -1,5 +1,5 @@
-(import-all "deps.lisp")
-(import "uncover-live.lisp"
+(import-all "deps")
+(import "uncover-live"
   live-info?
   uncover-live-write
   caller-saved-registers)

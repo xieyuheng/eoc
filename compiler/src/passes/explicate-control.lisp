@@ -1,5 +1,5 @@
-(import-all "deps.lisp")
-(import "remove-complex-operands.lisp" atom-operand-exp?)
+(import-all "deps")
+(import "remove-complex-operands" atom-operand-exp?)
 
 (export explicate-control)
 

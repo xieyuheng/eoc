@@ -1,4 +1,4 @@
-(import-all "deps.lisp")
+(import-all "deps")
 
 (export assign-homes)
 

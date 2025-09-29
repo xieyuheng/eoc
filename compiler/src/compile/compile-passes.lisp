@@ -1,5 +1,5 @@
-(import-all "deps.lisp")
-(import "compile-program.lisp" optimization-level?)
+(import-all "deps")
+(import "compile-program" optimization-level?)
 
 (export compile-passes)
 

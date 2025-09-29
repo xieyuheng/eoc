@@ -1,2 +1,2 @@
-(include-all "x86-program.lisp")
-(include "format.lisp" format-x86-program)
+(include-all "x86-program")
+(include "format" format-x86-program)

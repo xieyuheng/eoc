@@ -1,4 +1,4 @@
-(import-all "index.lisp")
+(import-all "index")
 
 (check-c-program
  (parse-c-program

@@ -1,4 +1,4 @@
-(import-all "deps.lisp")
+(import-all "deps")
 
 (export rco-program atom-operand-exp?)
 

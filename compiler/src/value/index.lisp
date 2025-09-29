@@ -1,2 +1,2 @@
-(include-all "value.lisp")
-(include-all "type.lisp")
+(include-all "value")
+(include-all "type")

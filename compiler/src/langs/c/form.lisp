@@ -1,5 +1,5 @@
-(import-all "deps.lisp")
-(import-all "index.lisp")
+(import-all "deps")
+(import-all "index")
 
 (export form-c-program form-c-exp)
 
