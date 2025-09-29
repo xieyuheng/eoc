@@ -1,5 +1,3 @@
-move graph to std
-
 > 3.4 Graph Coloring via Sudoku
 
 [passes] allocate-registers

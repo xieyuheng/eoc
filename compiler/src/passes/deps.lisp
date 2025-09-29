@@ -1,4 +1,4 @@
-(include-all "../utils/graph/index.lisp")
+(include-all "std:graph")
 (include-all "../value/index.lisp")
 (include-all "../langs/s/index.lisp")
 (include-all "../langs/c/index.lisp")
