@@ -1,19 +1,6 @@
+move graph to std
+
 > 3.4 Graph Coloring via Sudoku
-
-[utils] priority-queue
-
-```scheme
-(make-max-priority-queue)
-(make-min-priority-queue)
-
-(priority-queue-offer! key priority queue)
-(priority-queue-get key queue)
-(priority-queue-delete! key queue)
-
-(priority-queue-peek queue)
-(priority-queue-poll! queue)
-(priority-queue-poll-all! queue)
-```
 
 [passes] allocate-registers
 
