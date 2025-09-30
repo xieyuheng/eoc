@@ -1,8 +1,8 @@
 > 3.4 Graph Coloring via Sudoku
 
-[pass] `allocate-registers` -- color-graph
+[pass] `allocate-registers` -- use `graph-coloring/dsatur`
 [pass] `allocate-registers` -- copy code from `assign-homes`
-`compile-passes`  remove `assign-homes`
+`compile-passes` remove `assign-homes`
 
 > 3.5 Patch Instructions
 > 3.6 Generate Prelude and Conclusion
