@@ -1,6 +1,9 @@
 > 3.4 Graph Coloring via Sudoku
 
-[passes] allocate-registers
+extract compile-passes/level-0 compile-passes/level-1 compile-passes/level-2
+extract compile-program/level-0 compile-program/level-1 compile-program/level-2
+[pass] allocate-registers -- setup
+[pass] allocate-registers
 
 > 3.5 Patch Instructions
 > 3.6 Generate Prelude and Conclusion
