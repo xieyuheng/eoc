@@ -12,8 +12,7 @@
 (define (compile-program optimization-level program)
   (match optimization-level
     (0 (compile-program/level-0 program))
-    (1 (compile-program/level-1 program))
-    (2 (compile-program/level-2 program))))
+    (1 (compile-program/level-1 program))))
 
 (define (compile-program/level-0 program)
   (pipe program
@@ -27,18 +26,6 @@
     prolog-and-epilog))
 
 (define (compile-program/level-1 program)
-  (pipe program
-    check-program
-    (compose check-program partial-eval-program)
-    (compose check-program uniquify)
-    (compose check-program rco-program)
-    (compose check-c-program explicate-control)
-    select-instructions
-    assign-homes
-    patch-instructions
-    prolog-and-epilog))
-
-(define (compile-program/level-2 program)
   (pipe program
     check-program
     (compose check-program partial-eval-program)
