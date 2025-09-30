@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
 set -e
-
 sh scripts/test-src.sh
 sh scripts/test-compile-passes.sh
 sh scripts/test-compile-assembly.sh
