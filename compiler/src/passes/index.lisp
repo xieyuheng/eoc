@@ -52,6 +52,10 @@
   ;; To replace variables with registers or stack locations.
   assign-homes)
 
+(include "allocate-registers"
+  ;; To replace variables with registers or stack locations.
+  allocate-registers)
+
 (include "patch-instructions"
   ;; This pass uses a reserved register (rax)
   ;; to fix x86 instructions with invalid operands.

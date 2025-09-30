@@ -30,6 +30,10 @@ build-interference:
 
   [#cons-x86-program [:ctx []] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]} :interference-graph [#cons-graph {[#reg-rand 'rax] [#reg-rand 'rsp]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp]} [#reg-rand 'rsp] {[#reg-rand 'rax]})]] [['movq [[#imm-rand 107] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
 
+allocate-registers:
+
+  [#cons-x86-program [:ctx []] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]} :interference-graph [#cons-graph {[#reg-rand 'rax] [#reg-rand 'rsp]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp]} [#reg-rand 'rsp] {[#reg-rand 'rax]})]] [['movq [[#imm-rand 107] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]
+
 assign-homes:
 
   [#cons-x86-program [:ctx [] :stack-space 0] [:start [#cons-block [:live-after-instrs [{[#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {} {}] :live-before-block {[#reg-rand 'rsp]} :interference-graph [#cons-graph {[#reg-rand 'rax] [#reg-rand 'rsp]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp]} [#reg-rand 'rsp] {[#reg-rand 'rax]})]] [['movq [[#imm-rand 107] [#reg-rand 'rax]]] [#jmp 'epilog]]]]]

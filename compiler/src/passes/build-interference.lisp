@@ -4,7 +4,7 @@
   uncover-live-write
   caller-saved-registers)
 
-(export build-interference)
+(export build-interference interference-info?)
 
 (define interference-info?
   (tau :interference-graph (graph? location-operand?)))
