@@ -1,9 +1,8 @@
-[c] `check` treat every `seq` the same way
+[pass] `select-instructions` pass `context` to `:context` of `block`
 
-- fix `form-c-program`
-- save `context` in `:contexts` of `c-program`
-- `select-instructions` pass to `:context` of `block`
-- `allocate-registers` treat every `block` the same way
+[pass] `allocate-registers` treat every `block` the same way
+
+- save `:stack-space` in block info
 
 [c] refactor `check-c-program`
 

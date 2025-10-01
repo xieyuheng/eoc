@@ -5,19 +5,27 @@
 
 (claim check-c-program
   (-> c-program?
-      (c-program/info? (tau :context (record? type?)))))
+      (c-program/info?
+       (tau :contexts (record? (record? type?))))))
 
 (define (check-c-program c-program)
   (match c-program
-    ((cons-c-program info [:begin seq])
-     (= context [])
-     (= result-type (check-seq seq context))
-     (unless (type-equal? result-type int-t)
-       (exit [:who 'check-c-program
-              :message "expected result-type to be int-t"
-              :seq seq
-              :result-type result-type]))
-     (cons-c-program (record-put 'context context info) [:begin seq]))))
+    ((cons-c-program info seqs)
+     (= contexts
+        (record-map
+         (lambda (seq)
+           (= context [])
+           (= result-type (check-seq seq context))
+           (unless (type-equal? result-type int-t)
+             (exit [:who 'check-c-program
+                    :message "expected result-type to be int-t"
+                    :seq seq
+                    :result-type result-type]))
+           context)
+         seqs))
+     (cons-c-program
+      (record-put 'contexts contexts info)
+      seqs))))
 
 (claim check-seq
   (-> seq? (record? type?)
