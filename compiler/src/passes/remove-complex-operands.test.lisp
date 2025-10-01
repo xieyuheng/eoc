@@ -1,5 +1,5 @@
 (import-all "deps")
-(import-all "index")
+(import-all "remove-complex-operands")
 
 (assert
   (atom-operand-exp?

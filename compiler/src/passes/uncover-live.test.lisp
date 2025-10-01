@@ -1,5 +1,4 @@
 (import-all "deps")
-(import-all "index")
 (import-all "uncover-live")
 
 ;; example:
