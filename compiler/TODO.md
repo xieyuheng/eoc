@@ -1,8 +1,17 @@
+[pass] `select-instructions` use `label.epilog` -- instead of `epilog`
+
+- `prolog-and-epilog` treat every `block` the same way
+
+[c] `check` treat every `seq` the same way
+
+- fix `form-c-program`
+- save `context` in `:contexts` of `c-program`
+- `select-instructions` pass to `:context` of `block`
+- `allocate-registers` treat every `block` the same way
+
+[c] refactor `check-c-program`
+
 > 3.4 Graph Coloring via Sudoku
-
-[c] `check` -- treat every `seq` the same way
-
-- save `:context` in `:contexts` of `c-program`
 
 [pass] `select-instructions`
 [pass] `allocate-registers` -- use `graph-coloring!`

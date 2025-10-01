@@ -2,17 +2,29 @@
 
 (export select-instructions)
 
-(claim select-instructions (-> c-program? x86-program?))
+(claim select-instructions
+  (-> c-program?
+      x86-program?))
 
 (define (select-instructions c-program)
   (match c-program
-    ((cons-c-program info [:start seq])
-     (= block (cons-block [] (select-instr-seq seq)))
-     (cons-x86-program info [:start block]))))
+    ((cons-c-program info seqs)
+     (cons-x86-program
+      info
+      (pipe seqs
+        record-entries
+        (list-map
+         (lambda (entry)
+           (= [label seq] entry)
+           (= block (cons-block [] (select-instr-seq label seq)))
+           [label block]))
+        record-from-entries)))))
 
-(claim select-instr-seq (-> seq? (list? instr?)))
+(claim select-instr-seq
+  (-> symbol? seq?
+      (list? instr?)))
 
-(define (select-instr-seq seq)
+(define (select-instr-seq label seq)
   (match seq
     ;; special case: tail call
     ((return-seq (prim-c-exp 'random-dice []))
@@ -25,7 +37,7 @@
     ((cons-seq stmt next-seq)
      (list-append
       (select-instr-stmt stmt)
-      (select-instr-seq next-seq)))))
+      (select-instr-seq label next-seq)))))
 
 (claim select-instr-stmt (-> stmt? (list? instr?)))
 
