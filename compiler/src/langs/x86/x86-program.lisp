@@ -3,9 +3,9 @@
   x86-program/info?
   x86-program/block?
   block? cons-block
-  block/info?
   block-info
   block-instrs
+  block/info?
   instr? general-instr? special-instr?
   callq retq jmp
   operand? var-rand imm-rand reg-rand deref-rand
