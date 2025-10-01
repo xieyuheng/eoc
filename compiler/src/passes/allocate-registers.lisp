@@ -3,8 +3,9 @@
 (export allocate-registers)
 
 (claim allocate-registers
-  (-> (x86-program/info?
-       (tau :contexts (record? (record? type?))))
+  (-> (x86-program/block?
+       (block/info?
+        (tau :context (record? type?))))
       (x86-program/info?
        (tau :stack-space int?))))
 
@@ -16,15 +17,14 @@
      (= stack-space (imul 8 (record-length context)))
      (cons-x86-program
       (record-put 'stack-space stack-space info)
-      (record-map (allocate-registers-block context) blocks)))))
+      (record-map allocate-registers-block blocks)))))
 
-(claim allocate-registers-block
-  (-> (record? type?) block?
-      block?))
+(claim allocate-registers-block (-> block? block?))
 
-(define (allocate-registers-block context block)
+(define (allocate-registers-block block)
   (match block
     ((cons-block info instrs)
+     (= context (record-get 'context info))
      (cons-block info (list-map (allocate-registers-instr context) instrs)))))
 
 (claim allocate-registers-instr

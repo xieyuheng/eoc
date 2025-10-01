@@ -1,10 +1,7 @@
-[pass] `select-instructions` pass `context` to `:context` of `block`
+[pass] `allocate-registers` -- save `:stack-space` in block info
 
-[pass] `allocate-registers` treat every `block` the same way
-
-- save `:stack-space` in block info
-
-[c] refactor `check-c-program`
+[c] refactor `check-c-program` -- about the use of record
+[pass] refactor `allocate-registers` -- about the use of record
 
 > 3.4 Graph Coloring via Sudoku
 

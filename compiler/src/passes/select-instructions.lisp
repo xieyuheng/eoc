@@ -3,8 +3,11 @@
 (export select-instructions)
 
 (claim select-instructions
-  (-> c-program?
-      x86-program?))
+  (-> (c-program/info?
+       (tau :contexts (record? (record? type?))))
+      (x86-program/block?
+       (block/info?
+        (tau :context (record? type?))))))
 
 (define (select-instructions c-program)
   (match c-program
@@ -16,8 +19,11 @@
         (list-map
          (lambda (entry)
            (= [label seq] entry)
-           (= block (cons-block [] (select-instr-seq label seq)))
-           [label block]))
+           (= contexts (record-get 'contexts info))
+           (= context (record-get label contexts))
+           [label (cons-block
+                   [:context context]
+                   (select-instr-seq label seq))]))
         record-from-entries)))))
 
 (claim select-instr-seq
