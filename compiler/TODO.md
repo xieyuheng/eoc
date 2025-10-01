@@ -1,11 +1,4 @@
-> 3.4 Graph Coloring via Sudoku
-
 [pass] `allocate-registers` -- use `graph-coloring!`
-
-> 3.5 Patch Instructions
-> 3.6 Generate Prelude and Conclusion
-> 3.7 Challenge: Move Biasing
-> 3.8 Further Reading
 
 [c] refactor `check-c-program` -- about the use of record
 [pass] refactor `allocate-registers` -- about the use of record
