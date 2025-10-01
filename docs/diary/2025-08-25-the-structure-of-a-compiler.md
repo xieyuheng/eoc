@@ -22,8 +22,7 @@ passes/
 - 020-remove-complex-operands
 - 030-explicate-control
 - 040-select-instructions
-- 050-assign-homes
-- 050-assign-homes.test
+- 050-allocate-registers
 - 060-patch-instructions
 - 070-prolog-and-epilog
 ```

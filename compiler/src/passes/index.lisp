@@ -48,15 +48,15 @@
   ;; Build interference graph for each block.
   build-interference)
 
-(include "assign-homes"
+(include "allocate-registers"
   ;; To replace variables with registers or stack locations.
-  assign-homes)
+  allocate-registers)
 
 (include "patch-instructions"
   ;; This pass uses a reserved register (rax)
   ;; to fix x86 instructions with invalid operands.
   ;; Since only one argument of an x86 instruction may be memory,
-  ;; but assign-homes might assign both operands to memory locations.
+  ;; but allocate-registers might assign both operands to memory locations.
   patch-instructions)
 
 (include "prolog-and-epilog"

@@ -21,7 +21,7 @@
     (compose check-program rco-program)
     (compose check-c-program explicate-control)
     select-instructions
-    assign-homes
+    allocate-registers
     patch-instructions
     prolog-and-epilog))
 
@@ -33,6 +33,6 @@
     (compose check-program rco-program)
     (compose check-c-program explicate-control)
     select-instructions
-    assign-homes
+    allocate-registers
     patch-instructions
     prolog-and-epilog))

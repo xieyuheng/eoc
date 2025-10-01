@@ -1,6 +1,5 @@
 > 3.4 Graph Coloring via Sudoku
 
-rename assign-homes to allocate-registers
 [pass] `allocate-registers` -- use `graph-coloring!`
 
 > 3.5 Patch Instructions

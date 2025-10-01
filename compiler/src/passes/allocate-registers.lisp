@@ -1,48 +1,48 @@
 (import-all "deps")
 
-(export assign-homes)
+(export allocate-registers)
 
-(claim assign-homes
+(claim allocate-registers
   (-> (x86-program/info?
        (tau :ctx (record? type?)))
       (x86-program/info?
        (tau :ctx (record? type?)
             :stack-space int?))))
 
-(define (assign-homes x86-program)
+(define (allocate-registers x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
      (= ctx (record-get 'ctx info))
      (= stack-space (imul 8 (record-length ctx)))
      (cons-x86-program
       (record-put 'stack-space stack-space info)
-      (record-map (assign-homes-block ctx) blocks)))))
+      (record-map (allocate-registers-block ctx) blocks)))))
 
-(claim assign-homes-block
+(claim allocate-registers-block
   (-> (record? type?) block?
       block?))
 
-(define (assign-homes-block ctx block)
+(define (allocate-registers-block ctx block)
   (match block
     ((cons-block info instrs)
-     (cons-block info (list-map (assign-homes-instr ctx) instrs)))))
+     (cons-block info (list-map (allocate-registers-instr ctx) instrs)))))
 
-(claim assign-homes-instr
+(claim allocate-registers-instr
   (-> (record? type?) instr?
       instr?))
 
-(define (assign-homes-instr ctx instr)
+(define (allocate-registers-instr ctx instr)
   (if (general-instr? instr)
     (begin
       (= [op rands] instr)
-      [op (list-map (assign-homes-operand ctx) rands)])
+      [op (list-map (allocate-registers-operand ctx) rands)])
     instr))
 
-(claim assign-homes-operand
+(claim allocate-registers-operand
   (-> (record? type?) operand?
       operand?))
 
-(define (assign-homes-operand ctx rand)
+(define (allocate-registers-operand ctx rand)
   (match rand
     ((var-rand name)
      (= index (list-find-index (equal? name) (record-keys ctx)))
