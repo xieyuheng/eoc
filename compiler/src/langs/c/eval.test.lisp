@@ -9,14 +9,14 @@
  (equal? 1)
  '(c-program
    ()
-   (:start
+   (:begin
     ((return 1)))))
 
 (test-c-program
  (equal? 1)
  '(c-program
    ()
-   (:start
+   (:begin
     ((= x 1)
      (return x)))))
 
@@ -24,13 +24,13 @@
  (equal? 3)
  '(c-program
    ()
-   (:start
+   (:begin
     ((return (iadd 1 2))))))
 
 (test-c-program
  (equal? 3)
  '(c-program
    ()
-   (:start
+   (:begin
     ((= x (iadd 1 2))
      (return x)))))

@@ -4,7 +4,7 @@
  (parse-c-program
   '(c-program
     ()
-    (:start
+    (:begin
      ;; wrong arity
      ((= x (ineg 1 2))
       (return x))))))

@@ -1,5 +1,10 @@
         .global begin
-start:
+begin:
+        pushq %rbp
+        movq %rsp, %rbp
+        subq $48, %rsp
+        jmp begin.body
+begin.body:
         movq $1, -8(%rbp)
         movq $42, -16(%rbp)
         movq -8(%rbp), %rax
@@ -16,13 +21,8 @@ start:
         negq -48(%rbp)
         movq -40(%rbp), %rax
         addq -48(%rbp), %rax
-        jmp start.epilog
-begin:
-        pushq %rbp
-        movq %rsp, %rbp
-        subq $48, %rsp
-        jmp start
-start.epilog:
+        jmp begin.epilog
+begin.epilog:
         addq $48, %rsp
         popq %rbp
         retq

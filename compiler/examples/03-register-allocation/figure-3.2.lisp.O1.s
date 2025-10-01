@@ -1,5 +1,10 @@
         .global begin
-start:
+begin:
+        pushq %rbp
+        movq %rsp, %rbp
+        subq $24, %rsp
+        jmp begin.body
+begin.body:
         callq random_dice
         movq %rax, -8(%rbp)
         callq random_dice
@@ -10,13 +15,8 @@ start:
         addq %rax, -24(%rbp)
         movq $42, %rax
         addq -24(%rbp), %rax
-        jmp start.epilog
-begin:
-        pushq %rbp
-        movq %rsp, %rbp
-        subq $24, %rsp
-        jmp start
-start.epilog:
+        jmp begin.epilog
+begin.epilog:
         addq $24, %rsp
         popq %rbp
         retq

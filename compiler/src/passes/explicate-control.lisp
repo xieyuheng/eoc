@@ -8,7 +8,7 @@
 (define (explicate-control program)
   (match program
     ((cons-program info body)
-     (cons-c-program info [:start (explicate-tail body)]))))
+     (cons-c-program info [:begin (explicate-tail body)]))))
 
 ;; (explicate-tail)
 ;;

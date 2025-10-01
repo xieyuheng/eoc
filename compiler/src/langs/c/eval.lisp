@@ -7,7 +7,7 @@
 
 (define (eval-c-program c-program)
   (match c-program
-    ((cons-c-program info [:start seq])
+    ((cons-c-program info [:begin seq])
      (eval-seq seq []))))
 
 (claim eval-seq

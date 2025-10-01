@@ -11,29 +11,38 @@
   (match x86-program
     ((cons-x86-program info blocks)
      (= stack-space (record-get 'stack-space info))
-     (= blocks (record-put 'begin (prolog-block stack-space) blocks))
-     (= blocks (record-put 'start.epilog (epilog-block stack-space) blocks))
-     (cons-x86-program info blocks))))
+     (= new-blocks [])
+     (pipe blocks
+       record-entries
+       (list-each
+        (lambda (entry)
+          (= [label block] entry)
+          (record-put-many!
+           [[label (prolog-block label stack-space)]
+            [(symbol-append label '.body) block]
+            [(symbol-append label '.epilog) (epilog-block label stack-space)]]
+           new-blocks))))
+     (cons-x86-program info new-blocks))))
 
-(claim prolog-block (-> int? block?))
+(claim prolog-block (-> symbol? int? block?))
 
-(define (prolog-block stack-space)
+(define (prolog-block label stack-space)
   (if (equal? 0 stack-space)
     (cons-block
      []
      [['pushq [(reg-rand 'rbp)]]
       ['movq [(reg-rand 'rsp) (reg-rand 'rbp)]]
-      (jmp 'start)])
+      (jmp (symbol-append label '.body))])
     (cons-block
      []
      [['pushq [(reg-rand 'rbp)]]
       ['movq [(reg-rand 'rsp) (reg-rand 'rbp)]]
       ['subq [(imm-rand stack-space) (reg-rand 'rsp)]]
-      (jmp 'start)])))
+      (jmp (symbol-append label '.body))])))
 
-(claim epilog-block (-> int? block?))
+(claim epilog-block (-> symbol? int? block?))
 
-(define (epilog-block stack-space)
+(define (epilog-block label stack-space)
   (if (equal? 0 stack-space)
     (cons-block
      []
