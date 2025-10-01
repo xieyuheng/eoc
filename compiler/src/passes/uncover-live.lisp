@@ -23,7 +23,7 @@
 (define (uncover-live x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     (cons-x86-program info (record-map uncover-live-block blocks)))))
+     (cons-x86-program info (record-map-value uncover-live-block blocks)))))
 
 (claim uncover-live-block
   (-> block?

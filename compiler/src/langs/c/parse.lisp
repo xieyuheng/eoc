@@ -8,7 +8,7 @@
 (define (parse-c-program sexp)
   (match sexp
     (`(c-program ,info ,seqs)
-     (cons-c-program info (record-map parse-seq seqs)))))
+     (cons-c-program info (record-map-value parse-seq seqs)))))
 
 (claim parse-seq (-> sexp? seq?))
 

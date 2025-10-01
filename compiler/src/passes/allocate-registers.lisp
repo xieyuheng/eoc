@@ -14,7 +14,7 @@
 (define (allocate-registers x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     (cons-x86-program info (record-map allocate-registers-block blocks)))))
+     (cons-x86-program info (record-map-value allocate-registers-block blocks)))))
 
 (claim allocate-registers-block (-> block? block?))
 
