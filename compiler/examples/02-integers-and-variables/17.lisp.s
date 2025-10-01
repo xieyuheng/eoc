@@ -2,18 +2,30 @@
 begin:
         pushq %rbp
         movq %rsp, %rbp
-        subq $16, %rsp
+        pushq %rsp
+        pushq %rbp
+        pushq %rbx
+        pushq %r12
+        pushq %r13
+        pushq %r14
+        pushq %r15
+        subq $128, %rsp
         jmp begin.body
 begin.body:
         callq random_dice
-        movq %rax, -8(%rbp)
-        movq -8(%rbp), %rax
-        movq %rax, -16(%rbp)
-        addq $1, -16(%rbp)
+        movq %rax, %rcx
+        addq $1, %rcx
         movq $1, %rax
-        addq -16(%rbp), %rax
+        addq %rcx, %rax
         jmp begin.epilog
 begin.epilog:
-        addq $16, %rsp
+        addq $128, %rsp
+        popq %r15
+        popq %r14
+        popq %r13
+        popq %r12
+        popq %rbx
+        popq %rbp
+        popq %rsp
         popq %rbp
         retq

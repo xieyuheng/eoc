@@ -21,6 +21,8 @@
     (compose check-program rco-program)
     (compose check-c-program explicate-control)
     select-instructions
+    uncover-live
+    build-interference
     allocate-registers
     patch-instructions
     prolog-and-epilog))
@@ -33,6 +35,8 @@
     (compose check-program rco-program)
     (compose check-c-program explicate-control)
     select-instructions
+    uncover-live
+    build-interference
     allocate-registers
     patch-instructions
     prolog-and-epilog))

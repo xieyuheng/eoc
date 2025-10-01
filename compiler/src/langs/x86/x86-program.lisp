@@ -9,6 +9,7 @@
   instr? general-instr? special-instr?
   callq retq jmp
   operand? var-rand imm-rand reg-rand deref-rand
+  reg-rand?
   location-operand?
   reg-name?)
 

@@ -2,19 +2,29 @@
 begin:
         pushq %rbp
         movq %rsp, %rbp
-        subq $24, %rsp
+        pushq %rsp
+        pushq %rbp
+        pushq %rbx
+        pushq %r12
+        pushq %r13
+        pushq %r14
+        pushq %r15
+        subq $128, %rsp
         jmp begin.body
 begin.body:
-        movq $42, -8(%rbp)
-        negq -8(%rbp)
-        movq -8(%rbp), %rax
-        movq %rax, -16(%rbp)
-        movq -16(%rbp), %rax
-        movq %rax, -24(%rbp)
-        movq -24(%rbp), %rax
+        movq $42, %rcx
+        negq %rcx
+        movq %rcx, %rax
         negq %rax
         jmp begin.epilog
 begin.epilog:
-        addq $24, %rsp
+        addq $128, %rsp
+        popq %r15
+        popq %r14
+        popq %r13
+        popq %r12
+        popq %rbx
+        popq %rbp
+        popq %rsp
         popq %rbp
         retq

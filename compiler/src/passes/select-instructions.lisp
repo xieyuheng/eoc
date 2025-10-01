@@ -21,9 +21,8 @@
            (= [label seq] entry)
            (= contexts (record-get 'contexts info))
            (= context (record-get label contexts))
-           (= stack-space (imul 8 (record-length context)))
            [label (cons-block
-                   [:context context :stack-space stack-space]
+                   [:context context]
                    (select-instr-seq label seq))]))
         record-from-entries)))))
 
