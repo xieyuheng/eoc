@@ -1,6 +1,5 @@
 > 3.4 Graph Coloring via Sudoku
 
-[pass] `select-instructions`
 [pass] `allocate-registers` -- use `graph-coloring!`
 
 > 3.5 Patch Instructions
@@ -10,6 +9,7 @@
 
 [c] refactor `check-c-program` -- about the use of record
 [pass] refactor `allocate-registers` -- about the use of record
+[pass] refactor `prolog-and-epilog` -- about the use of record
 
 > 4 Booleans and Conditionals
 > 5 Loops and Dataflow Analysis
