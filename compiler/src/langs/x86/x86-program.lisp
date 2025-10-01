@@ -4,6 +4,8 @@
   x86-program/block?
   block? cons-block
   block/info?
+  block-info
+  block-instrs
   instr? general-instr? special-instr?
   callq retq jmp
   operand? var-rand imm-rand reg-rand deref-rand
@@ -35,6 +37,9 @@
   (cons-block
    (info anything?)
    (instrs (list? instr?))))
+
+(define block-info cons-block-info)
+(define block-instrs cons-block-instrs)
 
 (claim block/info?
   (-> (-> anything? bool?) block?

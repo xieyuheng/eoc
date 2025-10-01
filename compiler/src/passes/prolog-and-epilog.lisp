@@ -3,20 +3,21 @@
 (export prolog-and-epilog)
 
 (claim prolog-and-epilog
-  (-> (x86-program/info?
-       (tau :stack-space int?))
+  (-> (x86-program/block?
+       (block/info?
+        (tau :stack-space int?)))
       x86-program?))
 
 (define (prolog-and-epilog x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     (= stack-space (record-get 'stack-space info))
      (= new-blocks [])
      (pipe blocks
        record-entries
        (list-each
         (lambda (entry)
           (= [label block] entry)
+          (= stack-space (record-get 'stack-space (block-info block)))
           (record-put-many!
            [[label (prolog-block label stack-space)]
             [(symbol-append label '.body) block]

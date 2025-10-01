@@ -6,18 +6,12 @@
   (-> (x86-program/block?
        (block/info?
         (tau :context (record? type?))))
-      (x86-program/info?
-       (tau :stack-space int?))))
+      x86-program?))
 
 (define (allocate-registers x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     (= contexts (record-get 'contexts info))
-     (= context (record-get 'begin contexts))
-     (= stack-space (imul 8 (record-length context)))
-     (cons-x86-program
-      (record-put 'stack-space stack-space info)
-      (record-map allocate-registers-block blocks)))))
+     (cons-x86-program info (record-map allocate-registers-block blocks)))))
 
 (claim allocate-registers-block (-> block? block?))
 

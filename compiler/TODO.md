@@ -1,8 +1,3 @@
-[pass] `allocate-registers` -- save `:stack-space` in block info
-
-[c] refactor `check-c-program` -- about the use of record
-[pass] refactor `allocate-registers` -- about the use of record
-
 > 3.4 Graph Coloring via Sudoku
 
 [pass] `select-instructions`
@@ -12,6 +7,9 @@
 > 3.6 Generate Prelude and Conclusion
 > 3.7 Challenge: Move Biasing
 > 3.8 Further Reading
+
+[c] refactor `check-c-program` -- about the use of record
+[pass] refactor `allocate-registers` -- about the use of record
 
 > 4 Booleans and Conditionals
 > 5 Loops and Dataflow Analysis
