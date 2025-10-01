@@ -1,17 +1,18 @@
-[pass] `allocate-registers` -- fix `:stack-space`
 [pass] `allocate-registers` -- fix `:used-callee-saved-registers`
+[pass] `allocate-registers` -- fix `:stack-space`
+
+[pass] `allocate-registers` -- fix the use of `max-register-color` in `color-to-location`
+[pass] `allocate-registers` -- fix the use of `index` in `color-to-location`
+
+# refactor
 
 [pass] refactor `prolog-and-epilog`
-
-[pass] fix the use of `max-register-color` in `color-to-location`
-[pass] fix the use of `index` in `color-to-location`
-
-[pass] `prolog-and-epilog` -- add stack alignment for macos
-
 [pass] refactor `pre-coloring` -- using `hash-map-key`
 [c] refactor `check-c-program` -- about the use of record
 [pass] refactor `allocate-registers` -- about the use of record
 [pass] refactor `prolog-and-epilog` -- about the use of record
+
+# book
 
 > 4 Booleans and Conditionals
 > 5 Loops and Dataflow Analysis
@@ -21,6 +22,10 @@
 > 9 Dynamic Typing
 > 10 Gradual Typing
 > 11 Generics
+
+# later
+
+[pass] `prolog-and-epilog` -- add stack alignment for macos
 
 # improve
 
