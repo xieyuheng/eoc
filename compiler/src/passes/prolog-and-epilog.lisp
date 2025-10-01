@@ -12,7 +12,7 @@
     ((cons-x86-program info blocks)
      (= stack-space (record-get 'stack-space info))
      (= blocks (record-put 'begin (prolog-block stack-space) blocks))
-     (= blocks (record-put 'epilog (epilog-block stack-space) blocks))
+     (= blocks (record-put 'start.epilog (epilog-block stack-space) blocks))
      (cons-x86-program info blocks))))
 
 (claim prolog-block (-> int? block?))

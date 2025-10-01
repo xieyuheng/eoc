@@ -1,11 +1,11 @@
         .global begin
 start:
         movq $15, %rax
-        jmp epilog
+        jmp start.epilog
 begin:
         pushq %rbp
         movq %rsp, %rbp
         jmp start
-epilog:
+start.epilog:
         popq %rbp
         retq

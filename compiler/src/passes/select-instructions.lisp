@@ -29,11 +29,11 @@
     ;; special case: tail call
     ((return-seq (prim-c-exp 'random-dice []))
      [(callq 'random_dice 0)
-      (jmp 'epilog)])
+      (jmp (symbol-append label '.epilog))])
     ((return-seq exp)
      (list-append
       (select-instr-assign (reg-rand 'rax) exp)
-      [(jmp 'epilog)]))
+      [(jmp (symbol-append label '.epilog))]))
     ((cons-seq stmt next-seq)
      (list-append
       (select-instr-stmt stmt)

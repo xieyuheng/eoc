@@ -80,7 +80,8 @@
        list-to-set))
     (retq
      {(reg-rand 'rsp) (reg-rand 'rax)})
-    ((jmp 'epilog)
+    ((jmp label)
+     ;; TODO only when label ends with .epilog
      {(reg-rand 'rsp) (reg-rand 'rax)})
     (['addq [src dest]]
      (set-union
@@ -110,7 +111,8 @@
        list-to-set))
     (retq
      {(reg-rand 'rsp)})
-    ((jmp 'epilog)
+    ((jmp label)
+     ;; TODO only when label ends with .epilog
      {(reg-rand 'rsp) (reg-rand 'rax)})
     (['addq [src dest]]
      (uncover-live-operand dest))

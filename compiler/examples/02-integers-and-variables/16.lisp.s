@@ -2,11 +2,11 @@
 start:
         movq $50, %rax
         subq $8, %rax
-        jmp epilog
+        jmp start.epilog
 begin:
         pushq %rbp
         movq %rsp, %rbp
         jmp start
-epilog:
+start.epilog:
         popq %rbp
         retq

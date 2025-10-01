@@ -8,13 +8,13 @@ start:
         movq %rax, -24(%rbp)
         movq -24(%rbp), %rax
         negq %rax
-        jmp epilog
+        jmp start.epilog
 begin:
         pushq %rbp
         movq %rsp, %rbp
         subq $24, %rsp
         jmp start
-epilog:
+start.epilog:
         addq $24, %rsp
         popq %rbp
         retq

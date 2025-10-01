@@ -1,6 +1,6 @@
-[pass] `select-instructions` use `label.epilog` -- instead of `epilog`
+[pass] `prolog-and-epilog` treat every `block` the same way
 
-- `prolog-and-epilog` treat every `block` the same way
+- translate `<label>` to `<label>.body`
 
 [c] `check` treat every `seq` the same way
 

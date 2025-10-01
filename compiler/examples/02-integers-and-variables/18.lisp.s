@@ -13,13 +13,13 @@ start:
         addq $1, -32(%rbp)
         movq -32(%rbp), %rax
         addq $1, %rax
-        jmp epilog
+        jmp start.epilog
 begin:
         pushq %rbp
         movq %rsp, %rbp
         subq $32, %rsp
         jmp start
-epilog:
+start.epilog:
         addq $32, %rsp
         popq %rbp
         retq
