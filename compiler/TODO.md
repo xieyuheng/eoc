@@ -1,5 +1,10 @@
 > 3.4 Graph Coloring via Sudoku
 
+[c] `check` -- treat every `seq` the same way
+
+- save `:context` in `:contexts` of `c-program`
+
+[pass] `select-instructions`
 [pass] `allocate-registers` -- use `graph-coloring!`
 
 > 3.5 Patch Instructions
