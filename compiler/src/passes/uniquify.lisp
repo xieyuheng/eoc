@@ -35,7 +35,8 @@
 
 (define (count-name name name-counts)
   (record-upsert
-   (record-unit name (lambda (count) (if (null? count) 1 (iadd 1 count))))
+   name
+   (lambda (count) (if (null? count) 1 (iadd 1 count)))
    name-counts))
 
 (define (generate-name-in-counts name name-counts)

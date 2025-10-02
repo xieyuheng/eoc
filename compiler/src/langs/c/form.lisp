@@ -12,7 +12,8 @@
 
 (define (form-info info)
   (record-update
-   [:contexts (record-map-value (record-map-value form-type))]
+   'contexts
+   (record-map-value (record-map-value form-type))
    info))
 
 (define (form-seq seq)
