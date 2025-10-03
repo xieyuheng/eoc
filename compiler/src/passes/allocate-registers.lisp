@@ -18,6 +18,29 @@
     ((cons-x86-program info blocks)
      (cons-x86-program info (record-map-value allocate-registers-block blocks)))))
 
+(define color? int?)
+
+(define coloring? (hash? location-operand? color?))
+
+;; for testing with limited registers:
+
+(define reg-name-color-hash
+  (@hash
+   'rcx  0  'rbx  1
+   'rax -1  'rsp -2  'rbp -3  'r11 -4  'r15 -5))
+
+;; (define reg-name-color-hash
+;;   (@hash
+;;    'rcx  0  'rdx  1  'rsi  2  'rdi  3  'r8   4  'r9 5
+;;    'r10  6  'rbx  7  'r12  8  'r13  9  'r14 10
+;;    ;; use negative color to avoid coloring register by register.
+;;    'rax -1  'rsp -2  'rbp -3  'r11 -4  'r15 -5))
+
+(claim pre-coloring (-> coloring?))
+
+(define (pre-coloring)
+  (hash-map-key reg-rand reg-name-color-hash))
+
 (claim allocate-registers-block (-> block? block?))
 
 (define (allocate-registers-block block)
@@ -60,13 +83,16 @@
   (-> coloring? register-info? color?
       location-operand?))
 
+(define color-reg-name-hash
+  (hash-invert reg-name-color-hash))
+
 (define (color-to-location coloring info color)
   (= [:callee-saved callee-saved] info)
   (= reg-name (hash-get color color-reg-name-hash))
   (cond ((null? reg-name)
          (= index (iadd (isub color max-register-color)
                         (list-length callee-saved)))
-         (= offset (imul -8 (iadd 1 index)))
+         (= offset (imul -8 index))
          (deref-rand 'rbp offset))
         (else
          (reg-rand reg-name))))
@@ -100,20 +126,3 @@
   (= color (hash-get register coloring))
   (= register-coloring (hash-select (drop (equal? color)) coloring))
   (int-larger? (hash-length register-coloring) 1))
-
-(define color? int?)
-(define coloring? (hash? location-operand? color?))
-
-(define reg-name-color-hash
-  (@hash
-   'rcx  0  'rdx  1  'rsi  2  'rdi  3  'r8   4  'r9 5
-   'r10  6  'rbx  7  'r12  8  'r13  9  'r14 10
-   'rax -1  'rsp -2  'rbp -3  'r11 -4  'r15 -5))
-
-(claim pre-coloring (-> coloring?))
-
-(define (pre-coloring)
-  (hash-map-key reg-rand reg-name-color-hash))
-
-(define color-reg-name-hash
-  (hash-invert reg-name-color-hash))

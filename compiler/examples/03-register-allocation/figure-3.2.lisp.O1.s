@@ -9,9 +9,9 @@ begin.body:
         callq random_dice
         movq %rax, %rbx
         callq random_dice
-        movq %rax, %rdx
+        movq %rax, -16(%rbp)
         movq %rbx, %rcx
-        addq %rdx, %rcx
+        addq -16(%rbp), %rcx
         movq $42, %rax
         addq %rcx, %rax
         jmp begin.epilog
