@@ -90,16 +90,16 @@
   (= [:callee-saved callee-saved] info)
   (= reg-name (hash-get color color-reg-name-hash))
   (cond ((null? reg-name)
-         (= index (iadd (isub color max-register-color)
-                        (list-length callee-saved)))
-         (= offset (imul -8 index))
+         (= base-index (isub (list-length callee-saved) 1))
+         (= index (iadd (isub color max-register-color) base-index))
+         (= offset (imul -8 (iadd 1 index)))
          (deref-rand 'rbp offset))
         (else
          (reg-rand reg-name))))
 
 (define (find-max-register-color coloring)
   (pipe coloring
-    ;; (`hash-select/key reg-rand?)
+    ;; (hash-select-by-key reg-rand?)
     (hash-select (lambda (location color) (reg-rand? location)))
     hash-values
     (list-foremost int-compare/descending)))
@@ -109,6 +109,8 @@
 
 (define (count-spilled-variables coloring)
   (pipe coloring
+    ;; (hash-reject-by-key reg-rand?)
+    ;; (hash-select-by-value (swap int-larger? max-register-color))
     (hash-reject (lambda (location color) (reg-rand? location)))
     (hash-select (lambda (location color) (int-larger? color max-register-color)))
     hash-length))
