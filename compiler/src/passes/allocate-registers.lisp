@@ -87,11 +87,13 @@
   (hash-invert reg-name-color-hash))
 
 (define (color-to-location coloring info color)
-  (= [:callee-saved callee-saved] info)
   (= reg-name (hash-get color color-reg-name-hash))
   (cond ((null? reg-name)
-         (= base-index (isub (list-length callee-saved) 1))
-         (= index (iadd (isub color max-register-color) base-index))
+         (= [:callee-saved callee-saved] info)
+         (= base-index (list-length callee-saved))
+         (= color-count (isub color max-register-color))
+         (= color-index (isub color-count 1))
+         (= index (iadd color-index base-index))
          (= offset (imul -8 (iadd 1 index)))
          (deref-rand 'rbp offset))
         (else
