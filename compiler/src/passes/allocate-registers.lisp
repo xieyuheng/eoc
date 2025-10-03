@@ -43,8 +43,10 @@
   (find-max-register-color (pre-coloring)))
 
 (define (count-spilled-variables coloring)
-  ;; TODO
-  16)
+  (pipe coloring
+    (hash-reject (lambda (location color) (reg-rand? location)))
+    (hash-select (lambda (location color) (int-larger? color max-register-color)))
+    hash-length))
 
 (define callee-saved-registers
   (list-map reg-rand '(rsp rbp rbx r12 r13 r14 r15)))

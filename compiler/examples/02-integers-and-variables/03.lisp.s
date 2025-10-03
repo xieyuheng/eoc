@@ -2,7 +2,7 @@
 begin:
         pushq %rbp
         movq %rsp, %rbp
-        subq $144, %rsp
+        subq $16, %rsp
         jmp begin.body
 begin.body:
         movq $20, %rdx
@@ -11,6 +11,6 @@ begin.body:
         movq %rdx, %rax
         jmp begin.epilog
 begin.epilog:
-        addq $144, %rsp
+        addq $16, %rsp
         popq %rbp
         retq
