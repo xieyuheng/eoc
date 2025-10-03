@@ -64,20 +64,20 @@
 (define (allocate-registers-instr coloring info instr)
   (if (general-instr? instr)
     (begin
-      (= [op rands] instr)
-      [op (list-map (allocate-registers-operand coloring info) rands)])
+      (= [op operands] instr)
+      [op (list-map (allocate-registers-operand coloring info) operands)])
     instr))
 
 (claim allocate-registers-operand
   (-> coloring? register-info? operand?
       operand?))
 
-(define (allocate-registers-operand coloring info rand)
-  (match rand
+(define (allocate-registers-operand coloring info operand)
+  (match operand
     ((var-rand name)
      (= color (hash-get (var-rand name) coloring))
      (color-to-location coloring info color))
-    (else rand)))
+    (else operand)))
 
 (claim color-to-location
   (-> coloring? register-info? color?
