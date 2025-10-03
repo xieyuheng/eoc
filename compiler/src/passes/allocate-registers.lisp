@@ -8,7 +8,7 @@
        (block/info? interference-info?))
       (x86-program/block?
        (block/info?
-        (tau :stack-space int?
+        (tau :spilled-variable-count int?
              :used-callee-saved-registers (list? reg-rand?))))))
 
 (define (allocate-registers x86-program)
@@ -28,8 +28,8 @@
      (cons-block
       (record-append
        info
-       ;; TODO fix :stack-space
-       [:stack-space (imul 16 8)
+       ;; TODO fix :spilled-variable-count
+       [:spilled-variable-count (imul 16 8)
         :used-callee-saved-registers (find-used-callee-saved-registers coloring)])
       (list-map (allocate-registers-instr coloring) instrs)))))
 

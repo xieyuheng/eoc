@@ -1,4 +1,6 @@
-[pass] `allocate-registers` -- fix `:stack-space`
+[pass] `prolog-and-epilog` -- pass block down to prolog-block and epilog-block
+[pass] `prolog-and-epilog` -- fix the use of `spilled-variable-count`
+[pass] `allocate-registers` -- fix `:spilled-variable-count`
 [pass] `allocate-registers` -- fix the use of `max-register-color` in `color-to-location`
 [pass] `allocate-registers` -- fix the use of `index` in `color-to-location`
 
