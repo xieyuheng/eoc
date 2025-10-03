@@ -28,10 +28,23 @@
      (cons-block
       (record-append
        info
-       ;; TODO fix :spilled-variable-count
-       [:spilled-variable-count 16
+       [:spilled-variable-count (count-spilled-variables coloring)
         :used-callee-saved-registers (find-used-callee-saved-registers coloring)])
       (list-map (allocate-registers-instr coloring) instrs)))))
+
+(define (find-max-register-color coloring)
+  (pipe coloring
+    ;; (hash-select/key reg-rand?)
+    (hash-select (lambda (location color) (reg-rand? location)))
+    hash-values
+    (list-foremost int-compare/descending)))
+
+(define max-register-color
+  (find-max-register-color (pre-coloring)))
+
+(define (count-spilled-variables coloring)
+  ;; TODO
+  16)
 
 (define callee-saved-registers
   (list-map reg-rand '(rsp rbp rbx r12 r13 r14 r15)))
@@ -91,8 +104,8 @@
 (define (color-to-location color)
   (= reg-name (hash-get color color-reg-name-hash))
   (cond ((null? reg-name)
-         (= max-register-color 10)
          (= index (iadd (isub color max-register-color)
+                        ;; TODO used-callee-saved-registers
                         (list-length '(rsp rbp rbx r12 r13 r14 r15))))
          (= offset (imul -8 (iadd 1 index)))
          (deref-rand 'rbp offset))

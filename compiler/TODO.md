@@ -1,5 +1,4 @@
 [pass] `allocate-registers` -- fix `:spilled-variable-count`
-[pass] `allocate-registers` -- fix the use of `max-register-color` in `color-to-location`
 [pass] `allocate-registers` -- fix the use of `index` in `color-to-location`
 
 move int-align to std
