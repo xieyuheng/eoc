@@ -1,15 +1,17 @@
 (import-all "deps")
 (import "build-interference" interference-info?)
 
-(export allocate-registers)
+(export allocate-registers register-info?)
+
+(define register-info?
+  (tau :spill-count int?
+       :callee-saved (list? reg-rand?)))
 
 (claim allocate-registers
   (-> (x86-program/block?
        (block/info? interference-info?))
       (x86-program/block?
-       (block/info?
-        (tau :spilled-variable-count int?
-             :used-callee-saved-registers (list? reg-rand?))))))
+       (block/info? register-info?))))
 
 (define (allocate-registers x86-program)
   (match x86-program
@@ -25,12 +27,49 @@
      (= coloring (pre-coloring))
      (= vertices (set-to-list (graph-vertices interference-graph)))
      (graph-coloring! coloring vertices interference-graph)
+     (= register-info
+        [:spill-count (count-spilled-variables coloring)
+         :callee-saved (find-callee-saved coloring)])
      (cons-block
-      (record-append
-       info
-       [:spilled-variable-count (count-spilled-variables coloring)
-        :used-callee-saved-registers (find-used-callee-saved-registers coloring)])
-      (list-map (allocate-registers-instr coloring) instrs)))))
+      (record-append info register-info)
+      (list-map (allocate-registers-instr coloring register-info) instrs)))))
+
+(claim allocate-registers-instr
+  (-> coloring? register-info? instr?
+      instr?))
+
+(define (allocate-registers-instr coloring info instr)
+  (if (general-instr? instr)
+    (begin
+      (= [op rands] instr)
+      [op (list-map (allocate-registers-operand coloring info) rands)])
+    instr))
+
+(claim allocate-registers-operand
+  (-> coloring? register-info? operand?
+      operand?))
+
+(define (allocate-registers-operand coloring info rand)
+  (match rand
+    ((var-rand name)
+     (= color (hash-get (var-rand name) coloring))
+     (color-to-location coloring info color))
+    (else rand)))
+
+(claim color-to-location
+  (-> coloring? register-info? color?
+      location-operand?))
+
+(define (color-to-location coloring info color)
+  (= [:callee-saved callee-saved] info)
+  (= reg-name (hash-get color color-reg-name-hash))
+  (cond ((null? reg-name)
+         (= index (iadd (isub color max-register-color)
+                        (list-length callee-saved)))
+         (= offset (imul -8 (iadd 1 index)))
+         (deref-rand 'rbp offset))
+        (else
+         (reg-rand reg-name))))
 
 (define (find-max-register-color coloring)
   (pipe coloring
@@ -51,10 +90,10 @@
 (define callee-saved-registers
   (list-map reg-rand '(rsp rbp rbx r12 r13 r14 r15)))
 
-(claim find-used-callee-saved-registers
+(claim find-callee-saved
   (-> coloring? (list? reg-rand?)))
 
-(define (find-used-callee-saved-registers coloring)
+(define (find-callee-saved coloring)
   (list-select (coloring-use-register? coloring) callee-saved-registers))
 
 (define (coloring-use-register? coloring register)
@@ -78,38 +117,3 @@
 
 (define color-reg-name-hash
   (hash-invert reg-name-color-hash))
-
-(claim allocate-registers-instr
-  (-> coloring? instr?
-      instr?))
-
-(define (allocate-registers-instr coloring instr)
-  (if (general-instr? instr)
-    (begin
-      (= [op rands] instr)
-      [op (list-map (allocate-registers-operand coloring) rands)])
-    instr))
-
-(claim allocate-registers-operand
-  (-> coloring? operand?
-      operand?))
-
-(define (allocate-registers-operand coloring rand)
-  (match rand
-    ((var-rand name)
-     (= color (hash-get (var-rand name) coloring))
-     (color-to-location coloring color))
-    (else rand)))
-
-(claim color-to-location (-> coloring? color? location-operand?))
-
-(define (color-to-location coloring color)
-  (= used-callee-saved-registers (find-used-callee-saved-registers coloring))
-  (= reg-name (hash-get color color-reg-name-hash))
-  (cond ((null? reg-name)
-         (= index (iadd (isub color max-register-color)
-                        (list-length used-callee-saved-registers)))
-         (= offset (imul -8 (iadd 1 index)))
-         (deref-rand 'rbp offset))
-        (else
-         (reg-rand reg-name))))
