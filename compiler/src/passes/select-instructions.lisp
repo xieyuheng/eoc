@@ -17,8 +17,7 @@
       (pipe seqs
         record-entries
         (list-map
-         (lambda (entry)
-           (= [label seq] entry)
+         (lambda ([label seq])
            (= contexts (record-get 'contexts info))
            (= context (record-get label contexts))
            [label (cons-block
