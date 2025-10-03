@@ -47,20 +47,12 @@
 (claim pre-coloring (-> coloring?))
 
 (define (pre-coloring)
-  (pipe register-colors
-    hash-entries
-    (list-map (lambda (entry)
-                (= [key value] entry)
-                [(reg-rand key) value]))
-    hash-from-entries))
-
-;; (define (pre-coloring)
-;;   (hash-map-key
-;;    reg-rand
-;;    (@hash
-;;     'rcx  0  'rdx  1  'rsi  2  'rdi  3  'r8   4  'r9 5
-;;     'r10  6  'rbx  7  'r12  8  'r13  9  'r14 10
-;;     'rax -1  'rsp -2  'rbp -3  'r11 -4  'r15 -5)))
+  (hash-map-key
+   reg-rand
+   (@hash
+    'rcx  0  'rdx  1  'rsi  2  'rdi  3  'r8   4  'r9 5
+    'r10  6  'rbx  7  'r12  8  'r13  9  'r14 10
+    'rax -1  'rsp -2  'rbp -3  'r11 -4  'r15 -5)))
 
 (claim allocate-registers-instr
   (-> coloring? instr?
