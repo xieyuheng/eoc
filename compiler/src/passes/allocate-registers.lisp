@@ -34,7 +34,7 @@
 
 (define (find-max-register-color coloring)
   (pipe coloring
-    ;; (hash-select/key reg-rand?)
+    ;; (`hash-select/key reg-rand?)
     (hash-select (lambda (location color) (reg-rand? location)))
     hash-values
     (list-foremost int-compare/descending)))
@@ -98,17 +98,17 @@
   (match rand
     ((var-rand name)
      (= color (hash-get (var-rand name) coloring))
-     (color-to-location color))
+     (color-to-location coloring color))
     (else rand)))
 
-(claim color-to-location (-> color? location-operand?))
+(claim color-to-location (-> coloring? color? location-operand?))
 
-(define (color-to-location color)
+(define (color-to-location coloring color)
+  (= used-callee-saved-registers (find-used-callee-saved-registers coloring))
   (= reg-name (hash-get color color-reg-name-hash))
   (cond ((null? reg-name)
          (= index (iadd (isub color max-register-color)
-                        ;; TODO used-callee-saved-registers
-                        (list-length '(rsp rbp rbx r12 r13 r14 r15))))
+                        (list-length used-callee-saved-registers)))
          (= offset (imul -8 (iadd 1 index)))
          (deref-rand 'rbp offset))
         (else

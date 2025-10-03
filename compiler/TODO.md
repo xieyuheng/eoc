@@ -1,4 +1,7 @@
-[pass] `allocate-registers` -- fix the use of `index` in `color-to-location`
+[pass] `allocate-registers` -- pass info down with coloring
+[pass] `allocate-registers` -- test with spilled variables
+
+update x-lisp.js to use `hash-select/key` -- in `allocate-registers`
 
 # book
 
