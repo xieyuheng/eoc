@@ -1,7 +1,4 @@
-[c] refactor `check-c-program` -- about the use of record
 [pass] refactor `allocate-registers` -- about the use of record
-[pass] refactor `prolog-and-epilog` -- about the use of record
-[pass] refactor `prolog-and-epilog`
 
 [pass] `allocate-registers` -- fix `:used-callee-saved-registers`
 [pass] `allocate-registers` -- fix `:stack-space`
