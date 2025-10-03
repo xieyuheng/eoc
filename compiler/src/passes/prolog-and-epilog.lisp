@@ -19,20 +19,17 @@
         (list-append-map
          (lambda (entry)
            (= [label block] entry)
-           (= [:spilled-variable-count spilled-variable-count
-               :used-callee-saved-registers used-callee-saved-registers]
-              (block-info block))
-           [[label (prolog-block label spilled-variable-count used-callee-saved-registers)]
+           [[label (prolog-block label block)]
             [(symbol-append label '.body) block]
-            [(symbol-append label '.epilog)
-             (epilog-block label spilled-variable-count used-callee-saved-registers)]]))
+            [(symbol-append label '.epilog) (epilog-block label block)]]))
         record-from-entries)))))
 
-(claim prolog-block
-  (-> symbol? int? (list? reg-rand?)
-      block?))
+(claim prolog-block (-> symbol? block? block?))
 
-(define (prolog-block label spilled-variable-count used-callee-saved-registers)
+(define (prolog-block label block)
+  (= [:spilled-variable-count spilled-variable-count
+      :used-callee-saved-registers used-callee-saved-registers]
+     (block-info block))
   (cons-block
    []
    (list-append-many
@@ -43,11 +40,12 @@
      [['subq [(imm-rand spilled-variable-count) (reg-rand 'rsp)]]
       (jmp (symbol-append label '.body))]])))
 
-(claim epilog-block
-  (-> symbol? int? (list? reg-rand?)
-      block?))
+(claim epilog-block (-> symbol? block? block?))
 
-(define (epilog-block label spilled-variable-count used-callee-saved-registers)
+(define (epilog-block label block)
+  (= [:spilled-variable-count spilled-variable-count
+      :used-callee-saved-registers used-callee-saved-registers]
+     (block-info block))
   (cons-block
    []
    (list-append-many
