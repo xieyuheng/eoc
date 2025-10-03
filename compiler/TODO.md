@@ -1,4 +1,3 @@
-[pass] `allocate-registers` -- fix `:used-callee-saved-registers`
 [pass] `allocate-registers` -- fix `:stack-space`
 [pass] `allocate-registers` -- fix the use of `max-register-color` in `color-to-location`
 [pass] `allocate-registers` -- fix the use of `index` in `color-to-location`

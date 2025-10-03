@@ -29,11 +29,23 @@
       (record-append
        info
        ;; TODO fix :stack-space
-       ;; TODO fix :used-callee-saved-registers
        [:stack-space (imul 16 8)
-        :used-callee-saved-registers
-        (list-map reg-rand '(rsp rbp rbx r12 r13 r14 r15))])
+        :used-callee-saved-registers (find-used-callee-saved-registers coloring)])
       (list-map (allocate-registers-instr coloring) instrs)))))
+
+(define callee-saved-registers
+  (list-map reg-rand '(rsp rbp rbx r12 r13 r14 r15)))
+
+(claim find-used-callee-saved-registers
+  (-> coloring? (list? reg-rand?)))
+
+(define (find-used-callee-saved-registers coloring)
+  (list-select (coloring-use-register? coloring) callee-saved-registers))
+
+(define (coloring-use-register? coloring register)
+  (= color (hash-get register coloring))
+  (= register-coloring (hash-select (drop (equal? color)) coloring))
+  (int-larger? (hash-length register-coloring) 1))
 
 (define color? int?)
 (define coloring? (hash? location-operand? color?))
