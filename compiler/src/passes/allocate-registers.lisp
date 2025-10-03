@@ -38,7 +38,7 @@
 (define color? int?)
 (define coloring? (hash? location-operand? color?))
 
-(define register-colors
+(define reg-name-color-hash
   (@hash
    'rcx  0  'rdx  1  'rsi  2  'rdi  3  'r8   4  'r9 5
    'r10  6  'rbx  7  'r12  8  'r13  9  'r14 10
@@ -47,12 +47,10 @@
 (claim pre-coloring (-> coloring?))
 
 (define (pre-coloring)
-  (hash-map-key
-   reg-rand
-   (@hash
-    'rcx  0  'rdx  1  'rsi  2  'rdi  3  'r8   4  'r9 5
-    'r10  6  'rbx  7  'r12  8  'r13  9  'r14 10
-    'rax -1  'rsp -2  'rbp -3  'r11 -4  'r15 -5)))
+  (hash-map-key reg-rand reg-name-color-hash))
+
+(define color-reg-name-hash
+  (hash-invert reg-name-color-hash))
 
 (claim allocate-registers-instr
   (-> coloring? instr?
@@ -79,16 +77,12 @@
 (claim color-to-location (-> color? location-operand?))
 
 (define (color-to-location color)
-  (= entry (list-find
-            (lambda (entry)
-              (= [register value] entry)
-              (equal? color value))
-            (hash-entries register-colors)))
-  (match entry
-    ([register color] (reg-rand register))
-    (null
-     (= max-register-color 10)
-     (= index (iadd (isub color max-register-color)
-                    (list-length '(rsp rbp rbx r12 r13 r14 r15))))
-     (= offset (imul -8 (iadd 1 index)))
-     (deref-rand 'rbp offset))))
+  (= reg-name (hash-get color color-reg-name-hash))
+  (cond ((null? reg-name)
+         (= max-register-color 10)
+         (= index (iadd (isub color max-register-color)
+                        (list-length '(rsp rbp rbx r12 r13 r14 r15))))
+         (= offset (imul -8 (iadd 1 index)))
+         (deref-rand 'rbp offset))
+        (else
+         (reg-rand reg-name))))
