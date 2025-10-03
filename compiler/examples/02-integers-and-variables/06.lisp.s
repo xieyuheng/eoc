@@ -2,7 +2,7 @@
 begin:
         pushq %rbp
         movq %rsp, %rbp
-        subq $16, %rsp
+        subq $0, %rsp
         jmp begin.body
 begin.body:
         callq random_dice
@@ -11,6 +11,6 @@ begin.body:
         negq %rax
         jmp begin.epilog
 begin.epilog:
-        addq $16, %rsp
+        addq $0, %rsp
         popq %rbp
         retq

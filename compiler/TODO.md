@@ -1,7 +1,4 @@
-fix int-align
 [pass] `allocate-registers` -- fix the use of `index` in `color-to-location`
-
-move int-align to std
 
 # book
 

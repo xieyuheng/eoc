@@ -24,12 +24,6 @@
             [(symbol-append label '.epilog) (epilog-block label block)]]))
         record-from-entries)))))
 
-(claim int-align (-> int? int? int?))
-
-(define (int-align alignment n)
-  (iadd (isub n (imod n alignment))
-        alignment))
-
 (define (additional-stack-space block)
   (= [:spilled-variable-count spilled-variable-count
       :used-callee-saved-registers used-callee-saved-registers]
