@@ -29,7 +29,7 @@
       (record-append
        info
        ;; TODO fix :spilled-variable-count
-       [:spilled-variable-count (imul 16 8)
+       [:spilled-variable-count 16
         :used-callee-saved-registers (find-used-callee-saved-registers coloring)])
       (list-map (allocate-registers-instr coloring) instrs)))))
 

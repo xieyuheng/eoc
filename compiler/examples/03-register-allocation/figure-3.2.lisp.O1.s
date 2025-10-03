@@ -3,7 +3,7 @@ begin:
         pushq %rbp
         movq %rsp, %rbp
         pushq %rbx
-        subq $128, %rsp
+        subq $136, %rsp
         jmp begin.body
 begin.body:
         callq random_dice
@@ -16,7 +16,7 @@ begin.body:
         addq %rcx, %rax
         jmp begin.epilog
 begin.epilog:
-        addq $128, %rsp
+        addq $136, %rsp
         popq %rbx
         popq %rbp
         retq

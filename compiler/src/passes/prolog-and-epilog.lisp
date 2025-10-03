@@ -24,11 +24,25 @@
             [(symbol-append label '.epilog) (epilog-block label block)]]))
         record-from-entries)))))
 
+(claim int-align (-> int? int? int?))
+
+(define (int-align alignment n)
+  (iadd (isub n (imod n alignment))
+        alignment))
+
+(define (additional-stack-space block)
+  (= [:spilled-variable-count spilled-variable-count
+      :used-callee-saved-registers used-callee-saved-registers]
+     (block-info block))
+  (= callee-saved-space (imul 8 (list-length used-callee-saved-registers)))
+  (= stack-space (iadd callee-saved-space (imul 8 spilled-variable-count)))
+  (isub (int-align 16 stack-space)
+        callee-saved-space))
+
 (claim prolog-block (-> symbol? block? block?))
 
 (define (prolog-block label block)
-  (= [:spilled-variable-count spilled-variable-count
-      :used-callee-saved-registers used-callee-saved-registers]
+  (= [:used-callee-saved-registers used-callee-saved-registers]
      (block-info block))
   (cons-block
    []
@@ -37,19 +51,18 @@
       ['movq [(reg-rand 'rsp) (reg-rand 'rbp)]]]
      (pipe used-callee-saved-registers
        (list-map (lambda (reg) ['pushq [reg]])))
-     [['subq [(imm-rand spilled-variable-count) (reg-rand 'rsp)]]
+     [['subq [(imm-rand (additional-stack-space block)) (reg-rand 'rsp)]]
       (jmp (symbol-append label '.body))]])))
 
 (claim epilog-block (-> symbol? block? block?))
 
 (define (epilog-block label block)
-  (= [:spilled-variable-count spilled-variable-count
-      :used-callee-saved-registers used-callee-saved-registers]
+  (= [:used-callee-saved-registers used-callee-saved-registers]
      (block-info block))
   (cons-block
    []
    (list-append-many
-    [[['addq [(imm-rand spilled-variable-count) (reg-rand 'rsp)]]]
+    [[['addq [(imm-rand (additional-stack-space block)) (reg-rand 'rsp)]]]
      (pipe used-callee-saved-registers
        (list-map (lambda (reg) ['popq [reg]]))
        list-reverse)

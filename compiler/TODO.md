@@ -1,7 +1,8 @@
-[pass] `prolog-and-epilog` -- fix the use of `spilled-variable-count`
 [pass] `allocate-registers` -- fix `:spilled-variable-count`
 [pass] `allocate-registers` -- fix the use of `max-register-color` in `color-to-location`
 [pass] `allocate-registers` -- fix the use of `index` in `color-to-location`
+
+move int-align to std
 
 # book
 
@@ -13,10 +14,6 @@
 > 9 Dynamic Typing
 > 10 Gradual Typing
 > 11 Generics
-
-# later
-
-[pass] `prolog-and-epilog` -- add stack alignment for macos
 
 # improve
 
