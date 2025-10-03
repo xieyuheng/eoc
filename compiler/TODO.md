@@ -1,4 +1,4 @@
-update x-lisp.js to use `hash-select/key` -- in `allocate-registers`
+update x-lisp.js to use `hash-select-by-key` -- in `allocate-registers`
 
 # book
 
