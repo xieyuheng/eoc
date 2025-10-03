@@ -101,8 +101,7 @@
 
 (define (find-max-register-color coloring)
   (pipe coloring
-    ;; (hash-select-by-key reg-rand?)
-    (hash-select (lambda (location color) (reg-rand? location)))
+    (hash-select/key reg-rand?)
     hash-values
     (list-foremost int-compare/descending)))
 
@@ -111,10 +110,8 @@
 
 (define (count-spilled-variables coloring)
   (pipe coloring
-    ;; (hash-reject-by-key reg-rand?)
-    ;; (hash-select-by-value (swap int-larger? max-register-color))
-    (hash-reject (lambda (location color) (reg-rand? location)))
-    (hash-select (lambda (location color) (int-larger? color max-register-color)))
+    (hash-reject/key reg-rand?)
+    (hash-select/value (swap int-larger? max-register-color))
     hash-length))
 
 (define callee-saved-registers

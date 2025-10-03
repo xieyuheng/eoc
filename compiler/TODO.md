@@ -1,5 +1,3 @@
-update x-lisp.js to use `hash-select-by-key` -- in `allocate-registers`
-
 # book
 
 > 4 Booleans and Conditionals
