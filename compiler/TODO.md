@@ -9,6 +9,12 @@
 > 10 Gradual Typing
 > 11 Generics
 
+# later
+
+fix `uncover-live-write` & `uncover-live-read` -- on `(jmp label)`
+
+- currently assume all jump is to `.epilog`
+
 # improve
 
 > Change x-lisp to improve the following code.

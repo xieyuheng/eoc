@@ -11,11 +11,7 @@
   operand? var-rand imm-rand reg-rand deref-rand
   reg-rand?
   location-operand?
-  reg-name?
-  sysv-caller-saved-reg-names
-  sysv-callee-saved-reg-names
-  sysv-caller-saved-registers
-  sysv-callee-saved-registers)
+  reg-name?)
 
 (define-data x86-program?
   (cons-x86-program
@@ -79,11 +75,3 @@
     r8  r9  r10  r11  r12  r13  r14  r15))
 
 (define (reg-name? x) (list-member? x reg-names))
-
-;; abi
-
-(define sysv-caller-saved-reg-names '(rax rcx rdx rsi rdi r8 r9 r10 r11))
-(define sysv-callee-saved-reg-names '(rsp rbp rbx r12 r13 r14 r15))
-
-(define sysv-caller-saved-registers (list-map reg-rand sysv-caller-saved-reg-names))
-(define sysv-callee-saved-registers (list-map reg-rand sysv-callee-saved-reg-names))
