@@ -48,6 +48,9 @@
       sysv-caller-saved-registers
       (set-to-list live-after-set)))
     (['movq [src dest]]
+     ;; in a move instruction, src does not interference with dest,
+     ;; because after this instruction they will have the same value
+     ;; (thus the same register can be allocated to them).
      (list-product/no-diagonal
       [dest]
       (list-reject
