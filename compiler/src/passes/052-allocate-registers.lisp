@@ -1,5 +1,6 @@
 (import-all "deps")
 (import "051-build-interference" interference-info?)
+(import "060-assign-homes" home-info?)
 
 (export allocate-registers register-info?)
 
@@ -36,7 +37,7 @@
 
 (claim allocate-registers
   (-> (x86-program/block? (block/info? interference-info?))
-      (x86-program/block? (block/info? register-info?))))
+      (x86-program/block? (block/info? (inter register-info? home-info?)))))
 
 (define (allocate-registers x86-program)
   (match x86-program
@@ -55,9 +56,22 @@
      (= register-info
         [:spill-count (count-spilled-variables coloring)
          :callee-saved (find-callee-saved coloring)])
+     (= variables (list-select var-rand? vertices))
+     (= home-info
+        [:home-locations
+         ;; (hash-from-map
+         ;;  (allocate-registers-variable coloring register-info)
+         ;;  variables)
+         (hash-from-entries
+          (list-zip
+           variables
+           (list-map (allocate-registers-variable coloring register-info)
+                     variables)))])
      (cons-block
-      (record-append info register-info)
-      (list-map (allocate-registers-instr coloring register-info) instrs)))))
+      (pipe info
+        (record-append register-info)
+        (record-append home-info))
+      instrs))))
 
 (claim pre-coloring (-> coloring?))
 
@@ -83,26 +97,13 @@
   (= register-coloring (hash-select (drop (equal? color)) coloring))
   (int-larger? (hash-length register-coloring) 1))
 
-(claim allocate-registers-instr
-  (-> coloring? register-info? instr?
-      instr?))
-
-(define (allocate-registers-instr coloring info instr)
-  (cond ((not (general-instr? instr)) instr)
-        (else
-         (= [op operands] instr)
-         [op (list-map (allocate-registers-variable coloring info) operands)])))
-
 (claim allocate-registers-variable
-  (-> coloring? register-info? operand?
+  (-> coloring? register-info? var-rand?
       operand?))
 
-(define (allocate-registers-variable coloring info operand)
-  (match operand
-    ((var-rand name)
-     (= color (hash-get (var-rand name) coloring))
-     (color-to-location coloring info color))
-    (else operand)))
+(define (allocate-registers-variable coloring info variable)
+  (= color (hash-get variable coloring))
+  (color-to-location coloring info color))
 
 (claim color-to-location
   (-> coloring? register-info? color?

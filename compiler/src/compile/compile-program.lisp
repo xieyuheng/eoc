@@ -24,6 +24,7 @@
     uncover-live
     build-interference
     allocate-registers
+    assign-homes
     patch-instructions
     prolog-and-epilog))
 
@@ -38,5 +39,6 @@
     uncover-live
     build-interference
     allocate-registers
+    assign-homes
     patch-instructions
     prolog-and-epilog))

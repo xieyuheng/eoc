@@ -8,9 +8,9 @@
   block/info?
   instr? general-instr? special-instr?
   callq retq jmp
-  operand? var-rand imm-rand reg-rand deref-rand
-  reg-rand?
-  location-operand?
+  operand? location-operand?
+  var-rand imm-rand reg-rand deref-rand
+  var-rand? imm-rand? reg-rand? deref-rand?
   reg-name?)
 
 (define-data x86-program?
