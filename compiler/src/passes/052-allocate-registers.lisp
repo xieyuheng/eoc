@@ -7,17 +7,6 @@
   (tau :spill-count int?
        :callee-saved (list? reg-rand?)))
 
-(claim allocate-registers
-  (-> (x86-program/block?
-       (block/info? interference-info?))
-      (x86-program/block?
-       (block/info? register-info?))))
-
-(define (allocate-registers x86-program)
-  (match x86-program
-    ((cons-x86-program info blocks)
-     (cons-x86-program info (record-map-value allocate-registers-block blocks)))))
-
 (define color? int?)
 
 (define coloring? (hash? location-operand? color?))
@@ -45,10 +34,14 @@
 ;;    ;; otherwise they will be colored by registers too.
 ;;    'rax -1  'rsp -2  'rbp -3  'r11 -4  'r15 -5))
 
-(claim pre-coloring (-> coloring?))
+(claim allocate-registers
+  (-> (x86-program/block? (block/info? interference-info?))
+      (x86-program/block? (block/info? register-info?))))
 
-(define (pre-coloring)
-  (hash-map-key reg-rand reg-name-color-hash))
+(define (allocate-registers x86-program)
+  (match x86-program
+    ((cons-x86-program info blocks)
+     (cons-x86-program info (record-map-value allocate-registers-block blocks)))))
 
 (claim allocate-registers-block (-> block? block?))
 
@@ -66,16 +59,20 @@
       (record-append info register-info)
       (list-map (allocate-registers-instr coloring register-info) instrs)))))
 
+(claim pre-coloring (-> coloring?))
+
+(define (pre-coloring)
+  (hash-map-key reg-rand reg-name-color-hash))
+
 (claim allocate-registers-instr
   (-> coloring? register-info? instr?
       instr?))
 
 (define (allocate-registers-instr coloring info instr)
-  (if (general-instr? instr)
-    (begin
-      (= [op operands] instr)
-      [op (list-map (allocate-registers-operand coloring info) operands)])
-    instr))
+  (cond ((not (general-instr? instr)) instr)
+        (else
+         (= [op operands] instr)
+         [op (list-map (allocate-registers-operand coloring info) operands)])))
 
 (claim allocate-registers-operand
   (-> coloring? register-info? operand?
