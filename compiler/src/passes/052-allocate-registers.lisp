@@ -64,6 +64,25 @@
 (define (pre-coloring)
   (hash-map-key reg-rand reg-name-color-hash))
 
+(claim count-spilled-variables (-> coloring? int?))
+
+(define (count-spilled-variables coloring)
+  (pipe coloring
+    (hash-reject/key reg-rand?)
+    (hash-select/value (swap int-larger? max-register-color))
+    hash-length))
+
+(claim find-callee-saved (-> coloring? (list? reg-rand?)))
+
+(define (find-callee-saved coloring)
+  (list-select (coloring-use-register? coloring)
+               sysv-callee-saved-registers))
+
+(define (coloring-use-register? coloring register)
+  (= color (hash-get register coloring))
+  (= register-coloring (hash-select (drop (equal? color)) coloring))
+  (int-larger? (hash-length register-coloring) 1))
+
 (claim allocate-registers-instr
   (-> coloring? register-info? instr?
       instr?))
@@ -72,13 +91,13 @@
   (cond ((not (general-instr? instr)) instr)
         (else
          (= [op operands] instr)
-         [op (list-map (allocate-registers-operand coloring info) operands)])))
+         [op (list-map (allocate-registers-variable coloring info) operands)])))
 
-(claim allocate-registers-operand
+(claim allocate-registers-variable
   (-> coloring? register-info? operand?
       operand?))
 
-(define (allocate-registers-operand coloring info operand)
+(define (allocate-registers-variable coloring info operand)
   (match operand
     ((var-rand name)
      (= color (hash-get (var-rand name) coloring))
@@ -88,8 +107,6 @@
 (claim color-to-location
   (-> coloring? register-info? color?
       location-operand?))
-
-(define color-register-hash (hash-invert (pre-coloring)))
 
 (define (color-to-location coloring info color)
   (= register (hash-get color color-register-hash))
@@ -103,29 +120,13 @@
          (= offset (imul -8 (iadd 1 index)))
          (deref-rand 'rbp offset))))
 
+(define color-register-hash (hash-invert (pre-coloring)))
+
+(define max-register-color
+  (find-max-register-color (pre-coloring)))
+
 (define (find-max-register-color coloring)
   (pipe coloring
     (hash-select/key reg-rand?)
     hash-values
     (list-foremost int-compare/descending)))
-
-(define max-register-color
-  (find-max-register-color (pre-coloring)))
-
-(define (count-spilled-variables coloring)
-  (pipe coloring
-    (hash-reject/key reg-rand?)
-    (hash-select/value (swap int-larger? max-register-color))
-    hash-length))
-
-(claim find-callee-saved
-  (-> coloring? (list? reg-rand?)))
-
-(define (find-callee-saved coloring)
-  (list-select (coloring-use-register? coloring)
-               sysv-callee-saved-registers))
-
-(define (coloring-use-register? coloring register)
-  (= color (hash-get register coloring))
-  (= register-coloring (hash-select (drop (equal? color)) coloring))
-  (int-larger? (hash-length register-coloring) 1))
