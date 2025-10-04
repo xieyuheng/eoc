@@ -29,9 +29,10 @@
   (match block
     ((cons-block info instrs)
      (= live-after-sets (record-get 'live-after-sets info))
-     (= graph (make-graph
-               (list-append-many
-                (list-map-zip instr-edges instrs live-after-sets))))
+     (= graph
+        (make-graph
+         (list-append-many
+          (list-map-zip instr-edges instrs live-after-sets))))
      (cons-block
       (record-put 'interference-graph graph info)
       instrs))))
@@ -40,19 +41,19 @@
   (-> instr? (set? location-operand?)
       (list? (tau location-operand? location-operand?))))
 
-(define (instr-edges instr live-before-set)
+(define (instr-edges instr live-after-set)
   (match instr
     ((callq label arity)
      (list-product/no-diagonal
       sysv-caller-saved-registers
-      (set-to-list live-before-set)))
+      (set-to-list live-after-set)))
     (['movq [src dest]]
      (list-product/no-diagonal
       [dest]
       (list-reject
        (equal? src)
-       (set-to-list live-before-set))))
+       (set-to-list live-after-set))))
     (else
      (list-product/no-diagonal
       (set-to-list (uncover-live-write instr))
-      (set-to-list live-before-set)))))
+      (set-to-list live-after-set)))))
