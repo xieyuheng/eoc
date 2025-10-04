@@ -66,56 +66,28 @@
 
 (define (uncover-live-read instr)
   (match instr
-    ((callq label arity)
-     (pipe sysv-argument-registers
-       (list-take arity)
-       list-to-set))
-    (retq
-     {(reg-rand 'rsp) (reg-rand 'rax)})
-    ((jmp label)
-     ;; TODO only when label ends with .epilog
-     {(reg-rand 'rsp) (reg-rand 'rax)})
-    (['addq [src dest]]
-     (set-union
-      (uncover-live-operand src)
-      (uncover-live-operand dest)))
-    (['subq [src dest]]
-     (set-union
-      (uncover-live-operand src)
-      (uncover-live-operand dest)))
-    (['movq [src dest]]
-     (uncover-live-operand src))
-    (['negq [dest]]
-     (uncover-live-operand dest))
-    ([op rands]
-     (exit [:who 'uncover-live-read
-            :message "unknown op"
-            :op op :rands rands]))))
+    ((callq label arity) (list-to-set (list-take arity sysv-argument-registers)))
+    (retq {(reg-rand 'rsp) (reg-rand 'rax)})
+    ;; TODO only when label ends with .epilog
+    ((jmp label) {(reg-rand 'rsp) (reg-rand 'rax)})
+    (['addq [src dest]] (set-union (uncover-live-operand src) (uncover-live-operand dest)))
+    (['subq [src dest]] (set-union (uncover-live-operand src) (uncover-live-operand dest)))
+    (['movq [src dest]] (uncover-live-operand src))
+    (['negq [dest]] (uncover-live-operand dest))))
 
 (claim uncover-live-write
   (-> instr? (set? location-operand?)))
 
 (define (uncover-live-write instr)
   (match instr
-    ((callq label arity)
-     (list-to-set sysv-caller-saved-registers))
-    (retq
-     {(reg-rand 'rsp)})
-    ((jmp label)
-     ;; TODO only when label ends with .epilog
-     {(reg-rand 'rsp) (reg-rand 'rax)})
-    (['addq [src dest]]
-     (uncover-live-operand dest))
-    (['subq [src dest]]
-     (uncover-live-operand dest))
-    (['movq [src dest]]
-     (uncover-live-operand dest))
-    (['negq [dest]]
-     (uncover-live-operand dest))
-    ([op rands]
-     (exit [:who 'uncover-live-write
-            :message "unknown op"
-            :op op :rands rands]))))
+    ((callq label arity) (list-to-set sysv-caller-saved-registers))
+    (retq {(reg-rand 'rsp)})
+    ;; TODO only when label ends with .epilog
+    ((jmp label) {(reg-rand 'rsp) (reg-rand 'rax)})
+    (['addq [src dest]] (uncover-live-operand dest))
+    (['subq [src dest]] (uncover-live-operand dest))
+    (['movq [src dest]] (uncover-live-operand dest))
+    (['negq [dest]] (uncover-live-operand dest))))
 
 (define (uncover-live-operand operand)
   (if (location-operand? operand) {operand} {}))
