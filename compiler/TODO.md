@@ -1,3 +1,5 @@
+update x-lisp for `hash-from-map`
+
 # book
 
 > 4 Booleans and Conditionals
