@@ -15,7 +15,7 @@
 (define (build-interference x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     (cons-x86-program info (record-map-value build-interference-block blocks)))))
+     (cons-x86-program info (record-map/value build-interference-block blocks)))))
 
 (claim build-interference-block
   (-> (block/info? live-info?)

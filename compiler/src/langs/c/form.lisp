@@ -8,12 +8,12 @@
 (define (form-c-program c-program)
   (match c-program
     ((cons-c-program info seqs)
-     `(c-program ,(form-info info) ,(record-map-value form-seq seqs)))))
+     `(c-program ,(form-info info) ,(record-map/value form-seq seqs)))))
 
 (define (form-info info)
   (record-update
    'contexts
-   (record-map-value (record-map-value form-type))
+   (record-map/value (record-map/value form-type))
    info))
 
 (define (form-seq seq)

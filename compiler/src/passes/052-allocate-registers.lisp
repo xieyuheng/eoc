@@ -42,7 +42,7 @@
 (define (allocate-registers x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     (cons-x86-program info (record-map-value allocate-registers-block blocks)))))
+     (cons-x86-program info (record-map/value allocate-registers-block blocks)))))
 
 (claim allocate-registers-block (-> block? block?))
 
@@ -76,7 +76,7 @@
 (claim pre-coloring (-> coloring?))
 
 (define (pre-coloring)
-  (hash-map-key reg-rand reg-name-color-hash))
+  (hash-map/key reg-rand reg-name-color-hash))
 
 (claim count-spilled-variables (-> coloring? int?))
 
