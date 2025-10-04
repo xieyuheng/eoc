@@ -1,5 +1,5 @@
 (import-all "deps")
-(import "uncover-live"
+(import "050-uncover-live"
   live-info?
   uncover-live-write
   caller-saved-registers)

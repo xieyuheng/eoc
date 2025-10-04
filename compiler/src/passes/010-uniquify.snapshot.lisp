@@ -1,5 +1,5 @@
 (import-all "deps")
-(import-all "uniquify")
+(import-all "010-uniquify")
 
 (define (test-program sexp)
   (= program-0 (parse-program sexp))

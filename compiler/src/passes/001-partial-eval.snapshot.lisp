@@ -1,5 +1,5 @@
 (import-all "deps")
-(import-all "partial-eval")
+(import-all "001-partial-eval")
 
 (define (test-program sexp)
   (= program (parse-program sexp))

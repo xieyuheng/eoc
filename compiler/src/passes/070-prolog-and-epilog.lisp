@@ -1,5 +1,5 @@
 (import-all "deps")
-(import "allocate-registers" register-info?)
+(import "052-allocate-registers" register-info?)
 
 (export prolog-and-epilog)
 

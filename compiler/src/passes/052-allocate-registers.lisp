@@ -1,5 +1,5 @@
 (import-all "deps")
-(import "build-interference" interference-info?)
+(import "051-build-interference" interference-info?)
 
 (export allocate-registers register-info?)
 

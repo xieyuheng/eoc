@@ -1,5 +1,5 @@
 (import-all "deps")
-(import-all "uncover-live")
+(import-all "050-uncover-live")
 
 ;; example:
 ;;
