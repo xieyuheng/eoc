@@ -61,17 +61,13 @@
     (swap set-difference (uncover-live-write instr))
     (set-union (uncover-live-read instr))))
 
-(define argument-registers
-  '(rdi rsi rdx rcx r8 r9))
-
 (claim uncover-live-read
   (-> instr? (set? location-operand?)))
 
 (define (uncover-live-read instr)
   (match instr
     ((callq label arity)
-     (pipe argument-registers
-       (list-map reg-rand)
+     (pipe sysv-argument-registers
        (list-take arity)
        list-to-set))
     (retq
