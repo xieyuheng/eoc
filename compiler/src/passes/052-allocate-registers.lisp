@@ -83,21 +83,19 @@
   (-> coloring? register-info? color?
       location-operand?))
 
-(define color-reg-name-hash
-  (hash-invert reg-name-color-hash))
+(define color-register-hash (hash-invert (pre-coloring)))
 
 (define (color-to-location coloring info color)
-  (= reg-name (hash-get color color-reg-name-hash))
-  (cond ((null? reg-name)
+  (= register (hash-get color color-register-hash))
+  (cond ((not (null? register)) register)
+        (else
          (= [:callee-saved callee-saved] info)
          (= base-index (list-length callee-saved))
          (= color-count (isub color max-register-color))
          (= color-index (isub color-count 1))
          (= index (iadd color-index base-index))
          (= offset (imul -8 (iadd 1 index)))
-         (deref-rand 'rbp offset))
-        (else
-         (reg-rand reg-name))))
+         (deref-rand 'rbp offset))))
 
 (define (find-max-register-color coloring)
   (pipe coloring
