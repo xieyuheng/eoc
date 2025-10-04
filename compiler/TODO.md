@@ -1,3 +1,5 @@
+use `assign-homes` again
+
 # book
 
 > 4 Booleans and Conditionals

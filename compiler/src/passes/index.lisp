@@ -14,9 +14,11 @@
 (include "050-uncover-live" uncover-live)
 ;; Build interference graph for each block.
 (include "051-build-interference" build-interference)
-;; Replace variables by registers or stack locations.
+;; Find home locations (hopefully registers) for variables.
 (include "052-allocate-registers" allocate-registers)
+;; Replace variables by home locations.
+(include "060-assign-homes" assign-homes)
 ;; Fix pseudo x86 instructions and remove self moves.
-(include "060-patch-instructions" patch-instructions)
+(include "070-patch-instructions" patch-instructions)
 ;; Add prolog and epilog to each function (currently only one).
-(include "070-prolog-and-epilog" prolog-and-epilog)
+(include "080-prolog-and-epilog" prolog-and-epilog)
