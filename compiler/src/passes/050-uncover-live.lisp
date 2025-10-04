@@ -15,8 +15,7 @@
 
 (claim uncover-live
   (-> x86-program?
-      (x86-program/block?
-       (block/info? live-info?))))
+      (x86-program/block? (block/info? live-info?))))
 
 (define (uncover-live x86-program)
   (match x86-program

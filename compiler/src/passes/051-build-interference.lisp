@@ -9,11 +9,8 @@
   (tau :interference-graph (graph? location-operand?)))
 
 (claim build-interference
-  (-> (x86-program/block?
-       (block/info? live-info?))
-      (x86-program/block?
-       (inter (block/info? live-info?)
-              (block/info? interference-info?)))))
+  (-> (x86-program/block? (block/info? live-info?))
+      (x86-program/block? (block/info? interference-info?))))
 
 (define (build-interference x86-program)
   (match x86-program
@@ -22,8 +19,7 @@
 
 (claim build-interference-block
   (-> (block/info? live-info?)
-      (inter (block/info? live-info?)
-             (block/info? interference-info?))))
+      (block/info? interference-info?)))
 
 (define (build-interference-block block)
   (match block
