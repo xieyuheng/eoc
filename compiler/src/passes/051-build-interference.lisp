@@ -25,13 +25,10 @@
   (match block
     ((cons-block info instrs)
      (= live-after-sets (record-get 'live-after-sets info))
-     (= graph
-        (make-graph
-         (list-append-many
-          (list-map-zip instr-edges instrs live-after-sets))))
-     (cons-block
-      (record-put 'interference-graph graph info)
-      instrs))))
+     (= edges (list-append-many
+               (list-map-zip instr-edges instrs live-after-sets)))
+     (= graph (make-graph edges))
+     (cons-block (record-put 'interference-graph graph info) instrs))))
 
 (claim instr-edges
   (-> instr? (set? location-operand?)
@@ -43,10 +40,10 @@
      (list-product/no-diagonal
       sysv-caller-saved-registers
       (set-to-list live-after-set)))
+    ;; in a move instruction, src does not interference with dest,
+    ;; because after this instruction they will have the same value
+    ;; (thus the same register can be allocated to them).
     (['movq [src dest]]
-     ;; in a move instruction, src does not interference with dest,
-     ;; because after this instruction they will have the same value
-     ;; (thus the same register can be allocated to them).
      (list-product/no-diagonal
       [dest]
       (list-reject
