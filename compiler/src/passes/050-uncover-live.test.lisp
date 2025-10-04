@@ -20,8 +20,7 @@
    {(var-rand 'a)}
    {(var-rand 'a)}
    {(var-rand 'c)}
-   {(var-rand 'b) (var-rand 'c)}
-   {}]
+   {(var-rand 'b) (var-rand 'c)}]
   (uncover-live-before*
    [['movq [(imm-rand 5) (var-rand 'a)]]
     ['movq [(imm-rand 30) (var-rand 'b)]]

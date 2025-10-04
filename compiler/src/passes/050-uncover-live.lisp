@@ -10,8 +10,7 @@
 (claim live-info? (-> anything? bool?))
 
 (define live-info?
-  (tau :live-after-instrs (list? (set? location-operand?))
-       :live-before-block (set? location-operand?)))
+  (tau :live-before-sets (list? (set? location-operand?))))
 
 (claim uncover-live
   (-> x86-program?
@@ -34,8 +33,7 @@
      (cons-block
       (record-append
        info
-       [:live-before-block (list-head live-before-sets)
-        :live-after-instrs (list-push {} live-before-sets)])
+       [:live-before-sets live-before-sets])
       instrs))))
 
 (claim uncover-live-before*
@@ -43,13 +41,14 @@
       (list? (set? location-operand?))))
 
 (define (uncover-live-before* instrs last-live-after-set)
-  (list-fold-right
-   (lambda (instr live-after-sets)
-     (= live-after-set (list-first live-after-sets))
-     (= live-before-set (uncover-live-before instr live-after-set))
-     (cons live-before-set live-after-sets))
-   [last-live-after-set]
-   instrs))
+  (list-init
+   (list-fold-right
+    (lambda (instr live-after-sets)
+      (= live-after-set (list-first live-after-sets))
+      (= live-before-set (uncover-live-before instr live-after-set))
+      (cons live-before-set live-after-sets))
+    [last-live-after-set]
+    instrs)))
 
 (claim uncover-live-before
   (-> instr? (set? location-operand?)

@@ -28,10 +28,10 @@
 (define (build-interference-block block)
   (match block
     ((cons-block info instrs)
-     (= live-after-instrs (record-get 'live-after-instrs info))
+     (= live-before-sets (record-get 'live-before-sets info))
      (= graph (make-graph
                (list-append-many
-                (list-map-zip instr-edges instrs live-after-instrs))))
+                (list-map-zip instr-edges instrs live-before-sets))))
      (cons-block
       (record-put 'interference-graph graph info)
       instrs))))
