@@ -5,9 +5,7 @@
   uncover-live-before
   uncover-live-before*
   uncover-live-read
-  uncover-live-write
-  caller-saved-registers
-  callee-saved-registers)
+  uncover-live-write)
 
 (claim live-info? (-> anything? bool?))
 
@@ -61,12 +59,6 @@
     (swap set-difference (uncover-live-write instr))
     (set-union (uncover-live-read instr))))
 
-(define caller-saved-registers
-  '(rax rcx rdx rsi rdi r8 r9 r10 r11))
-
-(define callee-saved-registers
-  '(rsp rbp rbx r12 r13 r14 r15))
-
 (define argument-registers
   '(rdi rsi rdx rcx r8 r9))
 
@@ -108,9 +100,7 @@
 (define (uncover-live-write instr)
   (match instr
     ((callq label arity)
-     (pipe caller-saved-registers
-       (list-map reg-rand)
-       list-to-set))
+     (list-to-set sysv-caller-saved-registers))
     (retq
      {(reg-rand 'rsp)})
     ((jmp label)

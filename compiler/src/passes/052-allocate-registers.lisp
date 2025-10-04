@@ -114,14 +114,12 @@
     (hash-select/value (swap int-larger? max-register-color))
     hash-length))
 
-(define callee-saved-registers
-  (list-map reg-rand '(rsp rbp rbx r12 r13 r14 r15)))
-
 (claim find-callee-saved
   (-> coloring? (list? reg-rand?)))
 
 (define (find-callee-saved coloring)
-  (list-select (coloring-use-register? coloring) callee-saved-registers))
+  (list-select (coloring-use-register? coloring)
+               sysv-callee-saved-registers))
 
 (define (coloring-use-register? coloring register)
   (= color (hash-get register coloring))

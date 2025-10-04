@@ -1,8 +1,7 @@
 (import-all "deps")
 (import "050-uncover-live"
   live-info?
-  uncover-live-write
-  caller-saved-registers)
+  uncover-live-write)
 
 (export build-interference interference-info?)
 
@@ -45,7 +44,7 @@
   (match instr
     ((callq label arity)
      (list-product/no-diagonal
-      (list-map reg-rand caller-saved-registers)
+      sysv-caller-saved-registers
       (set-to-list live-after-instr)))
     (['movq [src dest]]
      (list-product/no-diagonal
