@@ -1,8 +1,15 @@
 update x-lisp for `hash-from-map`
 
-# book
+# learn
 
 > 4 Booleans and Conditionals
+
+[s] add `bool-exp` and `if-exp`, add `bool?` to `value?`
+[s] add and- or- not- exp
+[s] eq? lt? gteq? lteq? gt? -- as new operator
+[s] `eval` -- support conditional exps
+[s] extract `eval-op`
+
 > 5 Loops and Dataflow Analysis
 > 6 Tuples and Garbage Collection
 > 7 Functions
