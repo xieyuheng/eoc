@@ -49,8 +49,9 @@
     (['movq [src dest]]
      (list-product/no-diagonal
       [dest]
-      (list-reject (equal? src)
-                   (set-to-list live-after-instr))))
+      (list-reject
+       (equal? src)
+       (set-to-list live-after-instr))))
     (else
      (list-product/no-diagonal
       (set-to-list (uncover-live-write instr))

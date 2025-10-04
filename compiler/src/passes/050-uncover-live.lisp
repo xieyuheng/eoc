@@ -34,28 +34,29 @@
      (cons-block
       (record-append
        info
-       [:live-after-instrs (list-push {} live-before-sets)
-        :live-before-block (list-head live-before-sets)])
+       [:live-before-block (list-head live-before-sets)
+        :live-after-instrs (list-push {} live-before-sets)])
       instrs))))
 
 (claim uncover-live-before*
   (-> (list? instr?) (set? location-operand?)
       (list? (set? location-operand?))))
 
-(define (uncover-live-before* instrs last-live-set)
+(define (uncover-live-before* instrs last-live-after-set)
   (list-fold-right
-   (lambda (instr live-sets)
-     (cons (uncover-live-before instr (list-first live-sets))
-           live-sets))
-   [last-live-set]
+   (lambda (instr live-after-sets)
+     (= live-after-set (list-first live-after-sets))
+     (= live-before-set (uncover-live-before instr live-after-set))
+     (cons live-before-set live-after-sets))
+   [last-live-after-set]
    instrs))
 
 (claim uncover-live-before
   (-> instr? (set? location-operand?)
       (set? location-operand?)))
 
-(define (uncover-live-before instr next-live-set)
-  (pipe next-live-set
+(define (uncover-live-before instr live-after-set)
+  (pipe live-after-set
     (swap set-difference (uncover-live-write instr))
     (set-union (uncover-live-read instr))))
 
