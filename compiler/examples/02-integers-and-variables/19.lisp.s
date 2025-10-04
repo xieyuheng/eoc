@@ -8,9 +8,7 @@ begin:
 begin.body:
         movq $1, %rbx
         movq $5, %rcx
-        movq %rcx, -16(%rbp)
-        addq %rcx, -16(%rbp)
-        movq -16(%rbp), %rcx
+        addq %rcx, %rcx
         addq $100, %rcx
         movq %rbx, %rax
         addq %rcx, %rax
