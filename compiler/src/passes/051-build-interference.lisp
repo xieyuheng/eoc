@@ -40,19 +40,19 @@
   (-> instr? (set? location-operand?)
       (list? (tau location-operand? location-operand?))))
 
-(define (instr-edges instr live-after-instr)
+(define (instr-edges instr live-before-set)
   (match instr
     ((callq label arity)
      (list-product/no-diagonal
       sysv-caller-saved-registers
-      (set-to-list live-after-instr)))
+      (set-to-list live-before-set)))
     (['movq [src dest]]
      (list-product/no-diagonal
       [dest]
       (list-reject
        (equal? src)
-       (set-to-list live-after-instr))))
+       (set-to-list live-before-set))))
     (else
      (list-product/no-diagonal
       (set-to-list (uncover-live-write instr))
-      (set-to-list live-after-instr)))))
+      (set-to-list live-before-set)))))
