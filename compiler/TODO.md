@@ -1,5 +1,15 @@
 update x-lisp for `hash-from-map`
 
+update x-lisp.js for `graph-add-vertices!`
+extract `type-info?`
+add all local variables as vertex to the interference graph first.
+
+x86 instr support comment
+
+040-select-instructions -- add comment about which c stmt is compiled to what
+
+- print at the first line
+
 # learn
 
 > 4 Booleans and Conditionals
