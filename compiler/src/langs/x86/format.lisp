@@ -6,14 +6,14 @@
 (define indentation "        ")
 
 (define (indent-line line)
-  (string-append-many [indentation line "\n"]))
+  (string-concat [indentation line "\n"]))
 
 (claim format-x86-program (-> x86-program? string?))
 
 (define (format-x86-program x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     (string-append-many
+     (string-concat
       (cons (indent-line ".global begin")
             (list-map format-block-entry
                       (record-entries blocks)))))))
@@ -24,7 +24,7 @@
   (match entry
     ([label (cons-block info instrs)]
      (= label-string (string-append (symbol-to-string label) ":\n"))
-     (string-append-many
+     (string-concat
       (cons label-string
             (list-map (compose indent-line format-instr)
                       instrs))))))
@@ -34,19 +34,19 @@
 (define (format-instr instr)
   (cond ((general-instr? instr)
          (= [op rands] instr)
-         (string-append-many
+         (string-concat
           [(format-sexp op) " "
            (string-join ", " (list-map format-rand rands))]))
         ((special-instr? instr)
          (match instr
            ((callq target arity)
-            (string-append-many
+            (string-concat
              ["callq " (format-sexp target)]))
            (retq
-            (string-append-many
+            (string-concat
              ["retq"]))
            ((jmp target)
-            (string-append-many
+            (string-concat
              ["jmp " (format-sexp target)]))))))
 
 (claim format-rand (-> operand? string?))
@@ -60,6 +60,6 @@
     ((reg-rand name)
      (string-append "%" (format-sexp name)))
     ((deref-rand name offset)
-     (string-append-many
+     (string-concat
       [(format-sexp offset)
        "(" "%" (format-sexp name) ")"]))))

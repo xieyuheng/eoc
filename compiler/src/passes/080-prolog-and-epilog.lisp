@@ -35,7 +35,7 @@
   (= [:callee-saved callee-saved] info)
   (= stack-space (leave-stack-space info))
   (= instrs
-     (list-append-many
+     (list-concat
       [[['pushq [(reg-rand 'rbp)]]
         ['movq [(reg-rand 'rsp) (reg-rand 'rbp)]]]
        (pipe callee-saved
@@ -52,7 +52,7 @@
   (= [:callee-saved callee-saved] info)
   (= stack-space (leave-stack-space info))
   (= instrs
-     (list-append-many
+     (list-concat
       [(if (equal? 0 stack-space)
          []
          [['addq [(imm-rand stack-space) (reg-rand 'rsp)]]])

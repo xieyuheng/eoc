@@ -129,4 +129,4 @@
 
 (define (rco-atom-many state exps)
   (= [binds-list new-exps] (list-unzip (list-map (rco-atom state) exps)))
-  [(list-append-many binds-list) new-exps])
+  [(list-concat binds-list) new-exps])

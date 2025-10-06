@@ -39,7 +39,7 @@
 
 (define (generate-exe x86-program output-file)
   (= output-id (string-replace "/" "-" output-file))
-  (= asm-id (string-append-many
+  (= asm-id (string-concat
              [output-id "." (format-sexp (random-int 0 10000)) ".s"]))
   (= asm-file (path-join [tmp-directory asm-id]))
   (directory-create-recursively (file-directory asm-file))

@@ -28,7 +28,7 @@
     ((cons-block info instrs)
      (= [:live-after-sets live-after-sets :context context] info)
      (= vertices (list-map var-rand (record-keys context)))
-     (= edges (list-append-many
+     (= edges (list-concat
                (list-map-zip instr-edges instrs live-after-sets)))
      (= graph (make-graph vertices edges))
      (cons-block (record-put 'interference-graph graph info) instrs))))
