@@ -42,7 +42,7 @@
 (define (allocate-registers x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     (cons-x86-program info (record-map/value allocate-registers-block blocks)))))
+     (cons-x86-program info (record-map-value allocate-registers-block blocks)))))
 
 (claim allocate-registers-block (-> block? block?))
 
@@ -76,14 +76,14 @@
 (claim pre-coloring (-> coloring?))
 
 (define (pre-coloring)
-  (hash-map/key reg-rand reg-name-color-hash))
+  (hash-map-key reg-rand reg-name-color-hash))
 
 (claim count-spilled-variables (-> coloring? int?))
 
 (define (count-spilled-variables coloring)
   (pipe coloring
-    (hash-reject/key reg-rand?)
-    (hash-select/value (swap int-larger? max-register-color))
+    (hash-reject-key reg-rand?)
+    (hash-select-value (swap int-larger? max-register-color))
     hash-length))
 
 (claim find-callee-saved (-> coloring? (list? reg-rand?)))
@@ -128,6 +128,6 @@
 
 (define (find-max-register-color coloring)
   (pipe coloring
-    (hash-select/key reg-rand?)
+    (hash-select-key reg-rand?)
     hash-values
-    (list-foremost int-compare/descending)))
+    (list-foremost int-compare-descending)))

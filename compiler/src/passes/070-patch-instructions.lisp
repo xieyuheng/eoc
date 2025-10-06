@@ -8,7 +8,7 @@
 (define (patch-instructions x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     (cons-x86-program info (record-map/value patch-block blocks)))))
+     (cons-x86-program info (record-map-value patch-block blocks)))))
 
 (claim patch-block
   (-> block? block?))

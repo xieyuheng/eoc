@@ -1,6 +1,6 @@
-update x-lisp for `hash-from-map`
+use `hash-from-map`
+use `graph-add-vertices!`
 
-update x-lisp.js for `graph-add-vertices!`
 extract `type-info?`
 add all local variables as vertex to the interference graph first.
 

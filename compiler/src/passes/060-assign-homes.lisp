@@ -13,7 +13,7 @@
   (match x86-program
     ((cons-x86-program info blocks)
      (cons-x86-program info
-      (record-map/value assign-homes-block blocks)))))
+      (record-map-value assign-homes-block blocks)))))
 
 (claim assign-homes-block (-> block? block?))
 

@@ -12,7 +12,7 @@
   (match c-program
     ((cons-c-program info seqs)
      (= contexts
-        (record-map/value
+        (record-map-value
          (lambda (seq)
            (= context [])
            (= result-type (check-seq seq context))
