@@ -1,8 +1,3 @@
-use `graph-add-vertices!`
-
-extract `type-info?`
-add all local variables as vertex to the interference graph first.
-
 x86 instr support comment
 
 040-select-instructions -- add comment about which c stmt is compiled to what
