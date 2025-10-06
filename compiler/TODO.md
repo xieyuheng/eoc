@@ -1,4 +1,3 @@
-use `hash-from-map`
 use `graph-add-vertices!`
 
 extract `type-info?`

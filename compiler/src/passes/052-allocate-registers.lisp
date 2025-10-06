@@ -59,14 +59,9 @@
      (= variables (list-select var-rand? vertices))
      (= home-info
         [:home-locations
-         ;; (hash-from-map
-         ;;  (allocate-registers-variable coloring register-info)
-         ;;  variables)
-         (hash-from-entries
-          (list-zip
-           variables
-           (list-map (allocate-registers-variable coloring register-info)
-                     variables)))])
+         (hash-from-map
+          (allocate-registers-variable coloring register-info)
+          variables)])
      (cons-block
       (pipe info
         (record-append register-info)
