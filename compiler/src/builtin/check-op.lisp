@@ -8,7 +8,7 @@
 
 (define (check-op op arg-types)
   (match (record-get op operator-types)
-    ((@escape null) null)
+    (null null)
     ([expected-arg-types return-type]
      (if (and (equal? (list-length expected-arg-types)
                       (list-length arg-types))
