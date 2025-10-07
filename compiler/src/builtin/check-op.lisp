@@ -7,14 +7,8 @@
       (union type? null?)))
 
 (define (check-op arg-types op)
-  (match (record-get op operator-types)
-    (null null)
-    (type-entry
-     (check-type-entry arg-types type-entry))))
-
-;; (define (check-op arg-types op)
-;;   ((optional-lift (check-type-entry arg-types))
-;;    (record-get op operator-types)))
+  ((optional-lift (check-type-entry arg-types))
+   (record-get op operator-types)))
 
 (claim check-type-entry
   (-> (list? type?) (tau (list? type?) type?)

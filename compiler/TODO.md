@@ -1,5 +1,3 @@
-[builtin] refactor `check-op` --  by `optional-lift`
-
 x86 instr support comment
 040-select-instructions -- add comment about which c stmt is compiled to what
 - print at the first line
