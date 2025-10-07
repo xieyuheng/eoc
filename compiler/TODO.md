@@ -1,4 +1,3 @@
-[builtin] refactor `check-op` -- swap arg order
 [builtin] refactor `check-op` --  by `optional-lift`
 
 x86 instr support comment

@@ -3,16 +3,16 @@
 (export check-op)
 
 (claim check-op
-  (-> symbol? (list? type?)
+  (-> (list? type?) symbol?
       (union type? null?)))
 
-(define (check-op op arg-types)
+(define (check-op arg-types op)
   (match (record-get op operator-types)
     (null null)
     (type-entry
      (check-type-entry arg-types type-entry))))
 
-;; (define (check-op op arg-types)
+;; (define (check-op arg-types op)
 ;;   ((optional-lift (check-type-entry arg-types))
 ;;    (record-get op operator-types)))
 

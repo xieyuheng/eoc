@@ -15,7 +15,7 @@
         (record-map-value
          (lambda (seq)
            (= context [])
-           (= result-type (check-seq seq context))
+           (= result-type (check-seq context seq))
            (unless (type-equal? result-type int-t)
              (exit [:who 'check-c-program
                     :message "expected result-type to be int-t"
@@ -28,26 +28,26 @@
       seqs))))
 
 (claim check-seq
-  (-> seq? (record? type?)
+  (-> (record? type?) seq?
       type?))
 
-(define (check-seq seq context)
+(define (check-seq context seq)
   (match seq
     ((return-seq result)
-     (= [result^ result-type] (check-c-exp result context))
+     (= [result^ result-type] (check-c-exp context result))
      result-type)
     ((cons-seq stmt tail)
-     (check-stmt stmt context)
-     (check-seq tail context))))
+     (check-stmt context stmt)
+     (check-seq context tail))))
 
 (claim check-stmt
-  (->  stmt? (record? type?)
+  (->  (record? type?) stmt?
        void?))
 
-(define (check-stmt stmt context)
+(define (check-stmt context stmt)
   (match stmt
     ((assign-stmt (var-c-exp name) rhs)
-     (= [rhs^ rhs-type] (check-c-exp rhs context))
+     (= [rhs^ rhs-type] (check-c-exp context rhs))
      (= found-type (record-get name context))
      (if (null? found-type)
        (begin
@@ -60,10 +60,10 @@
                 :found-type found-type]))))))
 
 (claim check-c-exp
-  (-> c-exp? (record? type?)
+  (-> (record? type?) c-exp?
       (tau c-exp? type?)))
 
-(define (check-c-exp c-exp context)
+(define (check-c-exp context c-exp)
   (match c-exp
     ((var-c-exp name)
      [(var-c-exp name)
@@ -72,8 +72,8 @@
      [(int-c-exp value)
       int-t])
     ((prim-c-exp op args)
-     (= [args^ arg-types] (list-unzip (list-map (swap check-c-exp context) args)))
-     (= return-type (check-op op arg-types))
+     (= [args^ arg-types] (list-unzip (list-map (check-c-exp context) args)))
+     (= return-type (check-op arg-types op))
      (when (null? return-type)
        (exit [:who 'check-c-exp
               :message "fail on prim-c-exp"
