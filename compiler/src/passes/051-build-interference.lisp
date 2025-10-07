@@ -38,21 +38,23 @@
       (list? (tau location-operand? location-operand?))))
 
 (define (instr-edges instr live-after-set)
-  (match instr
-    ((callq label arity)
-     (list-product-without-diagonal
-      sysv-caller-saved-registers
-      (set-to-list live-after-set)))
-    ;; in a move instruction, src does not interference with dest,
-    ;; because after this instruction they will have the same value
-    ;; (thus the same register can be allocated to them).
-    (['movq [src dest]]
-     (list-product-without-diagonal
-      [dest]
-      (list-reject
-       (equal? src)
-       (set-to-list live-after-set))))
-    (else
-     (list-product-without-diagonal
-      (set-to-list (uncover-live-write instr))
-      (set-to-list live-after-set)))))
+  (list-reject
+   (apply equal?)
+   (match instr
+     ((callq label arity)
+      (list-product
+       sysv-caller-saved-registers
+       (set-to-list live-after-set)))
+     ;; in a move instruction, src does not interference with dest,
+     ;; because after this instruction they will have the same value
+     ;; (thus the same register can be allocated to them).
+     (['movq [src dest]]
+      (list-product
+       [dest]
+       (list-reject
+        (equal? src)
+        (set-to-list live-after-set))))
+     (else
+      (list-product
+       (set-to-list (uncover-live-write instr))
+       (set-to-list live-after-set))))))
