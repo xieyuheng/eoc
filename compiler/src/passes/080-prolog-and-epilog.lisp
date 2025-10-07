@@ -14,7 +14,7 @@
       info
       (pipe blocks
         record-entries
-        (list-append-map
+        (list-lift
          (lambda ([label block])
            [[label (prolog-block label (block-info block))]
             [(symbol-append label '.body) block]

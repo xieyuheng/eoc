@@ -16,7 +16,7 @@
 (define (patch-block block)
   (match block
     ((cons-block info instrs)
-     (cons-block info (list-append-map patch-instr instrs)))))
+     (cons-block info (list-lift patch-instr instrs)))))
 
 (claim patch-instr
   (-> instr? (list? instr?)))
