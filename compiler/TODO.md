@@ -1,7 +1,8 @@
+[c] fix `form-info` with `optional-lift`
+[builtin] improve `check-op` -- [maybe] by optional monad
+
 x86 instr support comment
-
 040-select-instructions -- add comment about which c stmt is compiled to what
-
 - print at the first line
 
 # learn
@@ -27,9 +28,3 @@ x86 instr support comment
 fix `uncover-live-write` & `uncover-live-read` -- on `(jmp label)`
 
 - currently assume all jump is to `.epilog`
-
-# improve
-
-> Change x-lisp to improve the following code.
-
-[builtin] improve `check-op` -- [maybe] by optional monad

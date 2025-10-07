@@ -11,10 +11,11 @@
      `(c-program ,(form-info info) ,(record-map-value form-seq seqs)))))
 
 (define (form-info info)
-  (record-update
-   'contexts
-   (record-map-value (record-map-value form-type))
-   info))
+  (if (not (record-has? 'contexts info))
+    info
+    (record-update
+     'contexts (record-map-value (record-map-value form-type))
+     info)))
 
 (define (form-seq seq)
   (match seq
