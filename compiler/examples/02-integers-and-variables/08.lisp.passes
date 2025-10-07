@@ -65,7 +65,7 @@ allocate-registers:
    [:contexts [:begin []]]
    [:begin
     [#cons-block
-     [:home-locations (@hash )
+     [:home-locations (@hash)
       :spill-count 0
       :callee-saved []
       :context []
@@ -88,7 +88,7 @@ assign-homes:
    [:contexts [:begin []]]
    [:begin
     [#cons-block
-     [:home-locations (@hash )
+     [:home-locations (@hash)
       :spill-count 0
       :callee-saved []
       :context []
@@ -111,7 +111,7 @@ patch-instructions:
    [:contexts [:begin []]]
    [:begin
     [#cons-block
-     [:home-locations (@hash )
+     [:home-locations (@hash)
       :spill-count 0
       :callee-saved []
       :context []
@@ -140,7 +140,7 @@ prolog-and-epilog:
       [#jmp 'begin.body]]]
     :begin.body
     [#cons-block
-     [:home-locations (@hash )
+     [:home-locations (@hash)
       :spill-count 0
       :callee-saved []
       :context []
