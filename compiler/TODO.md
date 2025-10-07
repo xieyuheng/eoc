@@ -1,5 +1,5 @@
-[c] fix `form-info` with `optional-lift`
-[builtin] improve `check-op` -- [maybe] by optional monad
+[builtin] refactor `check-op` -- swap arg order
+[builtin] refactor `check-op` --  by `optional-lift`
 
 x86 instr support comment
 040-select-instructions -- add comment about which c stmt is compiled to what

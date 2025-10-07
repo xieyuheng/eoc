@@ -9,13 +9,22 @@
 (define (check-op op arg-types)
   (match (record-get op operator-types)
     (null null)
-    ([expected-arg-types return-type]
-     (if (and (equal? (list-length expected-arg-types)
-                      (list-length arg-types))
-              (list-all? (apply type-equal?)
-                         (list-zip expected-arg-types arg-types)))
-       return-type
-       null))))
+    (type-entry
+     (check-type-entry arg-types type-entry))))
+
+;; (define (check-op op arg-types)
+;;   ((optional-lift (check-type-entry arg-types))
+;;    (record-get op operator-types)))
+
+(claim check-type-entry
+  (-> (list? type?) (tau (list? type?) type?)
+      (union type? null?)))
+
+(define (check-type-entry arg-types type-entry)
+  (= [expected-arg-types return-type] type-entry)
+  (if (equal? expected-arg-types arg-types)
+    return-type
+    null))
 
 (claim operator-types
   (record? (tau (list? type?) type?)))
