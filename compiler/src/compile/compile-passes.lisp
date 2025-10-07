@@ -62,6 +62,9 @@
 (define (log-x86-program tag x86-program)
   (write tag) (writeln ":")
   (writeln "")
-  (write indentation) (println x86-program)
+  (writeln
+   (format-left-margin
+    indentation
+    (pretty-format 80 x86-program)))
   (writeln "")
   x86-program)

@@ -20,29 +20,544 @@ explicate-control:
 
 select-instructions:
 
-  [#cons-x86-program [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]] [:begin [#cons-block [:context [:_₁ #int-t :_₂ #int-t :_₃ #int-t]] [[#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#var-rand '_₁]]] [#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#var-rand '_₂]]] ['movq [[#var-rand '_₁] [#var-rand '_₃]]] ['addq [[#var-rand '_₂] [#var-rand '_₃]]] ['movq [[#imm-rand 42] [#reg-rand 'rax]]] ['addq [[#var-rand '_₃] [#reg-rand 'rax]]] [#jmp 'begin.epilog]]]]]
+  [#cons-x86-program
+   [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]]
+   [:begin
+    [#cons-block
+     [:context [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]
+     [[#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#var-rand '_₁]]]
+      [#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#var-rand '_₂]]]
+      ['movq [[#var-rand '_₁] [#var-rand '_₃]]]
+      ['addq [[#var-rand '_₂] [#var-rand '_₃]]]
+      ['movq [[#imm-rand 42] [#reg-rand 'rax]]]
+      ['addq [[#var-rand '_₃] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]]]
 
 uncover-live:
 
-  [#cons-x86-program [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]] [:begin [#cons-block [:context [:_₁ #int-t :_₂ #int-t :_₃ #int-t] :block-live-before-set {[#reg-rand 'rsp]} :live-after-sets [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#var-rand '_₁] [#reg-rand 'rsp]} {[#reg-rand 'rax] [#var-rand '_₁] [#reg-rand 'rsp]} {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]} {[#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rsp]} {[#var-rand '_₃] [#reg-rand 'rsp]} {[#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}]] [[#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#var-rand '_₁]]] [#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#var-rand '_₂]]] ['movq [[#var-rand '_₁] [#var-rand '_₃]]] ['addq [[#var-rand '_₂] [#var-rand '_₃]]] ['movq [[#imm-rand 42] [#reg-rand 'rax]]] ['addq [[#var-rand '_₃] [#reg-rand 'rax]]] [#jmp 'begin.epilog]]]]]
+  [#cons-x86-program
+   [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]]
+   [:begin
+    [#cons-block
+     [:context [:_₁ #int-t :_₂ #int-t :_₃ #int-t]
+      :block-live-before-set {[#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#var-rand '_₁] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#var-rand '_₁] [#reg-rand 'rsp]}
+       {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]}
+       {[#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rsp]}
+       {[#var-rand '_₃] [#reg-rand 'rsp]}
+       {[#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [[#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#var-rand '_₁]]]
+      [#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#var-rand '_₂]]]
+      ['movq [[#var-rand '_₁] [#var-rand '_₃]]]
+      ['addq [[#var-rand '_₂] [#var-rand '_₃]]]
+      ['movq [[#imm-rand 42] [#reg-rand 'rax]]]
+      ['addq [[#var-rand '_₃] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]]]
 
 build-interference:
 
-  [#cons-x86-program [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]] [:begin [#cons-block [:context [:_₁ #int-t :_₂ #int-t :_₃ #int-t] :block-live-before-set {[#reg-rand 'rsp]} :live-after-sets [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#var-rand '_₁] [#reg-rand 'rsp]} {[#reg-rand 'rax] [#var-rand '_₁] [#reg-rand 'rsp]} {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]} {[#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rsp]} {[#var-rand '_₃] [#reg-rand 'rsp]} {[#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}] :interference-graph [#cons-graph {[#var-rand '_₁] [#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₁] [#var-rand '_₃]} [#reg-rand 'rsp] {[#reg-rand 'rax] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₁] [#var-rand '_₂] [#var-rand '_₃]} [#reg-rand 'rcx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rdx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rsi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rdi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#var-rand '_₁] {[#reg-rand 'rsp] [#reg-rand 'rax] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₂]} [#var-rand '_₂] {[#var-rand '_₁] [#reg-rand 'rsp] [#var-rand '_₃]} [#var-rand '_₃] {[#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]})]] [[#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#var-rand '_₁]]] [#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#var-rand '_₂]]] ['movq [[#var-rand '_₁] [#var-rand '_₃]]] ['addq [[#var-rand '_₂] [#var-rand '_₃]]] ['movq [[#imm-rand 42] [#reg-rand 'rax]]] ['addq [[#var-rand '_₃] [#reg-rand 'rax]]] [#jmp 'begin.epilog]]]]]
+  [#cons-x86-program
+   [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]]
+   [:begin
+    [#cons-block
+     [:context [:_₁ #int-t :_₂ #int-t :_₃ #int-t]
+      :block-live-before-set {[#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#var-rand '_₁] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#var-rand '_₁] [#reg-rand 'rsp]}
+       {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]}
+       {[#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rsp]}
+       {[#var-rand '_₃] [#reg-rand 'rsp]}
+       {[#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]
+      :interference-graph
+      [#cons-graph
+       {[#var-rand '_₁]
+        [#var-rand '_₂]
+        [#var-rand '_₃]
+        [#reg-rand 'rax]
+        [#reg-rand 'rsp]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'rdi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       (@hash
+         [#reg-rand 'rax]
+         {[#reg-rand 'rsp]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₁]
+          [#var-rand '_₃]}
+         [#reg-rand 'rsp]
+         {[#reg-rand 'rax]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₁]
+          [#var-rand '_₂]
+          [#var-rand '_₃]}
+         [#reg-rand 'rcx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rdx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rsi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rdi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#var-rand '_₁]
+         {[#reg-rand 'rsp]
+          [#reg-rand 'rax]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₂]}
+         [#var-rand '_₂] {[#var-rand '_₁] [#reg-rand 'rsp] [#var-rand '_₃]}
+         [#var-rand '_₃] {[#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]})]]
+     [[#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#var-rand '_₁]]]
+      [#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#var-rand '_₂]]]
+      ['movq [[#var-rand '_₁] [#var-rand '_₃]]]
+      ['addq [[#var-rand '_₂] [#var-rand '_₃]]]
+      ['movq [[#imm-rand 42] [#reg-rand 'rax]]]
+      ['addq [[#var-rand '_₃] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]]]
 
 allocate-registers:
 
-  [#cons-x86-program [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]] [:begin [#cons-block [:home-locations (@hash [#var-rand '_₁] [#reg-rand 'rbx] [#var-rand '_₃] [#reg-rand 'rcx] [#var-rand '_₂] [#deref-rand 'rbp -16]) :spill-count 1 :callee-saved [[#reg-rand 'rbx]] :context [:_₁ #int-t :_₂ #int-t :_₃ #int-t] :block-live-before-set {[#reg-rand 'rsp]} :live-after-sets [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#var-rand '_₁] [#reg-rand 'rsp]} {[#reg-rand 'rax] [#var-rand '_₁] [#reg-rand 'rsp]} {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]} {[#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rsp]} {[#var-rand '_₃] [#reg-rand 'rsp]} {[#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}] :interference-graph [#cons-graph {[#var-rand '_₁] [#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₁] [#var-rand '_₃]} [#reg-rand 'rsp] {[#reg-rand 'rax] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₁] [#var-rand '_₂] [#var-rand '_₃]} [#reg-rand 'rcx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rdx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rsi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rdi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#var-rand '_₁] {[#reg-rand 'rsp] [#reg-rand 'rax] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₂]} [#var-rand '_₂] {[#var-rand '_₁] [#reg-rand 'rsp] [#var-rand '_₃]} [#var-rand '_₃] {[#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]})]] [[#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#var-rand '_₁]]] [#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#var-rand '_₂]]] ['movq [[#var-rand '_₁] [#var-rand '_₃]]] ['addq [[#var-rand '_₂] [#var-rand '_₃]]] ['movq [[#imm-rand 42] [#reg-rand 'rax]]] ['addq [[#var-rand '_₃] [#reg-rand 'rax]]] [#jmp 'begin.epilog]]]]]
+  [#cons-x86-program
+   [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]]
+   [:begin
+    [#cons-block
+     [:home-locations
+      (@hash
+        [#var-rand '_₁] [#reg-rand 'rbx]
+        [#var-rand '_₃] [#reg-rand 'rcx]
+        [#var-rand '_₂] [#deref-rand 'rbp -16])
+      :spill-count 1
+      :callee-saved [[#reg-rand 'rbx]]
+      :context [:_₁ #int-t :_₂ #int-t :_₃ #int-t]
+      :block-live-before-set {[#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#var-rand '_₁] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#var-rand '_₁] [#reg-rand 'rsp]}
+       {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]}
+       {[#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rsp]}
+       {[#var-rand '_₃] [#reg-rand 'rsp]}
+       {[#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]
+      :interference-graph
+      [#cons-graph
+       {[#var-rand '_₁]
+        [#var-rand '_₂]
+        [#var-rand '_₃]
+        [#reg-rand 'rax]
+        [#reg-rand 'rsp]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'rdi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       (@hash
+         [#reg-rand 'rax]
+         {[#reg-rand 'rsp]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₁]
+          [#var-rand '_₃]}
+         [#reg-rand 'rsp]
+         {[#reg-rand 'rax]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₁]
+          [#var-rand '_₂]
+          [#var-rand '_₃]}
+         [#reg-rand 'rcx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rdx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rsi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rdi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#var-rand '_₁]
+         {[#reg-rand 'rsp]
+          [#reg-rand 'rax]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₂]}
+         [#var-rand '_₂] {[#var-rand '_₁] [#reg-rand 'rsp] [#var-rand '_₃]}
+         [#var-rand '_₃] {[#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]})]]
+     [[#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#var-rand '_₁]]]
+      [#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#var-rand '_₂]]]
+      ['movq [[#var-rand '_₁] [#var-rand '_₃]]]
+      ['addq [[#var-rand '_₂] [#var-rand '_₃]]]
+      ['movq [[#imm-rand 42] [#reg-rand 'rax]]]
+      ['addq [[#var-rand '_₃] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]]]
 
 assign-homes:
 
-  [#cons-x86-program [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]] [:begin [#cons-block [:home-locations (@hash [#var-rand '_₁] [#reg-rand 'rbx] [#var-rand '_₃] [#reg-rand 'rcx] [#var-rand '_₂] [#deref-rand 'rbp -16]) :spill-count 1 :callee-saved [[#reg-rand 'rbx]] :context [:_₁ #int-t :_₂ #int-t :_₃ #int-t] :block-live-before-set {[#reg-rand 'rsp]} :live-after-sets [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#var-rand '_₁] [#reg-rand 'rsp]} {[#reg-rand 'rax] [#var-rand '_₁] [#reg-rand 'rsp]} {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]} {[#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rsp]} {[#var-rand '_₃] [#reg-rand 'rsp]} {[#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}] :interference-graph [#cons-graph {[#var-rand '_₁] [#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₁] [#var-rand '_₃]} [#reg-rand 'rsp] {[#reg-rand 'rax] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₁] [#var-rand '_₂] [#var-rand '_₃]} [#reg-rand 'rcx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rdx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rsi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rdi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#var-rand '_₁] {[#reg-rand 'rsp] [#reg-rand 'rax] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₂]} [#var-rand '_₂] {[#var-rand '_₁] [#reg-rand 'rsp] [#var-rand '_₃]} [#var-rand '_₃] {[#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]})]] [[#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#reg-rand 'rbx]]] [#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#deref-rand 'rbp -16]]] ['movq [[#reg-rand 'rbx] [#reg-rand 'rcx]]] ['addq [[#deref-rand 'rbp -16] [#reg-rand 'rcx]]] ['movq [[#imm-rand 42] [#reg-rand 'rax]]] ['addq [[#reg-rand 'rcx] [#reg-rand 'rax]]] [#jmp 'begin.epilog]]]]]
+  [#cons-x86-program
+   [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]]
+   [:begin
+    [#cons-block
+     [:home-locations
+      (@hash
+        [#var-rand '_₁] [#reg-rand 'rbx]
+        [#var-rand '_₃] [#reg-rand 'rcx]
+        [#var-rand '_₂] [#deref-rand 'rbp -16])
+      :spill-count 1
+      :callee-saved [[#reg-rand 'rbx]]
+      :context [:_₁ #int-t :_₂ #int-t :_₃ #int-t]
+      :block-live-before-set {[#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#var-rand '_₁] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#var-rand '_₁] [#reg-rand 'rsp]}
+       {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]}
+       {[#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rsp]}
+       {[#var-rand '_₃] [#reg-rand 'rsp]}
+       {[#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]
+      :interference-graph
+      [#cons-graph
+       {[#var-rand '_₁]
+        [#var-rand '_₂]
+        [#var-rand '_₃]
+        [#reg-rand 'rax]
+        [#reg-rand 'rsp]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'rdi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       (@hash
+         [#reg-rand 'rax]
+         {[#reg-rand 'rsp]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₁]
+          [#var-rand '_₃]}
+         [#reg-rand 'rsp]
+         {[#reg-rand 'rax]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₁]
+          [#var-rand '_₂]
+          [#var-rand '_₃]}
+         [#reg-rand 'rcx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rdx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rsi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rdi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#var-rand '_₁]
+         {[#reg-rand 'rsp]
+          [#reg-rand 'rax]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₂]}
+         [#var-rand '_₂] {[#var-rand '_₁] [#reg-rand 'rsp] [#var-rand '_₃]}
+         [#var-rand '_₃] {[#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]})]]
+     [[#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rbx]]]
+      [#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#deref-rand 'rbp -16]]]
+      ['movq [[#reg-rand 'rbx] [#reg-rand 'rcx]]]
+      ['addq [[#deref-rand 'rbp -16] [#reg-rand 'rcx]]]
+      ['movq [[#imm-rand 42] [#reg-rand 'rax]]]
+      ['addq [[#reg-rand 'rcx] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]]]
 
 patch-instructions:
 
-  [#cons-x86-program [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]] [:begin [#cons-block [:home-locations (@hash [#var-rand '_₁] [#reg-rand 'rbx] [#var-rand '_₃] [#reg-rand 'rcx] [#var-rand '_₂] [#deref-rand 'rbp -16]) :spill-count 1 :callee-saved [[#reg-rand 'rbx]] :context [:_₁ #int-t :_₂ #int-t :_₃ #int-t] :block-live-before-set {[#reg-rand 'rsp]} :live-after-sets [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#var-rand '_₁] [#reg-rand 'rsp]} {[#reg-rand 'rax] [#var-rand '_₁] [#reg-rand 'rsp]} {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]} {[#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rsp]} {[#var-rand '_₃] [#reg-rand 'rsp]} {[#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}] :interference-graph [#cons-graph {[#var-rand '_₁] [#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₁] [#var-rand '_₃]} [#reg-rand 'rsp] {[#reg-rand 'rax] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₁] [#var-rand '_₂] [#var-rand '_₃]} [#reg-rand 'rcx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rdx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rsi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rdi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#var-rand '_₁] {[#reg-rand 'rsp] [#reg-rand 'rax] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₂]} [#var-rand '_₂] {[#var-rand '_₁] [#reg-rand 'rsp] [#var-rand '_₃]} [#var-rand '_₃] {[#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]})]] [[#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#reg-rand 'rbx]]] [#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#deref-rand 'rbp -16]]] ['movq [[#reg-rand 'rbx] [#reg-rand 'rcx]]] ['addq [[#deref-rand 'rbp -16] [#reg-rand 'rcx]]] ['movq [[#imm-rand 42] [#reg-rand 'rax]]] ['addq [[#reg-rand 'rcx] [#reg-rand 'rax]]] [#jmp 'begin.epilog]]]]]
+  [#cons-x86-program
+   [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]]
+   [:begin
+    [#cons-block
+     [:home-locations
+      (@hash
+        [#var-rand '_₁] [#reg-rand 'rbx]
+        [#var-rand '_₃] [#reg-rand 'rcx]
+        [#var-rand '_₂] [#deref-rand 'rbp -16])
+      :spill-count 1
+      :callee-saved [[#reg-rand 'rbx]]
+      :context [:_₁ #int-t :_₂ #int-t :_₃ #int-t]
+      :block-live-before-set {[#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#var-rand '_₁] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#var-rand '_₁] [#reg-rand 'rsp]}
+       {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]}
+       {[#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rsp]}
+       {[#var-rand '_₃] [#reg-rand 'rsp]}
+       {[#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]
+      :interference-graph
+      [#cons-graph
+       {[#var-rand '_₁]
+        [#var-rand '_₂]
+        [#var-rand '_₃]
+        [#reg-rand 'rax]
+        [#reg-rand 'rsp]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'rdi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       (@hash
+         [#reg-rand 'rax]
+         {[#reg-rand 'rsp]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₁]
+          [#var-rand '_₃]}
+         [#reg-rand 'rsp]
+         {[#reg-rand 'rax]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₁]
+          [#var-rand '_₂]
+          [#var-rand '_₃]}
+         [#reg-rand 'rcx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rdx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rsi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rdi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#var-rand '_₁]
+         {[#reg-rand 'rsp]
+          [#reg-rand 'rax]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₂]}
+         [#var-rand '_₂] {[#var-rand '_₁] [#reg-rand 'rsp] [#var-rand '_₃]}
+         [#var-rand '_₃] {[#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]})]]
+     [[#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rbx]]]
+      [#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#deref-rand 'rbp -16]]]
+      ['movq [[#reg-rand 'rbx] [#reg-rand 'rcx]]]
+      ['addq [[#deref-rand 'rbp -16] [#reg-rand 'rcx]]]
+      ['movq [[#imm-rand 42] [#reg-rand 'rax]]]
+      ['addq [[#reg-rand 'rcx] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]]]
 
 prolog-and-epilog:
 
-  [#cons-x86-program [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]] [:begin [#cons-block [] [['pushq [[#reg-rand 'rbp]]] ['movq [[#reg-rand 'rsp] [#reg-rand 'rbp]]] ['pushq [[#reg-rand 'rbx]]] ['subq [[#imm-rand 8] [#reg-rand 'rsp]]] [#jmp 'begin.body]]] :begin.body [#cons-block [:home-locations (@hash [#var-rand '_₁] [#reg-rand 'rbx] [#var-rand '_₃] [#reg-rand 'rcx] [#var-rand '_₂] [#deref-rand 'rbp -16]) :spill-count 1 :callee-saved [[#reg-rand 'rbx]] :context [:_₁ #int-t :_₂ #int-t :_₃ #int-t] :block-live-before-set {[#reg-rand 'rsp]} :live-after-sets [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#var-rand '_₁] [#reg-rand 'rsp]} {[#reg-rand 'rax] [#var-rand '_₁] [#reg-rand 'rsp]} {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]} {[#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rsp]} {[#var-rand '_₃] [#reg-rand 'rsp]} {[#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}] :interference-graph [#cons-graph {[#var-rand '_₁] [#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11]} (@hash [#reg-rand 'rax] {[#reg-rand 'rsp] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₁] [#var-rand '_₃]} [#reg-rand 'rsp] {[#reg-rand 'rax] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₁] [#var-rand '_₂] [#var-rand '_₃]} [#reg-rand 'rcx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rdx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rsi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'rdi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]} [#var-rand '_₁] {[#reg-rand 'rsp] [#reg-rand 'rax] [#reg-rand 'rcx] [#reg-rand 'rdx] [#reg-rand 'rsi] [#reg-rand 'rdi] [#reg-rand 'r8] [#reg-rand 'r9] [#reg-rand 'r10] [#reg-rand 'r11] [#var-rand '_₂]} [#var-rand '_₂] {[#var-rand '_₁] [#reg-rand 'rsp] [#var-rand '_₃]} [#var-rand '_₃] {[#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]})]] [[#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#reg-rand 'rbx]]] [#callq 'random_dice 0] ['movq [[#reg-rand 'rax] [#deref-rand 'rbp -16]]] ['movq [[#reg-rand 'rbx] [#reg-rand 'rcx]]] ['addq [[#deref-rand 'rbp -16] [#reg-rand 'rcx]]] ['movq [[#imm-rand 42] [#reg-rand 'rax]]] ['addq [[#reg-rand 'rcx] [#reg-rand 'rax]]] [#jmp 'begin.epilog]]] :begin.epilog [#cons-block [] [['addq [[#imm-rand 8] [#reg-rand 'rsp]]] ['popq [[#reg-rand 'rbx]]] ['popq [[#reg-rand 'rbp]]] #retq]]]]
+  [#cons-x86-program
+   [:contexts [:begin [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]]
+   [:begin
+    [#cons-block
+     []
+     [['pushq [[#reg-rand 'rbp]]]
+      ['movq [[#reg-rand 'rsp] [#reg-rand 'rbp]]]
+      ['pushq [[#reg-rand 'rbx]]]
+      ['subq [[#imm-rand 8] [#reg-rand 'rsp]]]
+      [#jmp 'begin.body]]]
+    :begin.body
+    [#cons-block
+     [:home-locations
+      (@hash
+        [#var-rand '_₁] [#reg-rand 'rbx]
+        [#var-rand '_₃] [#reg-rand 'rcx]
+        [#var-rand '_₂] [#deref-rand 'rbp -16])
+      :spill-count 1
+      :callee-saved [[#reg-rand 'rbx]]
+      :context [:_₁ #int-t :_₂ #int-t :_₃ #int-t]
+      :block-live-before-set {[#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#var-rand '_₁] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#var-rand '_₁] [#reg-rand 'rsp]}
+       {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]}
+       {[#var-rand '_₂] [#var-rand '_₃] [#reg-rand 'rsp]}
+       {[#var-rand '_₃] [#reg-rand 'rsp]}
+       {[#var-rand '_₃] [#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]
+      :interference-graph
+      [#cons-graph
+       {[#var-rand '_₁]
+        [#var-rand '_₂]
+        [#var-rand '_₃]
+        [#reg-rand 'rax]
+        [#reg-rand 'rsp]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'rdi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       (@hash
+         [#reg-rand 'rax]
+         {[#reg-rand 'rsp]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₁]
+          [#var-rand '_₃]}
+         [#reg-rand 'rsp]
+         {[#reg-rand 'rax]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₁]
+          [#var-rand '_₂]
+          [#var-rand '_₃]}
+         [#reg-rand 'rcx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rdx] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rsi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'rdi] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp] [#var-rand '_₁]}
+         [#var-rand '_₁]
+         {[#reg-rand 'rsp]
+          [#reg-rand 'rax]
+          [#reg-rand 'rcx]
+          [#reg-rand 'rdx]
+          [#reg-rand 'rsi]
+          [#reg-rand 'rdi]
+          [#reg-rand 'r8]
+          [#reg-rand 'r9]
+          [#reg-rand 'r10]
+          [#reg-rand 'r11]
+          [#var-rand '_₂]}
+         [#var-rand '_₂] {[#var-rand '_₁] [#reg-rand 'rsp] [#var-rand '_₃]}
+         [#var-rand '_₃] {[#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]})]]
+     [[#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rbx]]]
+      [#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#deref-rand 'rbp -16]]]
+      ['movq [[#reg-rand 'rbx] [#reg-rand 'rcx]]]
+      ['addq [[#deref-rand 'rbp -16] [#reg-rand 'rcx]]]
+      ['movq [[#imm-rand 42] [#reg-rand 'rax]]]
+      ['addq [[#reg-rand 'rcx] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin.epilog
+    [#cons-block
+     []
+     [['addq [[#imm-rand 8] [#reg-rand 'rsp]]]
+      ['popq [[#reg-rand 'rbx]]]
+      ['popq [[#reg-rand 'rbp]]]
+      #retq]]]]
 
