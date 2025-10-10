@@ -4,8 +4,10 @@
 (define (test-program sexp)
   (= program (parse-program sexp))
   (= partial-program (partial-eval-program program))
-  (write "> ") (writeln (format-sexp (form-program program)))
-  (write "= ") (writeln (format-sexp (form-program partial-program))))
+  (write "> ") (write (format-sexp (form-program program)))
+  (write "\n")
+  (write "= ") (write (format-sexp (form-program partial-program)))
+  (write "\n"))
 
 (test-program
  '(program () 8))

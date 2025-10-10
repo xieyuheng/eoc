@@ -46,25 +46,22 @@
 (define indentation "  ")
 
 (define (log-program tag program)
-  (write tag) (writeln ":")
-  (writeln "")
-  (write indentation) (writeln (format-sexp (form-program program)))
-  (writeln "")
+  (write tag) (write ":")
+  (write "\n") (write "\n")
+  (write indentation) (write (format-sexp (form-program program)))
+  (write "\n") (write "\n")
   program)
 
 (define (log-c-program tag c-program)
-  (write tag) (writeln ":")
-  (writeln "")
-  (write indentation) (writeln (format-sexp (form-c-program c-program)))
-  (writeln "")
+  (write tag) (write ":")
+  (write "\n") (write "\n")
+  (write indentation) (write (format-sexp (form-c-program c-program)))
+  (write "\n") (write "\n")
   c-program)
 
 (define (log-x86-program tag x86-program)
-  (write tag) (writeln ":")
-  (writeln "")
-  (writeln
-   (format-left-margin
-    indentation
-    (pretty 80 x86-program)))
-  (writeln "")
+  (write tag) (write ":")
+  (write "\n") (write "\n")
+  (write (format-left-margin indentation (pretty 80 x86-program)))
+  (write "\n") (write "\n")
   x86-program)

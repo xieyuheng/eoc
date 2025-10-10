@@ -6,7 +6,8 @@
     parse-program
     form-program
     format-sexp
-    writeln))
+    write)
+  (write "\n"))
 
 (echo-program
  '(program () 8))
