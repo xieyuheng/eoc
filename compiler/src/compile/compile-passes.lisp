@@ -65,6 +65,6 @@
   (writeln
    (format-left-margin
     indentation
-    (pretty-format 80 x86-program)))
+    (pretty 80 x86-program)))
   (writeln "")
   x86-program)
