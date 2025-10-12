@@ -2,7 +2,7 @@
 
 > 4 Booleans and Conditionals
 
-[s] `check` -- support conditional exps
+[c] support conditional exps
 
 > 5 Loops and Dataflow Analysis
 > 6 Tuples and Garbage Collection

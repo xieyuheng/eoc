@@ -29,7 +29,32 @@
      [(bool-exp value)
       bool-t])
     ((if-exp condition consequent alternative)
-     [(bool-exp value)
+     (= [condition^ condition-type] (infer-exp context condition))
+     (unless (equal? bool-t condition-type)
+       (exit [:who 'infer-exp
+              :message "fail on if-exp's condition"
+              :exp exp
+              :condition-type condition-type]))
+     (= [consequent^ consequent-type] (infer-exp context consequent))
+     (= [alternative^ alternative-type] (infer-exp context alternative))
+     (unless (equal? consequent-type alternative-type)
+       (exit [:who 'infer-exp
+              :message "fail on if-exp's consequent and alternative"
+              :exp exp
+              :consequent-type consequent-type
+              :alternative-type alternative-type]))
+     [(if-exp condition^ consequent^ alternative^)
+      consequent-type])
+    ((prim-exp 'eq? [lhs rhs])
+     (= [lhs^ lhs-type] (infer-exp context lhs))
+     (= [rhs^ rhs-type] (infer-exp context rhs))
+     (unless (equal? lhs-type rhs-type)
+       (exit [:who 'infer-exp
+              :message "fail on eq?"
+              :exp exp
+              :lhs-type lhs-type
+              :rhs-type rhs-type]))
+     [(prim-exp 'eq? [lhs^ rhs^])
       bool-t])
     ((prim-exp op args)
      (= [args^ arg-types] (list-unzip (list-map (infer-exp context) args)))
@@ -37,7 +62,8 @@
      (when (null? return-type)
        (exit [:who 'infer-exp
               :message "fail on prim-exp"
-              :exp exp :arg-types arg-types]))
+              :exp exp
+              :arg-types arg-types]))
      [(prim-exp op args^)
       return-type])
     ((let-exp name rhs body)
