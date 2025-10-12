@@ -12,7 +12,14 @@ remove-complex-operands:
 
 explicate-control:
 
-  (c-program () (:begin ((= a₁ 42) (= b₁ a₁) (return b₁))))
+  [#cons-c-program
+   []
+   [:begin
+    [#cons-seq
+     [#assign-stmt [#var-c-exp 'a₁] [#int-c-exp 42]]
+     [#cons-seq
+      [#assign-stmt [#var-c-exp 'b₁] [#var-c-exp 'a₁]]
+      [#return-seq [#var-c-exp 'b₁]]]]]]
 
 select-instructions:
 

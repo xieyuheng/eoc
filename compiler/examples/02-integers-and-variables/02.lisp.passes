@@ -12,7 +12,18 @@ remove-complex-operands:
 
 explicate-control:
 
-  (c-program () (:begin ((= x₁ 20) (= x₂ 22) (= y₁ (iadd x₁ x₂)) (return y₁))))
+  [#cons-c-program
+   []
+   [:begin
+    [#cons-seq
+     [#assign-stmt [#var-c-exp 'x₁] [#int-c-exp 20]]
+     [#cons-seq
+      [#assign-stmt [#var-c-exp 'x₂] [#int-c-exp 22]]
+      [#cons-seq
+       [#assign-stmt
+        [#var-c-exp 'y₁]
+        [#prim-c-exp 'iadd [[#var-c-exp 'x₁] [#var-c-exp 'x₂]]]]
+       [#return-seq [#var-c-exp 'y₁]]]]]]]
 
 select-instructions:
 

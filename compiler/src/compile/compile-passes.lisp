@@ -55,7 +55,7 @@
 (define (log-c-program tag c-program)
   (write tag) (write ":")
   (write "\n") (write "\n")
-  (write indentation) (write (format-sexp (form-c-program c-program)))
+  (write (format-left-margin indentation (pretty 80 c-program)))
   (write "\n") (write "\n")
   c-program)
 

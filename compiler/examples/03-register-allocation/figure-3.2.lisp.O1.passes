@@ -16,7 +16,18 @@ remove-complex-operands:
 
 explicate-control:
 
-  (c-program () (:begin ((= _₁ (random-dice)) (= _₂ (random-dice)) (= _₃ (iadd _₁ _₂)) (return (iadd 42 _₃)))))
+  [#cons-c-program
+   []
+   [:begin
+    [#cons-seq
+     [#assign-stmt [#var-c-exp '_₁] [#prim-c-exp 'random-dice []]]
+     [#cons-seq
+      [#assign-stmt [#var-c-exp '_₂] [#prim-c-exp 'random-dice []]]
+      [#cons-seq
+       [#assign-stmt
+        [#var-c-exp '_₃]
+        [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#var-c-exp '_₂]]]]
+       [#return-seq [#prim-c-exp 'iadd [[#int-c-exp 42] [#var-c-exp '_₃]]]]]]]]]
 
 select-instructions:
 

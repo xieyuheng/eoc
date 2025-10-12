@@ -2,11 +2,10 @@
 
 > 4 Booleans and Conditionals
 
-[s] add `and` `or` `not` to op
-[s] eq? lt? gteq? lteq? gt? -- as new operator
+[s] add new operators about conditional
 
-remove `form-c-program`
-remove `form-type`
+- and or not
+- eq? lt? gteq? lteq? gt?
 
 [s] `eval` -- support conditional exps
 [s] extract `eval-op`

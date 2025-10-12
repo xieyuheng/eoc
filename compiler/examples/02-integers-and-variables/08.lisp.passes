@@ -12,7 +12,9 @@ remove-complex-operands:
 
 explicate-control:
 
-  (c-program () (:begin ((return (iadd 20 22)))))
+  [#cons-c-program
+   []
+   [:begin [#return-seq [#prim-c-exp 'iadd [[#int-c-exp 20] [#int-c-exp 22]]]]]]
 
 select-instructions:
 

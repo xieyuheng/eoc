@@ -12,7 +12,16 @@ remove-complex-operands:
 
 explicate-control:
 
-  (c-program () (:begin ((= x₁ (ineg 42)) (= y₁ x₁) (= z₁ y₁) (return (ineg z₁)))))
+  [#cons-c-program
+   []
+   [:begin
+    [#cons-seq
+     [#assign-stmt [#var-c-exp 'x₁] [#prim-c-exp 'ineg [[#int-c-exp 42]]]]
+     [#cons-seq
+      [#assign-stmt [#var-c-exp 'y₁] [#var-c-exp 'x₁]]
+      [#cons-seq
+       [#assign-stmt [#var-c-exp 'z₁] [#var-c-exp 'y₁]]
+       [#return-seq [#prim-c-exp 'ineg [[#var-c-exp 'z₁]]]]]]]]]
 
 select-instructions:
 

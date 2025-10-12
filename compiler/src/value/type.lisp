@@ -1,7 +1,6 @@
 (export
   type? int-t
-  type-equal?
-  form-type)
+  type-equal?)
 
 (define-data type?
   int-t
@@ -12,11 +11,3 @@
 
 (define (type-equal? lhs rhs)
   (equal? lhs rhs))
-
-(claim form-type
-  (-> type? sexp?))
-
-(define (form-type type)
-  (match type
-    (int-t 'int-t)
-    (bool-t 'bool-t)))

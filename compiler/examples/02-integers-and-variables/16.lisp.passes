@@ -12,7 +12,9 @@ remove-complex-operands:
 
 explicate-control:
 
-  (c-program () (:begin ((return (isub 50 8)))))
+  [#cons-c-program
+   []
+   [:begin [#return-seq [#prim-c-exp 'isub [[#int-c-exp 50] [#int-c-exp 8]]]]]]
 
 select-instructions:
 

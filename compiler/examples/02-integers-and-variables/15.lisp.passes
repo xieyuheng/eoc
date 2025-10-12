@@ -12,7 +12,16 @@ remove-complex-operands:
 
 explicate-control:
 
-  (c-program () (:begin ((= x₂ 4) (= x₁ (iadd x₂ 1)) (return (iadd x₁ 2)))))
+  [#cons-c-program
+   []
+   [:begin
+    [#cons-seq
+     [#assign-stmt [#var-c-exp 'x₂] [#int-c-exp 4]]
+     [#cons-seq
+      [#assign-stmt
+       [#var-c-exp 'x₁]
+       [#prim-c-exp 'iadd [[#var-c-exp 'x₂] [#int-c-exp 1]]]]
+      [#return-seq [#prim-c-exp 'iadd [[#var-c-exp 'x₁] [#int-c-exp 2]]]]]]]]
 
 select-instructions:
 

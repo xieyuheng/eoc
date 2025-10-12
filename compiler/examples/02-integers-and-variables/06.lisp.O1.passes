@@ -16,7 +16,12 @@ remove-complex-operands:
 
 explicate-control:
 
-  (c-program () (:begin ((= _₁ (random-dice)) (return (ineg _₁)))))
+  [#cons-c-program
+   []
+   [:begin
+    [#cons-seq
+     [#assign-stmt [#var-c-exp '_₁] [#prim-c-exp 'random-dice []]]
+     [#return-seq [#prim-c-exp 'ineg [[#var-c-exp '_₁]]]]]]]
 
 select-instructions:
 

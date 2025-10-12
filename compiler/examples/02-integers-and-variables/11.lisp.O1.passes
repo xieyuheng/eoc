@@ -16,7 +16,7 @@ remove-complex-operands:
 
 explicate-control:
 
-  (c-program () (:begin ((return 10))))
+  [#cons-c-program [] [:begin [#return-seq [#int-c-exp 10]]]]
 
 select-instructions:
 
