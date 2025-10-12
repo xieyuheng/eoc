@@ -1,9 +1,9 @@
 (export
   c-program? cons-c-program
   c-program/info?
-  seq? return-seq cons-seq
+  seq? cons-seq return-seq goto-seq branch-seq
   stmt? assign-stmt
-  c-exp? var-c-exp int-c-exp prim-c-exp
+  c-exp? var-c-exp int-c-exp bool-c-exp prim-c-exp
   atom-c-exp?)
 
 (define-data c-program?
@@ -19,8 +19,12 @@
   (info-p (cons-c-program-info c-program)))
 
 (define-data seq?
+  (cons-seq (stmt stmt?) (tail seq?))
   (return-seq (result c-exp?))
-  (cons-seq (stmt stmt?) (tail seq?)))
+  (goto-seq (label symbol?))
+  (branch-seq (condition cmp-c-exp?)
+              (consequent-label symbol?)
+              (alternative-label symbol?)))
 
 (define-data stmt?
   (assign-stmt (var var-c-exp?) (rhs c-exp?)))
@@ -28,6 +32,15 @@
 (define-data c-exp?
   (var-c-exp (name symbol?))
   (int-c-exp (value int?))
+  (bool-c-exp (value bool?))
   (prim-c-exp (op symbol?) (args (list? atom-c-exp?))))
 
 (define atom-c-exp? (union var-c-exp? int-c-exp?))
+
+(define cmp-ops '(eq? lt? gt? lteq? gteq?))
+(define cmp-op? (swap list-member? cmp-ops))
+
+(define cmp-c-exp?
+  (union prim-c-exp?
+         (lambda (c-exp)
+           (cmp-op? (prim-c-exp-op c-exp)))))
