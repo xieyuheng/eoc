@@ -15,7 +15,7 @@
         (record-map-value
          (lambda (seq)
            (= context [])
-           (= result-type (check-seq context seq))
+           (= result-type (infer-seq context seq))
            (unless (type-equal? result-type int-t)
              (exit [:who 'check-c-program
                     :message "expected result-type to be int-t"
@@ -27,43 +27,43 @@
       (record-put 'contexts contexts info)
       seqs))))
 
-(claim check-seq
+(claim infer-seq
   (-> (record? type?) seq?
       type?))
 
-(define (check-seq context seq)
+(define (infer-seq context seq)
   (match seq
     ((return-seq result)
-     (= [result^ result-type] (check-c-exp context result))
+     (= [result^ result-type] (infer-c-exp context result))
      result-type)
     ((cons-seq stmt tail)
-     (check-stmt context stmt)
-     (check-seq context tail))))
+     (infer-stmt context stmt)
+     (infer-seq context tail))))
 
-(claim check-stmt
+(claim infer-stmt
   (->  (record? type?) stmt?
        void?))
 
-(define (check-stmt context stmt)
+(define (infer-stmt context stmt)
   (match stmt
     ((assign-stmt (var-c-exp name) rhs)
-     (= [rhs^ rhs-type] (check-c-exp context rhs))
+     (= [rhs^ rhs-type] (infer-c-exp context rhs))
      (= found-type (record-get name context))
      (if (null? found-type)
        (begin
          (record-put! name rhs-type context)
          void)
        (unless (type-equal? rhs-type found-type)
-         (exit [:who 'check-stmt
+         (exit [:who 'infer-stmt
                 :stmt stmt
                 :rhs-type rhs-type
                 :found-type found-type]))))))
 
-(claim check-c-exp
+(claim infer-c-exp
   (-> (record? type?) c-exp?
       (tau c-exp? type?)))
 
-(define (check-c-exp context c-exp)
+(define (infer-c-exp context c-exp)
   (match c-exp
     ((var-c-exp name)
      [(var-c-exp name)
@@ -72,10 +72,10 @@
      [(int-c-exp value)
       int-t])
     ((prim-c-exp op args)
-     (= [args^ arg-types] (list-unzip (list-map (check-c-exp context) args)))
+     (= [args^ arg-types] (list-unzip (list-map (infer-c-exp context) args)))
      (= return-type (check-op arg-types op))
      (when (null? return-type)
-       (exit [:who 'check-c-exp
+       (exit [:who 'infer-c-exp
               :message "fail on prim-c-exp"
               :c-exp c-exp :arg-types arg-types]))
      [(prim-c-exp op args^)
