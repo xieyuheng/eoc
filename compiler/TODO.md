@@ -2,7 +2,7 @@
 
 > 4 Booleans and Conditionals
 
-[s] fix `infer.test.lisp`
+[s] fix `check.test.lisp`
 [s] `check` -- support conditional exps
 
 > 5 Loops and Dataflow Analysis

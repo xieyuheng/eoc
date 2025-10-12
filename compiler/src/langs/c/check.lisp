@@ -16,11 +16,7 @@
          (lambda (seq)
            (= context [])
            (= result-type (infer-seq context seq))
-           (unless (type-equal? result-type int-t)
-             (exit [:who 'check-c-program
-                    :message "expected result-type to be int-t"
-                    :seq seq
-                    :result-type result-type]))
+           ;; result-type not used
            context)
          seqs))
      (cons-c-program

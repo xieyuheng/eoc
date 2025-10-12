@@ -9,11 +9,8 @@
 (define (check-program program)
   (match program
     ((cons-program info body)
-     (= [body^ body-type] (infer-exp [] body))
-     (unless (type-equal? body-type int-t)
-       (exit [:who 'check-program
-              :message "expected body-type to be int-t"
-              :body body :body-type body-type]))
+     (= [body^ return-type] (infer-exp [] body))
+     ;; result-type not used
      (cons-program info body^))))
 
 (claim infer-exp
