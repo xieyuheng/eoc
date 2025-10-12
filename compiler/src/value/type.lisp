@@ -4,7 +4,8 @@
   form-type)
 
 (define-data type?
-  int-t)
+  int-t
+  bool-t)
 
 (claim type-equal?
   (-> type? type? bool?))
@@ -17,4 +18,5 @@
 
 (define (form-type type)
   (match type
-    (int-t 'int-t)))
+    (int-t 'int-t)
+    (bool-t 'bool-t)))

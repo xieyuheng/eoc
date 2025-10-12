@@ -1,3 +1,5 @@
 (export value?)
 
-(define value? int?)
+(define value?
+  (union int?
+         bool?))

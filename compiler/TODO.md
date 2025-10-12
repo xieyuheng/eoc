@@ -2,9 +2,12 @@
 
 > 4 Booleans and Conditionals
 
-[s] add `bool-exp` and `if-exp`, add `bool?` to `value?`
-[s] add and- or- not- exp
+[s] add `and` `or` `not` to op
 [s] eq? lt? gteq? lteq? gt? -- as new operator
+
+remove `form-c-program`
+remove `form-type`
+
 [s] `eval` -- support conditional exps
 [s] extract `eval-op`
 
