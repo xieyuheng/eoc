@@ -1,7 +1,8 @@
 (export
   program? cons-program
-  exp? var-exp int-exp prim-exp let-exp
-  var-exp? int-exp? prim-exp? let-exp?
+  exp?
+  var-exp int-exp bool-exp if-exp prim-exp let-exp
+  var-exp? int-exp? bool-exp? if-exp? prim-exp? let-exp?
   atom-exp?)
 
 (define-data program?

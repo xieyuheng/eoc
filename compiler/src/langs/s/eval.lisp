@@ -16,6 +16,7 @@
 (define (eval-exp exp env)
   (match exp
     ((int-exp n) n)
+    ((bool-exp b) b)
     ((var-exp name)
      (= found (record-get name env))
      (when (null? found)
@@ -23,34 +24,29 @@
               :message "undefined name"
               :name name]))
      found)
+    ((if-exp condition consequent alternative)
+     (if (eval-exp condition env)
+       (eval-exp consequent env)
+       (eval-exp alternative env)))
+    ((prim-exp 'and [e1 e2])
+     (if (not (eval-exp e1 env)) false (eval-exp e2 env)))
+    ((prim-exp 'or [e1 e2])
+     (if (eval-exp e1 env) true (eval-exp e2 env)))
     ((prim-exp op args)
-     (eval-prim op args env))
+     (apply (record-get op op-prims)
+       (list-map (swap eval-exp env) args)))
     ((let-exp name rhs body)
      (= new-env (record-put name (eval-exp rhs env) env))
      (eval-exp body new-env))))
 
-(claim eval-prim
-  (-> symbol? (list? exp?) (record? value?) value?))
-
-;; (define (eval-prim op args env)
-;;   (match [op args]
-;;     (['iadd [x y]]
-;;      (iadd (eval-exp x env) (eval-exp y env)))
-;;     (['isub [x y]]
-;;      (isub (eval-exp x env) (eval-exp y env)))
-;;     (['ineg [x]]
-;;      (ineg (eval-exp x env)))
-;;     (['random-dice []]
-;;      (iadd 1 (random-int 0 5)))))
-
-(define (eval-prim op args env)
-  (apply (eval-op op) (list-map (swap eval-exp env) args)))
-
-(claim eval-op (-> symbol? (*-> value? value?)))
-
-(define (eval-op op)
-  (match op
-    ('iadd iadd)
-    ('isub isub)
-    ('ineg ineg)
-    ('random-dice (thunk (iadd 1 (random-int 0 5))))))
+(define op-prims
+  [:iadd iadd
+   :isub isub
+   :ineg ineg
+   :random-dice (thunk (iadd 1 (random-int 0 5)))
+   :not not
+   :eq? equal?
+   :lt? int-smaller?
+   :gt? int-larger?
+   :lteq? int-smaller-or-equal?
+   :gteq? int-larger-or-equal?])
