@@ -49,7 +49,7 @@
        (begin
          (record-put! name rhs-type context)
          void)
-       (unless (type-equal? rhs-type found-type)
+       (unless (equal? rhs-type found-type)
          (exit [:who 'infer-stmt
                 :stmt stmt
                 :rhs-type rhs-type
