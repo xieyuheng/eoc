@@ -32,17 +32,25 @@
 (claim eval-prim
   (-> symbol? (list? exp?) (record? value?) value?))
 
+;; (define (eval-prim op args env)
+;;   (match [op args]
+;;     (['iadd [x y]]
+;;      (iadd (eval-exp x env) (eval-exp y env)))
+;;     (['isub [x y]]
+;;      (isub (eval-exp x env) (eval-exp y env)))
+;;     (['ineg [x]]
+;;      (ineg (eval-exp x env)))
+;;     (['random-dice []]
+;;      (iadd 1 (random-int 0 5)))))
+
 (define (eval-prim op args env)
-  (match [op args]
-    (['iadd [x y]]
-     (iadd (eval-exp x env) (eval-exp y env)))
-    (['isub [x y]]
-     (isub (eval-exp x env) (eval-exp y env)))
-    (['ineg [x]]
-     (ineg (eval-exp x env)))
-    (['random-dice []]
-     (iadd 1 (random-int 0 5)))
-    (else
-     (exit [:who 'eval-prim
-            :message "unhandled prim exp"
-            :op op :args args]))))
+  (apply (eval-op op) (list-map (swap eval-exp env) args)))
+
+(claim eval-op (-> symbol? (*-> value? value?)))
+
+(define (eval-op op)
+  (match op
+    ('iadd iadd)
+    ('isub isub)
+    ('ineg ineg)
+    ('random-dice (thunk (iadd 1 (random-int 0 5))))))

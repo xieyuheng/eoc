@@ -2,8 +2,8 @@
 
 > 4 Booleans and Conditionals
 
-[s] extract `eval-op`
 [s] `eval` -- support conditional exps
+[s] `check` -- support conditional exps
 
 > 5 Loops and Dataflow Analysis
 > 6 Tuples and Garbage Collection

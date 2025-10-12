@@ -1,5 +1,7 @@
 (export
-  type? int-t
+  type?
+  int-t
+  bool-t
   type-equal?)
 
 (define-data type?
