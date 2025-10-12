@@ -1,0 +1,31 @@
+[#cons-program [] [#int-exp 8]]
+[#cons-program [] [#prim-exp 'ineg [[#int-exp 8]]]]
+[#cons-program
+ []
+ [#prim-exp
+  'iadd
+  [[#int-exp 8] [#prim-exp 'ineg [[#int-exp 8]]]]]]
+[#cons-program
+ []
+ [#let-exp
+  'x
+  [#int-exp 8]
+  [#prim-exp 'iadd [[#var-exp 'x] [#var-exp 'x]]]]]
+[#cons-program
+ []
+ [#let-exp
+  'x
+  [#int-exp 8]
+  [#if-exp
+   [#prim-exp 'gt? [[#var-exp 'x] [#int-exp 1]]]
+   [#int-exp 1]
+   [#int-exp 0]]]]
+[#cons-program
+ []
+ [#let-exp
+  'x
+  [#int-exp 0]
+  [#if-exp
+   [#prim-exp 'gt? [[#var-exp 'x] [#int-exp 1]]]
+   [#int-exp 1]
+   [#int-exp 0]]]]
