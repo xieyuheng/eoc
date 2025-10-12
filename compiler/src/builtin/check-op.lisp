@@ -27,4 +27,11 @@
   [:iadd [[int-t int-t] int-t]
    :isub [[int-t int-t] int-t]
    :ineg [[int-t] int-t]
-   :random-dice [[] int-t]])
+   :random-dice [[] int-t]
+   :and [[bool-t bool-t] bool-t]
+   :or [[bool-t bool-t] bool-t]
+   :not [[bool-t] bool-t]
+   :lt? [[int-t int-t] bool-t]
+   :gt? [[int-t int-t] bool-t]
+   :lteq? [[int-t int-t] bool-t]
+   :gteq? [[int-t int-t] bool-t]])

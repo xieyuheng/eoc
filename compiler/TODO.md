@@ -2,13 +2,8 @@
 
 > 4 Booleans and Conditionals
 
-[s] add new operators about conditional
-
-- and or not
-- eq? lt? gteq? lteq? gt?
-
-[s] `eval` -- support conditional exps
 [s] extract `eval-op`
+[s] `eval` -- support conditional exps
 
 > 5 Loops and Dataflow Analysis
 > 6 Tuples and Garbage Collection
