@@ -1,5 +1,7 @@
 ;; partial evaluation by normalization.
 (include "001-partial-eval" partial-eval-program)
+;; Shrink the language to small language.
+(include "005-shrink" shrink)
 ;; Consistently rename every variable (introduced by let) to a unique name.
 (include "010-uniquify" uniquify)
 ;; Translate nested function applications to

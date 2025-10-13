@@ -2,9 +2,10 @@
 
 > 4 Booleans and Conditionals
 
-[pass] `005-shrink` -- handle `and` and `or`
 [pass] 005-shrink.test
-[pass] `partial-eval-exp` -- support conditional
+[pass] `uniquify` -- support conditional
+[pass] `partial-eval` -- support conditional
+[pass] `remove-complex-operands` -- support conditional
 
 > 5 Loops and Dataflow Analysis
 > 6 Tuples and Garbage Collection

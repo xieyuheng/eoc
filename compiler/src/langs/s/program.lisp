@@ -18,4 +18,6 @@
   (prim-exp (op symbol?) (args (list? exp?)))
   (let-exp (name symbol?) (rhs exp?) (body exp?)))
 
-(define atom-exp? (union var-exp? int-exp?))
+(define atom-exp?
+  (union var-exp?
+         int-exp?))
