@@ -4,6 +4,10 @@
 
 > 4.8 Explicate Control
 
+[pass] select-instructions -- support conditional
+[pass] patch instructions -- support conditional
+[pass] optimize blocks and remove jumps
+
 > 4.9 Select Instructions
 > 4.10 Register Allocation
 > 4.11 Patch Instructions

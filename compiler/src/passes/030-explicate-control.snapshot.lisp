@@ -67,3 +67,11 @@
         (if (if (lt? x 1) (eq? x 0) (eq? x 2))
           (iadd y 2)
           (iadd y 10)))))))
+
+(test-program
+ '(program
+   ()
+   (if (and (eq? (random-dice) 1)
+            (eq? (random-dice) 2))
+     0
+     42)))
