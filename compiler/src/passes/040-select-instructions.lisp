@@ -39,6 +39,15 @@
      (list-append
       (select-instr-assign (reg-rand 'rax) exp)
       [(jmp (symbol-append label '.epilog))]))
+    ((goto-seq target-label)
+     [(jmp target-label)])
+    ((branch-seq (prim-c-exp (the cmp-op? op) [arg1 arg2])
+                 then-label
+                 else-label)
+     (= cc (record-get op operator-condition-codes))
+     [['cmpq [(select-operand arg2) (select-operand arg1)]]
+      (jmp-if cc then-label)
+      (jmp else-label)])
     ((cons-seq stmt next-seq)
      (list-append
       (select-instr-stmt stmt)
@@ -63,6 +72,11 @@
       (var-c-exp self-name)
       (prim-c-exp 'isub [(var-c-exp self-name) arg2]))
      [['subq [(select-operand arg2) (var-rand self-name)]]])
+    ;; special case: self not
+    ((assign-stmt
+      (var-c-exp self-name)
+      (prim-c-exp 'not [(var-c-exp self-name)]))
+     [['xorq [(imm-rand 1) (var-rand self-name)]]])
     ((assign-stmt (var-c-exp name) rhs)
      (select-instr-assign (var-rand name) rhs))))
 
@@ -87,11 +101,21 @@
       ['addq [(select-operand arg2) dest]]])
     ((prim-c-exp 'isub [arg1 arg2])
      [['movq [(select-operand arg1) dest]]
-      ['subq [(select-operand arg2) dest]]])))
+      ['subq [(select-operand arg2) dest]]])
+    ((prim-c-exp 'not [arg1])
+     [['movq [(select-operand arg1) dest]]
+      ['xorq [(imm-rand 1) dest]]])
+    ((prim-c-exp (the cmp-op? op) [arg1 arg2])
+     (= cc (record-get op operator-condition-codes))
+     [['cmpq [(select-operand arg2) (select-operand arg1)]]
+      (set-if cc (byte-reg-rand 'al))
+      [movzbq (byte-reg-rand 'al) dest]])))
 
 (claim select-operand (-> atom-c-exp? operand?))
 
 (define (select-operand atom)
   (match atom
     ((int-c-exp value) (imm-rand value))
+    ((bool-c-exp #t) (imm-rand 1))
+    ((bool-c-exp #f) (imm-rand 0))
     ((var-c-exp name) (var-rand name))))

@@ -1,14 +1,9 @@
-update x-lisp to use `(newline)` and `(string-lines)`
-
-- helper/format -- `format-block-after`
-
 # main
 
 > 4 Booleans and Conditionals
 
 > 4.8 Explicate Control
 
-[pass] select-instructions -- support conditional
 [pass] patch instructions -- support conditional
 [pass] optimize blocks and remove jumps
 
@@ -27,6 +22,10 @@ update x-lisp to use `(newline)` and `(string-lines)`
 > 11 Generics
 
 # later
+
+update x-lisp to use `(newline)` and `(string-lines)`
+
+- helper/format -- `format-block-after`
 
 [pass] `partial-eval` -- support conditional
 

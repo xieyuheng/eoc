@@ -18,10 +18,10 @@
      (return-seq (parse-c-exp result)))
     (`((goto ,label))
      (goto-seq label))
-    (`((branch ,condition ,consequent-label ,alternative-label))
+    (`((branch ,condition ,then-label ,else-label))
      (branch-seq (parse-c-exp condition)
-                 consequent-label
-                 alternative-label))
+                 then-label
+                 else-label))
     ((cons head tail)
      (cons-seq (parse-stmt head) (parse-seq tail)))))
 

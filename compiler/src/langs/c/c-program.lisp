@@ -26,8 +26,8 @@
   (return-seq (result c-exp?))
   (goto-seq (label symbol?))
   (branch-seq (condition cmp-c-exp?)
-              (consequent-label symbol?)
-              (alternative-label symbol?)))
+              (then-label symbol?)
+              (else-label symbol?)))
 
 (define-data stmt?
   (assign-stmt (var var-c-exp?) (rhs c-exp?)))

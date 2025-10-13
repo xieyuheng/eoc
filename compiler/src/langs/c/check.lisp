@@ -36,7 +36,7 @@
      void)
     ((goto-seq label)
      void)
-    ((branch-seq condition consequent-label alternative-label)
+    ((branch-seq condition then-label else-label)
      (= condition-type (infer-c-exp context condition))
      (unless (equal? bool-t condition-type)
        (exit [:who 'check-seq

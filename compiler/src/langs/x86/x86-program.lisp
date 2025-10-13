@@ -12,6 +12,7 @@
   var-rand imm-rand reg-rand byte-reg-rand deref-rand
   var-rand? imm-rand? reg-rand? byte-reg-rand? deref-rand?
   condition-code?
+  operator-condition-codes
   reg-name?
   byte-reg-name?)
 
@@ -67,6 +68,13 @@
 
 (define condition-codes '(e l le g ge))
 (define condition-code? (swap list-member? condition-codes))
+
+(define operator-condition-codes
+  [:eq? 'e
+   :lt? 'l
+   :gt? 'g
+   :lteq? 'le
+   :gteq? 'ge])
 
 (define-data operand?
   (var-rand (name symbol?))
