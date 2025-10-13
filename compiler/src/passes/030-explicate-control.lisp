@@ -123,18 +123,26 @@
 (define (explicate-if seqs label condition then-cont else-cont)
   (match condition
     ((var-exp name)
-     )
+     (explicate-if
+      seqs label
+      (prim-c-exp 'eq? [(var-c-exp name) (bool-c-exp #t)])
+      then-cont else-cont))
     ((bool-exp value)
      (if value then-cont else-cont))
     ((prim-exp 'not [negated-condition])
      (explicate-if seqs label negated-condition else-cont then-cont))
     ((prim-exp (the cmp-op? op) args)
-     ;; consequent-label
-     ;; alternative-label
      (branch-seq (prim-c-exp op (list-map exp-to-c-exp args))
-                 consequent-label
-                 alternative-label))
+                 (generate-label seqs label 'then then-cont)
+                 (generate-label seqs label 'else else-cont)))
     ((let-exp name rhs body)
-     )
-    ((if-exp condition consequent alternative)
-     )))
+     (= cont (explicate-if seqs label body then-cont else-cont))
+     (explicate-assign seqs label name rhs cont))
+    ((if-exp inner-condition consequent alternative)
+     (= then-cont (goto-seq (generate-label seq label 'then then-cont)))
+     (= else-cont (goto-seq (generate-label seq label 'else else-cont)))
+     (explicate-if
+      seqs label
+      inner-condition
+      (explicate-if seqs label consequent then-cont else-cont)
+      (explicate-if seqs label alternative then-cont else-cont)))))

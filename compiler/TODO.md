@@ -4,7 +4,6 @@
 
 > 4.8 Explicate Control
 
-[pass] explicate-control -- `explicate-if`
 [pass] explicate-control.snapshot
 
 > 4.9 Select Instructions
