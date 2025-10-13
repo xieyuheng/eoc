@@ -35,7 +35,14 @@
     ((let-exp name rhs body)
      (explicate-assign
       seqs label
-      name rhs (explicate-tail seqs label body)))
+      name rhs
+      (explicate-tail seqs label body)))
+    ((if-exp condition consequent alternative)
+     (explicate-if
+      seqs label
+      condition
+      (explicate-tail seqs label consequent)
+      (explicate-tail seqs label alternative)))
     (else
      (return-seq (exp-to-c-exp exp)))))
 
@@ -80,3 +87,15 @@
     (else
      (= stmt (assign-stmt (var-c-exp name) (exp-to-c-exp rhs)))
      (cons-seq stmt cont))))
+
+(claim explicate-if
+  (-> (record? seq?) symbol?
+      atom-operand-exp? seq? seq?
+      seq?))
+
+(@comment
+  To explicate in the context of if expression.
+  CPS with two continuations for two branches.)
+
+(define (explicate-if seqs label condition then-cont else-cont)
+  )

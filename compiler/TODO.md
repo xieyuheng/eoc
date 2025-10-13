@@ -4,7 +4,6 @@
 
 >> 4.8 Explicate Control
 
-[pass] explicate-control -- `explicate-tail` handle `if`
 [pass] explicate-control -- `explicate-assign` handle `if`
 [pass] explicate-control -- `explicate-if`
 [pass] explicate-control.snapshot
