@@ -9,9 +9,11 @@
   instr? general-instr? special-instr?
   callq retq jmp
   operand? location-operand?
-  var-rand imm-rand reg-rand deref-rand
-  var-rand? imm-rand? reg-rand? deref-rand?
-  reg-name?)
+  var-rand imm-rand reg-rand byte-reg-rand deref-rand
+  var-rand? imm-rand? reg-rand? byte-reg-rand? deref-rand?
+  condition-code?
+  reg-name?
+  byte-reg-name?)
 
 (define-data x86-program?
   (cons-x86-program
@@ -59,19 +61,33 @@
 (define-data special-instr?
   (callq (label symbol?) (arity int-non-negative?))
   retq
-  (jmp (label symbol?)))
+  (jmp (label symbol?))
+  (jmp-if (cc condition-code?) (label symbol?))
+  (set-byte (cc condition-code?) (dest byte-reg-rand?)))
+
+(define condition-codes '(e l le g ge))
+(define condition-code? (swap list-member? condition-codes))
 
 (define-data operand?
   (var-rand (name symbol?))
   (imm-rand (value int?))
   (reg-rand (name reg-name?))
+  (byte-reg-rand (name byte-reg-name?))
   (deref-rand (name reg-name?) (offset int?)))
 
 (define location-operand?
-  (union var-rand? reg-rand? deref-rand?))
+  (union var-rand?
+         reg-rand?
+         byte-reg-rand?
+         deref-rand?))
 
 (define reg-names
   '(rsp rbp rax  rbx  rcx  rdx  rsi  rdi
     r8  r9  r10  r11  r12  r13  r14  r15))
 
-(define (reg-name? x) (list-member? x reg-names))
+(define reg-name? (swap list-member? reg-names))
+
+(define byte-reg-names
+  '(ah al bh bl ch cl dh dl))
+
+(define byte-reg-name? (swap list-member? byte-reg-names))

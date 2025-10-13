@@ -2,7 +2,11 @@
 
 > 4 Booleans and Conditionals
 
-[x86] support conditional exps
+[x86] `format` -- support conditional exps
+
+[pass] `005-shrink` -- handle `and` and `or`
+[pass] 005-shrink.test
+[pass] `partial-eval-exp` -- support conditional
 
 > 5 Loops and Dataflow Analysis
 > 6 Tuples and Garbage Collection
