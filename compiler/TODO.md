@@ -1,5 +1,3 @@
-update x-lisp for `record-find-key`
-
 # main
 
 > 4 Booleans and Conditionals
