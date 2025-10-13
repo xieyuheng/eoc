@@ -2,7 +2,6 @@
 
 > 4 Booleans and Conditionals
 
-[c] eval -- support conditional exps
 [c] check -- support conditional exps
 [x86] support conditional exps
 
