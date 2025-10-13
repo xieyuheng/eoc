@@ -18,7 +18,9 @@
   by the shape of input exp.
 
   >> (explicate-tail
-      (let ((x (let ((y (ineg 42))) y))) (ineg x)))
+      (let ((x (let ((y (ineg 42)))
+                 y)))
+        (ineg x)))
   => [(= y (ineg 42))
       (= x y)
       (return (ineg x))])
@@ -49,11 +51,10 @@
   (-> symbol? atom-operand-exp? seq? seq?))
 
 (@comment
-  To explicate an assignment by
-  accumulating a continuation parameter,
-  The third parameter is called "continuation"
-  because it contains the generated code that
-  should come after the current assignment.
+  To explicate in the context of an assignment.
+  This is like CPS because the parameter cont
+  contains the generated code that should come
+  after the current assignment -- the continuation.
 
   >> (explicate-assign
       x (let ((y (ineg 42))) y)
@@ -62,11 +63,11 @@
       (= x y)
       (return (ineg x))])
 
-(define (explicate-assign name rhs continuation)
+(define (explicate-assign name rhs cont)
   (match rhs
     ((let-exp rhs-name rhs-rhs rhs-body)
-     (= continuation (explicate-assign name rhs-body continuation))
-     (explicate-assign rhs-name rhs-rhs continuation))
+     (= cont (explicate-assign name rhs-body cont))
+     (explicate-assign rhs-name rhs-rhs cont))
     (else
      (= stmt (assign-stmt (var-c-exp name) (exp-to-c-exp rhs)))
-     (cons-seq stmt continuation))))
+     (cons-seq stmt cont))))
