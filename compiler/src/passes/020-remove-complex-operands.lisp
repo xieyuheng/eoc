@@ -30,8 +30,14 @@
   (match exp
     ((var-exp name)
      true)
-    ((int-exp n)
+    ((int-exp value)
      true)
+    ((bool-exp value)
+     true)
+    ((if-exp condition consequent alternative)
+     (and (atom-operand-exp? condition)
+          (atom-operand-exp? consequent)
+          (atom-operand-exp? alternative)))
     ((let-exp name rhs body)
      (and (atom-operand-exp? rhs)
           (atom-operand-exp? body)))
@@ -105,8 +111,10 @@
   (match exp
     ((var-exp name)
      [[] (var-exp name)])
-    ((int-exp n)
-     [[] (int-exp n)])
+    ((int-exp value)
+     [[] (int-exp value)])
+    ((int-exp value)
+     [[] (int-exp value)])
     ((let-exp name rhs body)
      ;; We use (rco-exp) instead of (rco-atom) on rhs,
      ;; (rco-atom) should only be used on
@@ -115,6 +123,10 @@
      (= [binds new-body] (rco-atom state body))
      [(cons rhs-bind binds)
       new-body])
+    ((if-exp condition consequent alternative)
+     (= name (freshen state '_))
+     [[[name (rco-exp state exp)]]
+      (var-exp name)])
     ((prim-exp op args)
      (= [binds new-args] (rco-atom-many state args))
      (= name (freshen state '_))
