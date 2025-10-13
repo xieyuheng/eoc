@@ -1,0 +1,10 @@
+[evaluate] undefined
+  name: partial-eval-program
+   --> src/passes/005-shrink.snapshot.lisp:6:23
+  4 | (define (test-program sexp)
+  5 |   (= program (parse-program sexp))
+  6 |   (= partial-program (partial-eval-program program))
+    |                       ~~~~~~~~~~~~~~~~~~~~           
+  7 |   (write ">> ") (write (format-sexp (form-program program)))
+  8 |   (write "\n")
+

@@ -16,8 +16,13 @@
   (match exp
     ((var-exp name) name)
     ((int-exp value) value)
+    ((bool-exp value) value)
     ((prim-exp op args)
      (cons op (list-map form-exp args)))
+    ((if-exp condition consequent alternative)
+     `(if ,(form-exp condition)
+        ,(form-exp consequent)
+        ,(form-exp alternative)))
     ((let-exp name rhs body)
      `(let ((,name ,(form-exp rhs)))
         ,(form-exp body)))))

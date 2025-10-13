@@ -2,7 +2,6 @@
 
 > 4 Booleans and Conditionals
 
-[pass] 005-shrink.test
 [pass] `uniquify` -- support conditional
 [pass] `partial-eval` -- support conditional
 [pass] `remove-complex-operands` -- support conditional
