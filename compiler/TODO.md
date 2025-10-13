@@ -4,8 +4,6 @@
 
 > 4.8 Explicate Control
 
-[pass] explicate-control.snapshot
-
 > 4.9 Select Instructions
 > 4.10 Register Allocation
 > 4.11 Patch Instructions

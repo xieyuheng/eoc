@@ -88,11 +88,9 @@
      (= let-body-label (generate-label seqs label 'let-body cont))
      (explicate-if
       seqs label
-      consequent
+      condition
       (explicate-assign seqs label name consequent (goto-seq let-body-label))
-      (explicate-assign seqs label name alternative (goto-seq let-body-label)))
-     (= cont (explicate-assign seqs label name rhs-body cont))
-     (explicate-assign seqs label rhs-name rhs-rhs cont))
+      (explicate-assign seqs label name alternative (goto-seq let-body-label))))
     (else
      (= stmt (assign-stmt (var-c-exp name) (exp-to-c-exp rhs)))
      (cons-seq stmt cont))))
@@ -107,9 +105,9 @@
   (cond ((null? found-label)
          (= new-label (symbol-concat [label '. name id]))
          (record-put! new-label seq seqs)
-         (goto-seq new-label))
+         new-label)
         (else
-         (goto-seq found-label))))
+         found-label)))
 
 (claim explicate-if
   (-> (record? seq?) symbol?
@@ -125,7 +123,7 @@
     ((var-exp name)
      (explicate-if
       seqs label
-      (prim-c-exp 'eq? [(var-c-exp name) (bool-c-exp #t)])
+      (prim-exp 'eq? [(var-exp name) (bool-exp #t)])
       then-cont else-cont))
     ((bool-exp value)
      (if value then-cont else-cont))
@@ -139,8 +137,8 @@
      (= cont (explicate-if seqs label body then-cont else-cont))
      (explicate-assign seqs label name rhs cont))
     ((if-exp inner-condition consequent alternative)
-     (= then-cont (goto-seq (generate-label seq label 'then then-cont)))
-     (= else-cont (goto-seq (generate-label seq label 'else else-cont)))
+     (= then-cont (goto-seq (generate-label seqs label 'then then-cont)))
+     (= else-cont (goto-seq (generate-label seqs label 'else else-cont)))
      (explicate-if
       seqs label
       inner-condition

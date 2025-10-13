@@ -1,0 +1,79 @@
+>> (program () (iadd x 1))
+=>    [#cons-c-program
+    []
+    [:begin [#return-seq [#prim-c-exp 'iadd [[#var-c-exp 'x] [#int-c-exp 1]]]]]]
+>> (program () (iadd (iadd x 1) 1))
+[applyWithSchema] fail on arguments
+  schema:
+    (->
+        (record? seq?)
+        symbol?
+        (the (-> exp? bool?)
+          (lambda (exp)
+            (match exp
+              ((var-exp name) true)
+              ((int-exp value) true)
+              ((bool-exp value) true)
+              ((if-exp condition consequent alternative)
+               (and (atom-operand-exp? condition)
+                    (atom-operand-exp? consequent)
+                    (atom-operand-exp? alternative)))
+              ((let-exp name rhs body)
+               (and (atom-operand-exp? rhs)
+                    (atom-operand-exp? body)))
+              ((prim-exp op args) (list-all? atom-exp? args)))))
+        seq?)
+  target:
+    (lambda (seqs label exp)
+      (match exp
+        ((let-exp name rhs body)
+         (explicate-assign
+          seqs
+          label
+          name
+          rhs
+          (explicate-tail seqs label body)))
+        ((if-exp condition consequent alternative)
+         (explicate-if
+          seqs
+          label
+          condition
+          (explicate-tail seqs label consequent)
+          (explicate-tail seqs label alternative)))
+        (else (return-seq (exp-to-c-exp exp)))))
+  args:
+    []
+    'begin
+    [#prim-exp
+     'iadd
+     [[#prim-exp 'iadd [[#var-exp 'x] [#int-exp 1]]]
+      [#int-exp 1]]]
+  failed args:
+  - count: 3
+    schema:
+      (the (-> exp? bool?)
+        (lambda (exp)
+          (match exp
+            ((var-exp name) true)
+            ((int-exp value) true)
+            ((bool-exp value) true)
+            ((if-exp condition consequent alternative)
+             (and (atom-operand-exp? condition)
+                  (atom-operand-exp? consequent)
+                  (atom-operand-exp? alternative)))
+            ((let-exp name rhs body)
+             (and (atom-operand-exp? rhs) (atom-operand-exp? body)))
+            ((prim-exp op args) (list-all? atom-exp? args)))))
+    arg:
+      [#prim-exp
+       'iadd
+       [[#prim-exp 'iadd [[#var-exp 'x] [#int-exp 1]]]
+        [#int-exp 1]]]
+    --> src/passes/030-explicate-control.lisp:33:9
+  31 |       (return (ineg x))])
+  32 | 
+  33 | (define (explicate-tail seqs label exp)
+     |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+  34 |   (match exp
+  35 |     ((let-exp name rhs body)
+
