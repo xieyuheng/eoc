@@ -2,7 +2,7 @@
 
 > 4 Booleans and Conditionals
 
-[pass] `remove-complex-operands` -- support conditional
+[pass] 020-remove-complex-operands snapshot
 [pass] `partial-eval` -- support conditional
 
 > 5 Loops and Dataflow Analysis
