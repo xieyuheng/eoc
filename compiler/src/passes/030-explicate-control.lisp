@@ -8,9 +8,14 @@
 (define (explicate-control program)
   (match program
     ((cons-program info body)
-     (cons-c-program info [:begin (explicate-tail body)]))))
+     (= seqs [])
+     (= label 'begin)
+     (record-put! label (explicate-tail seqs label body) seqs)
+     (cons-c-program info seqs))))
 
-(claim explicate-tail (-> atom-operand-exp? seq?))
+(claim explicate-tail
+  (-> (record? seq?) symbol? atom-operand-exp?
+      seq?))
 
 (@comment
   To explicate an exp at tail position.
@@ -25,10 +30,12 @@
       (= x y)
       (return (ineg x))])
 
-(define (explicate-tail exp)
+(define (explicate-tail seqs label exp)
   (match exp
     ((let-exp name rhs body)
-     (explicate-assign name rhs (explicate-tail body)))
+     (explicate-assign
+      seqs label
+      name rhs (explicate-tail seqs label body)))
     (else
      (return-seq (exp-to-c-exp exp)))))
 
@@ -48,7 +55,9 @@
      (prim-c-exp op (list-map exp-to-c-exp args)))))
 
 (claim explicate-assign
-  (-> symbol? atom-operand-exp? seq? seq?))
+  (-> (record? seq?) symbol?
+      symbol? atom-operand-exp? seq?
+      seq?))
 
 (@comment
   To explicate in the context of an assignment.
@@ -63,11 +72,11 @@
       (= x y)
       (return (ineg x))])
 
-(define (explicate-assign name rhs cont)
+(define (explicate-assign seqs label name rhs cont)
   (match rhs
     ((let-exp rhs-name rhs-rhs rhs-body)
-     (= cont (explicate-assign name rhs-body cont))
-     (explicate-assign rhs-name rhs-rhs cont))
+     (= cont (explicate-assign seqs label name rhs-body cont))
+     (explicate-assign seqs label rhs-name rhs-rhs cont))
     (else
      (= stmt (assign-stmt (var-c-exp name) (exp-to-c-exp rhs)))
      (cons-seq stmt cont))))

@@ -4,10 +4,10 @@
 
 >> 4.8 Explicate Control
 
-[pass] explicate-control -- `explicate-tail` take `seqs` and `label`
 [pass] explicate-control -- `explicate-tail` handle `if`
 [pass] explicate-control -- `explicate-assign` handle `if`
 [pass] explicate-control -- `explicate-if`
+[pass] explicate-control.snapshot
 
 >> 4.9 Select Instructions
 >> 4.10 Register Allocation
