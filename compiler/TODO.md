@@ -2,9 +2,8 @@
 
 > 4 Booleans and Conditionals
 
-[pass] `uniquify` -- support conditional
-[pass] `partial-eval` -- support conditional
 [pass] `remove-complex-operands` -- support conditional
+[pass] `partial-eval` -- support conditional
 
 > 5 Loops and Dataflow Analysis
 > 6 Tuples and Garbage Collection

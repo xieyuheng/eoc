@@ -24,3 +24,11 @@
      (iadd x (let ((x (let ((y 5))
                         (iadd y x))))
                (iadd x 100))))))
+
+(test-program
+ '(program
+   ()
+   (let ((x 8))
+     (if (and e1 e2)
+       (iadd x x)
+       (imul x x)))))
