@@ -15,64 +15,81 @@
         (record-map-value
          (lambda (seq)
            (= context [])
-           (= result-type (infer-seq context seq))
-           ;; result-type not used
+           (check-seq context seq)
            context)
          seqs))
      (cons-c-program
       (record-put 'contexts contexts info)
       seqs))))
 
-(claim infer-seq
+(claim check-seq
   (-> (record? type?) seq?
-      type?))
+      void?))
 
-(define (infer-seq context seq)
+(define (check-seq context seq)
   (match seq
-    ((return-seq result)
-     (= [result^ result-type] (infer-c-exp context result))
-     result-type)
     ((cons-seq stmt tail)
-     (infer-stmt context stmt)
-     (infer-seq context tail))))
+     (check-stmt context stmt)
+     (check-seq context tail))
+    ((return-seq result)
+     (= result-type (infer-c-exp context result))
+     void)
+    ((goto-seq label)
+     void)
+    ((branch-seq condition consequent-label alternative-label)
+     (= condition-type (infer-c-exp context condition))
+     (unless (equal? bool-t condition-type)
+       (exit [:who 'check-seq
+              :message "fail on branch"
+              :context context
+              :seq seq]))
+     void)))
 
-(claim infer-stmt
+(claim check-stmt
   (->  (record? type?) stmt?
        void?))
 
-(define (infer-stmt context stmt)
+(define (check-stmt context stmt)
   (match stmt
     ((assign-stmt (var-c-exp name) rhs)
-     (= [rhs^ rhs-type] (infer-c-exp context rhs))
+     (= rhs-type (infer-c-exp context rhs))
      (= found-type (record-get name context))
-     (if (null? found-type)
-       (begin
-         (record-put! name rhs-type context)
-         void)
-       (unless (equal? rhs-type found-type)
-         (exit [:who 'infer-stmt
-                :stmt stmt
-                :rhs-type rhs-type
-                :found-type found-type]))))))
+     (cond ((null? found-type)
+            (record-put! name rhs-type context)
+            void)
+           ((not (equal? rhs-type found-type))
+            (exit [:who 'check-stmt
+                   :stmt stmt
+                   :rhs-type rhs-type
+                   :found-type found-type]))))))
 
 (claim infer-c-exp
   (-> (record? type?) c-exp?
-      (tau c-exp? type?)))
+      type?))
 
 (define (infer-c-exp context c-exp)
   (match c-exp
     ((var-c-exp name)
-     [(var-c-exp name)
-      (record-get name context)])
+     (record-get name context))
     ((int-c-exp value)
-     [(int-c-exp value)
-      int-t])
+     int-t)
+    ((bool-c-exp value)
+     bool-t)
+    ((prim-c-exp 'eq? [lhs rhs])
+     (= lhs-type (infer-c-exp context lhs))
+     (= rhs-type (infer-c-exp context rhs))
+     (unless (equal? lhs-type rhs-type)
+       (exit [:who 'infer-c-exp
+              :message "fail on eq?"
+              :c-exp c-exp
+              :lhs-type lhs-type
+              :rhs-type rhs-type]))
+     bool-t)
     ((prim-c-exp op args)
-     (= [args^ arg-types] (list-unzip (list-map (infer-c-exp context) args)))
+     (= arg-types (list-map (infer-c-exp context) args))
      (= return-type (check-op arg-types op))
      (when (null? return-type)
        (exit [:who 'infer-c-exp
               :message "fail on prim-c-exp"
               :c-exp c-exp :arg-types arg-types]))
-     [(prim-c-exp op args^)
-      return-type])))
+     return-type)))

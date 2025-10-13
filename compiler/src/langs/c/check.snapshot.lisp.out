@@ -1,0 +1,17 @@
+[#cons-c-program
+ [:contexts [:begin [:x #int-t]]]
+ [:begin
+  [#cons-seq
+   [#assign-stmt
+    [#var-c-exp 'x]
+    [#prim-c-exp 'ineg [[#int-c-exp 1]]]]
+   [#return-seq [#var-c-exp 'x]]]]]
+[#cons-c-program
+ [:contexts [:begin [:x #int-t]]]
+ [:begin
+  [#cons-seq
+   [#assign-stmt [#var-c-exp 'x] [#int-c-exp 8]]
+   [#branch-seq
+    [#prim-c-exp 'gt? [[#var-c-exp 'x] [#int-c-exp 1]]]
+    'a
+    'b]]]]

@@ -16,6 +16,12 @@
   (match sexp
     (`((return ,result))
      (return-seq (parse-c-exp result)))
+    (`((goto ,label))
+     (goto-seq label))
+    (`((branch ,condition ,consequent-label ,alternative-label))
+     (branch-seq (parse-c-exp condition)
+                 consequent-label
+                 alternative-label))
     ((cons head tail)
      (cons-seq (parse-stmt head) (parse-seq tail)))))
 
@@ -38,6 +44,7 @@
 
 (define (parse-atom sexp)
   (cond ((int? sexp) (int-c-exp sexp))
+        ((bool? sexp) (bool-c-exp sexp))
         ((symbol? sexp) (var-c-exp sexp))
         (else (exit [:who 'parse-atom
                      :message "unhandled sexp"
