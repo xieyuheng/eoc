@@ -5,7 +5,9 @@
   cons-seq? return-seq? goto-seq? branch-seq?
   stmt? assign-stmt
   c-exp? var-c-exp int-c-exp bool-c-exp prim-c-exp
-  atom-c-exp?)
+  atom-c-exp?
+  cmp-op?
+  cmp-c-exp?)
 
 (define-data c-program?
   (cons-c-program

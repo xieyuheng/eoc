@@ -85,23 +85,23 @@
      (= cont (explicate-assign seqs label name rhs-body cont))
      (explicate-assign seqs label rhs-name rhs-rhs cont))
     ((if-exp condition consequent alternative)
-     (= goto-cont (create-goto-seq seqs label 'let-body cont))
+     (= let-body-label (generate-label seqs label 'let-body cont))
      (explicate-if
       seqs label
       consequent
-      (explicate-assign seqs label name consequent goto-cont)
-      (explicate-assign seqs label name alternative goto-cont))
+      (explicate-assign seqs label name consequent (goto-seq let-body-label))
+      (explicate-assign seqs label name alternative (goto-seq let-body-label)))
      (= cont (explicate-assign seqs label name rhs-body cont))
      (explicate-assign seqs label rhs-name rhs-rhs cont))
     (else
      (= stmt (assign-stmt (var-c-exp name) (exp-to-c-exp rhs)))
      (cons-seq stmt cont))))
 
-(claim create-goto-seq
+(claim generate-label
   (-> (record? seq?) symbol? symbol? seq?
-      goto-seq?))
+      symbol?))
 
-(define (create-goto-seq seqs label name seq)
+(define (generate-label seqs label name seq)
   (= id (string-to-symbol (format-subscript (record-length seqs))))
   (= found-label (record-find-key (equal? seq) seqs))
   (cond ((null? found-label)
@@ -121,4 +121,20 @@
   CPS with two continuations for two branches.)
 
 (define (explicate-if seqs label condition then-cont else-cont)
-  )
+  (match condition
+    ((var-exp name)
+     )
+    ((bool-exp value)
+     (if value then-cont else-cont))
+    ((prim-exp 'not [negated-condition])
+     (explicate-if seqs label negated-condition else-cont then-cont))
+    ((prim-exp (the cmp-op? op) args)
+     ;; consequent-label
+     ;; alternative-label
+     (branch-seq (prim-c-exp op (list-map exp-to-c-exp args))
+                 consequent-label
+                 alternative-label))
+    ((let-exp name rhs body)
+     )
+    ((if-exp condition consequent alternative)
+     )))
