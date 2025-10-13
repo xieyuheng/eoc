@@ -84,9 +84,32 @@
     ((let-exp rhs-name rhs-rhs rhs-body)
      (= cont (explicate-assign seqs label name rhs-body cont))
      (explicate-assign seqs label rhs-name rhs-rhs cont))
+    ((if-exp condition consequent alternative)
+     (= goto-cont (create-goto-seq seqs label 'let-body cont))
+     (explicate-if
+      seqs label
+      consequent
+      (explicate-assign seqs label name consequent goto-cont)
+      (explicate-assign seqs label name alternative goto-cont))
+     (= cont (explicate-assign seqs label name rhs-body cont))
+     (explicate-assign seqs label rhs-name rhs-rhs cont))
     (else
      (= stmt (assign-stmt (var-c-exp name) (exp-to-c-exp rhs)))
      (cons-seq stmt cont))))
+
+(claim create-goto-seq
+  (-> (record? seq?) symbol? symbol? seq?
+      goto-seq?))
+
+(define (create-goto-seq seqs label name seq)
+  (= id (string-to-symbol (format-subscript (record-length seqs))))
+  (= found-label (record-find-key (equal? seq) seqs))
+  (cond ((null? found-label)
+         (= new-label (symbol-concat [label '. name id]))
+         (record-put! new-label seq seqs)
+         (goto-seq new-label))
+        (else
+         (goto-seq found-label))))
 
 (claim explicate-if
   (-> (record? seq?) symbol?
