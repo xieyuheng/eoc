@@ -25,3 +25,11 @@
    (:begin
     ((= x 8)
      (branch (eq? x 1) a b)))))
+
+(test-c-program
+ '(c-program
+   ()
+   (:begin
+    ((= x 8)
+     (= b (eq? x 1))
+     (branch (eq? b #t) a b)))))

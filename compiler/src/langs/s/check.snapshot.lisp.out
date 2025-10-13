@@ -29,3 +29,12 @@
    [#prim-exp 'gt? [[#var-exp 'x] [#int-exp 1]]]
    [#int-exp 1]
    [#int-exp 0]]]]
+[#cons-program
+ []
+ [#let-exp
+  'x
+  [#int-exp 0]
+  [#if-exp
+   [#prim-exp 'eq? [[#var-exp 'x] [#int-exp 1]]]
+   [#int-exp 1]
+   [#int-exp 0]]]]

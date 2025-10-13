@@ -32,3 +32,11 @@
      (if (gt? x 1)
        1
        0))))
+
+(test-program
+ '(program
+   ()
+   (let ((x 0))
+     (if (eq? x 1)
+       1
+       0))))

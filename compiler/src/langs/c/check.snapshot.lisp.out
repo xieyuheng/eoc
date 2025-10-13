@@ -24,3 +24,16 @@
     [#prim-c-exp 'eq? [[#var-c-exp 'x] [#int-c-exp 1]]]
     'a
     'b]]]]
+[#cons-c-program
+ [:contexts [:begin [:x #int-t :b #bool-t]]]
+ [:begin
+  [#cons-seq
+   [#assign-stmt [#var-c-exp 'x] [#int-c-exp 8]]
+   [#cons-seq
+    [#assign-stmt
+     [#var-c-exp 'b]
+     [#prim-c-exp 'eq? [[#var-c-exp 'x] [#int-c-exp 1]]]]
+    [#branch-seq
+     [#prim-c-exp 'eq? [[#var-c-exp 'b] [#bool-c-exp #t]]]
+     'a
+     'b]]]]]
