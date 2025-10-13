@@ -1,3 +1,7 @@
+update x-lisp to use `(newline)` and `(string-lines)`
+
+- helper/format -- `format-block-after`
+
 # main
 
 > 4 Booleans and Conditionals
