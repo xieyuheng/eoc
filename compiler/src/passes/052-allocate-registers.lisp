@@ -16,24 +16,25 @@
 
 (define reg-name-color-hash
   (@hash
-   ;; use caller saved registers first:
-   'rcx  0
-   ;; use callee saved registers unwillingly:
-   'rbx  1
-   ;; pre color preserved registers with negative color,
-   ;; otherwise they will be colored by registers too.
-   'rax -1  'rsp -2  'rbp -3  'r11 -4  'r15 -5))
+    ;; use caller saved registers first:
+    'rcx  0
+    ;; use callee saved registers unwillingly:
+    'rbx  1
+    ;; pre color preserved registers with negative color,
+    ;; otherwise they will be colored by registers too.
+    'rax -1  'rsp -2  'rbp -3  'r11 -4  'r15 -5))
 
-;; (define reg-name-color-hash
-;;   (@hash
-;;    ;; use caller saved registers first:
-;;    'rcx  0  'rdx  1  'rsi  2  'rdi  3
-;;    'r8   4  'r9   5  'r10  6
-;;    ;; use callee saved registers unwillingly:
-;;    'rbx  7  'r12  8  'r13  9  'r14 10
-;;    ;; pre color preserved registers with negative color,
-;;    ;; otherwise they will be colored by registers too.
-;;    'rax -1  'rsp -2  'rbp -3  'r11 -4  'r15 -5))
+(@comment
+  (define reg-name-color-hash
+    (@hash
+      ;; use caller saved registers first:
+      'rcx  0  'rdx  1  'rsi  2  'rdi  3
+      'r8   4  'r9   5  'r10  6
+      ;; use callee saved registers unwillingly:
+      'rbx  7  'r12  8  'r13  9  'r14 10
+      ;; pre color preserved registers with negative color,
+      ;; otherwise they will be colored by registers too.
+      'rax -1  'rsp -2  'rbp -3  'r11 -4  'r15 -5)))
 
 (claim allocate-registers
   (-> (x86-program/block? (block/info? interference-info?))
