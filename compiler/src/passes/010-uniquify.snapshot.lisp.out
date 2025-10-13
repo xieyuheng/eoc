@@ -1,0 +1,4 @@
+>> (program () (let ((x 1)) (iadd x (let ((x (let ((x 5)) (iadd x x)))) (iadd x 100)))))
+=> (program () (let ((x₁ 1)) (iadd x₁ (let ((x₂ (let ((x₃ 5)) (iadd x₃ x₃)))) (iadd x₂ 100)))))
+>> (program () (let ((x 1)) (iadd x (let ((x (let ((y 5)) (iadd y x)))) (iadd x 100)))))
+=> (program () (let ((x₁ 1)) (iadd x₁ (let ((x₂ (let ((y₁ 5)) (iadd y₁ x₁)))) (iadd x₂ 100)))))

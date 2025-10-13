@@ -3,10 +3,10 @@
 
 (define (test-program sexp)
   (= program-0 (parse-program sexp))
-  (write "000 ") (write (format-sexp (form-program program-0)))
+  (write ">> ") (write (format-sexp (form-program program-0)))
   (write "\n")
   (= program-1 (uniquify program-0))
-  (write "010 ") (write (format-sexp (form-program program-1)))
+  (write "=> ") (write (format-sexp (form-program program-1)))
   (write "\n"))
 
 (test-program
