@@ -28,20 +28,22 @@
     ((let-exp name rhs body)
      (explicate-assign name rhs (explicate-tail body)))
     (else
-     (return-seq (to-c-exp exp)))))
+     (return-seq (exp-to-c-exp exp)))))
 
-(claim to-c-exp
-  (-> (inter atom-operand-exp? (negate let-exp?))
+(claim exp-to-c-exp
+  (-> (union atom-exp? (inter prim-exp? atom-operand-exp?))
       c-exp?))
 
-(define (to-c-exp exp)
+(define (exp-to-c-exp exp)
   (match exp
     ((var-exp name)
      (var-c-exp name))
-    ((int-exp n)
-     (int-c-exp n))
+    ((int-exp value)
+     (int-c-exp value))
+    ((bool-exp value)
+     (bool-c-exp value))
     ((prim-exp op args)
-     (prim-c-exp op (list-map to-c-exp args)))))
+     (prim-c-exp op (list-map exp-to-c-exp args)))))
 
 (claim explicate-assign
   (-> symbol? atom-operand-exp? seq? seq?))
@@ -66,5 +68,5 @@
      (= continuation (explicate-assign name rhs-body continuation))
      (explicate-assign rhs-name rhs-rhs continuation))
     (else
-     (= stmt (assign-stmt (var-c-exp name) (to-c-exp rhs)))
+     (= stmt (assign-stmt (var-c-exp name) (exp-to-c-exp rhs)))
      (cons-seq stmt continuation))))

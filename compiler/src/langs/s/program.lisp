@@ -20,4 +20,5 @@
 
 (define atom-exp?
   (union var-exp?
-         int-exp?))
+         int-exp?
+         bool-exp?))
