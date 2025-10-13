@@ -45,19 +45,27 @@
            (retq
             (string-concat
              ["retq"]))
-           ((jmp target)
+           ((jmp label)
             (string-concat
-             ["jmp " (format-sexp target)]))))))
+             ["jmp " (format-sexp label)]))
+           ((jmp-if cc label)
+            (string-concat
+             ["j" (format-sexp cc) " " (format-sexp label)]))
+           ((set-if cc dest)
+            (string-concat
+             ["set" (format-sexp cc) " " (format-rand dest)]))))))
 
 (claim format-rand (-> operand? string?))
 
-(define (format-rand arg)
-  (match arg
+(define (format-rand operand)
+  (match operand
     ((var-rand name)
      (format-sexp name))
     ((imm-rand value)
      (string-append "$" (format-sexp value)))
     ((reg-rand name)
+     (string-append "%" (format-sexp name)))
+    ((byte-reg-rand name)
      (string-append "%" (format-sexp name)))
     ((deref-rand name offset)
      (string-concat

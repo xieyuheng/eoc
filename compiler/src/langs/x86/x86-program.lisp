@@ -63,7 +63,7 @@
   retq
   (jmp (label symbol?))
   (jmp-if (cc condition-code?) (label symbol?))
-  (set-byte (cc condition-code?) (dest byte-reg-rand?)))
+  (set-if (cc condition-code?) (dest byte-reg-rand?)))
 
 (define condition-codes '(e l le g ge))
 (define condition-code? (swap list-member? condition-codes))

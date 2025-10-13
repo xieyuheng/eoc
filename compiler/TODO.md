@@ -2,8 +2,6 @@
 
 > 4 Booleans and Conditionals
 
-[x86] `format` -- support conditional exps
-
 [pass] `005-shrink` -- handle `and` and `or`
 [pass] 005-shrink.test
 [pass] `partial-eval-exp` -- support conditional
