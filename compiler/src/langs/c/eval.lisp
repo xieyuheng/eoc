@@ -37,23 +37,5 @@
     ((var-c-exp name)
      (record-get name env))
     ((prim-c-exp op args)
-     (eval-prim op args env))))
-
-(claim eval-prim
-  (-> symbol? (list? atom-c-exp?) (record? value?) value?))
-
-(define (eval-prim op args env)
-  (match [op args]
-    (['iadd [x y]]
-     (iadd (eval-c-exp x env) (eval-c-exp y env)))
-    (['isub [x y]]
-     (isub (eval-c-exp x env) (eval-c-exp y env)))
-    (['ineg [x]]
-     (ineg (eval-c-exp x env)))
-    (['random-dice []]
-     (iadd 1 (random-int 0 5)))
-    (else
-     (exit [:who 'eval-prim
-            :message "unhandled prim c-exp"
-            :op op
-            :args args]))))
+     (apply (record-get op operator-prims)
+       (list-map (swap eval-c-exp env) args)))))

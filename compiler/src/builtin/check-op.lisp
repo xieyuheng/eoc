@@ -1,6 +1,9 @@
 (import-all "deps")
 
-(export check-op)
+(export
+  check-op
+  operator-types
+  operator-prims)
 
 (claim check-op
   (-> (list? type?) symbol?
@@ -20,8 +23,7 @@
     return-type
     null))
 
-(claim operator-types
-  (record? (tau (list? type?) type?)))
+(claim operator-types (record? (tau (list? type?) type?)))
 
 (define operator-types
   [:iadd [[int-t int-t] int-t]
@@ -31,7 +33,24 @@
    :and [[bool-t bool-t] bool-t]
    :or [[bool-t bool-t] bool-t]
    :not [[bool-t] bool-t]
+   ;; eq? is generic
    :lt? [[int-t int-t] bool-t]
    :gt? [[int-t int-t] bool-t]
    :lteq? [[int-t int-t] bool-t]
    :gteq? [[int-t int-t] bool-t]])
+
+(claim operator-prims (record? (*-> value? value?)))
+
+(define operator-prims
+  [:iadd iadd
+   :isub isub
+   :ineg ineg
+   :random-dice (thunk (iadd 1 (random-int 0 5)))
+   ;; and is lazy
+   ;; or is lazy
+   :not not
+   :eq? equal?
+   :lt? int-smaller?
+   :gt? int-larger?
+   :lteq? int-smaller-or-equal?
+   :gteq? int-larger-or-equal?])

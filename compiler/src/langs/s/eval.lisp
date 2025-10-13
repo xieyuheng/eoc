@@ -33,20 +33,8 @@
     ((prim-exp 'or [e1 e2])
      (if (eval-exp e1 env) true (eval-exp e2 env)))
     ((prim-exp op args)
-     (apply (record-get op op-prims)
+     (apply (record-get op operator-prims)
        (list-map (swap eval-exp env) args)))
     ((let-exp name rhs body)
      (= new-env (record-put name (eval-exp rhs env) env))
      (eval-exp body new-env))))
-
-(define op-prims
-  [:iadd iadd
-   :isub isub
-   :ineg ineg
-   :random-dice (thunk (iadd 1 (random-int 0 5)))
-   :not not
-   :eq? equal?
-   :lt? int-smaller?
-   :gt? int-larger?
-   :lteq? int-smaller-or-equal?
-   :gteq? int-larger-or-equal?])

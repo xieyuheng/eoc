@@ -1,1 +1,1 @@
-(include "check-op" check-op)
+(include-all "check-op")
