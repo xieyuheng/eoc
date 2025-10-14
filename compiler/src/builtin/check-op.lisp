@@ -45,12 +45,12 @@
   [:iadd iadd
    :isub isub
    :ineg ineg
-   :random-dice (thunk (iadd 1 (random-int 0 5)))
+   :random-dice (lambda () (iadd 1 (random-int 0 5)))
    ;; and is lazy
    ;; or is lazy
    :not not
    :eq? equal?
-   :lt? int-smaller?
-   :gt? int-larger?
-   :lteq? int-smaller-or-equal?
-   :gteq? int-larger-or-equal?])
+   :lt? int-less?
+   :gt? int-greater?
+   :lteq? int-less-equal?
+   :gteq? int-greater-equal?])

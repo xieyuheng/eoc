@@ -79,7 +79,7 @@
 (define (count-spilled-variables coloring)
   (pipe coloring
     (hash-reject-key reg-rand?)
-    (hash-select-value (swap int-larger? max-register-color))
+    (hash-select-value (swap int-greater? max-register-color))
     hash-length))
 
 (claim find-callee-saved (-> coloring? (list? reg-rand?)))
@@ -91,7 +91,7 @@
 (define (coloring-use-register? coloring register)
   (= color (hash-get register coloring))
   (= register-coloring (hash-select (drop (equal? color)) coloring))
-  (int-larger? (hash-length register-coloring) 1))
+  (int-greater? (hash-length register-coloring) 1))
 
 (claim allocate-registers-variable
   (-> coloring? register-info? var-rand?
