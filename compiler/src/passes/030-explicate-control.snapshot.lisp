@@ -4,7 +4,7 @@
 (define (test-program sexp)
   (= program (parse-program sexp))
   (write ">> ") (write (format-sexp (form-program program)))
-  (write "\n")
+  (newline)
   (= c-program
      (pipe program
        shrink
@@ -12,9 +12,9 @@
        rco-program
        explicate-control))
   (write "=> ")
-  (write "\n")
+  (newline)
   (write (format-left-margin "   " (pretty 80 c-program)))
-  (write "\n"))
+  (newline))
 
 (test-program
  '(program

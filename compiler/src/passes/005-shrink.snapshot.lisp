@@ -5,9 +5,9 @@
   (= program (parse-program sexp))
   (= shrinked-program (shrink program))
   (write ">> ") (write (format-sexp (form-program program)))
-  (write "\n")
+  (newline)
   (write "=> ") (write (format-sexp (form-program shrinked-program)))
-  (write "\n"))
+  (newline))
 
 (test-program
  '(program () (and (and e1 e2) (and e4 e4))))

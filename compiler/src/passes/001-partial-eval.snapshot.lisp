@@ -5,9 +5,9 @@
   (= program (parse-program sexp))
   (= partial-program (partial-eval-program program))
   (write ">> ") (write (format-sexp (form-program program)))
-  (write "\n")
+  (newline)
   (write "=> ") (write (format-sexp (form-program partial-program)))
-  (write "\n"))
+  (newline))
 
 (test-program
  '(program () 8))

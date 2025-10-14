@@ -7,7 +7,7 @@
     form-program
     format-sexp
     write)
-  (write "\n"))
+  (newline))
 
 (echo-program
  '(program () 8))
