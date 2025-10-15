@@ -1,11 +1,9 @@
 >> (program () (iadd x 1))
-=> 
-   [#cons-c-program
+=> [#cons-c-program
     []
     [:begin [#return-seq [#prim-c-exp 'iadd [[#var-c-exp 'x] [#int-c-exp 1]]]]]]
 >> (program () (iadd (iadd x 1) 1))
-=> 
-   [#cons-c-program
+=> [#cons-c-program
     []
     [:begin
      [#cons-seq
@@ -14,8 +12,7 @@
        [#prim-c-exp 'iadd [[#var-c-exp 'x] [#int-c-exp 1]]]]
       [#return-seq [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#int-c-exp 1]]]]]]]
 >> (program () (let ((y (iadd x 1))) (iadd y 1)))
-=> 
-   [#cons-c-program
+=> [#cons-c-program
     []
     [:begin
      [#cons-seq
@@ -24,8 +21,7 @@
        [#prim-c-exp 'iadd [[#var-c-exp 'x] [#int-c-exp 1]]]]
       [#return-seq [#prim-c-exp 'iadd [[#var-c-exp 'y₁] [#int-c-exp 1]]]]]]]
 >> (program () (let ((y (iadd (iadd x 1) 1))) (iadd y 1)))
-=> 
-   [#cons-c-program
+=> [#cons-c-program
     []
     [:begin
      [#cons-seq
@@ -38,8 +34,7 @@
         [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#int-c-exp 1]]]]
        [#return-seq [#prim-c-exp 'iadd [[#var-c-exp 'y₁] [#int-c-exp 1]]]]]]]]
 >> (program () (let ((x 8)) (if (and e1 e2) (iadd x x) (imul x x))))
-=> 
-   [#cons-c-program
+=> [#cons-c-program
     []
     [:begin
      [#cons-seq
@@ -60,8 +55,7 @@
       'begin.then₂
       'begin.else₃]]]
 >> (program () (let ((x (random-dice))) (let ((y (random-dice))) (if (if (lt? x 1) (eq? x 0) (eq? x 2)) (iadd y 2) (iadd y 10)))))
-=> 
-   [#cons-c-program
+=> [#cons-c-program
     []
     [:begin
      [#cons-seq
@@ -89,8 +83,7 @@
       'begin.then₂
       'begin.else₃]]]
 >> (program () (let ((x (random-dice))) (let ((y (random-dice))) (iadd (if (if (lt? x 1) (eq? x 0) (eq? x 2)) (iadd y 2) (iadd y 10)) (if (if (lt? x 1) (eq? x 0) (eq? x 2)) (iadd y 2) (iadd y 10))))))
-=> 
-   [#cons-c-program
+=> [#cons-c-program
     []
     [:begin
      [#cons-seq
@@ -157,8 +150,7 @@
       'begin.then₁₀
       'begin.else₁₁]]]
 >> (program () (if (and (eq? (random-dice) 1) (eq? (random-dice) 2)) 0 42))
-=> 
-   [#cons-c-program
+=> [#cons-c-program
     []
     [:begin
      [#cons-seq
