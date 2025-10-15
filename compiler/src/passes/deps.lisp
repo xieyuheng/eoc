@@ -1,5 +1,5 @@
 (include-all "std:graph")
-(include-all "../helper/format")
+(include-all "../helpers/format")
 (include-all "../value")
 (include-all "../langs/s")
 (include-all "../langs/c")
