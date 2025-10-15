@@ -1,3 +1,4 @@
+(include-all "../helper/format")
 (include-all "../value")
 (include-all "../langs/s")
 (include-all "../langs/c")

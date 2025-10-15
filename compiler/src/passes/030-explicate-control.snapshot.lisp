@@ -13,7 +13,7 @@
        explicate-control))
   (write "=> ")
   (newline)
-  (write (format-left-margin "   " (pretty 80 c-program)))
+  (write (format-after-prompt "   " (pretty 80 c-program)))
   (newline))
 
 (test-program

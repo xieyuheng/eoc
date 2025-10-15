@@ -1,5 +1,3 @@
-update x-lisp for `multidigraph`
-
 # main
 
 > 4 Booleans and Conditionals
@@ -24,10 +22,6 @@ update x-lisp for `multidigraph`
 > 11 Generics
 
 # later
-
-update x-lisp to use `(newline)` and `(string-lines)`
-
-- helper/format -- `format-block-after`
 
 [pass] `partial-eval` -- support conditional
 
