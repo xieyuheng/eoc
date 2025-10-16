@@ -84,6 +84,7 @@ build-interference:
         [#reg-rand 'r10]
         [#reg-rand 'r11]}
        (@hash
+         [#var-rand '_₁] {[#reg-rand 'rsp]}
          [#reg-rand 'rax]
          {[#reg-rand 'rsp]
           [#reg-rand 'rcx]
@@ -112,8 +113,7 @@ build-interference:
          [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp]}
          [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp]}
          [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp]}
-         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp]}
-         [#var-rand '_₁] {[#reg-rand 'rsp]})]]
+         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp]})]]
      [[#callq 'random_dice 0]
       ['movq [[#reg-rand 'rax] [#var-rand '_₁]]]
       ['movq [[#var-rand '_₁] [#reg-rand 'rax]]]
@@ -151,6 +151,7 @@ allocate-registers:
         [#reg-rand 'r10]
         [#reg-rand 'r11]}
        (@hash
+         [#var-rand '_₁] {[#reg-rand 'rsp]}
          [#reg-rand 'rax]
          {[#reg-rand 'rsp]
           [#reg-rand 'rcx]
@@ -179,8 +180,7 @@ allocate-registers:
          [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp]}
          [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp]}
          [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp]}
-         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp]}
-         [#var-rand '_₁] {[#reg-rand 'rsp]})]]
+         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp]})]]
      [[#callq 'random_dice 0]
       ['movq [[#reg-rand 'rax] [#var-rand '_₁]]]
       ['movq [[#var-rand '_₁] [#reg-rand 'rax]]]
@@ -218,6 +218,7 @@ assign-homes:
         [#reg-rand 'r10]
         [#reg-rand 'r11]}
        (@hash
+         [#var-rand '_₁] {[#reg-rand 'rsp]}
          [#reg-rand 'rax]
          {[#reg-rand 'rsp]
           [#reg-rand 'rcx]
@@ -246,8 +247,7 @@ assign-homes:
          [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp]}
          [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp]}
          [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp]}
-         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp]}
-         [#var-rand '_₁] {[#reg-rand 'rsp]})]]
+         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp]})]]
      [[#callq 'random_dice 0]
       ['movq [[#reg-rand 'rax] [#reg-rand 'rcx]]]
       ['movq [[#reg-rand 'rcx] [#reg-rand 'rax]]]
@@ -285,6 +285,7 @@ patch-instructions:
         [#reg-rand 'r10]
         [#reg-rand 'r11]}
        (@hash
+         [#var-rand '_₁] {[#reg-rand 'rsp]}
          [#reg-rand 'rax]
          {[#reg-rand 'rsp]
           [#reg-rand 'rcx]
@@ -313,8 +314,7 @@ patch-instructions:
          [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp]}
          [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp]}
          [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp]}
-         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp]}
-         [#var-rand '_₁] {[#reg-rand 'rsp]})]]
+         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp]})]]
      [[#callq 'random_dice 0]
       ['movq [[#reg-rand 'rax] [#reg-rand 'rcx]]]
       ['movq [[#reg-rand 'rcx] [#reg-rand 'rax]]]
@@ -358,6 +358,7 @@ prolog-and-epilog:
         [#reg-rand 'r10]
         [#reg-rand 'r11]}
        (@hash
+         [#var-rand '_₁] {[#reg-rand 'rsp]}
          [#reg-rand 'rax]
          {[#reg-rand 'rsp]
           [#reg-rand 'rcx]
@@ -386,8 +387,7 @@ prolog-and-epilog:
          [#reg-rand 'r8] {[#reg-rand 'rax] [#reg-rand 'rsp]}
          [#reg-rand 'r9] {[#reg-rand 'rax] [#reg-rand 'rsp]}
          [#reg-rand 'r10] {[#reg-rand 'rax] [#reg-rand 'rsp]}
-         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp]}
-         [#var-rand '_₁] {[#reg-rand 'rsp]})]]
+         [#reg-rand 'r11] {[#reg-rand 'rax] [#reg-rand 'rsp]})]]
      [[#callq 'random_dice 0]
       ['movq [[#reg-rand 'rax] [#reg-rand 'rcx]]]
       ['movq [[#reg-rand 'rcx] [#reg-rand 'rax]]]

@@ -79,8 +79,8 @@ build-interference:
        {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
        (@hash
          [#var-rand 'x₂] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rax]}
          [#var-rand 'x₁] {[#reg-rand 'rsp]}
+         [#reg-rand 'rsp] {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rax]}
          [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
      [['movq [[#imm-rand 4] [#var-rand 'x₂]]]
       ['movq [[#var-rand 'x₂] [#var-rand 'x₁]]]
@@ -113,8 +113,8 @@ allocate-registers:
        {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
        (@hash
          [#var-rand 'x₂] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rax]}
          [#var-rand 'x₁] {[#reg-rand 'rsp]}
+         [#reg-rand 'rsp] {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rax]}
          [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
      [['movq [[#imm-rand 4] [#var-rand 'x₂]]]
       ['movq [[#var-rand 'x₂] [#var-rand 'x₁]]]
@@ -147,8 +147,8 @@ assign-homes:
        {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
        (@hash
          [#var-rand 'x₂] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rax]}
          [#var-rand 'x₁] {[#reg-rand 'rsp]}
+         [#reg-rand 'rsp] {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rax]}
          [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
      [['movq [[#imm-rand 4] [#reg-rand 'rcx]]]
       ['movq [[#reg-rand 'rcx] [#reg-rand 'rcx]]]
@@ -181,8 +181,8 @@ patch-instructions:
        {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
        (@hash
          [#var-rand 'x₂] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rax]}
          [#var-rand 'x₁] {[#reg-rand 'rsp]}
+         [#reg-rand 'rsp] {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rax]}
          [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
      [['movq [[#imm-rand 4] [#reg-rand 'rcx]]]
       ['addq [[#imm-rand 1] [#reg-rand 'rcx]]]
@@ -220,8 +220,8 @@ prolog-and-epilog:
        {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
        (@hash
          [#var-rand 'x₂] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rax]}
          [#var-rand 'x₁] {[#reg-rand 'rsp]}
+         [#reg-rand 'rsp] {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rax]}
          [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
      [['movq [[#imm-rand 4] [#reg-rand 'rcx]]]
       ['addq [[#imm-rand 1] [#reg-rand 'rcx]]]

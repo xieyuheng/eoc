@@ -123,14 +123,6 @@ build-interference:
         [#reg-rand 'rax]}
        (@hash
          [#var-rand 'v₁] {[#reg-rand 'rsp] [#var-rand 'w₁]}
-         [#reg-rand 'rsp]
-         {[#var-rand 'v₁]
-          [#var-rand 'w₁]
-          [#var-rand 'x₁]
-          [#var-rand 'y₁]
-          [#var-rand 'z₁]
-          [#var-rand '_₁]
-          [#reg-rand 'rax]}
          [#var-rand 'w₁]
          {[#var-rand 'v₁]
           [#reg-rand 'rsp]
@@ -142,6 +134,14 @@ build-interference:
          [#var-rand 'z₁]
          {[#var-rand 'w₁] [#var-rand 'y₁] [#reg-rand 'rsp] [#var-rand '_₁]}
          [#var-rand '_₁] {[#var-rand 'z₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
+         [#reg-rand 'rsp]
+         {[#var-rand 'v₁]
+          [#var-rand 'w₁]
+          [#var-rand 'x₁]
+          [#var-rand 'y₁]
+          [#var-rand 'z₁]
+          [#var-rand '_₁]
+          [#reg-rand 'rax]}
          [#reg-rand 'rax] {[#var-rand '_₁] [#reg-rand 'rsp]})]]
      [['movq [[#imm-rand 1] [#var-rand 'v₁]]]
       ['movq [[#imm-rand 42] [#var-rand 'w₁]]]
@@ -200,14 +200,6 @@ allocate-registers:
         [#reg-rand 'rax]}
        (@hash
          [#var-rand 'v₁] {[#reg-rand 'rsp] [#var-rand 'w₁]}
-         [#reg-rand 'rsp]
-         {[#var-rand 'v₁]
-          [#var-rand 'w₁]
-          [#var-rand 'x₁]
-          [#var-rand 'y₁]
-          [#var-rand 'z₁]
-          [#var-rand '_₁]
-          [#reg-rand 'rax]}
          [#var-rand 'w₁]
          {[#var-rand 'v₁]
           [#reg-rand 'rsp]
@@ -219,6 +211,14 @@ allocate-registers:
          [#var-rand 'z₁]
          {[#var-rand 'w₁] [#var-rand 'y₁] [#reg-rand 'rsp] [#var-rand '_₁]}
          [#var-rand '_₁] {[#var-rand 'z₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
+         [#reg-rand 'rsp]
+         {[#var-rand 'v₁]
+          [#var-rand 'w₁]
+          [#var-rand 'x₁]
+          [#var-rand 'y₁]
+          [#var-rand 'z₁]
+          [#var-rand '_₁]
+          [#reg-rand 'rax]}
          [#reg-rand 'rax] {[#var-rand '_₁] [#reg-rand 'rsp]})]]
      [['movq [[#imm-rand 1] [#var-rand 'v₁]]]
       ['movq [[#imm-rand 42] [#var-rand 'w₁]]]
@@ -277,14 +277,6 @@ assign-homes:
         [#reg-rand 'rax]}
        (@hash
          [#var-rand 'v₁] {[#reg-rand 'rsp] [#var-rand 'w₁]}
-         [#reg-rand 'rsp]
-         {[#var-rand 'v₁]
-          [#var-rand 'w₁]
-          [#var-rand 'x₁]
-          [#var-rand 'y₁]
-          [#var-rand 'z₁]
-          [#var-rand '_₁]
-          [#reg-rand 'rax]}
          [#var-rand 'w₁]
          {[#var-rand 'v₁]
           [#reg-rand 'rsp]
@@ -296,6 +288,14 @@ assign-homes:
          [#var-rand 'z₁]
          {[#var-rand 'w₁] [#var-rand 'y₁] [#reg-rand 'rsp] [#var-rand '_₁]}
          [#var-rand '_₁] {[#var-rand 'z₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
+         [#reg-rand 'rsp]
+         {[#var-rand 'v₁]
+          [#var-rand 'w₁]
+          [#var-rand 'x₁]
+          [#var-rand 'y₁]
+          [#var-rand 'z₁]
+          [#var-rand '_₁]
+          [#reg-rand 'rax]}
          [#reg-rand 'rax] {[#var-rand '_₁] [#reg-rand 'rsp]})]]
      [['movq [[#imm-rand 1] [#reg-rand 'rbx]]]
       ['movq [[#imm-rand 42] [#reg-rand 'rcx]]]
@@ -354,14 +354,6 @@ patch-instructions:
         [#reg-rand 'rax]}
        (@hash
          [#var-rand 'v₁] {[#reg-rand 'rsp] [#var-rand 'w₁]}
-         [#reg-rand 'rsp]
-         {[#var-rand 'v₁]
-          [#var-rand 'w₁]
-          [#var-rand 'x₁]
-          [#var-rand 'y₁]
-          [#var-rand 'z₁]
-          [#var-rand '_₁]
-          [#reg-rand 'rax]}
          [#var-rand 'w₁]
          {[#var-rand 'v₁]
           [#reg-rand 'rsp]
@@ -373,6 +365,14 @@ patch-instructions:
          [#var-rand 'z₁]
          {[#var-rand 'w₁] [#var-rand 'y₁] [#reg-rand 'rsp] [#var-rand '_₁]}
          [#var-rand '_₁] {[#var-rand 'z₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
+         [#reg-rand 'rsp]
+         {[#var-rand 'v₁]
+          [#var-rand 'w₁]
+          [#var-rand 'x₁]
+          [#var-rand 'y₁]
+          [#var-rand 'z₁]
+          [#var-rand '_₁]
+          [#reg-rand 'rax]}
          [#reg-rand 'rax] {[#var-rand '_₁] [#reg-rand 'rsp]})]]
      [['movq [[#imm-rand 1] [#reg-rand 'rbx]]]
       ['movq [[#imm-rand 42] [#reg-rand 'rcx]]]
@@ -437,14 +437,6 @@ prolog-and-epilog:
         [#reg-rand 'rax]}
        (@hash
          [#var-rand 'v₁] {[#reg-rand 'rsp] [#var-rand 'w₁]}
-         [#reg-rand 'rsp]
-         {[#var-rand 'v₁]
-          [#var-rand 'w₁]
-          [#var-rand 'x₁]
-          [#var-rand 'y₁]
-          [#var-rand 'z₁]
-          [#var-rand '_₁]
-          [#reg-rand 'rax]}
          [#var-rand 'w₁]
          {[#var-rand 'v₁]
           [#reg-rand 'rsp]
@@ -456,6 +448,14 @@ prolog-and-epilog:
          [#var-rand 'z₁]
          {[#var-rand 'w₁] [#var-rand 'y₁] [#reg-rand 'rsp] [#var-rand '_₁]}
          [#var-rand '_₁] {[#var-rand 'z₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
+         [#reg-rand 'rsp]
+         {[#var-rand 'v₁]
+          [#var-rand 'w₁]
+          [#var-rand 'x₁]
+          [#var-rand 'y₁]
+          [#var-rand 'z₁]
+          [#var-rand '_₁]
+          [#reg-rand 'rax]}
          [#reg-rand 'rax] {[#var-rand '_₁] [#reg-rand 'rsp]})]]
      [['movq [[#imm-rand 1] [#reg-rand 'rbx]]]
       ['movq [[#imm-rand 42] [#reg-rand 'rcx]]]
