@@ -52,7 +52,7 @@
     ((cons-block info instrs)
      (= interference-graph (record-get 'interference-graph info))
      (= coloring (pre-coloring))
-     (= vertices (set-to-list (graph-vertices interference-graph)))
+     (= vertices (graph-vertices interference-graph))
      (graph-coloring! coloring vertices interference-graph)
      (= register-info
         [:spill-count (count-spilled-variables coloring)
