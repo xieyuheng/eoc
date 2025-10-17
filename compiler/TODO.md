@@ -4,6 +4,8 @@
 
 > 4.8 Explicate Control
 
+refactor the structure to add a function
+
 [pass] test conditional
 [pass] optimize blocks and remove jumps
 [pass] refactor `uncover-live`
