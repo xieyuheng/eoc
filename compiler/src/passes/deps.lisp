@@ -1,4 +1,5 @@
 (include-all "std:graph")
+(include-all "std:digraph")
 (include-all "../helpers/format")
 (include-all "../value")
 (include-all "../langs/s")

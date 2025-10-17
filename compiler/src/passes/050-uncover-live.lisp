@@ -20,7 +20,36 @@
 (define (uncover-live x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
+     ;; (pipe blocks
+     ;;   make-control-flow-graph
+     ;;   digraph-topological-order
+     ;;   list-reverse
+     ;;   (list-each
+     ;;    (lambda (label)
+     ;;      )))
      (cons-x86-program info (record-map-value uncover-live-block blocks)))))
+
+(claim make-control-flow-graph
+  (-> (record? block?)
+      (digraph? symbol?)))
+
+(define (make-control-flow-graph blocks)
+  (= vertices (record-keys blocks))
+  (= edges
+     (pipe blocks
+       record-entries
+       (list-lift
+        (lambda ([source-label block])
+          (pipe (block-instrs block)
+            (list-select (union jmp? jmp-if?))
+            (list-map
+             (lambda (instr)
+               (= target-label
+                  (match instr
+                    ((jmp label) label)
+                    ((jmp-if cc label) label)))
+               [source-label target-label])))))))
+  (make-digraph vertices edges))
 
 (claim uncover-live-block
   (-> block?

@@ -4,7 +4,7 @@
 
 > 4.8 Explicate Control
 
-[pass] uncover-live -- pass info down
+[pass] uncover-live -- pass `blocks` down to `uncover-live-block`
 [pass] patch instructions -- support conditional
 [pass] optimize blocks and remove jumps
 

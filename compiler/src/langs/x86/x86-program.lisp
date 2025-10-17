@@ -7,7 +7,8 @@
   block-instrs
   block/info?
   instr? general-instr? special-instr?
-  callq retq jmp
+  callq retq jmp jmp-if set-if
+  callq? retq? jmp? jmp-if? set-if?
   operand? location-operand?
   var-rand imm-rand reg-rand byte-reg-rand deref-rand
   var-rand? imm-rand? reg-rand? byte-reg-rand? deref-rand?
