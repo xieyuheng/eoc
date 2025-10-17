@@ -20,14 +20,20 @@
 (define (uncover-live x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     ;; (pipe blocks
-     ;;   make-control-flow-graph
-     ;;   digraph-topological-order
-     ;;   list-reverse
-     ;;   (list-each
-     ;;    (lambda (label)
-     ;;      )))
-     (cons-x86-program info (record-map-value uncover-live-block blocks)))))
+     (= result-blocks [])
+     (pipe blocks
+       make-control-flow-graph
+       digraph-topological-order
+       list-reverse
+       (list-each
+        (lambda (label)
+          (= block (record-get label blocks))
+          ;; epilog label has no block now,
+          ;; the block will be generated in later pass.
+          (unless (null? block)
+            (= result-block (uncover-live-block result-blocks block))
+            (record-put! label result-block result-blocks)))))
+     (cons-x86-program info result-blocks))))
 
 (claim make-control-flow-graph
   (-> (record? block?)
@@ -40,25 +46,29 @@
        record-entries
        (list-lift
         (lambda ([source-label block])
-          (pipe (block-instrs block)
-            (list-select (union jmp? jmp-if?))
-            (list-map
-             (lambda (instr)
-               (= target-label
-                  (match instr
-                    ((jmp label) label)
-                    ((jmp-if cc label) label)))
-               [source-label target-label])))))))
+          (pipe block
+            block-instrs
+            jmp-labels-from-instrs
+            (list-map (compose (cons source-label) list-unit)))))))
   (make-digraph vertices edges))
 
+(define (jmp-labels-from-instrs instrs)
+  (pipe instrs
+    (list-select (union jmp? jmp-if?))
+    (list-map
+     (lambda (instr)
+       (match instr
+         ((jmp label) label)
+         ((jmp-if cc label) label))))))
+
 (claim uncover-live-block
-  (-> block?
+  (-> (record? (block/info? live-info?)) block?
       (block/info? live-info?)))
 
-(define (uncover-live-block block)
+(define (uncover-live-block blocks block)
   (match block
     ((cons-block info instrs)
-     (= live-before-sets (uncover-live-before* instrs {}))
+     (= live-before-sets (uncover-live-before* blocks instrs {}))
      (cons-block
       (record-append
        info
@@ -67,32 +77,37 @@
       instrs))))
 
 (claim uncover-live-before*
-  (-> (list? instr?) (set? location-operand?)
+  (-> (record? (block/info? live-info?))
+      (list? instr?)
+      (set? location-operand?)
       (list? (set? location-operand?))))
 
-(define (uncover-live-before* instrs last-live-after-set)
+(define (uncover-live-before* blocks instrs last-live-after-set)
   (list-init
    (list-fold-right
     (lambda (instr live-after-sets)
       (= live-after-set (list-first live-after-sets))
-      (= live-before-set (uncover-live-before instr live-after-set))
+      (= live-before-set (uncover-live-before blocks instr live-after-set))
       (cons live-before-set live-after-sets))
     [last-live-after-set]
     instrs)))
 
 (claim uncover-live-before
-  (-> instr? (set? location-operand?)
+  (-> (record? (block/info? live-info?))
+      instr?
+      (set? location-operand?)
       (set? location-operand?)))
 
-(define (uncover-live-before instr live-after-set)
+(define (uncover-live-before blocks instr live-after-set)
   (pipe live-after-set
-    (swap set-difference (uncover-live-write instr))
-    (set-union (uncover-live-read instr))))
+    (swap set-difference (uncover-live-write blocks instr))
+    (set-union (uncover-live-read blocks instr))))
 
 (claim uncover-live-read
-  (-> instr? (set? location-operand?)))
+  (-> (record? (block/info? live-info?)) instr?
+      (set? location-operand?)))
 
-(define (uncover-live-read instr)
+(define (uncover-live-read blocks instr)
   (match instr
     ((callq label arity) (list-to-set (list-take arity sysv-argument-registers)))
     (retq {(reg-rand 'rsp) (reg-rand 'rax)})
@@ -104,9 +119,10 @@
     (['negq [dest]] (uncover-live-operand dest))))
 
 (claim uncover-live-write
-  (-> instr? (set? location-operand?)))
+  (-> (record? (block/info? live-info?)) instr?
+      (set? location-operand?)))
 
-(define (uncover-live-write instr)
+(define (uncover-live-write blocks instr)
   (match instr
     ((callq label arity) (list-to-set sysv-caller-saved-registers))
     (retq {(reg-rand 'rsp)})

@@ -4,7 +4,10 @@
 
 > 4.8 Explicate Control
 
-[pass] uncover-live -- pass `blocks` down to `uncover-live-block`
+[pass] fix `uncover-live-write` & `uncover-live-read` -- on `(jmp label)`
+
+- currently assume all jump is to `.epilog`
+
 [pass] patch instructions -- support conditional
 [pass] optimize blocks and remove jumps
 
@@ -25,7 +28,3 @@
 # later
 
 [pass] `partial-eval` -- support conditional
-
-fix `uncover-live-write` & `uncover-live-read` -- on `(jmp label)`
-
-- currently assume all jump is to `.epilog`

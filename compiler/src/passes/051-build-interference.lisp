@@ -56,5 +56,5 @@
         (set-to-list live-after-set))))
      (else
       (list-product
-       (set-to-list (uncover-live-write instr))
+       (set-to-list (uncover-live-write [] instr))
        (set-to-list live-after-set))))))
