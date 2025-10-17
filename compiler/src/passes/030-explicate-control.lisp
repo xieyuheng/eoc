@@ -104,10 +104,10 @@
       symbol?))
 
 (define (generate-label seqs label name seq)
-  (= id (string-to-symbol (format-subscript (record-length seqs))))
+  (= id (string-to-symbol (format-sexp (record-length seqs))))
   (= found-label (record-find-key (equal? seq) seqs))
   (cond ((null? found-label)
-         (= new-label (symbol-concat [label '. name id]))
+         (= new-label (symbol-concat [label '. name '. id]))
          (record-put! new-label seq seqs)
          new-label)
         (else
