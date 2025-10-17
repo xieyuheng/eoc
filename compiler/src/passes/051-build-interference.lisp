@@ -54,6 +54,13 @@
        (list-reject
         (equal? src)
         (set-to-list live-after-set))))
+     (['movzbq [src dest]]
+      (= src (extend-byte-register src))
+      (list-product
+       [dest]
+       (list-reject
+        (equal? src)
+        (set-to-list live-after-set))))
      (else
       (list-product
        (set-to-list (uncover-live-write [] instr))

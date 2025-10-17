@@ -15,7 +15,8 @@
   condition-code?
   operator-condition-codes
   reg-name?
-  byte-reg-name?)
+  byte-reg-name?
+  extend-byte-register)
 
 (define-data x86-program?
   (cons-x86-program
@@ -100,3 +101,15 @@
   '(ah al bh bl ch cl dh dl))
 
 (define byte-reg-name? (swap list-member? byte-reg-names))
+
+(define (extend-byte-register operand)
+  (match operand
+    ((reg-rand 'ah) (reg-rand 'rax))
+    ((reg-rand 'al) (reg-rand 'rax))
+    ((reg-rand 'bh) (reg-rand 'rbx))
+    ((reg-rand 'bl) (reg-rand 'rbx))
+    ((reg-rand 'ch) (reg-rand 'rcx))
+    ((reg-rand 'cl) (reg-rand 'rcx))
+    ((reg-rand 'dh) (reg-rand 'rdx))
+    ((reg-rand 'dl) (reg-rand 'rdx))
+    (else operand)))
