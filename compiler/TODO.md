@@ -4,6 +4,7 @@
 
 > 4.8 Explicate Control
 
+[pass] patch instructions -- support conditional
 [pass] optimize blocks and remove jumps
 
 [pass] refactor `uncover-live`
