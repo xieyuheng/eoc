@@ -2,9 +2,7 @@
 
 (export
   uncover-live live-info?
-  uncover-live-before
   uncover-live-before*
-  uncover-live-read
   uncover-live-write)
 
 (claim live-info? (-> anything? bool?))
@@ -68,7 +66,17 @@
 (define (uncover-live-block blocks block)
   (match block
     ((cons-block info instrs)
-     (= live-before-sets (uncover-live-before* blocks instrs {}))
+     (= target-block
+        (match (list-last instrs)
+          ((jmp label) (record-get label blocks))
+          ((jmp-if cc label) (record-get label blocks))
+          (else null)))
+     (= last-live-after-set
+        (if (null? target-block)
+          {}
+          (record-get 'block-live-before-set (block-info target-block))))
+     (= live-before-sets
+        (uncover-live-before* blocks instrs last-live-after-set))
      (cons-block
       (record-append
        info
@@ -83,14 +91,16 @@
       (list? (set? location-operand?))))
 
 (define (uncover-live-before* blocks instrs last-live-after-set)
-  (list-init
-   (list-fold-right
-    (lambda (instr live-after-sets)
-      (= live-after-set (list-first live-after-sets))
-      (= live-before-set (uncover-live-before blocks instr live-after-set))
-      (cons live-before-set live-after-sets))
-    [last-live-after-set]
-    instrs)))
+  (pipe instrs
+    (swap list-zip (list-push null (list-tail instrs)))
+    (list-fold-right
+     (lambda ([instr next-instr] live-after-sets)
+       (= live-after-set (list-first live-after-sets))
+       (= live-before-set
+          (uncover-live-before blocks instr live-after-set))
+       (cons live-before-set live-after-sets))
+     [last-live-after-set])
+    list-init))
 
 (claim uncover-live-before
   (-> (record? (block/info? live-info?))
@@ -99,9 +109,21 @@
       (set? location-operand?)))
 
 (define (uncover-live-before blocks instr live-after-set)
-  (pipe live-after-set
-    (swap set-difference (uncover-live-write blocks instr))
-    (set-union (uncover-live-read blocks instr))))
+  (= target-block
+     (match instr
+       ((jmp label) (record-get label blocks))
+       ((jmp-if cc label) (record-get label blocks))
+       (else null)))
+  (cond ((null? target-block)
+         (pipe live-after-set
+           (swap set-difference (uncover-live-write blocks instr))
+           (set-union (uncover-live-read blocks instr))))
+        ((jmp? instr)
+         (record-get 'block-live-before-set (block-info target-block)))
+        ((jmp-if? instr)
+         (set-union
+          live-after-set
+          (record-get 'block-live-before-set (block-info target-block))))))
 
 (claim uncover-live-read
   (-> (record? (block/info? live-info?)) instr?

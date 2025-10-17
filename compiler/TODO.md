@@ -4,12 +4,12 @@
 
 > 4.8 Explicate Control
 
-[pass] fix `uncover-live-write` & `uncover-live-read` -- on `(jmp label)`
-
-- currently assume all jump is to `.epilog`
+[pass] `build-interference` -- support conditional
 
 [pass] patch instructions -- support conditional
 [pass] optimize blocks and remove jumps
+
+[pass] refactor `uncover-live`
 
 > 4.9 Select Instructions
 > 4.10 Register Allocation
