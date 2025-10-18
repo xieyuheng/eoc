@@ -3,28 +3,25 @@
 (import-all "src/index.lisp")
 
 (match (current-command-line-args)
-  (['compile input :output output :optimization-level optimization-level]
-   (= optimization-level (if (null? optimization-level) 0 optimization-level))
+  (['compile input :output output]
    (= input-file (symbol-to-string input))
    (= program (load-program input-file))
-   (= x86-program (compile-program optimization-level program))
+   (= x86-program (compile-program program))
    (= output-file (if (null? output)
                     (string-append input-file ".exe")
                     (symbol-to-string output)))
    (generate-exe x86-program output-file))
 
-  (['compile-assembly input :optimization-level optimization-level]
-   (= optimization-level (if (null? optimization-level) 0 optimization-level))
+  (['compile-assembly input]
    (= input-file (symbol-to-string input))
    (= program (load-program input-file))
-   (= x86-program (compile-program optimization-level program))
+   (= x86-program (compile-program program))
    (write (format-x86-program x86-program)))
 
-  (['compile-passes input :optimization-level optimization-level]
-   (= optimization-level (if (null? optimization-level) 0 optimization-level))
+  (['compile-passes input]
    (= input-file (symbol-to-string input))
    (= program (load-program input-file))
-   (compile-passes optimization-level program))
+   (compile-passes program))
 
   (['help]
    (print-help))
