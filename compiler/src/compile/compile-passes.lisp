@@ -15,6 +15,7 @@
 (define (compile-passes/level-0 program)
   (pipe program
     (compose check-program (log-program "program"))
+    (compose check-program (log-program "shrink") shrink)
     (compose check-program (log-program "uniquify") uniquify)
     (compose check-program (log-program "remove-complex-operands") rco-program)
     (compose check-c-program (log-c-program "explicate-control") explicate-control)
@@ -31,6 +32,7 @@
   (pipe program
     (compose check-program (log-program "program"))
     (compose check-program (log-program "partial-eval") partial-eval-program)
+    (compose check-program (log-program "shrink") shrink)
     (compose check-program (log-program "uniquify") uniquify)
     (compose check-program (log-program "remove-complex-operands") rco-program)
     (compose check-c-program (log-c-program "explicate-control") explicate-control)

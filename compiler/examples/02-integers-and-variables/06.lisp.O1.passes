@@ -6,6 +6,10 @@ partial-eval:
 
   (program () (ineg (random-dice)))
 
+shrink:
+
+  (program () (ineg (random-dice)))
+
 uniquify:
 
   (program () (ineg (random-dice)))

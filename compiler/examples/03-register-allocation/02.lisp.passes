@@ -2,6 +2,10 @@ program:
 
   (program () (let ((x (random-dice))) (let ((y (random-dice))) (iadd (iadd x y) 42))))
 
+shrink:
+
+  (program () (let ((x (random-dice))) (let ((y (random-dice))) (iadd (iadd x y) 42))))
+
 uniquify:
 
   (program () (let ((x₁ (random-dice))) (let ((y₁ (random-dice))) (iadd (iadd x₁ y₁) 42))))

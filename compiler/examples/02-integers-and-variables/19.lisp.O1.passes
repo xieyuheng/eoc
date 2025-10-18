@@ -6,6 +6,10 @@ partial-eval:
 
   (program () 111)
 
+shrink:
+
+  (program () 111)
+
 uniquify:
 
   (program () 111)

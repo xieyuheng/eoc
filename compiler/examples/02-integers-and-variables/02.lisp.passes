@@ -2,6 +2,10 @@ program:
 
   (program () (let ((y (let ((x 20)) (iadd x (let ((x 22)) x))))) y))
 
+shrink:
+
+  (program () (let ((y (let ((x 20)) (iadd x (let ((x 22)) x))))) y))
+
 uniquify:
 
   (program () (let ((y₁ (let ((x₁ 20)) (iadd x₁ (let ((x₂ 22)) x₂))))) y₁))

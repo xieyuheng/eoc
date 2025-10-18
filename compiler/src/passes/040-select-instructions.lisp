@@ -24,15 +24,17 @@
       (list? instr?)))
 
 (define (select-instr-seq label seq)
+  ;; TODO should use real function name
+  (= function-name 'begin)
   (match seq
     ;; special case: tail call
     ((return-seq (prim-c-exp 'random-dice []))
      [(callq 'random_dice 0)
-      (jmp (symbol-append label '.epilog))])
+      (jmp (symbol-append function-name '.epilog))])
     ((return-seq exp)
      (list-append
       (select-instr-assign (reg-rand 'rax) exp)
-      [(jmp (symbol-append label '.epilog))]))
+      [(jmp (symbol-append function-name '.epilog))]))
     ((goto-seq target-label)
      [(jmp target-label)])
     ((branch-seq (prim-c-exp (the cmp-op? op) [arg1 arg2])

@@ -2,6 +2,10 @@ program:
 
   (program () 42)
 
+shrink:
+
+  (program () 42)
+
 uniquify:
 
   (program () 42)

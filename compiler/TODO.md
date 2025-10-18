@@ -2,7 +2,7 @@
 
 > 4 Booleans and Conditionals
 
-[pass] test conditional
+[pass] remove `partial-eval`
 [pass] optimize blocks and remove jumps
 [pass] refactor `uncover-live`
 

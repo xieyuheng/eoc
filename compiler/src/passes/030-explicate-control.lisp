@@ -89,7 +89,7 @@
      (= cont (explicate-assign seqs label name rhs-body cont))
      (explicate-assign seqs label rhs-name rhs-rhs cont))
     ((if-exp condition consequent alternative)
-     (= let-body-label (generate-label seqs label 'let-body cont))
+     (= let-body-label (generate-label seqs label 'let_body cont))
      (explicate-if
       seqs label
       condition

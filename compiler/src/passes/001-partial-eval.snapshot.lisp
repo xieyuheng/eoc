@@ -29,3 +29,12 @@
 
 (test-program
  '(program () (iadd (iadd 8 8) (ineg x))))
+
+(test-program
+ '(program
+   ()
+   (let ((x (random-dice)))
+     (let ((y (random-dice)))
+       (if (if (lt? x 1) (eq? x 0) (eq? x 2))
+         (iadd y 2)
+         (iadd y 10))))))

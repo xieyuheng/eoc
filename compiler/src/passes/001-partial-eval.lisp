@@ -21,6 +21,12 @@
        found))
     ((int-exp n)
      (int-exp n))
+    ((bool-exp n)
+     (bool-exp n))
+    ((if-exp condition consequent alternative)
+     (if-exp (partial-eval-exp condition env)
+             (partial-eval-exp consequent env)
+             (partial-eval-exp alternative env)))
     ((prim-exp 'random-dice [])
      (prim-exp 'random-dice []))
     ((prim-exp 'ineg [e])
@@ -34,11 +40,11 @@
      (partial-eval-isub
       (partial-eval-exp e1 env)
       (partial-eval-exp e2 env)))
+    ((prim-exp op args)
+     (prim-exp op (list-map (swap partial-eval-exp env) args)))
     ((let-exp name rhs body)
      (= new-env (record-put name (partial-eval-exp rhs env) env))
-     (partial-eval-exp body new-env))
-    (else
-     exp)))
+     (partial-eval-exp body new-env))))
 
 (define (partial-eval-ineg r)
   (match r

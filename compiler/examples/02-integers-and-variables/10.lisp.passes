@@ -2,6 +2,10 @@ program:
 
   (program () (let ((x (iadd (iadd 1 2) (iadd 3 4)))) (iadd x 5)))
 
+shrink:
+
+  (program () (let ((x (iadd (iadd 1 2) (iadd 3 4)))) (iadd x 5)))
+
 uniquify:
 
   (program () (let ((x₁ (iadd (iadd 1 2) (iadd 3 4)))) (iadd x₁ 5)))

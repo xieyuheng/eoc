@@ -131,14 +131,26 @@
 
 (define (uncover-live-read blocks instr)
   (match instr
-    ((callq label arity) (list-to-set (list-take arity sysv-argument-registers)))
-    (retq {(reg-rand 'rsp) (reg-rand 'rax)})
+    ((callq label arity)
+     (list-to-set (list-take arity sysv-argument-registers)))
+    (retq
+     {(reg-rand 'rsp) (reg-rand 'rax)})
     ;; TODO only when label ends with .epilog
-    ((jmp label) {(reg-rand 'rsp) (reg-rand 'rax)})
-    (['addq [src dest]] (set-union (uncover-live-operand src) (uncover-live-operand dest)))
-    (['subq [src dest]] (set-union (uncover-live-operand src) (uncover-live-operand dest)))
-    (['movq [src dest]] (uncover-live-operand src))
-    (['negq [dest]] (uncover-live-operand dest))))
+    ((jmp label)
+     {(reg-rand 'rsp) (reg-rand 'rax)})
+    (['addq [src dest]]
+     (set-union (uncover-live-operand src)
+                (uncover-live-operand dest)))
+    (['subq [src dest]]
+     (set-union (uncover-live-operand src)
+                (uncover-live-operand dest)))
+    (['movq [src dest]]
+     (uncover-live-operand src))
+    (['negq [dest]]
+     (uncover-live-operand dest))
+    (['cmpq [src dest]]
+     (set-union (uncover-live-operand src)
+                (uncover-live-operand dest)))))
 
 (claim uncover-live-write
   (-> (record? (block/info? live-info?)) instr?
@@ -146,14 +158,23 @@
 
 (define (uncover-live-write blocks instr)
   (match instr
-    ((callq label arity) (list-to-set sysv-caller-saved-registers))
-    (retq {(reg-rand 'rsp)})
+    ((callq label arity)
+     (list-to-set sysv-caller-saved-registers))
+    (retq
+     {(reg-rand 'rsp)})
     ;; TODO only when label ends with .epilog
-    ((jmp label) {(reg-rand 'rsp) (reg-rand 'rax)})
-    (['addq [src dest]] (uncover-live-operand dest))
-    (['subq [src dest]] (uncover-live-operand dest))
-    (['movq [src dest]] (uncover-live-operand dest))
-    (['negq [dest]] (uncover-live-operand dest))))
+    ((jmp label)
+     {(reg-rand 'rsp) (reg-rand 'rax)})
+    (['addq [src dest]]
+     (uncover-live-operand dest))
+    (['subq [src dest]]
+     (uncover-live-operand dest))
+    (['movq [src dest]]
+     (uncover-live-operand dest))
+    (['negq [dest]]
+     (uncover-live-operand dest))
+    (['cmpq [src dest]]
+     {})))
 
 (define (uncover-live-operand operand)
   (if (location-operand? operand) {operand} {}))

@@ -2,6 +2,10 @@ program:
 
   (program () (iadd 20 22))
 
+shrink:
+
+  (program () (iadd 20 22))
+
 uniquify:
 
   (program () (iadd 20 22))

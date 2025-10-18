@@ -10,12 +10,49 @@
 
 (define (check-c-program c-program)
   (match c-program
-    ((cons-c-program info [:begin seq])
+    ((cons-c-program info seqs)
      (= context [])
-     (check-seq context seq)
+     (pipe seqs
+       make-control-flow-graph
+       digraph-topological-order
+       (list-each
+        (lambda (label)
+          (= seq (record-get label seqs))
+          (unless (null? seq)
+           (check-seq context seq)))))
      (cons-c-program
       (record-put 'context context info)
-      [:begin seq]))))
+      seqs))))
+
+(claim make-control-flow-graph
+  (-> (record? seq?)
+      (digraph? symbol?)))
+
+(define (make-control-flow-graph seqs)
+  (= vertices (record-keys seqs))
+  (= edges
+     (pipe seqs
+       record-entries
+       (list-lift
+        (lambda ([source-label seq])
+          (pipe (seq-jmp-labels seq)
+            (list-map (compose (cons source-label) list-unit)))))))
+  (make-digraph vertices edges))
+
+(claim seq-jmp-labels
+  (-> seq?
+      (list? symbol?)))
+
+(define (seq-jmp-labels seq)
+  (match seq
+    ((cons-seq stmt tail)
+     (seq-jmp-labels tail))
+    ((return-seq result)
+     [])
+    ((goto-seq label)
+     [label])
+    ((branch-seq condition then-label else-label)
+     [then-label else-label])))
 
 (claim check-seq
   (-> (record? type?) seq?
@@ -56,7 +93,9 @@
             (exit [:who 'check-stmt
                    :stmt stmt
                    :rhs-type rhs-type
-                   :found-type found-type]))))))
+                   :found-type found-type]))
+           (else
+            void)))))
 
 (claim infer-c-exp
   (-> (record? type?) c-exp?

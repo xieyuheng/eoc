@@ -2,6 +2,10 @@ program:
 
   (program () (isub 50 8))
 
+shrink:
+
+  (program () (isub 50 8))
+
 uniquify:
 
   (program () (isub 50 8))

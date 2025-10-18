@@ -17,6 +17,7 @@
 (define (compile-program/level-0 program)
   (pipe program
     check-program
+    (compose check-program shrink)
     (compose check-program uniquify)
     (compose check-program rco-program)
     (compose check-c-program explicate-control)
@@ -32,6 +33,7 @@
   (pipe program
     check-program
     (compose check-program partial-eval-program)
+    (compose check-program shrink)
     (compose check-program uniquify)
     (compose check-program rco-program)
     (compose check-c-program explicate-control)

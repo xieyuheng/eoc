@@ -6,6 +6,10 @@ partial-eval:
 
   (program () (iadd 42 (iadd (random-dice) (random-dice))))
 
+shrink:
+
+  (program () (iadd 42 (iadd (random-dice) (random-dice))))
+
 uniquify:
 
   (program () (iadd 42 (iadd (random-dice) (random-dice))))

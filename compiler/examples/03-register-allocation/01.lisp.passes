@@ -2,6 +2,10 @@ program:
 
   (program () (let ((v 1)) (let ((w 42)) (let ((x (iadd v 7))) (let ((y x)) (let ((z (iadd x w))) (iadd z (ineg y))))))))
 
+shrink:
+
+  (program () (let ((v 1)) (let ((w 42)) (let ((x (iadd v 7))) (let ((y x)) (let ((z (iadd x w))) (iadd z (ineg y))))))))
+
 uniquify:
 
   (program () (let ((v₁ 1)) (let ((w₁ 42)) (let ((x₁ (iadd v₁ 7))) (let ((y₁ x₁)) (let ((z₁ (iadd x₁ w₁))) (iadd z₁ (ineg y₁))))))))

@@ -2,6 +2,10 @@ program:
 
   (program () (let ((z (let ((y (let ((x (ineg 42))) x))) y))) (ineg z)))
 
+shrink:
+
+  (program () (let ((z (let ((y (let ((x (ineg 42))) x))) y))) (ineg z)))
+
 uniquify:
 
   (program () (let ((z₁ (let ((y₁ (let ((x₁ (ineg 42))) x₁))) y₁))) (ineg z₁)))

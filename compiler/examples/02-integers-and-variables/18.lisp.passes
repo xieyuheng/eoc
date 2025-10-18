@@ -2,6 +2,10 @@ program:
 
   (program () (iadd (iadd (iadd (iadd (random-dice) 1) 1) 1) 1))
 
+shrink:
+
+  (program () (iadd (iadd (iadd (iadd (random-dice) 1) 1) 1) 1))
+
 uniquify:
 
   (program () (iadd (iadd (iadd (iadd (random-dice) 1) 1) 1) 1))

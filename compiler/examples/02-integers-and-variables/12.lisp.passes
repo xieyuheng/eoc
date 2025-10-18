@@ -2,6 +2,10 @@ program:
 
   (program () (iadd (iadd 1 2) (iadd 3 (iadd 4 5))))
 
+shrink:
+
+  (program () (iadd (iadd 1 2) (iadd 3 (iadd 4 5))))
+
 uniquify:
 
   (program () (iadd (iadd 1 2) (iadd 3 (iadd 4 5))))
