@@ -6,21 +6,16 @@
 (claim check-c-program
   (-> c-program?
       (c-program/info?
-       (tau :contexts (record? (record? type?))))))
+       (tau :context (record? type?)))))
 
 (define (check-c-program c-program)
   (match c-program
-    ((cons-c-program info seqs)
-     (= contexts
-        (record-map-value
-         (lambda (seq)
-           (= context [])
-           (check-seq context seq)
-           context)
-         seqs))
+    ((cons-c-program info [:begin seq])
+     (= context [])
+     (check-seq context seq)
      (cons-c-program
-      (record-put 'contexts contexts info)
-      seqs))))
+      (record-put 'context context info)
+      [:begin seq]))))
 
 (claim check-seq
   (-> (record? type?) seq?

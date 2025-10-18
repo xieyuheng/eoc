@@ -4,23 +4,22 @@
 (export prolog-and-epilog)
 
 (claim prolog-and-epilog
-  (-> (x86-program/block? (block/info? register-info?))
+  (-> (x86-program/info? register-info?)
       x86-program?))
 
 (define (prolog-and-epilog x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
+     (= [:begin block] blocks)
+     (= label 'begin)
      (cons-x86-program
       info
-      (pipe blocks
-        record-entries
-        (list-lift
-         (lambda ([label block])
-           [[label (prolog-block label (block-info block))]
-            [(symbol-append label '.body) block]
-            [(symbol-append label '.epilog)
-             (epilog-block label (block-info block))]]))
-        record-from-entries)))))
+      (record-put-entries
+       [[label (prolog-block label info)]
+        [(symbol-append label '.body) block]
+        [(symbol-append label '.epilog)
+         (epilog-block label info)]]
+       blocks)))))
 
 (define (leave-stack-space info)
   (= [:spill-count spill-count :callee-saved callee-saved] info)

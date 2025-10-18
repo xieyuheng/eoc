@@ -9,29 +9,34 @@
   (tau :interference-graph (graph? location-operand?)))
 
 (claim build-interference
-  (-> (x86-program/block?
-       (block/info? (inter live-info? (tau :context (record? type?)))))
-      (x86-program/block?
-       (block/info? interference-info?))))
+  (-> (inter
+        (x86-program/info? (tau :context (record? type?)))
+        (x86-program/block? (block/info? live-info?)))
+      (x86-program/info? interference-info?)))
 
 (define (build-interference x86-program)
   (match x86-program
     ((cons-x86-program info blocks)
-     (cons-x86-program info (record-map-value build-interference-block blocks)))))
+     (= [:context context] info)
+     (= vertices (list-map var-rand (record-keys context)))
+     (= edges
+        (pipe blocks
+          record-values
+          (list-lift build-interference-block)))
+     (= graph (make-graph vertices edges))
+     (cons-x86-program
+      (record-put 'interference-graph graph info)
+      blocks))))
 
 (claim build-interference-block
   (-> (block/info? live-info?)
-      (block/info? interference-info?)))
+      (list? (tau location-operand? location-operand?))))
 
 (define (build-interference-block block)
   (match block
     ((cons-block info instrs)
-     (= [:live-after-sets live-after-sets :context context] info)
-     (= vertices (list-map var-rand (record-keys context)))
-     (= edges (list-concat
-               (list-map-zip instr-edges instrs live-after-sets)))
-     (= graph (make-graph vertices edges))
-     (cons-block (record-put 'interference-graph graph info) instrs))))
+     (= [:live-after-sets live-after-sets] info)
+     (list-concat (list-map-zip instr-edges instrs live-after-sets)))))
 
 (claim instr-edges
   (-> instr? (set? location-operand?)

@@ -19,10 +19,10 @@ explicate-control:
 select-instructions:
 
   [#cons-x86-program
-   [:contexts [:begin []]]
+   [:context []]
    [:begin
     [#cons-block
-     [:context []]
+     []
      [['movq [[#imm-rand 50] [#reg-rand 'rax]]]
       ['subq [[#imm-rand 8] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]]]
@@ -30,11 +30,10 @@ select-instructions:
 uncover-live:
 
   [#cons-x86-program
-   [:contexts [:begin []]]
+   [:context []]
    [:begin
     [#cons-block
-     [:context []
-      :block-live-before-set {[#reg-rand 'rsp]}
+     [:block-live-before-set {[#reg-rand 'rsp]}
       :live-after-sets
       [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}]]
      [['movq [[#imm-rand 50] [#reg-rand 'rax]]]
@@ -44,19 +43,18 @@ uncover-live:
 build-interference:
 
   [#cons-x86-program
-   [:contexts [:begin []]]
+   [:context []
+    :interference-graph
+    [#cons-graph
+     {[#reg-rand 'rax] [#reg-rand 'rsp]}
+     (@hash
+       [#reg-rand 'rax] {[#reg-rand 'rsp]}
+       [#reg-rand 'rsp] {[#reg-rand 'rax]})]]
    [:begin
     [#cons-block
-     [:context []
-      :block-live-before-set {[#reg-rand 'rsp]}
+     [:block-live-before-set {[#reg-rand 'rsp]}
       :live-after-sets
-      [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}]
-      :interference-graph
-      [#cons-graph
-       {[#reg-rand 'rax] [#reg-rand 'rsp]}
-       (@hash
-         [#reg-rand 'rax] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#reg-rand 'rax]})]]
+      [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}]]
      [['movq [[#imm-rand 50] [#reg-rand 'rax]]]
       ['subq [[#imm-rand 8] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]]]
@@ -64,22 +62,21 @@ build-interference:
 allocate-registers:
 
   [#cons-x86-program
-   [:contexts [:begin []]]
+   [:home-locations (@hash)
+    :spill-count 0
+    :callee-saved []
+    :context []
+    :interference-graph
+    [#cons-graph
+     {[#reg-rand 'rax] [#reg-rand 'rsp]}
+     (@hash
+       [#reg-rand 'rax] {[#reg-rand 'rsp]}
+       [#reg-rand 'rsp] {[#reg-rand 'rax]})]]
    [:begin
     [#cons-block
-     [:home-locations (@hash)
-      :spill-count 0
-      :callee-saved []
-      :context []
-      :block-live-before-set {[#reg-rand 'rsp]}
+     [:block-live-before-set {[#reg-rand 'rsp]}
       :live-after-sets
-      [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}]
-      :interference-graph
-      [#cons-graph
-       {[#reg-rand 'rax] [#reg-rand 'rsp]}
-       (@hash
-         [#reg-rand 'rax] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#reg-rand 'rax]})]]
+      [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}]]
      [['movq [[#imm-rand 50] [#reg-rand 'rax]]]
       ['subq [[#imm-rand 8] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]]]
@@ -87,22 +84,21 @@ allocate-registers:
 assign-homes:
 
   [#cons-x86-program
-   [:contexts [:begin []]]
+   [:home-locations (@hash)
+    :spill-count 0
+    :callee-saved []
+    :context []
+    :interference-graph
+    [#cons-graph
+     {[#reg-rand 'rax] [#reg-rand 'rsp]}
+     (@hash
+       [#reg-rand 'rax] {[#reg-rand 'rsp]}
+       [#reg-rand 'rsp] {[#reg-rand 'rax]})]]
    [:begin
     [#cons-block
-     [:home-locations (@hash)
-      :spill-count 0
-      :callee-saved []
-      :context []
-      :block-live-before-set {[#reg-rand 'rsp]}
+     [:block-live-before-set {[#reg-rand 'rsp]}
       :live-after-sets
-      [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}]
-      :interference-graph
-      [#cons-graph
-       {[#reg-rand 'rax] [#reg-rand 'rsp]}
-       (@hash
-         [#reg-rand 'rax] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#reg-rand 'rax]})]]
+      [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}]]
      [['movq [[#imm-rand 50] [#reg-rand 'rax]]]
       ['subq [[#imm-rand 8] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]]]
@@ -110,22 +106,21 @@ assign-homes:
 patch-instructions:
 
   [#cons-x86-program
-   [:contexts [:begin []]]
+   [:home-locations (@hash)
+    :spill-count 0
+    :callee-saved []
+    :context []
+    :interference-graph
+    [#cons-graph
+     {[#reg-rand 'rax] [#reg-rand 'rsp]}
+     (@hash
+       [#reg-rand 'rax] {[#reg-rand 'rsp]}
+       [#reg-rand 'rsp] {[#reg-rand 'rax]})]]
    [:begin
     [#cons-block
-     [:home-locations (@hash)
-      :spill-count 0
-      :callee-saved []
-      :context []
-      :block-live-before-set {[#reg-rand 'rsp]}
+     [:block-live-before-set {[#reg-rand 'rsp]}
       :live-after-sets
-      [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}]
-      :interference-graph
-      [#cons-graph
-       {[#reg-rand 'rax] [#reg-rand 'rsp]}
-       (@hash
-         [#reg-rand 'rax] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#reg-rand 'rax]})]]
+      [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}]]
      [['movq [[#imm-rand 50] [#reg-rand 'rax]]]
       ['subq [[#imm-rand 8] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]]]
@@ -133,7 +128,16 @@ patch-instructions:
 prolog-and-epilog:
 
   [#cons-x86-program
-   [:contexts [:begin []]]
+   [:home-locations (@hash)
+    :spill-count 0
+    :callee-saved []
+    :context []
+    :interference-graph
+    [#cons-graph
+     {[#reg-rand 'rax] [#reg-rand 'rsp]}
+     (@hash
+       [#reg-rand 'rax] {[#reg-rand 'rsp]}
+       [#reg-rand 'rsp] {[#reg-rand 'rax]})]]
    [:begin
     [#cons-block
      []
@@ -142,19 +146,9 @@ prolog-and-epilog:
       [#jmp 'begin.body]]]
     :begin.body
     [#cons-block
-     [:home-locations (@hash)
-      :spill-count 0
-      :callee-saved []
-      :context []
-      :block-live-before-set {[#reg-rand 'rsp]}
+     [:block-live-before-set {[#reg-rand 'rsp]}
       :live-after-sets
-      [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}]
-      :interference-graph
-      [#cons-graph
-       {[#reg-rand 'rax] [#reg-rand 'rsp]}
-       (@hash
-         [#reg-rand 'rax] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#reg-rand 'rax]})]]
+      [{[#reg-rand 'rax] [#reg-rand 'rsp]} {[#reg-rand 'rsp] [#reg-rand 'rax]} {}]]
      [['movq [[#imm-rand 50] [#reg-rand 'rax]]]
       ['subq [[#imm-rand 8] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]

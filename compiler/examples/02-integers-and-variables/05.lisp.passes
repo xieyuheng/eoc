@@ -24,10 +24,10 @@ explicate-control:
 select-instructions:
 
   [#cons-x86-program
-   [:contexts [:begin [:a₁ #int-t :b₁ #int-t]]]
+   [:context [:a₁ #int-t :b₁ #int-t]]
    [:begin
     [#cons-block
-     [:context [:a₁ #int-t :b₁ #int-t]]
+     []
      [['movq [[#imm-rand 42] [#var-rand 'a₁]]]
       ['movq [[#var-rand 'a₁] [#var-rand 'b₁]]]
       ['movq [[#var-rand 'b₁] [#reg-rand 'rax]]]
@@ -36,11 +36,10 @@ select-instructions:
 uncover-live:
 
   [#cons-x86-program
-   [:contexts [:begin [:a₁ #int-t :b₁ #int-t]]]
+   [:context [:a₁ #int-t :b₁ #int-t]]
    [:begin
     [#cons-block
-     [:context [:a₁ #int-t :b₁ #int-t]
-      :block-live-before-set {[#reg-rand 'rsp]}
+     [:block-live-before-set {[#reg-rand 'rsp]}
       :live-after-sets
       [{[#var-rand 'a₁] [#reg-rand 'rsp]}
        {[#var-rand 'b₁] [#reg-rand 'rsp]}
@@ -54,24 +53,23 @@ uncover-live:
 build-interference:
 
   [#cons-x86-program
-   [:contexts [:begin [:a₁ #int-t :b₁ #int-t]]]
+   [:context [:a₁ #int-t :b₁ #int-t]
+    :interference-graph
+    [#cons-graph
+     {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
+     (@hash
+       [#var-rand 'a₁] {[#reg-rand 'rsp]}
+       [#var-rand 'b₁] {[#reg-rand 'rsp]}
+       [#reg-rand 'rsp] {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rax]}
+       [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
    [:begin
     [#cons-block
-     [:context [:a₁ #int-t :b₁ #int-t]
-      :block-live-before-set {[#reg-rand 'rsp]}
+     [:block-live-before-set {[#reg-rand 'rsp]}
       :live-after-sets
       [{[#var-rand 'a₁] [#reg-rand 'rsp]}
        {[#var-rand 'b₁] [#reg-rand 'rsp]}
        {[#reg-rand 'rsp] [#reg-rand 'rax]}
-       {}]
-      :interference-graph
-      [#cons-graph
-       {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
-       (@hash
-         [#var-rand 'a₁] {[#reg-rand 'rsp]}
-         [#var-rand 'b₁] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rax]}
-         [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
+       {}]]
      [['movq [[#imm-rand 42] [#var-rand 'a₁]]]
       ['movq [[#var-rand 'a₁] [#var-rand 'b₁]]]
       ['movq [[#var-rand 'b₁] [#reg-rand 'rax]]]
@@ -80,28 +78,27 @@ build-interference:
 allocate-registers:
 
   [#cons-x86-program
-   [:contexts [:begin [:a₁ #int-t :b₁ #int-t]]]
+   [:home-locations
+    (@hash [#var-rand 'a₁] [#reg-rand 'rcx] [#var-rand 'b₁] [#reg-rand 'rcx])
+    :spill-count 0
+    :callee-saved []
+    :context [:a₁ #int-t :b₁ #int-t]
+    :interference-graph
+    [#cons-graph
+     {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
+     (@hash
+       [#var-rand 'a₁] {[#reg-rand 'rsp]}
+       [#var-rand 'b₁] {[#reg-rand 'rsp]}
+       [#reg-rand 'rsp] {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rax]}
+       [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
    [:begin
     [#cons-block
-     [:home-locations
-      (@hash [#var-rand 'a₁] [#reg-rand 'rcx] [#var-rand 'b₁] [#reg-rand 'rcx])
-      :spill-count 0
-      :callee-saved []
-      :context [:a₁ #int-t :b₁ #int-t]
-      :block-live-before-set {[#reg-rand 'rsp]}
+     [:block-live-before-set {[#reg-rand 'rsp]}
       :live-after-sets
       [{[#var-rand 'a₁] [#reg-rand 'rsp]}
        {[#var-rand 'b₁] [#reg-rand 'rsp]}
        {[#reg-rand 'rsp] [#reg-rand 'rax]}
-       {}]
-      :interference-graph
-      [#cons-graph
-       {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
-       (@hash
-         [#var-rand 'a₁] {[#reg-rand 'rsp]}
-         [#var-rand 'b₁] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rax]}
-         [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
+       {}]]
      [['movq [[#imm-rand 42] [#var-rand 'a₁]]]
       ['movq [[#var-rand 'a₁] [#var-rand 'b₁]]]
       ['movq [[#var-rand 'b₁] [#reg-rand 'rax]]]
@@ -110,28 +107,27 @@ allocate-registers:
 assign-homes:
 
   [#cons-x86-program
-   [:contexts [:begin [:a₁ #int-t :b₁ #int-t]]]
+   [:home-locations
+    (@hash [#var-rand 'a₁] [#reg-rand 'rcx] [#var-rand 'b₁] [#reg-rand 'rcx])
+    :spill-count 0
+    :callee-saved []
+    :context [:a₁ #int-t :b₁ #int-t]
+    :interference-graph
+    [#cons-graph
+     {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
+     (@hash
+       [#var-rand 'a₁] {[#reg-rand 'rsp]}
+       [#var-rand 'b₁] {[#reg-rand 'rsp]}
+       [#reg-rand 'rsp] {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rax]}
+       [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
    [:begin
     [#cons-block
-     [:home-locations
-      (@hash [#var-rand 'a₁] [#reg-rand 'rcx] [#var-rand 'b₁] [#reg-rand 'rcx])
-      :spill-count 0
-      :callee-saved []
-      :context [:a₁ #int-t :b₁ #int-t]
-      :block-live-before-set {[#reg-rand 'rsp]}
+     [:block-live-before-set {[#reg-rand 'rsp]}
       :live-after-sets
       [{[#var-rand 'a₁] [#reg-rand 'rsp]}
        {[#var-rand 'b₁] [#reg-rand 'rsp]}
        {[#reg-rand 'rsp] [#reg-rand 'rax]}
-       {}]
-      :interference-graph
-      [#cons-graph
-       {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
-       (@hash
-         [#var-rand 'a₁] {[#reg-rand 'rsp]}
-         [#var-rand 'b₁] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rax]}
-         [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
+       {}]]
      [['movq [[#imm-rand 42] [#reg-rand 'rcx]]]
       ['movq [[#reg-rand 'rcx] [#reg-rand 'rcx]]]
       ['movq [[#reg-rand 'rcx] [#reg-rand 'rax]]]
@@ -140,28 +136,27 @@ assign-homes:
 patch-instructions:
 
   [#cons-x86-program
-   [:contexts [:begin [:a₁ #int-t :b₁ #int-t]]]
+   [:home-locations
+    (@hash [#var-rand 'a₁] [#reg-rand 'rcx] [#var-rand 'b₁] [#reg-rand 'rcx])
+    :spill-count 0
+    :callee-saved []
+    :context [:a₁ #int-t :b₁ #int-t]
+    :interference-graph
+    [#cons-graph
+     {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
+     (@hash
+       [#var-rand 'a₁] {[#reg-rand 'rsp]}
+       [#var-rand 'b₁] {[#reg-rand 'rsp]}
+       [#reg-rand 'rsp] {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rax]}
+       [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
    [:begin
     [#cons-block
-     [:home-locations
-      (@hash [#var-rand 'a₁] [#reg-rand 'rcx] [#var-rand 'b₁] [#reg-rand 'rcx])
-      :spill-count 0
-      :callee-saved []
-      :context [:a₁ #int-t :b₁ #int-t]
-      :block-live-before-set {[#reg-rand 'rsp]}
+     [:block-live-before-set {[#reg-rand 'rsp]}
       :live-after-sets
       [{[#var-rand 'a₁] [#reg-rand 'rsp]}
        {[#var-rand 'b₁] [#reg-rand 'rsp]}
        {[#reg-rand 'rsp] [#reg-rand 'rax]}
-       {}]
-      :interference-graph
-      [#cons-graph
-       {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
-       (@hash
-         [#var-rand 'a₁] {[#reg-rand 'rsp]}
-         [#var-rand 'b₁] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rax]}
-         [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
+       {}]]
      [['movq [[#imm-rand 42] [#reg-rand 'rcx]]]
       ['movq [[#reg-rand 'rcx] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]]]
@@ -169,7 +164,19 @@ patch-instructions:
 prolog-and-epilog:
 
   [#cons-x86-program
-   [:contexts [:begin [:a₁ #int-t :b₁ #int-t]]]
+   [:home-locations
+    (@hash [#var-rand 'a₁] [#reg-rand 'rcx] [#var-rand 'b₁] [#reg-rand 'rcx])
+    :spill-count 0
+    :callee-saved []
+    :context [:a₁ #int-t :b₁ #int-t]
+    :interference-graph
+    [#cons-graph
+     {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
+     (@hash
+       [#var-rand 'a₁] {[#reg-rand 'rsp]}
+       [#var-rand 'b₁] {[#reg-rand 'rsp]}
+       [#reg-rand 'rsp] {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rax]}
+       [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
    [:begin
     [#cons-block
      []
@@ -178,25 +185,12 @@ prolog-and-epilog:
       [#jmp 'begin.body]]]
     :begin.body
     [#cons-block
-     [:home-locations
-      (@hash [#var-rand 'a₁] [#reg-rand 'rcx] [#var-rand 'b₁] [#reg-rand 'rcx])
-      :spill-count 0
-      :callee-saved []
-      :context [:a₁ #int-t :b₁ #int-t]
-      :block-live-before-set {[#reg-rand 'rsp]}
+     [:block-live-before-set {[#reg-rand 'rsp]}
       :live-after-sets
       [{[#var-rand 'a₁] [#reg-rand 'rsp]}
        {[#var-rand 'b₁] [#reg-rand 'rsp]}
        {[#reg-rand 'rsp] [#reg-rand 'rax]}
-       {}]
-      :interference-graph
-      [#cons-graph
-       {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
-       (@hash
-         [#var-rand 'a₁] {[#reg-rand 'rsp]}
-         [#var-rand 'b₁] {[#reg-rand 'rsp]}
-         [#reg-rand 'rsp] {[#var-rand 'a₁] [#var-rand 'b₁] [#reg-rand 'rax]}
-         [#reg-rand 'rax] {[#reg-rand 'rsp]})]]
+       {}]]
      [['movq [[#imm-rand 42] [#reg-rand 'rcx]]]
       ['movq [[#reg-rand 'rcx] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]

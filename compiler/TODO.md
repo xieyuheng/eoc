@@ -2,14 +2,6 @@
 
 > 4 Booleans and Conditionals
 
-[pass] use program info instead of block info
-
-- [ ] check-c-program
-- [ ] select-instructions
-- [ ] uncover-live
-- [ ] build-interference
-- [ ] allocate-registers
-
 [pass] test conditional
 [pass] optimize blocks and remove jumps
 [pass] refactor `uncover-live`

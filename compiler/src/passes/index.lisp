@@ -14,7 +14,7 @@
 ;; Do liveness analysis for each block, i.e. uncover
 ;; which variables are in use for every instruction.
 (include "050-uncover-live" uncover-live)
-;; Build interference graph for each block.
+;; Build interference graph for each function.
 (include "051-build-interference" build-interference)
 ;; Find home locations (hopefully registers) for variables.
 (include "052-allocate-registers" allocate-registers)

@@ -4,10 +4,9 @@
 
 (claim select-instructions
   (-> (c-program/info?
-       (tau :contexts (record? (record? type?))))
-      (x86-program/block?
-       (block/info?
-        (tau :context (record? type?))))))
+       (tau :context (record? type?)))
+      (x86-program/info?
+       (tau :context (record? type?)))))
 
 (define (select-instructions c-program)
   (match c-program
@@ -15,15 +14,10 @@
      (cons-x86-program
       info
       (pipe seqs
-        record-entries
-        (list-map
-         (lambda ([label seq])
-           (= contexts (record-get 'contexts info))
-           (= context (record-get label contexts))
-           [label (cons-block
-                   [:context context]
-                   (select-instr-seq label seq))]))
-        record-from-entries)))))
+        (record-map
+         (lambda (label seq)
+           (= context (record-get 'context info))
+           [label (cons-block [] (select-instr-seq label seq))])))))))
 
 (claim select-instr-seq
   (-> symbol? seq?
