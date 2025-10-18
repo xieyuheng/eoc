@@ -4,7 +4,15 @@
 
 > 4.8 Explicate Control
 
-refactor the structure to add a function
+[example] simple example file name
+[pass] use program info instead of block info
+
+- [ ] check-c-program
+- [ ] select-instructions
+- [ ] uncover-live
+- [ ] build-interference
+- [ ] allocate-registers
+
 
 [pass] test conditional
 [pass] optimize blocks and remove jumps
