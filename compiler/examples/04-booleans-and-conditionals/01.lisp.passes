@@ -18,16 +18,7 @@ explicate-control:
 
   [#cons-c-program
    []
-   [:begin
-    [#cons-seq
-     [#assign-stmt [#var-c-exp 'x₁] [#prim-c-exp 'random-dice []]]
-     [#cons-seq
-      [#assign-stmt [#var-c-exp 'y₁] [#prim-c-exp 'random-dice []]]
-      [#branch-seq
-       [#prim-c-exp 'lt? [[#var-c-exp 'x₁] [#int-c-exp 1]]]
-       'begin.then.4
-       'begin.else.5]]]
-    :begin.then.0
+   [:begin.then.0
     [#return-seq [#prim-c-exp 'iadd [[#var-c-exp 'y₁] [#int-c-exp 2]]]]
     :begin.else.1
     [#return-seq [#prim-c-exp 'iadd [[#var-c-exp 'y₁] [#int-c-exp 10]]]]
@@ -42,23 +33,22 @@ explicate-control:
     [#branch-seq
      [#prim-c-exp 'eq? [[#var-c-exp 'x₁] [#int-c-exp 2]]]
      'begin.then.2
-     'begin.else.3]]]
+     'begin.else.3]
+    :begin
+    [#cons-seq
+     [#assign-stmt [#var-c-exp 'x₁] [#prim-c-exp 'random-dice []]]
+     [#cons-seq
+      [#assign-stmt [#var-c-exp 'y₁] [#prim-c-exp 'random-dice []]]
+      [#branch-seq
+       [#prim-c-exp 'lt? [[#var-c-exp 'x₁] [#int-c-exp 1]]]
+       'begin.then.4
+       'begin.else.5]]]]]
 
 select-instructions:
 
   [#cons-x86-program
    [:context [:x₁ #int-t :y₁ #int-t]]
-   [:begin
-    [#cons-block
-     []
-     [[#callq 'random_dice 0]
-      ['movq [[#reg-rand 'rax] [#var-rand 'x₁]]]
-      [#callq 'random_dice 0]
-      ['movq [[#reg-rand 'rax] [#var-rand 'y₁]]]
-      ['cmpq [[#imm-rand 1] [#var-rand 'x₁]]]
-      [#jmp-if 'l 'begin.then.4]
-      [#jmp 'begin.else.5]]]
-    :begin.then.0
+   [:begin.then.0
     [#cons-block
      []
      [['movq [[#var-rand 'y₁] [#reg-rand 'rax]]]
@@ -83,7 +73,17 @@ select-instructions:
      []
      [['cmpq [[#imm-rand 2] [#var-rand 'x₁]]]
       [#jmp-if 'e 'begin.then.2]
-      [#jmp 'begin.else.3]]]]]
+      [#jmp 'begin.else.3]]]
+    :begin
+    [#cons-block
+     []
+     [[#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#var-rand 'x₁]]]
+      [#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#var-rand 'y₁]]]
+      ['cmpq [[#imm-rand 1] [#var-rand 'x₁]]]
+      [#jmp-if 'l 'begin.then.4]
+      [#jmp 'begin.else.5]]]]]
 
 uncover-live:
 

@@ -10,12 +10,8 @@
     ((cons-program info body)
      (= seqs [])
      (= label 'begin)
-     (cons-c-program
-      info
-      ;; control the order of entries in record:
-      (record-append
-       (record-unit label (explicate-tail seqs label body))
-       seqs)))))
+     (= seq (explicate-tail seqs label body))
+     (cons-c-program info (record-put label seq seqs)))))
 
 (claim explicate-tail
   (-> (record? seq?) symbol? atom-operand-exp?

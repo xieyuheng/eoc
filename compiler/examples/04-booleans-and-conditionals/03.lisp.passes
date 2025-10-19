@@ -18,14 +18,7 @@ explicate-control:
 
   [#cons-c-program
    []
-   [:begin
-    [#cons-seq
-     [#assign-stmt [#var-c-exp '_₁] [#prim-c-exp 'random-dice []]]
-     [#branch-seq
-      [#prim-c-exp 'eq? [[#var-c-exp '_₁] [#int-c-exp 1]]]
-      'begin.then.4
-      'begin.else.3]]
-    :begin.then.0 [#return-seq [#int-c-exp 0]]
+   [:begin.then.0 [#return-seq [#int-c-exp 0]]
     :begin.else.1 [#return-seq [#int-c-exp 42]]
     :begin.then.2 [#goto-seq 'begin.then.0]
     :begin.else.3 [#goto-seq 'begin.else.1]
@@ -35,21 +28,20 @@ explicate-control:
      [#branch-seq
       [#prim-c-exp 'eq? [[#var-c-exp '_₂] [#int-c-exp 2]]]
       'begin.then.2
+      'begin.else.3]]
+    :begin
+    [#cons-seq
+     [#assign-stmt [#var-c-exp '_₁] [#prim-c-exp 'random-dice []]]
+     [#branch-seq
+      [#prim-c-exp 'eq? [[#var-c-exp '_₁] [#int-c-exp 1]]]
+      'begin.then.4
       'begin.else.3]]]]
 
 select-instructions:
 
   [#cons-x86-program
    [:context [:_₁ #int-t :_₂ #int-t]]
-   [:begin
-    [#cons-block
-     []
-     [[#callq 'random_dice 0]
-      ['movq [[#reg-rand 'rax] [#var-rand '_₁]]]
-      ['cmpq [[#imm-rand 1] [#var-rand '_₁]]]
-      [#jmp-if 'e 'begin.then.4]
-      [#jmp 'begin.else.3]]]
-    :begin.then.0
+   [:begin.then.0
     [#cons-block
      []
      [['movq [[#imm-rand 0] [#reg-rand 'rax]]] [#jmp 'begin.epilog]]]
@@ -66,6 +58,14 @@ select-instructions:
       ['movq [[#reg-rand 'rax] [#var-rand '_₂]]]
       ['cmpq [[#imm-rand 2] [#var-rand '_₂]]]
       [#jmp-if 'e 'begin.then.2]
+      [#jmp 'begin.else.3]]]
+    :begin
+    [#cons-block
+     []
+     [[#callq 'random_dice 0]
+      ['movq [[#reg-rand 'rax] [#var-rand '_₁]]]
+      ['cmpq [[#imm-rand 1] [#var-rand '_₁]]]
+      [#jmp-if 'e 'begin.then.4]
       [#jmp 'begin.else.3]]]]]
 
 uncover-live:
