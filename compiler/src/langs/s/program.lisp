@@ -14,7 +14,7 @@
   (var-exp (name symbol?))
   (int-exp (value int?))
   (bool-exp (value bool?))
-  (if-exp (condition exp?) (consequent exp?) (alternative exp?))
+  (if-exp (condition exp?) (then exp?) (else exp?))
   (prim-exp (op symbol?) (args (list? exp?)))
   (let-exp (name symbol?) (rhs exp?) (body exp?)))
 

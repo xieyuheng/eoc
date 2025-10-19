@@ -13,10 +13,10 @@
 
 (define (shrink-exp exp)
   (match exp
-    ((if-exp condition consequent alternative)
+    ((if-exp condition then else)
      (if-exp (shrink-exp condition)
-             (shrink-exp consequent)
-             (shrink-exp alternative)))
+             (shrink-exp then)
+             (shrink-exp else)))
     ((prim-exp 'and [e1 e2])
      (if-exp (shrink-exp e1)
              (shrink-exp e2)

@@ -37,12 +37,12 @@
       seqs label
       name rhs
       (explicate-tail seqs label body)))
-    ((if-exp condition consequent alternative)
+    ((if-exp condition then else)
      (explicate-if
       seqs label
       condition
-      (explicate-tail seqs label consequent)
-      (explicate-tail seqs label alternative)))
+      (explicate-tail seqs label then)
+      (explicate-tail seqs label else)))
     (else
      (return-seq (exp-to-c-exp exp)))))
 
@@ -84,13 +84,13 @@
     ((let-exp rhs-name rhs-rhs rhs-body)
      (= cont (explicate-assign seqs label name rhs-body cont))
      (explicate-assign seqs label rhs-name rhs-rhs cont))
-    ((if-exp condition consequent alternative)
+    ((if-exp condition then else)
      (= let-body-label (generate-label seqs label 'let_body cont))
      (explicate-if
       seqs label
       condition
-      (explicate-assign seqs label name consequent (goto-seq let-body-label))
-      (explicate-assign seqs label name alternative (goto-seq let-body-label))))
+      (explicate-assign seqs label name then (goto-seq let-body-label))
+      (explicate-assign seqs label name else (goto-seq let-body-label))))
     (else
      (= stmt (assign-stmt (var-c-exp name) (exp-to-c-exp rhs)))
      (cons-seq stmt cont))))
@@ -136,11 +136,11 @@
     ((let-exp name rhs body)
      (= cont (explicate-if seqs label body then-cont else-cont))
      (explicate-assign seqs label name rhs cont))
-    ((if-exp inner-condition consequent alternative)
+    ((if-exp inner-condition then else)
      (= then-cont (goto-seq (generate-label seqs label 'then then-cont)))
      (= else-cont (goto-seq (generate-label seqs label 'else else-cont)))
      (explicate-if
       seqs label
       inner-condition
-      (explicate-if seqs label consequent then-cont else-cont)
-      (explicate-if seqs label alternative then-cont else-cont)))))
+      (explicate-if seqs label then then-cont else-cont)
+      (explicate-if seqs label else then-cont else-cont)))))

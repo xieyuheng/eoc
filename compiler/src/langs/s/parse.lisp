@@ -16,10 +16,10 @@
   (match sexp
     (`(let ((,name ,rhs)) ,body)
      (let-exp name (parse-exp rhs) (parse-exp body)))
-    (`(if ,condition ,consequent ,alternative)
+    (`(if ,condition ,then ,else)
      (if-exp (parse-exp condition)
-             (parse-exp consequent)
-             (parse-exp alternative)))
+             (parse-exp then)
+             (parse-exp else)))
     ((cons op args)
      (prim-exp op (list-map parse-exp args)))
     (atom

@@ -28,23 +28,23 @@
     ((bool-exp value)
      [(bool-exp value)
       bool-t])
-    ((if-exp condition consequent alternative)
+    ((if-exp condition then else)
      (= [condition^ condition-type] (infer-exp context condition))
      (unless (equal? bool-t condition-type)
        (exit [:who 'infer-exp
               :message "fail on if-exp's condition"
               :exp exp
               :condition-type condition-type]))
-     (= [consequent^ consequent-type] (infer-exp context consequent))
-     (= [alternative^ alternative-type] (infer-exp context alternative))
-     (unless (equal? consequent-type alternative-type)
+     (= [then^ then-type] (infer-exp context then))
+     (= [else^ else-type] (infer-exp context else))
+     (unless (equal? then-type else-type)
        (exit [:who 'infer-exp
-              :message "fail on if-exp's consequent and alternative"
+              :message "fail on if-exp's then and else"
               :exp exp
-              :consequent-type consequent-type
-              :alternative-type alternative-type]))
-     [(if-exp condition^ consequent^ alternative^)
-      consequent-type])
+              :then-type then-type
+              :else-type else-type]))
+     [(if-exp condition^ then^ else^)
+      then-type])
     ((prim-exp 'eq? [lhs rhs])
      (= [lhs^ lhs-type] (infer-exp context lhs))
      (= [rhs^ rhs-type] (infer-exp context rhs))

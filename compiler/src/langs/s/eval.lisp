@@ -24,10 +24,10 @@
               :message "undefined name"
               :name name]))
      found)
-    ((if-exp condition consequent alternative)
+    ((if-exp condition then else)
      (if (eval-exp condition env)
-       (eval-exp consequent env)
-       (eval-exp alternative env)))
+       (eval-exp then env)
+       (eval-exp else env)))
     ((prim-exp 'and [e1 e2])
      (if (not (eval-exp e1 env)) false (eval-exp e2 env)))
     ((prim-exp 'or [e1 e2])
