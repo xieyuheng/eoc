@@ -58,3 +58,13 @@ GC 之后再 pop 出来。
 生成对于保存了 pointer 的变量的 push 和 pop，
 在 codegen 的时候，只对被分配到了寄存器的变量，
 真的做 push 和 pop。
+
+使用 metadata 也是一个合理的思路，
+也就是说 control flow graph 当成是一个数据库，
+其中的 basic block 和每个 instr 都可以带有各种分析出来的数据，
+比如 liveness 和 interference 信息，
+是要保存在 instr 的 before 和 after 的，
+等等。
+
+也可以考虑 propagator model，
+把每个 SSA 中的 variable 都视为一个 cell。
