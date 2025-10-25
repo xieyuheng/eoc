@@ -1,4 +1,11 @@
+# tester
+
+setup runtime tester -- use commander
+use tester -- keep runtime.c clean
+
 # GC
 
-gc_collect
-cheney
+header encoding and API
+
+`cheney`
+`gc_collect`
