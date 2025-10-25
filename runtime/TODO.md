@@ -1,7 +1,12 @@
 # GC
 
-[gc] tuple query about element type
-[gc] tuple iter all pointer elements
+[gc] `tuple_is_atom_index`
+[gc] `tuple_is_object_index`
+
+[gc] `tuple_print`
+
+[gc] `tuple_iter_object`
+[gc] `tuple_iter_atom`
 
 [gc] `tuple_get_object`
 [gc] `tuple_set_object`
