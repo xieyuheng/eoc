@@ -1,3 +1,5 @@
+fix type system -- should only do type check in s
+
 # main
 
 > 7 Functions
