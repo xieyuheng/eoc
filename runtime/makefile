@@ -40,6 +40,9 @@ all: begin
 run: begin
 	./begin
 
+tester: tester.c $(lib)
+	$(cc) $^ $(ldflags) -o $@
+
 begin: runtime.o begin.o
 	$(cc) $^ $(ldflags) -o $@
 
@@ -53,4 +56,4 @@ lib/%.o: src/%.c $(headers)
 	mkdir -p $(dir $@); $(cc) -c $(cflags) $< -o $@
 
 clean:
-	rm -rf lib runtime.o begin.o begin
+	rm -rf lib *.o begin tester

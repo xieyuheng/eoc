@@ -9,11 +9,6 @@ int64_t random_dice(void) {
 
 int
 main(int argc, char *argv[]) {
-    gc_initialize(1024, 1024);
-    object_t *root_stack_pointer = gc_root_stack_begin;
-    size_t bytes_requested = 1024;
-    gc_collect(root_stack_pointer, bytes_requested);
-
     uint64_t result = begin();
     printf("%lld\n", result);
     return 0;
