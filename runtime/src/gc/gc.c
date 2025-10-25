@@ -1,15 +1,15 @@
 #include "index.h"
 
-object_t* gc_root_stack_begin = NULL;
-object_t* gc_root_stack_end = NULL;
+void **gc_root_stack_begin = NULL;
+void **gc_root_stack_end = NULL;
 
-object_t* gc_from_space_begin = NULL;
-object_t* gc_from_space_end = NULL;
+void **gc_from_space_begin = NULL;
+void **gc_from_space_end = NULL;
 
-static object_t* gc_to_space_begin = NULL;
-static object_t* gc_to_space_end = NULL;
+static void **gc_to_space_begin = NULL;
+static void **gc_to_space_end = NULL;
 
-object_t* gc_free_pointer = NULL;
+void **gc_free_pointer = NULL;
 
 static bool initialized = false;
 
@@ -31,16 +31,28 @@ gc_initialize(size_t root_stack_size, size_t heap_size) {
     initialized = true;
 }
 
+static void cheney(void **root_stack_pointer);
+
 void
-gc_collect(object_t* root_stack_pointer, size_t size) {
+gc_collect(void **root_stack_pointer, size_t size) {
     assert(initialized);
     assert(root_stack_pointer >= gc_root_stack_begin);
     assert(root_stack_pointer < gc_root_stack_end);
 
     (void) size;
 
-    // cheney(root_stack_pointer);
+    cheney(root_stack_pointer);
 
     // TODO check there are enough space
     // to allocate memory of the given size (in words).
+}
+
+static void
+cheney(void **root_stack_pointer) {
+    assert(root_stack_pointer);
+    void **gc_scan_pointer = gc_to_space_begin;
+    gc_free_pointer = gc_to_space_begin;
+
+    // prepare queue
+    (void) gc_scan_pointer;
 }

@@ -1,3 +1,3 @@
 #pragma once
 
-typedef void *object_t;
+typedef uint64_t tuple_t;
