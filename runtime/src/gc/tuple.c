@@ -12,3 +12,10 @@ tuple_new(size_t size) {
     self[0] = header;
     return self;
 }
+
+size_t
+tuple_size(tuple_t *self) {
+    header_t header = self[0];
+    uint64_t low_byte = header & ((uint64_t) 0xff);
+    return low_byte >> 1;
+}

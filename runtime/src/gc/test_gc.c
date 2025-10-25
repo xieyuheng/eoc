@@ -7,8 +7,21 @@ test_gc(void) {
     gc_initialize(1024, 1024);
     gc_collect(gc_root_stack_begin, 10);
 
-    tuple_t *tuple = tuple_new(10);
-    (void) tuple;
+    {
+        tuple_t *tuple = tuple_new(10);
+        assert(tuple_size(tuple) == 10);
+    }
+
+    {
+        tuple_t *tuple = tuple_new(50);
+        assert(tuple_size(tuple) == 50);
+    }
+
+    {
+        tuple_t *tuple = tuple_new(1);
+        assert(tuple_size(tuple) == 1);
+    }
+
 
     test_end();
 }

@@ -1,7 +1,5 @@
 # GC
 
-[gc] `tuple_size`
-
 [gc] tuple query about element type
 [gc] tuple iter all pointer elements
 
