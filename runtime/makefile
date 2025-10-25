@@ -33,12 +33,15 @@ src = $(shell find src -name '*.c')
 headers = $(shell find src -name '*.h')
 lib = $(patsubst src/%, lib/%, $(patsubst %.c, %.o, $(src)))
 
-.PHONY: all run clean
+.PHONY: all run test clean
 
 all: begin
 
 run: begin
 	./begin
+
+test: tester
+	./tester test-self
 
 tester: tester.c $(lib)
 	$(cc) $^ $(ldflags) -o $@
