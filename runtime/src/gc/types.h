@@ -1,3 +1,3 @@
 #pragma once
 
-typedef void *value_t;
+typedef void *object_t;
