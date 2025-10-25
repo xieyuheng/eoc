@@ -23,3 +23,20 @@ date: 2025-10-25
 - 缺点是每次 allocation 都会有函数调用。
 
 - 方便用 C 扩展，用 C 实现 builtin data types，比如 set 和 hash。
+
+我想，在 EOC 这个练习性质的项目中，
+我可以跟着老师实现方案 A。
+
+但是在 x-lisp 中，很有可能应该实现方案 B，
+因为 x-lisp 有稳定的 collection 数据类型，
+在 x-lisp 中实现这些数据类型需要暴露底层接口，
+而我不想暴露底层接口。
+
+另外，关于这些 collection 数据类型的 API，
+可能用 C 写所带来的效率提升，
+可以超过 fast allocation 的效率。
+
+x-lisp 也需要更方便地用 C 扩展，
+而不是追求尽量多的代码用 x-lisp 写。
+
+并且在 x-lisp 中，可能所有的 value 都需要带有 tag。
