@@ -19,6 +19,13 @@ gc_new(size_t initial_size) {
     return self;
 }
 
+tuple_t *
+gc_allocate_tuple(gc_t* self, size_t size) {
+    tuple_t *tuple = self->from_space;
+    self->from_space += size + 1; // + 1 for header
+    return tuple;
+}
+
 // void
 // gc_collect(void **root_stack_pointer, size_t size) {
 //     assert(initialized);

@@ -5,7 +5,8 @@ test_gc(void) {
     test_start();
 
     gc_t *gc = gc_new(1024);
-    (void) gc;
+    tuple_t *tuple = gc_allocate_tuple(gc, 10);
+    (void) tuple;
 
     // gc_initialize(1024, 1024);
     // gc_collect(gc_root_stack_begin, 10);

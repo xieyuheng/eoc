@@ -1,6 +1,6 @@
 #include "index.h"
 
-typedef uint64_t header_t;
+typedef void *header_t;
 
 tuple_t *
 tuple_new(size_t size) {
@@ -8,7 +8,7 @@ tuple_new(size_t size) {
     tuple_t *self = allocate_pointers(size + 1);
     uint64_t forwarding_bits = 1;
     uint64_t length_bits = size << 1;
-    header_t header = length_bits | forwarding_bits;
+    header_t header = (header_t) (length_bits | forwarding_bits);
     self[0] = header;
     return self;
 }
@@ -16,6 +16,6 @@ tuple_new(size_t size) {
 size_t
 tuple_size(tuple_t *self) {
     header_t header = self[0];
-    uint64_t low_byte = header & ((uint64_t) 0xff);
+    uint64_t low_byte = ((uint64_t) header) & ((uint64_t) 0xff);
     return low_byte >> 1;
 }

@@ -1,9 +1,14 @@
 # GC
 
-[gc] `gc_allocate_tuple`
-
 [gc] `tuple_init`
 [gc] `tuple_new` -- take gc
+
+# gc
+
+[gc] `gc_allocate_tuple` -- check space is enough
+[gc] `gc_copy` -- check space is enough
+
+# tuple
 
 [gc] `tuple_is_atom_index`
 [gc] `tuple_is_object_index`
