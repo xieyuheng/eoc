@@ -75,18 +75,30 @@ gc_allocate_tuple(gc_t* self, size_t size) {
 
 static tuple_t *
 gc_copy_tuple(gc_t* self, tuple_t *tuple) {
-    assert(self->from_space < tuple);
+    assert(self->from_space <= tuple);
     assert(tuple < self->from_space + self->from_size);
+
+    assert(self->to_space <= self->free_pointer);
+    assert(self->free_pointer < self->to_space + self->to_size);
+
     if (tuple_is_forward(tuple)) {
         return tuple_get_forward(tuple);
     }
 
-    // TODO copy and forward
-    return tuple;
+    tuple_t *new_tuple = self->free_pointer;
+    self->free_pointer += tuple_size(tuple) + 1; // + 1 for header
+    for (size_t i = 0; i < tuple_size(tuple) + 1; i++) {
+        new_tuple[i] = tuple[i];
+    }
+
+    tuple_set_forward(tuple, new_tuple);
+    return new_tuple;
 }
 
 static void
 gc_copy(gc_t* self) {
+    self->free_pointer = self->to_space;
+
     size_t root_length = self->root_pointer - self->root_space;
     for (size_t i = 0; i < root_length; i++) {
         tuple_t *tuple = self->root_space[i];
