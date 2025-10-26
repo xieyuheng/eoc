@@ -49,7 +49,6 @@ gc_pop_root(gc_t* self) {
     return *self->root_pointer;
 }
 
-
 static bool
 gc_space_is_enough(gc_t* self, size_t size) {
     return self->free_pointer + size + 1 < self->from_space + self->from_size;
@@ -61,8 +60,8 @@ static void gc_grow(gc_t* self);
 tuple_t *
 gc_allocate_tuple(gc_t* self, size_t size) {
     if (gc_space_is_enough(self, size)) {
-        tuple_t *tuple = self->from_space;
-        self->from_space += size + 1; // + 1 for header
+        tuple_t *tuple = self->free_pointer;
+        self->free_pointer += size + 1; // + 1 for header
         return tuple;
     }
 
@@ -74,9 +73,29 @@ gc_allocate_tuple(gc_t* self, size_t size) {
     return gc_allocate_tuple(self, size);
 }
 
+static tuple_t *
+gc_copy_tuple(gc_t* self, tuple_t *tuple) {
+    assert(self->from_space < tuple);
+    assert(tuple < self->from_space + self->from_size);
+    if (tuple_is_forward(tuple)) {
+        return tuple_get_forward(tuple);
+    }
+
+    // TODO copy and forward
+    return tuple;
+}
+
 static void
 gc_copy(gc_t* self) {
-    (void) self;
+    size_t root_length = self->root_pointer - self->root_space;
+    for (size_t i = 0; i < root_length; i++) {
+        tuple_t *tuple = self->root_space[i];
+        self->root_space[i] = gc_copy_tuple(self, tuple);
+    }
+
+    // use to_space as queue to trace and copy.
+
+    // swap from_space with to_space
 }
 
 static void

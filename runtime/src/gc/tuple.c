@@ -39,7 +39,7 @@ tuple_is_atom_index(tuple_t *self, size_t index) {
 }
 
 bool
-tuple_is_object_index(tuple_t *self, size_t index) {
+tuple_is_tuple_index(tuple_t *self, size_t index) {
     assert(index < tuple_size(self));
     header_t header = self[0];
     uint64_t pointer_mask = ((uint64_t) header) >> (index + 7);
@@ -47,11 +47,11 @@ tuple_is_object_index(tuple_t *self, size_t index) {
 }
 
 void
-tuple_set_object(tuple_t *self, size_t index, void *object) {
+tuple_set_tuple(tuple_t *self, size_t index, tuple_t *tuple) {
     header_t header = self[0];
     uint64_t pointer_mask = 1 << (index + 7);
     self[0] = (header_t) ((uint64_t) header | pointer_mask);
-    self[index + 1] = object;
+    self[index + 1] = tuple;
 }
 
 void
@@ -62,9 +62,9 @@ tuple_set_atom(tuple_t *self, size_t index, uint64_t atom) {
     self[index + 1] = (void *) atom;
 }
 
-void *
-tuple_get_object(tuple_t *self, size_t index) {
-    tuple_is_object_index(self, index);
+tuple_t *
+tuple_get_tuple(tuple_t *self, size_t index) {
+    tuple_is_tuple_index(self, index);
     return self[index + 1];
 }
 
@@ -104,9 +104,9 @@ tuple_collect_circle(tuple_t *self, set_t *occurred_set, hash_t *circle_hash) {
 
     set_add(occurred_set, self);
     for (size_t i = 0; i < tuple_size(self); i++) {
-        if (tuple_is_object_index(self, i)) {
+        if (tuple_is_tuple_index(self, i)) {
             tuple_collect_circle(
-                tuple_get_object(self, i),
+                tuple_get_tuple(self, i),
                 occurred_set,
                 circle_hash);
         }
@@ -144,7 +144,7 @@ tuple_print_with_circle(
             fprintf(file, "%ld", tuple_get_atom(self, i));
         } else {
             tuple_print_with_circle(
-                tuple_get_object(self, i), file,
+                tuple_get_tuple(self, i), file,
                 occurred_set, circle_hash);
         }
 
