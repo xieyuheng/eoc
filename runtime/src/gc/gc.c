@@ -1,6 +1,7 @@
 #include "index.h"
 
 struct gc_t {
+    void **root_space; size_t root_size;
     void **from_space; size_t from_size;
     void **to_space; size_t to_size;
     void **free_pointer;
@@ -10,6 +11,8 @@ struct gc_t {
 gc_t *
 gc_new(size_t initial_size) {
     gc_t *self = new(gc_t);
+    self->root_space = NULL;
+    self->root_size = 0;
     self->from_space = allocate_pointers(initial_size);
     self->from_size = initial_size;
     self->to_space = allocate_pointers(initial_size);
@@ -19,10 +22,19 @@ gc_new(size_t initial_size) {
     return self;
 }
 
+void
+gc_set_root_space(gc_t* self, void **root_space, size_t root_size) {
+    self->root_space = root_space;
+    self->root_size = root_size;
+}
+
 static bool
 gc_space_is_enough(gc_t* self, size_t size) {
     return self->free_pointer + size + 1 < self->from_space + self->from_size;
 }
+
+static void gc_copy(gc_t* self);
+static void gc_grow(gc_t* self);
 
 tuple_t *
 gc_allocate_tuple(gc_t* self, size_t size) {
@@ -32,7 +44,20 @@ gc_allocate_tuple(gc_t* self, size_t size) {
         return tuple;
     }
 
-    // TODO gc_copy
-    // TODO gc_grow
+    gc_copy(self);
+    if (!gc_space_is_enough(self, size)) {
+        gc_grow(self);
+    }
+
     return gc_allocate_tuple(self, size);
+}
+
+static void
+gc_copy(gc_t* self) {
+    (void) self;
+}
+
+static void
+gc_grow(gc_t* self) {
+    (void) self;
 }
