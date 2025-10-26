@@ -179,6 +179,15 @@ gc_print(gc_t* self) {
     printf("heap_size: %ld\n", self->heap_size);
     printf("used_size: %ld\n", self->free_pointer - self->from_space);
 
+    printf("root_space:\n");
+    size_t root_length = self->root_pointer - self->root_space;
+    for (size_t i = 0; i < root_length; i++) {
+        printf("  %ld: ", i);
+        tuple_print(self->root_space[i], stdout);
+        printf("\n");
+    }
+
+    printf("from_space:\n");
     size_t count = 0;
     tuple_t *tuple = self->from_space;
     while (tuple < self->free_pointer) {
@@ -188,4 +197,5 @@ gc_print(gc_t* self) {
         tuple += tuple_size(tuple) + 1;
         count++;
     }
+
 }
