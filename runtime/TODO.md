@@ -1,5 +1,7 @@
 # GC
 
+[gc] `gc_new`
+
 [gc] `tuple_is_atom_index`
 [gc] `tuple_is_object_index`
 
