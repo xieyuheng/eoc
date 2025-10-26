@@ -147,7 +147,7 @@ gc_copy(gc_t* self) {
         who_printf("use to-space as a queue to traverse the graph and copy\n");
     }
 
-    while (self->scan_pointer < self->free_pointer) {
+    while (self->scan_pointer <= self->free_pointer) {
         tuple_t *tuple = self->scan_pointer;
         self->scan_pointer += tuple_size(tuple) + 1; // + 1 for header
         for (size_t i = 0; i < tuple_size(tuple); i++) {
@@ -176,10 +176,13 @@ void
 gc_print(gc_t* self) {
     assert(in_from_space(self, self->free_pointer));
 
+    printf("heap_size: %ld\n", self->heap_size);
+    printf("used_size: %ld\n", self->free_pointer - self->from_space);
+
     size_t count = 0;
     tuple_t *tuple = self->from_space;
-    while (tuple <= self->free_pointer) {
-        printf("%ld: ", count);
+    while (tuple < self->free_pointer) {
+        printf("  %ld: ", count);
         tuple_print(tuple, stdout);
         printf("\n");
         tuple += tuple_size(tuple) + 1;

@@ -63,5 +63,9 @@ test_gc_copy(void) {
 
     gc_print(gc);
 
+    tuple_new(3, gc);
+
+    gc_print(gc);
+
     test_end();
 }
