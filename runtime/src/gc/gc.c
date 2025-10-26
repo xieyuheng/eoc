@@ -1,12 +1,10 @@
 #include "index.h"
 
 struct gc_t {
-    size_t root_size;
-    void **root_space;
+    void **root_space; size_t root_size;
     void **root_pointer;
-    size_t heap_size;
-    void **from_space;
-    void **to_space;
+    void **from_space; size_t from_size;
+    void **to_space; size_t to_size;
     void **free_pointer;
     void **scan_pointer;
     bool log_flag;
@@ -15,12 +13,13 @@ struct gc_t {
 gc_t *
 gc_new(size_t root_size, size_t heap_size) {
     gc_t *self = new(gc_t);
-    self->root_size = root_size;
     self->root_space = allocate_pointers(root_size);
+    self->root_size = root_size;
     self->root_pointer = self->root_space;
-    self->heap_size = heap_size;
     self->from_space = allocate_pointers(heap_size);
+    self->from_size = heap_size;
     self->to_space = allocate_pointers(heap_size);
+    self->to_size = heap_size;
     self->free_pointer = self->from_space;
     self->scan_pointer = self->to_space;
     self->log_flag = false;
@@ -63,11 +62,11 @@ gc_pop_root(gc_t* self) {
 
 static bool
 gc_space_is_enough(gc_t* self, size_t size) {
-    return self->free_pointer + size + 1 < self->from_space + self->heap_size;
+    return self->free_pointer + size + 1 < self->from_space + self->from_size;
 }
 
 static void gc_copy(gc_t* self);
-static void gc_grow(gc_t* self);
+static void gc_grow_to_space(gc_t* self);
 
 tuple_t *
 gc_allocate_tuple(gc_t* self, size_t size) {
@@ -92,7 +91,9 @@ gc_allocate_tuple(gc_t* self, size_t size) {
             who_printf("need grow\n");
         }
 
-        gc_grow(self);
+        gc_grow_to_space(self);
+        gc_copy(self);
+        gc_grow_to_space(self);
     }
 
     return gc_allocate_tuple(self, size);
@@ -101,13 +102,13 @@ gc_allocate_tuple(gc_t* self, size_t size) {
 static bool
 in_from_space(gc_t* self, tuple_t *tuple) {
     return ((self->from_space <= tuple) &&
-            (tuple < self->from_space + self->heap_size));
+            (tuple < self->from_space + self->from_size));
 }
 
 static bool
 in_to_space(gc_t* self, tuple_t *tuple) {
     return ((self->to_space <= tuple) &&
-            (tuple < self->to_space + self->heap_size));
+            (tuple < self->to_space + self->to_size));
 }
 
 static tuple_t *
@@ -168,7 +169,7 @@ gc_copy(gc_t* self) {
 }
 
 static void
-gc_grow(gc_t* self) {
+gc_grow_to_space(gc_t* self) {
     (void) self;
 }
 
@@ -176,7 +177,7 @@ void
 gc_print(gc_t* self) {
     assert(in_from_space(self, self->free_pointer));
 
-    printf("heap_size: %ld\n", self->heap_size);
+    printf("from_size: %ld\n", self->from_size);
     printf("used_size: %ld\n", self->free_pointer - self->from_space);
 
     printf("root_space:\n");
@@ -197,5 +198,4 @@ gc_print(gc_t* self) {
         tuple += tuple_size(tuple) + 1;
         count++;
     }
-
 }
