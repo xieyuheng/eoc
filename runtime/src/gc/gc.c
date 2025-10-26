@@ -2,6 +2,7 @@
 
 struct gc_t {
     void **root_space; size_t root_size;
+    void **root_pointer;
     void **from_space; size_t from_size;
     void **to_space; size_t to_size;
     void **free_pointer;
@@ -9,23 +10,18 @@ struct gc_t {
 };
 
 gc_t *
-gc_new(size_t initial_size) {
+gc_new(size_t root_size, size_t heap_size) {
     gc_t *self = new(gc_t);
-    self->root_space = NULL;
-    self->root_size = 0;
-    self->from_space = allocate_pointers(initial_size);
-    self->from_size = initial_size;
-    self->to_space = allocate_pointers(initial_size);
-    self->to_size = initial_size;
+    self->root_space = allocate_pointers(root_size);
+    self->root_pointer = self->root_space;
+    self->root_size = root_size;
+    self->from_space = allocate_pointers(heap_size);
+    self->from_size = heap_size;
+    self->to_space = allocate_pointers(heap_size);
+    self->to_size = heap_size;
     self->free_pointer = self->from_space;
     self->scan_pointer = self->to_space;
     return self;
-}
-
-void
-gc_set_root_space(gc_t* self, void **root_space, size_t root_size) {
-    self->root_space = root_space;
-    self->root_size = root_size;
 }
 
 static bool

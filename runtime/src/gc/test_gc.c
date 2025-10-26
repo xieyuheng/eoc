@@ -13,7 +13,7 @@ void
 test_tuple(void) {
     test_start();
 
-    gc_t *gc = gc_new(1024);
+    gc_t *gc = gc_new(64, 1024);
 
     {
         tuple_t *t1 = tuple_new(10, gc);
