@@ -1,11 +1,12 @@
 #include "index.h"
 
 struct gc_t {
-    void **root_space;
     size_t root_size;
+    void **root_space;
     void **root_pointer;
-    void **from_space; size_t from_size;
-    void **to_space; size_t to_size;
+    size_t heap_size;
+    void **from_space;
+    void **to_space;
     void **free_pointer;
     void **scan_pointer;
 };
@@ -13,13 +14,12 @@ struct gc_t {
 gc_t *
 gc_new(size_t root_size, size_t heap_size) {
     gc_t *self = new(gc_t);
+    self->root_size = root_size;
     self->root_space = allocate_pointers(root_size);
     self->root_pointer = self->root_space;
-    self->root_size = root_size;
+    self->heap_size = heap_size;
     self->from_space = allocate_pointers(heap_size);
-    self->from_size = heap_size;
     self->to_space = allocate_pointers(heap_size);
-    self->to_size = heap_size;
     self->free_pointer = self->from_space;
     self->scan_pointer = self->to_space;
     return self;
@@ -52,7 +52,7 @@ gc_pop_root(gc_t* self) {
 
 static bool
 gc_space_is_enough(gc_t* self, size_t size) {
-    return self->free_pointer + size + 1 < self->from_space + self->from_size;
+    return self->free_pointer + size + 1 < self->from_space + self->heap_size;
 }
 
 static void gc_copy(gc_t* self);
@@ -77,10 +77,10 @@ gc_allocate_tuple(gc_t* self, size_t size) {
 static tuple_t *
 gc_copy_tuple(gc_t* self, tuple_t *tuple) {
     assert(self->from_space <= tuple);
-    assert(tuple < self->from_space + self->from_size);
+    assert(tuple < self->from_space + self->heap_size);
 
     assert(self->to_space <= self->free_pointer);
-    assert(self->free_pointer < self->to_space + self->to_size);
+    assert(self->free_pointer < self->to_space + self->heap_size);
 
     if (tuple_is_forward(tuple)) {
         return tuple_get_forward(tuple);
