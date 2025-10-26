@@ -1,6 +1,5 @@
 # tuple
 
-[gc] `tuple_get_object` & `tuple_get_atom` -- check index
 [gc] `test_tuple` -- test get and set and index query
 
 [gc] `tuple_print`
