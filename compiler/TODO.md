@@ -1,4 +1,4 @@
-[s] fix type system -- should only do type check
+[s] fix type system -- use bidirectional type checking
 [s] add begin and void
 
 [s] eval for tuple
