@@ -30,6 +30,26 @@ gc_expose_root_space(gc_t* self, void ***root_space_pointer, void ***root_pointe
     *root_pointer_pointer = self->root_pointer;
 }
 
+size_t
+gc_root_length(gc_t* self) {
+    return self->root_pointer - self->root_space;
+}
+
+void
+gc_push_root(gc_t* self, tuple_t *tuple) {
+    assert(gc_root_length(self) < self->root_size);
+    *self->root_pointer = tuple;
+    self->root_pointer++;
+}
+
+tuple_t *
+gc_pop_root(gc_t* self) {
+    assert(gc_root_length(self) > 0);
+    self->root_pointer--;
+    return *self->root_pointer;
+}
+
+
 static bool
 gc_space_is_enough(gc_t* self, size_t size) {
     return self->free_pointer + size + 1 < self->from_space + self->from_size;
