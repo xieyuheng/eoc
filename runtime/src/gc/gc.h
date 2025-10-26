@@ -1,5 +1,5 @@
 #pragma once
 
+gc_t *gc_new(size_t initial_size);
 
-// void gc_initialize(size_t root_stack_size, size_t heap_size);
-// void gc_collect(void **root_stack_pointer, size_t size);
+// void gc_collect(void **root_space, size_t root_size, size_t requested_size);

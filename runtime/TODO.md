@@ -1,6 +1,9 @@
 # GC
 
-[gc] `gc_new`
+[gc] `gc_allocate_tuple`
+
+[gc] `tuple_init`
+[gc] `tuple_new` -- take gc
 
 [gc] `tuple_is_atom_index`
 [gc] `tuple_is_object_index`
