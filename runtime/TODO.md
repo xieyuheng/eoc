@@ -1,7 +1,3 @@
-# GC
-
-[gc] `tuple_new` -- take `gc`
-
 # gc
 
 [gc] `gc_allocate_tuple` -- check space is enough
