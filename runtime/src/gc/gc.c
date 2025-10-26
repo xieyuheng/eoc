@@ -1,7 +1,8 @@
 #include "index.h"
 
 struct gc_t {
-    void **root_space; size_t root_size;
+    void **root_space;
+    size_t root_size;
     void **root_pointer;
     void **from_space; size_t from_size;
     void **to_space; size_t to_size;
@@ -97,6 +98,7 @@ gc_copy_tuple(gc_t* self, tuple_t *tuple) {
 
 static void
 gc_copy(gc_t* self) {
+    self->scan_pointer = self->to_space;
     self->free_pointer = self->to_space;
 
     size_t root_length = self->root_pointer - self->root_space;
@@ -105,7 +107,17 @@ gc_copy(gc_t* self) {
         self->root_space[i] = gc_copy_tuple(self, tuple);
     }
 
-    // use to_space as queue to trace and copy.
+    // use to_space as a queue to trace and copy.
+    while (self->scan_pointer < self->free_pointer) {
+        tuple_t *tuple = self->scan_pointer;
+        self->scan_pointer += tuple_size(tuple) + 1; // + 1 for header
+        for (size_t i = 0; i < tuple_size(tuple); i++) {
+            if (tuple_is_tuple_index(tuple, i)) {
+                tuple_t *child = tuple_get_tuple(tuple, i);
+                tuple_set_tuple(tuple, i, gc_copy_tuple(self, child));
+            }
+        }
+    }
 
     // swap from_space with to_space
 }
