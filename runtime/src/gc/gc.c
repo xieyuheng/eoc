@@ -67,6 +67,7 @@ gc_allocate_tuple(gc_t* self, size_t size) {
     }
 
     gc_copy(self);
+
     if (!gc_space_is_enough(self, size)) {
         gc_grow(self);
     }
@@ -98,16 +99,16 @@ gc_copy_tuple(gc_t* self, tuple_t *tuple) {
 
 static void
 gc_copy(gc_t* self) {
+    // prepare the to_space to use it as a queue.
     self->scan_pointer = self->to_space;
     self->free_pointer = self->to_space;
-
     size_t root_length = self->root_pointer - self->root_space;
     for (size_t i = 0; i < root_length; i++) {
         tuple_t *tuple = self->root_space[i];
         self->root_space[i] = gc_copy_tuple(self, tuple);
     }
 
-    // use to_space as a queue to trace and copy.
+    // use to_space as a queue to traverse the graph and copy.
     while (self->scan_pointer < self->free_pointer) {
         tuple_t *tuple = self->scan_pointer;
         self->scan_pointer += tuple_size(tuple) + 1; // + 1 for header
@@ -119,6 +120,7 @@ gc_copy(gc_t* self) {
         }
     }
 
+    // swap the two spaces.
     void **tmp_space = self->from_space;
     self->from_space = self->to_space;
     self->to_space = tmp_space;
