@@ -13,3 +13,5 @@ void gc_push_root(gc_t* self, tuple_t *tuple);
 tuple_t *gc_pop_root(gc_t* self);
 
 tuple_t *gc_allocate_tuple(gc_t* self, size_t size);
+
+void gc_print(gc_t* self);

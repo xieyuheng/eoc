@@ -98,13 +98,22 @@ gc_allocate_tuple(gc_t* self, size_t size) {
     return gc_allocate_tuple(self, size);
 }
 
+static bool
+in_from_space(gc_t* self, tuple_t *tuple) {
+    return ((self->from_space <= tuple) &&
+            (tuple < self->from_space + self->heap_size));
+}
+
+static bool
+in_to_space(gc_t* self, tuple_t *tuple) {
+    return ((self->to_space <= tuple) &&
+            (tuple < self->to_space + self->heap_size));
+}
+
 static tuple_t *
 gc_copy_tuple(gc_t* self, tuple_t *tuple) {
-    assert(self->from_space <= tuple);
-    assert(tuple < self->from_space + self->heap_size);
-
-    assert(self->to_space <= self->free_pointer);
-    assert(self->free_pointer < self->to_space + self->heap_size);
+    assert(in_from_space(self, tuple));
+    assert(in_to_space(self, self->free_pointer));
 
     if (tuple_is_forward(tuple)) {
         return tuple_get_forward(tuple);
@@ -161,4 +170,19 @@ gc_copy(gc_t* self) {
 static void
 gc_grow(gc_t* self) {
     (void) self;
+}
+
+void
+gc_print(gc_t* self) {
+    assert(in_from_space(self, self->free_pointer));
+
+    size_t count = 0;
+    tuple_t *tuple = self->from_space;
+    while (tuple <= self->free_pointer) {
+        printf("%ld: ", count);
+        tuple_print(tuple, stdout);
+        printf("\n");
+        tuple += tuple_size(tuple) + 1;
+        count++;
+    }
 }

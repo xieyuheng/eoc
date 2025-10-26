@@ -61,9 +61,7 @@ test_gc_copy(void) {
     tuple_set_atom(t7, 1, 6);
     tuple_set_tuple(t6, 1, t7);
 
-    printf("r1: "); tuple_print(r1, stdout); printf("\n");
-    printf("r2: "); tuple_print(r2, stdout); printf("\n");
-    printf("r3: "); tuple_print(r3, stdout); printf("\n");
+    gc_print(gc);
 
     test_end();
 }
