@@ -9,6 +9,7 @@ struct gc_t {
     void **to_space;
     void **free_pointer;
     void **scan_pointer;
+    bool log_flag;
 };
 
 gc_t *
@@ -22,7 +23,13 @@ gc_new(size_t root_size, size_t heap_size) {
     self->to_space = allocate_pointers(heap_size);
     self->free_pointer = self->from_space;
     self->scan_pointer = self->to_space;
+    self->log_flag = false;
     return self;
+}
+
+void
+gc_set_log_flag(gc_t* self, bool flag) {
+    self->log_flag = flag;
 }
 
 void
