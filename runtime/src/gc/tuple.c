@@ -26,7 +26,7 @@ tuple_new(size_t size, gc_t *gc) {
 size_t
 tuple_size(tuple_t *self) {
     header_t header = self[0];
-    uint64_t low_byte = ((uint64_t) header) & ((uint64_t) 0xff);
+    uint64_t low_byte = ((uint64_t) header) & ((uint64_t) 0b01111111);
     return low_byte >> 1;
 }
 
@@ -92,4 +92,27 @@ tuple_set_forward(tuple_t *self, tuple_t *tuple) {
     header_t header = self[0];
     self[0] = (header_t) ((uint64_t) header | 1);
     self[1] = tuple;
+}
+
+void
+tuple_print(tuple_t *self, file_t *file) {
+    if (tuple_is_forward(self)) {
+        fprintf(file, "*");
+        tuple_print(tuple_get_forward(self), file);
+        return;
+    }
+
+    fprintf(file, "[");
+    for (size_t i = 0; i < tuple_size(self); i++) {
+        if (tuple_is_atom_index(self, i)) {
+            fprintf(file, "%ld", tuple_get_atom(self, i));
+        } else {
+            tuple_print(tuple_get_object(self, i), file);
+        }
+
+        if (i != tuple_size(self) - 1) {
+            fprintf(file, " ");
+        }
+    }
+    fprintf(file, "]");
 }

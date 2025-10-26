@@ -1,7 +1,3 @@
-# tuple
-
-[gc] `tuple_print`
-
 # gc
 
 [gc] `gc_allocate_tuple` -- check space is enough
