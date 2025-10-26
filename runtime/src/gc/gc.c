@@ -24,6 +24,12 @@ gc_new(size_t root_size, size_t heap_size) {
     return self;
 }
 
+void
+gc_expose_root_space(gc_t* self, void ***root_space_pointer, void ***root_pointer_pointer) {
+    *root_space_pointer = self->root_space;
+    *root_pointer_pointer = self->root_pointer;
+}
+
 static bool
 gc_space_is_enough(gc_t* self, size_t size) {
     return self->free_pointer + size + 1 < self->from_space + self->from_size;

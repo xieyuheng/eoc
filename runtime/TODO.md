@@ -1,6 +1,5 @@
 # gc
 
-[gc] `gc_expose_root_space`
 [gc] `gc_push_root`
 [gc] `gc_pop_root`
 
