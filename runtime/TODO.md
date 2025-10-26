@@ -1,7 +1,5 @@
 # tuple
 
-[gc] `test_tuple` -- test get and set and index query
-
 [gc] `tuple_print`
 
 [gc] `tuple_is_forward`
