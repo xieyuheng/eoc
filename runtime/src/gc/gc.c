@@ -74,12 +74,24 @@ gc_allocate_tuple(gc_t* self, size_t size) {
     if (gc_space_is_enough(self, size)) {
         tuple_t *tuple = self->free_pointer;
         self->free_pointer += size + 1; // + 1 for header
+        if (self->log_flag) {
+            who_printf("allocated %ld * 8 bytes\n", size + 1);
+        }
+
         return tuple;
+    }
+
+    if (self->log_flag) {
+        who_printf("need copy\n");
     }
 
     gc_copy(self);
 
     if (!gc_space_is_enough(self, size)) {
+        if (self->log_flag) {
+            who_printf("need grow\n");
+        }
+
         gc_grow(self);
     }
 
@@ -110,7 +122,10 @@ gc_copy_tuple(gc_t* self, tuple_t *tuple) {
 
 static void
 gc_copy(gc_t* self) {
-    // prepare the to_space to use it as a queue.
+    if (self->log_flag) {
+        who_printf("prepare the to-space to use it as a queue\n");
+    }
+
     self->scan_pointer = self->to_space;
     self->free_pointer = self->to_space;
     size_t root_length = self->root_pointer - self->root_space;
@@ -119,7 +134,10 @@ gc_copy(gc_t* self) {
         self->root_space[i] = gc_copy_tuple(self, tuple);
     }
 
-    // use to_space as a queue to traverse the graph and copy.
+    if (self->log_flag) {
+        who_printf("use to-space as a queue to traverse the graph and copy\n");
+    }
+
     while (self->scan_pointer < self->free_pointer) {
         tuple_t *tuple = self->scan_pointer;
         self->scan_pointer += tuple_size(tuple) + 1; // + 1 for header
@@ -131,10 +149,13 @@ gc_copy(gc_t* self) {
         }
     }
 
-    // swap the two spaces.
-    void **tmp_space = self->from_space;
-    self->from_space = self->to_space;
-    self->to_space = tmp_space;
+    if (self->log_flag) {
+        who_printf("swap the role of to-space with from-space\n");
+    }
+
+    void **tmp_space = self->to_space;
+    self->to_space = self->from_space;
+    self->from_space = tmp_space;
 }
 
 static void

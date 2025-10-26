@@ -47,13 +47,8 @@ test_tuple(void) {
         assert(tuple_size(t1) == 10);
         assert(tuple_size(t2) == 3);
 
-        printf("t1: ");
-        tuple_print(t1, stdout);
-        printf("\n");
-
-        printf("t2: ");
-        tuple_print(t2, stdout);
-        printf("\n");
+        printf("t1: "); tuple_print(t1, stdout); printf("\n");
+        printf("t2: "); tuple_print(t2, stdout); printf("\n");
     }
 
     {
@@ -68,13 +63,8 @@ test_tuple(void) {
         assert(tuple_is_forward(t1));
         assert(tuple_get_forward(t1) == t2);
 
-        printf("t1: ");
-        tuple_print(t1, stdout);
-        printf("\n");
-
-        printf("t2: ");
-        tuple_print(t2, stdout);
-        printf("\n");
+        printf("t1: "); tuple_print(t1, stdout); printf("\n");
+        printf("t2: "); tuple_print(t2, stdout); printf("\n");
     }
 
     test_end();
