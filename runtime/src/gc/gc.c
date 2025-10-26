@@ -119,7 +119,9 @@ gc_copy(gc_t* self) {
         }
     }
 
-    // swap from_space with to_space
+    void **tmp_space = self->from_space;
+    self->from_space = self->to_space;
+    self->to_space = tmp_space;
 }
 
 static void
