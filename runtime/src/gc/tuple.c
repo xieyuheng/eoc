@@ -2,14 +2,19 @@
 
 typedef void *header_t;
 
-tuple_t *
-tuple_new(size_t size) {
+void
+tuple_init(tuple_t *self, size_t size) {
     assert(size <= 50);
-    tuple_t *self = allocate_pointers(size + 1);
     uint64_t forwarding_bits = 1;
     uint64_t length_bits = size << 1;
     header_t header = (header_t) (length_bits | forwarding_bits);
     self[0] = header;
+}
+
+tuple_t *
+tuple_new(size_t size) {
+    tuple_t *self = allocate_pointers(size + 1);
+    tuple_init(self, size);
     return self;
 }
 

@@ -1,7 +1,6 @@
 # GC
 
-[gc] `tuple_init`
-[gc] `tuple_new` -- take gc
+[gc] `tuple_new` -- take `gc`
 
 # gc
 
