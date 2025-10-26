@@ -47,3 +47,19 @@ tuple_is_object_index(tuple_t *self, size_t index) {
     uint64_t pointer_mask = ((uint64_t) header) >> (index + 7);
     return (pointer_mask & 1) == 1;
 }
+
+void
+tuple_set_object(tuple_t *self, size_t index, void *object) {
+    header_t header = self[0];
+    uint64_t pointer_mask = 1 << (index + 7);
+    self[0] = (header_t) ((uint64_t) header | pointer_mask);
+    self[index + 1] = object;
+}
+
+void
+tuple_set_atom(tuple_t *self, size_t index, int64_t atom) {
+    header_t header = self[0];
+    uint64_t pointer_mask = ~(1 << (index + 7));
+    self[0] = (header_t) ((uint64_t) header & pointer_mask);
+    self[index + 1] = (void *) atom;
+}

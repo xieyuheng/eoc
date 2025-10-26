@@ -1,11 +1,6 @@
 # tuple
 
-[gc] `tuple_set_object`
-[gc] `tuple_set_atom`
-
-[gc] `tuple_get_object` -- check index
-[gc] `tuple_get_atom` -- check index
-
+[gc] `tuple_get_object` & `tuple_get_atom` -- check index
 [gc] `test_tuple` -- test get and set and index query
 
 [gc] `tuple_print`
