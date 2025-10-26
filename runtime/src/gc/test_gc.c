@@ -22,18 +22,19 @@ test_tuple(void) {
     assert(tuple_size(t2) == 3);
 
     {
-        tuple_set_object(t2, 0, t1);
+        tuple_set_atom(t2, 0, 0);
         tuple_set_atom(t2, 1, 1);
         tuple_set_atom(t2, 2, 2);
 
-        assert(tuple_is_object_index(t2, 0));
-        assert(!tuple_is_atom_index(t2, 0));
+        assert(tuple_is_atom_index(t2, 0));
         assert(tuple_is_atom_index(t2, 1));
-        assert(!tuple_is_object_index(t2, 1));
         assert(tuple_is_atom_index(t2, 2));
+
+        assert(!tuple_is_object_index(t2, 0));
+        assert(!tuple_is_object_index(t2, 1));
         assert(!tuple_is_object_index(t2, 2));
 
-        assert(tuple_get_object(t2, 0) == t1);
+        assert(tuple_get_atom(t2, 0) == 0);
         assert(tuple_get_atom(t2, 1) == 1);
         assert(tuple_get_atom(t2, 2) == 2);
     }
