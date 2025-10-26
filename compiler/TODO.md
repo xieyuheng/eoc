@@ -1,5 +1,7 @@
 fix type system -- should only do type check in s
 
+add begin and void to s
+
 # main
 
 > 7 Functions

@@ -26,8 +26,8 @@ tuple_new(size_t size, gc_t *gc) {
 size_t
 tuple_size(tuple_t *self) {
     header_t header = self[0];
-    uint64_t low_byte = ((uint64_t) header) & ((uint64_t) 0b01111111);
-    return low_byte >> 1;
+    uint64_t lower_seven_bits = ((uint64_t) header) & ((uint64_t) 0b01111111);
+    return lower_seven_bits >> 1;
 }
 
 bool
@@ -94,12 +94,48 @@ tuple_set_forward(tuple_t *self, tuple_t *tuple) {
     self[1] = tuple;
 }
 
-void
-tuple_print(tuple_t *self, file_t *file) {
+static void
+tuple_collect_circle(tuple_t *self, set_t *occurred_set, hash_t *circle_hash) {
+    if (set_has(occurred_set, self)) {
+        if (hash_has(circle_hash, self)) return;
+        hash_set(circle_hash, self, (void *) hash_length(circle_hash));
+        return;
+    }
+
+    set_add(occurred_set, self);
+    for (size_t i = 0; i < tuple_size(self); i++) {
+        if (tuple_is_object_index(self, i)) {
+            tuple_collect_circle(
+                tuple_get_object(self, i),
+                occurred_set,
+                circle_hash);
+        }
+    }
+}
+
+static void
+tuple_print_with_circle(
+    tuple_t *self,
+    file_t *file,
+    set_t *occurred_set,
+    hash_t *circle_hash
+) {
     if (tuple_is_forward(self)) {
         fprintf(file, "*");
-        tuple_print(tuple_get_forward(self), file);
+        tuple_print_with_circle(
+            tuple_get_forward(self), file,
+            occurred_set, circle_hash);
         return;
+    }
+
+    if (hash_has(circle_hash, self) && set_has(occurred_set, self)) {
+        fprintf(file, "#%ld#", (size_t) hash_get(circle_hash, self));
+        return;
+    }
+
+    if (hash_has(circle_hash, self) && !set_has(occurred_set, self)) {
+        fprintf(file, "#%ld=", (size_t) hash_get(circle_hash, self));
+        set_add(occurred_set, self);
     }
 
     fprintf(file, "[");
@@ -107,7 +143,9 @@ tuple_print(tuple_t *self, file_t *file) {
         if (tuple_is_atom_index(self, i)) {
             fprintf(file, "%ld", tuple_get_atom(self, i));
         } else {
-            tuple_print(tuple_get_object(self, i), file);
+            tuple_print_with_circle(
+                tuple_get_object(self, i), file,
+                occurred_set, circle_hash);
         }
 
         if (i != tuple_size(self) - 1) {
@@ -115,4 +153,18 @@ tuple_print(tuple_t *self, file_t *file) {
         }
     }
     fprintf(file, "]");
+}
+
+void
+tuple_print(tuple_t *self, file_t *file) {
+    set_t *occurred_set = set_new();
+    hash_t *circle_hash = hash_new();
+    tuple_collect_circle(self, occurred_set, circle_hash);
+
+    set_destroy(&occurred_set);
+    occurred_set = set_new();
+    tuple_print_with_circle(self, file, occurred_set, circle_hash);
+
+    set_destroy(&occurred_set);
+    hash_destroy(&circle_hash);;
 }
