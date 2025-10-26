@@ -1,6 +1,8 @@
-fix type system -- should only do type check in s
+[s] fix type system -- should only do type check
+[s] add begin and void
 
-add begin and void to s
+[s] eval for tuple
+[s] type checking for tuple
 
 # main
 
