@@ -26,9 +26,13 @@ gc_new(size_t root_size, size_t heap_size) {
 }
 
 void
-gc_expose_root_space(gc_t* self, void ***root_space_pointer, void ***root_pointer_pointer) {
+gc_expose_root_space(gc_t* self, void ***root_space_pointer) {
     *root_space_pointer = self->root_space;
-    *root_pointer_pointer = self->root_pointer;
+}
+
+void
+gc_set_root_pointer(gc_t* self, void **root_pointer) {
+    self->root_pointer = root_pointer;
 }
 
 size_t
