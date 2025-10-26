@@ -2,10 +2,6 @@
 
 [gc] `tuple_print`
 
-[gc] `tuple_is_forward`
-[gc] `tuple_forward`
-[gc] `tuple_set_forward`
-
 # gc
 
 [gc] `gc_allocate_tuple` -- check space is enough

@@ -13,3 +13,7 @@ void tuple_set_atom(tuple_t *self, size_t index, uint64_t atom);
 
 void *tuple_get_object(tuple_t *self, size_t index);
 uint64_t tuple_get_atom(tuple_t *self, size_t index);
+
+bool tuple_is_forward(tuple_t *self);
+tuple_t *tuple_get_forward(tuple_t *self);
+void tuple_set_forward(tuple_t *self, tuple_t *tuple);

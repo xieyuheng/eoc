@@ -4,17 +4,15 @@ typedef void *header_t;
 
 /* header format (64 bits):
 
-   | unused | pointer mask | size   | forward |
-   | 7 bits | 50 bits      | 6 bits | 1 bit   |
+   | unused | pointer mask | size   | is forward |
+   | 7 bits | 50 bits      | 6 bits | 1 bit      |
 
 */
 
 void
 tuple_init(tuple_t *self, size_t size) {
     assert(size <= 50);
-    uint64_t forward_bit = 1;
-    uint64_t size_bits = size << 1;
-    header_t header = (header_t) (size_bits | forward_bit);
+    header_t header = (header_t) (size << 1);
     self[0] = header;
 }
 
@@ -74,4 +72,24 @@ uint64_t
 tuple_get_atom(tuple_t *self, size_t index) {
     tuple_is_atom_index(self, index);
     return (uint64_t) self[index + 1];
+}
+
+bool
+tuple_is_forward(tuple_t *self) {
+    header_t header = self[0];
+    return ((uint64_t) header & 1) == 1;
+}
+
+tuple_t *
+tuple_get_forward(tuple_t *self) {
+    assert(tuple_is_forward(self));
+    return self[1];
+}
+
+void
+tuple_set_forward(tuple_t *self, tuple_t *tuple) {
+    assert(!tuple_is_forward(self));
+    header_t header = self[0];
+    self[0] = (header_t) ((uint64_t) header | 1);
+    self[1] = tuple;
 }

@@ -54,5 +54,18 @@ test_tuple(void) {
     assert(tuple_get_atom(t1, 2) == 200);
     assert(tuple_get_object(t1, 3) == t2);
 
+    {
+        // forward
+        tuple_t *t1 = tuple_new(10, gc);
+        tuple_t *t2 = tuple_new(3, gc);
+
+        assert(!tuple_is_forward(t1));
+        assert(!tuple_is_forward(t2));
+
+        tuple_set_forward(t1, t2);
+        assert(tuple_is_forward(t1));
+        assert(tuple_get_forward(t1) == t2);
+    }
+
     test_end();
 }
