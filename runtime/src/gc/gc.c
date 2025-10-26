@@ -19,21 +19,20 @@ gc_new(size_t initial_size) {
     return self;
 }
 
-tuple_t *
-gc_allocate_tuple(gc_t* self, size_t size) {
-    tuple_t *tuple = self->from_space;
-    self->from_space += size + 1; // + 1 for header
-    return tuple;
+static bool
+gc_space_is_enough(gc_t* self, size_t size) {
+    return self->free_pointer + size + 1 < self->from_space + self->from_size;
 }
 
-// void
-// gc_collect(void **root_stack_pointer, size_t size) {
-//     assert(initialized);
-//     assert(root_stack_pointer >= gc_root_stack_begin);
-//     assert(root_stack_pointer < gc_root_stack_end);
+tuple_t *
+gc_allocate_tuple(gc_t* self, size_t size) {
+    if (gc_space_is_enough(self, size)) {
+        tuple_t *tuple = self->from_space;
+        self->from_space += size + 1; // + 1 for header
+        return tuple;
+    }
 
-//     (void) size;
-
-//     // TODO check there are enough space
-//     // to allocate memory of the given size (in words).
-// }
+    // TODO gc_copy
+    // TODO gc_grow
+    return gc_allocate_tuple(self, size);
+}
