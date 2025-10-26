@@ -11,20 +11,20 @@ test_gc(void) {
 }
 
 void
-test_gc_copy(void) {
-    test_start();
-
+make_example_tuples(gc_t *gc) {
     // EOC / Figure 6.5 / A copying collector in action.
 
-    gc_t *gc = gc_new(8, 32);
-    gc_set_log_flag(gc, true);
+    // Be careful! GC must not happen during this function,
+    // because once GC happened, variables in this function will become invalid.
+    // Thus this example function can NOT be used to test GC growing directly.
 
     tuple_t *r1 = tuple_new(2, gc);
-    tuple_t *r2 = tuple_new(3, gc);
-    tuple_t *r3 = tuple_new(2, gc);
-
     gc_push_root(gc, r1);
+
+    tuple_t *r2 = tuple_new(3, gc);
     gc_push_root(gc, r2);
+
+    tuple_t *r3 = tuple_new(2, gc);
     gc_push_root(gc, r3);
 
     tuple_t *t1 = tuple_new(2, gc);
@@ -60,11 +60,22 @@ test_gc_copy(void) {
     tuple_set_tuple(t7, 0, t6);
     tuple_set_atom(t7, 1, 6);
     tuple_set_tuple(t6, 1, t7);
+}
+
+void
+test_gc_copy(void) {
+    test_start();
+
+    gc_t *gc = gc_new(8, 32);
+    gc_set_log_flag(gc, true);
+
+    make_example_tuples(gc);
 
     gc_print(gc);
-
     tuple_new(3, gc);
+    gc_print(gc);
 
+    gc_grow(gc);
     gc_print(gc);
 
     test_end();

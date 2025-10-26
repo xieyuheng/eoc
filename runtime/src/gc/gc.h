@@ -11,6 +11,7 @@ size_t gc_root_length(gc_t* self);
 // stack API only for testing
 void gc_push_root(gc_t* self, tuple_t *tuple);
 tuple_t *gc_pop_root(gc_t* self);
+void gc_grow(gc_t* self);
 
 tuple_t *gc_allocate_tuple(gc_t* self, size_t size);
 

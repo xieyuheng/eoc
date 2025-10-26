@@ -19,7 +19,6 @@ tuple_init(tuple_t *self, size_t size) {
 tuple_t *
 tuple_new(size_t size, gc_t *gc) {
     tuple_t *self = gc_allocate_tuple(gc, size);
-    tuple_init(self, size);
     return self;
 }
 

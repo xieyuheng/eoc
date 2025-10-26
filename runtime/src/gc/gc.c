@@ -12,6 +12,8 @@ struct gc_t {
 
 gc_t *
 gc_new(size_t root_size, size_t heap_size) {
+    assert(root_size > 0);
+    assert(heap_size > 0);
     gc_t *self = new(gc_t);
     self->root_space = allocate_pointers(root_size);
     self->root_size = root_size;
@@ -66,13 +68,14 @@ gc_space_is_enough(gc_t* self, size_t size) {
 }
 
 static void gc_copy(gc_t* self);
-static void gc_grow_to_space(gc_t* self);
 
 tuple_t *
 gc_allocate_tuple(gc_t* self, size_t size) {
     if (gc_space_is_enough(self, size)) {
         tuple_t *tuple = self->free_pointer;
+        tuple_init(tuple, size);
         self->free_pointer += size + 1; // + 1 for header
+
         if (self->log_flag) {
             who_printf("allocated %ld * 8 bytes\n", size + 1);
         }
@@ -91,9 +94,7 @@ gc_allocate_tuple(gc_t* self, size_t size) {
             who_printf("need grow\n");
         }
 
-        gc_grow_to_space(self);
-        gc_copy(self);
-        gc_grow_to_space(self);
+        gc_grow(self);
     }
 
     return gc_allocate_tuple(self, size);
@@ -166,11 +167,27 @@ gc_copy(gc_t* self) {
     void **tmp_space = self->to_space;
     self->to_space = self->from_space;
     self->from_space = tmp_space;
+    size_t tmp_size = self->to_size;
+    self->to_size = self->from_size;
+    self->from_size = tmp_size;
 }
 
 static void
 gc_grow_to_space(gc_t* self) {
-    (void) self;
+    if (self->log_flag) {
+        who_printf("grow %ld -> %ld\n", self->to_size, self->to_size * 2);
+    }
+
+    self->to_space =
+        reallocate_pointers(self->to_space, self->to_size, self->to_size * 2);
+    self->to_size *= 2;
+}
+
+void
+gc_grow(gc_t* self) {
+    gc_grow_to_space(self);
+    gc_copy(self);
+    gc_grow_to_space(self);
 }
 
 void
@@ -183,7 +200,7 @@ gc_print(gc_t* self) {
     printf("root_space:\n");
     size_t root_length = self->root_pointer - self->root_space;
     for (size_t i = 0; i < root_length; i++) {
-        printf("  %ld: ", i);
+        printf("  %ld (%p): ", i, self->root_space[i]);
         tuple_print(self->root_space[i], stdout);
         printf("\n");
     }
@@ -192,7 +209,7 @@ gc_print(gc_t* self) {
     size_t count = 0;
     tuple_t *tuple = self->from_space;
     while (tuple < self->free_pointer) {
-        printf("  %ld: ", count);
+        printf("  %ld (%p): ", count, (void *) tuple);
         tuple_print(tuple, stdout);
         printf("\n");
         tuple += tuple_size(tuple) + 1;
