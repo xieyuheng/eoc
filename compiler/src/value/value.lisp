@@ -2,4 +2,5 @@
 
 (define value?
   (union int?
-         bool?))
+         bool?
+         void?))

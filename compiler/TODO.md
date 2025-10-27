@@ -1,10 +1,15 @@
-[s] fix type system -- use bidirectional type checking
-[s] add begin and void
+[s] add `void-exp`
+[s] eval `void-exp`
+[s] type check `void-exp`
+
+[s] add `begin-exp`
+[s] eval `begin-exp`
+[s] type check `begin-exp`
+
+> 6 Tuples and Garbage Collection
 
 [s] eval for tuple
 [s] type checking for tuple
-
-# main
 
 > 7 Functions
 > 8 Lexically Scoped Functions
@@ -17,8 +22,6 @@
 
 # later
 
-> 6 Tuples and Garbage Collection
-> 5 Loops and Dataflow Analysis
 > 4 Booleans and Conditionals
 
 [pass] `partial-eval` -- support conditional
