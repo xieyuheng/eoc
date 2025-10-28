@@ -17,31 +17,34 @@
       exp? exp?))
 
 (define (uniquify-exp name-counts name-table exp)
-  (match exp
-    ((var-exp name)
-     (= found-name (record-get name name-table))
-     (var-exp (if (null? found-name)
-                name
-                found-name)))
-    ((int-exp value)
-     (int-exp value))
-    ((bool-exp value)
-     (bool-exp value))
-    (void-exp
-     void-exp)
-    ((if-exp condition then else)
-     (if-exp (uniquify-exp name-counts name-table condition)
-             (uniquify-exp name-counts name-table then)
-             (uniquify-exp name-counts name-table else)))
-    ((let-exp name rhs body)
-     (= new-name-counts (count-name name name-counts))
-     (= new-name (generate-name-in-counts name new-name-counts))
-     (= new-name-table (record-put name new-name name-table))
-     (let-exp new-name
-              (uniquify-exp new-name-counts name-table rhs)
-              (uniquify-exp new-name-counts new-name-table body)))
-    ((prim-exp op args)
-     (prim-exp op (list-map (uniquify-exp name-counts name-table) args)))))
+  (if (and (atom-exp? exp)
+           (not (var-exp? exp)))
+    exp
+    (match exp
+      ((var-exp name)
+       (= found-name (record-get name name-table))
+       (var-exp (if (null? found-name)
+                  name
+                  found-name)))
+      ((int-exp value)
+       (int-exp value))
+      ((bool-exp value)
+       (bool-exp value))
+      (void-exp
+       void-exp)
+      ((if-exp condition then else)
+       (if-exp (uniquify-exp name-counts name-table condition)
+               (uniquify-exp name-counts name-table then)
+               (uniquify-exp name-counts name-table else)))
+      ((let-exp name rhs body)
+       (= new-name-counts (count-name name name-counts))
+       (= new-name (generate-name-in-counts name new-name-counts))
+       (= new-name-table (record-put name new-name name-table))
+       (let-exp new-name
+                (uniquify-exp new-name-counts name-table rhs)
+                (uniquify-exp new-name-counts new-name-table body)))
+      ((prim-exp op args)
+       (prim-exp op (list-map (uniquify-exp name-counts name-table) args))))))
 
 (define (count-name name name-counts)
   (record-update

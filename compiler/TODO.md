@@ -1,5 +1,8 @@
-`010-uniquify` -- use `atom-exp?`
 `020-remove-complex-operands` -- use `atom-exp?`
+
+`005-shrink` -- handle `begin-exp`
+`010-uniquify` -- handle `begin-exp`
+`020-remove-complex-operands` -- handle `begin-exp`
 
 [c] `effect-stmt`
 [pass] `030-explicate-control` -- support `begin-exp`
