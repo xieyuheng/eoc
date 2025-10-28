@@ -9,7 +9,7 @@
      (pipe mod
        shrink
        uniquify
-       rco-mod
+       remove-complex-operands
        explicate-control))
   (write (format-after-prompt "=> " (pretty 80 c-mod)))
   (newline))

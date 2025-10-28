@@ -5,7 +5,7 @@
   (= mod-0 (parse-mod sexp))
   (write ">> ") (write (format-sexp (form-mod mod-0)))
   (newline)
-  (= mod-1 (rco-mod mod-0))
+  (= mod-1 (remove-complex-operands mod-0))
   (write "=> ") (write (format-sexp (form-mod mod-1)))
   (newline))
 

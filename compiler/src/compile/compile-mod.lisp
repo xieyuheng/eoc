@@ -6,10 +6,9 @@
 
 (define (compile-mod mod)
   (pipe mod
-    check-mod
     shrink
     uniquify
-    rco-mod
+    remove-complex-operands
     (compose check-c-mod explicate-control)
     select-instructions
     uncover-live

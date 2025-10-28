@@ -3,11 +3,11 @@
 ;; Translate nested function applications to
 ;; assignments (let) of results to temporary variables.
 
-(export rco-mod atom-operand-exp?)
+(export remove-complex-operands atom-operand-exp?)
 
-(claim rco-mod (-> mod? mod?))
+(claim remove-complex-operands (-> mod? mod?))
 
-(define (rco-mod mod)
+(define (remove-complex-operands mod)
   (match mod
     ((cons-mod info body)
      (= state [:count 0])
