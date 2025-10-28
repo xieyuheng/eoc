@@ -52,3 +52,43 @@ x-lisp 也需要更方便地用 C 扩展，
 而不是追求尽量多的代码用 x-lisp 写。
 
 并且在 x-lisp 中，可能所有的 value 都需要带有 tag。
+
+# 更正
+
+[2025-10-28]
+
+即便假设所有的 value 都带有 tag，
+在 GC 之前还是要将所有可能保存 pointer 的 register 保存到 root stack 中，
+但是这部分代码没法用 C 实现！
+
+因此，对 tuple 的 allocation 和 GC 还是要分开，
+并且需要暴露 GC 的接口，然后用编译器通过生成 `if`，
+来实现是否需要 GC 的判断，
+并且在需要 GC 的时候准备好 root stack。
+
+在判断需要 GC 之后，
+可以将所有可能保存 value 的寄存器都保存到 root stack 中，
+交给 GC 去处理。
+
+这样做有什么后果？
+这是否相当于我们必须实现方案 A？
+
+假设要保持 set 和 hash 一类的数据类型在 C 中实现。
+
+如果想要用 C 实现这些数据类型，
+就必须让 C 所扩展的数据类型与 GC 兼容。
+假设用简单的 mark-sweep GC，
+那么每个 C object 都要有自己的 mark 规则。
+
+每次 allocation object 时，
+需要把 object 记录到一个 object-stack 中。
+sweep 的时候扫描这个 object-stack 来做回收。
+
+此时 GC 的信号不再是一个「from-space 已满」这样一个硬性地要求，
+而是「object-stack 比较大了」这样一个 heuristic。
+
+这可以由编译器后端的代码生成来处理，
+每当遇到一个 create object 的 primitive，
+都编译一个 if 来判断是否「object-stack 比较大了」，
+如果是，就进行 GC，
+而 GC 之前要保存所有寄存器到中的值到 root-stack 中。
