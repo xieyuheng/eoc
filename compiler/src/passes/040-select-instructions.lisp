@@ -120,4 +120,5 @@
     ((int-c-exp value) (imm-rand value))
     ((bool-c-exp #t) (imm-rand 1))
     ((bool-c-exp #f) (imm-rand 0))
+    (void-c-exp (imm-rand 0))
     ((var-c-exp name) (var-rand name))))

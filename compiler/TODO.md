@@ -1,5 +1,3 @@
-[c] add `void-c-exp`
-
 [s] add `begin-exp`
 [s] eval `begin-exp`
 [s] type check `begin-exp`

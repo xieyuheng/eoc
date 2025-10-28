@@ -17,6 +17,7 @@
   (match exp
     ((int-exp n) n)
     ((bool-exp b) b)
+    (void-exp #void)
     ((var-exp name)
      (= found (record-get name env))
      (when (null? found)
