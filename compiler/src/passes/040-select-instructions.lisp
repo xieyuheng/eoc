@@ -95,6 +95,13 @@
     ((prim-c-exp 'random-dice [])
      [(callq 'random_dice 0)
       ['movq [(reg-rand 'rax) dest]]])
+    ((prim-c-exp 'newline [])
+     [(callq 'newline 0)
+      ['movq [(reg-rand 'rax) dest]]])
+    ((prim-c-exp 'print-int [arg1])
+     [['movq [(select-operand arg1) (reg-rand 'rdi)]]
+      (callq 'print_int 1)
+      ['movq [(reg-rand 'rax) dest]]])
     ((prim-c-exp 'ineg [arg1])
      [['movq [(select-operand arg1) dest]]
       ['negq [dest]]])

@@ -1,4 +1,5 @@
-[builtin] codegen for `print-int` and `newline`
+`010-uniquify` -- use `atom-exp?`
+`020-remove-complex-operands` -- use `atom-exp?`
 
 [c] `effect-stmt`
 [pass] `030-explicate-control` -- support `begin-exp`

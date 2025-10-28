@@ -27,6 +27,8 @@
      (int-exp value))
     ((bool-exp value)
      (bool-exp value))
+    (void-exp
+     void-exp)
     ((if-exp condition then else)
      (if-exp (uniquify-exp name-counts name-table condition)
              (uniquify-exp name-counts name-table then)
