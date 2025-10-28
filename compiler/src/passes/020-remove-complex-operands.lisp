@@ -1,5 +1,8 @@
 (import-all "deps")
 
+;; Translate nested function applications to
+;; assignments (let) of results to temporary variables.
+
 (export rco-mod atom-operand-exp?)
 
 (claim rco-mod (-> mod? mod?))

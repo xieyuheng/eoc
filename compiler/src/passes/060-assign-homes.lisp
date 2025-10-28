@@ -1,5 +1,7 @@
 (import-all "deps")
 
+;; Replace variables by home locations.
+
 (export assign-homes home-info?)
 
 (define home-info?

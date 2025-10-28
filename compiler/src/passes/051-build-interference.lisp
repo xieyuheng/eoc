@@ -3,6 +3,8 @@
   live-info?
   uncover-live-write)
 
+;; Build interference graph for each function.
+
 (export build-interference interference-info?)
 
 (define interference-info?

@@ -1,5 +1,7 @@
 (import-all "deps")
 
+;; Translate c to x86 (with variables).
+
 (export select-instructions)
 
 (claim select-instructions

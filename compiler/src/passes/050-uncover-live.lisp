@@ -1,5 +1,8 @@
 (import-all "deps")
 
+;; Do liveness analysis for each block, i.e. uncover
+;; which variables are in use for every instruction.
+
 (export
   uncover-live live-info?
   uncover-live-before*

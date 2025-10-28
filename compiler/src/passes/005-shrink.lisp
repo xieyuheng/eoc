@@ -1,5 +1,7 @@
 (import-all "deps")
 
+;; Shrink the language to smaller language.
+
 (export shrink)
 
 (claim shrink (-> mod? mod?))

@@ -1,5 +1,3 @@
-clean up passes/index
-
 fix type post fix -- should use -type instead of -t -- -t is only for syntax
 
 [passes] add `015-type-check` as a pass -- after `uniquify`

@@ -1,6 +1,8 @@
 (import-all "deps")
 (import "052-allocate-registers" register-info?)
 
+;; Add prolog and epilog to each function (currently only one).
+
 (export prolog-and-epilog)
 
 (claim prolog-and-epilog

@@ -1,5 +1,7 @@
 (import-all "deps")
 
+;; Fix pseudo x86 instructions and remove self moves.
+
 (export patch-instructions)
 
 (claim patch-instructions

@@ -2,6 +2,8 @@
 (import "051-build-interference" interference-info?)
 (import "060-assign-homes" home-info?)
 
+;; Find home locations (hopefully registers) for variables.
+
 (export allocate-registers register-info?)
 
 (define register-info?

@@ -1,6 +1,8 @@
 (import-all "deps")
 (import "020-remove-complex-operands" atom-operand-exp?)
 
+;; Translate s to c with explicit execution order.
+
 (export explicate-control)
 
 (claim explicate-control (-> mod? c-mod?))

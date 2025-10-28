@@ -1,5 +1,7 @@
 (import-all "deps")
 
+;; Consistently rename every variable (introduced by let) to a unique name.
+
 (export uniquify)
 
 (claim uniquify (-> mod? mod?))
