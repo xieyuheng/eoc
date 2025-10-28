@@ -2,6 +2,7 @@
 (include "005-shrink" shrink)
 ;; Consistently rename every variable (introduced by let) to a unique name.
 (include "010-uniquify" uniquify)
+(include "015-type-check" type-check)
 ;; Translate nested function applications to
 ;; assignments (let) of results to temporary variables.
 (include "020-remove-complex-operands" rco-mod atom-operand-exp?)

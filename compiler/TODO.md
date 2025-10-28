@@ -1,9 +1,15 @@
-[passes] add `15-type-check` as a pass -- after `uniquify`
+clean up passes/index
 
-- fix 020-remove-complex-operands
-- fix 030-explicate-control
+fix type post fix -- should use -type instead of -t -- -t is only for syntax
+
+[passes] add `015-type-check` as a pass -- after `uniquify`
+
+- fix `020-remove-complex-operands`
+- fix `030-explicate-control`
 
 [c] add `uncover-locals` -- replace `check-c-mod`
+
+[s] add `arrow-type` -- fix `check-op`
 
 [s] add `void-exp`
 [s] eval `void-exp`
@@ -15,6 +21,7 @@
 
 > 6 Tuples and Garbage Collection
 
+[s] add `tau-type`
 [s] eval for tuple
 [s] type checking for tuple
 
