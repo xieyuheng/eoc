@@ -6,10 +6,10 @@
 
 (define (compile-passes mod)
   (pipe mod
-    (compose check-mod (log-mod "mod"))
-    (compose check-mod (log-mod "shrink") shrink)
-    (compose check-mod (log-mod "uniquify") uniquify)
-    (compose check-mod (log-mod "remove-complex-operands") rco-mod)
+    (compose (log-mod "mod"))
+    (compose (log-mod "shrink") shrink)
+    (compose (log-mod "uniquify") uniquify)
+    (compose (log-mod "remove-complex-operands") rco-mod)
     (compose check-c-mod (log-c-mod "explicate-control") explicate-control)
     (compose (log-x86-mod "select-instructions") select-instructions)
     (compose (log-x86-mod "uncover-live") uncover-live)

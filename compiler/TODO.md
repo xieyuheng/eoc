@@ -1,4 +1,5 @@
 [s] `check` -- be clear about bidirectional type checking
+
 [s] test `check` -- `the-exp`
 
 [passes] add `15-type-check` as a pass -- after `uniquify`
