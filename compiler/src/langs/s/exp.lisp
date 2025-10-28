@@ -5,7 +5,7 @@
   var-exp int-exp bool-exp void-exp if-exp prim-exp
   let-exp begin-exp the-exp
   var-exp? int-exp? bool-exp? void-exp? if-exp? prim-exp?
-  let-exp? begin-exp the-exp?
+  let-exp? begin-exp? the-exp?
   the-exp-type
   the-exp-exp
   atom-exp? typed-exp?)

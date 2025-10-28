@@ -1,5 +1,3 @@
-`020-remove-complex-operands` -- handle `begin-exp`
-
 [c] `effect-stmt`
 [pass] `030-explicate-control` -- support `begin-exp`
 
