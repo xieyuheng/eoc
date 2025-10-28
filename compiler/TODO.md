@@ -1,3 +1,9 @@
+[s] add `the-exp`
+
+[passes] add `type-checking` as a pass -- where?
+
+[s] fix bidirectional type checking
+
 [s] add `void-exp`
 [s] eval `void-exp`
 [s] type check `void-exp`
