@@ -68,25 +68,21 @@
            (iadd _₁ _₃)))))
 
 (define (rco-exp state exp)
-  (match exp
-    ((the-exp type (var-exp name))
-     (the-exp type (var-exp name)))
-    ((the-exp type (int-exp value))
-     (the-exp type (int-exp value)))
-    ((the-exp type (bool-exp value))
-     (the-exp type (bool-exp value)))
-    ((the-exp type (let-exp name rhs body))
-     (the-exp type
-              (let-exp name
-                       (rco-exp state rhs)
-                       (rco-exp state body))))
-    ((the-exp type (if-exp condition then else))
-     (the-exp type (if-exp (rco-exp state condition)
-                           (rco-exp state then)
-                           (rco-exp state else))))
-    ((the-exp type (prim-exp op args))
-     (= [binds new-args] (rco-atom-many state args))
-     (prepend-lets type binds (the-exp type (prim-exp op new-args))))))
+  (if (atom-exp? (the-exp-exp exp))
+    exp
+    (match exp
+      ((the-exp type (let-exp name rhs body))
+       (the-exp type
+                (let-exp name
+                         (rco-exp state rhs)
+                         (rco-exp state body))))
+      ((the-exp type (if-exp condition then else))
+       (the-exp type (if-exp (rco-exp state condition)
+                             (rco-exp state then)
+                             (rco-exp state else))))
+      ((the-exp type (prim-exp op args))
+       (= [binds new-args] (rco-atom-many state args))
+       (prepend-lets type binds (the-exp type (prim-exp op new-args)))))))
 
 (define bind? (tau symbol? typed-atom-operand-exp?))
 
@@ -117,30 +113,26 @@
 ;; we should make this explicit.
 
 (define (rco-atom state exp)
-  (match exp
-    ((the-exp type (var-exp name))
-     [[] (the-exp type (var-exp name))])
-    ((the-exp type (int-exp value))
-     [[] (the-exp type (int-exp value))])
-    ((the-exp type (bool-exp value))
-     [[] (the-exp type (bool-exp value))])
-    ((the-exp type (let-exp name rhs body))
-     ;; We use (rco-exp) instead of (rco-atom) on rhs,
-     ;; (rco-atom) should only be used on
-     ;; exp at the operand position.
-     (= rhs-bind [name (rco-exp state rhs)])
-     (= [binds new-body] (rco-atom state body))
-     [(cons rhs-bind binds)
-      new-body])
-    ((the-exp type (if-exp condition then else))
-     (= name (freshen state '_))
-     [[[name (rco-exp state exp)]]
-      (the-exp type (var-exp name))])
-    ((the-exp type (prim-exp op args))
-     (= [binds new-args] (rco-atom-many state args))
-     (= name (freshen state '_))
-     [(list-push [name (the-exp type (prim-exp op new-args))] binds)
-      (the-exp type (var-exp name))])))
+  (if (atom-exp? (the-exp-exp exp))
+    [[] exp]
+    (match exp
+      ((the-exp type (let-exp name rhs body))
+       ;; We use (rco-exp) instead of (rco-atom) on rhs,
+       ;; (rco-atom) should only be used on
+       ;; exp at the operand position.
+       (= rhs-bind [name (rco-exp state rhs)])
+       (= [binds new-body] (rco-atom state body))
+       [(cons rhs-bind binds)
+        new-body])
+      ((the-exp type (if-exp condition then else))
+       (= name (freshen state '_))
+       [[[name (rco-exp state exp)]]
+        (the-exp type (var-exp name))])
+      ((the-exp type (prim-exp op args))
+       (= [binds new-args] (rco-atom-many state args))
+       (= name (freshen state '_))
+       [(list-push [name (the-exp type (prim-exp op new-args))] binds)
+        (the-exp type (var-exp name))]))))
 
 (claim rco-atom-many
   (-> state? (list? typed-exp?)
