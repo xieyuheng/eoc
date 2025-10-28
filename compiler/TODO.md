@@ -1,4 +1,3 @@
-`010-uniquify` -- handle `begin-exp`
 `020-remove-complex-operands` -- handle `begin-exp`
 
 [c] `effect-stmt`

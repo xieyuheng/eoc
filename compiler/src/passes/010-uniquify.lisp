@@ -26,12 +26,6 @@
        (var-exp (if (null? found-name)
                   name
                   found-name)))
-      ((int-exp value)
-       (int-exp value))
-      ((bool-exp value)
-       (bool-exp value))
-      (void-exp
-       void-exp)
       ((if-exp condition then else)
        (if-exp (uniquify-exp name-counts name-table condition)
                (uniquify-exp name-counts name-table then)
@@ -43,6 +37,8 @@
        (let-exp new-name
                 (uniquify-exp new-name-counts name-table rhs)
                 (uniquify-exp new-name-counts new-name-table body)))
+      ((begin-exp sequence)
+       (begin-exp (list-map (uniquify-exp name-counts name-table) sequence)))
       ((prim-exp op args)
        (prim-exp op (list-map (uniquify-exp name-counts name-table) args))))))
 
