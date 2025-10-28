@@ -3,72 +3,83 @@
 
 (export check-mod)
 
-(claim check-mod
-  (-> mod? mod?))
+(claim check-mod (-> mod? mod?))
 
 (define (check-mod mod)
   (match mod
     ((cons-mod info body)
-     (= [body^ return-type] (infer-exp [] body))
-     ;; result-type not used
-     (cons-mod info body^))))
+     (= typed-body (infer-exp [] body))
+     (cons-mod info typed-body))))
 
-(claim infer-exp
-  (-> (record? type?) exp?
-      (tau exp? type?)))
+(claim infer-exp (-> (record? type?) exp? typed-exp?))
 
 (define (infer-exp context exp)
   (match exp
+    ((the-exp type exp)
+     (check-exp context exp type))
     ((var-exp name)
-     [(var-exp name)
-      (record-get name context)])
+     (the-exp (record-get name context) (var-exp name)))
     ((int-exp value)
-     [(int-exp value)
-      int-t])
+     (the-exp int-t (int-exp value)))
     ((bool-exp value)
-     [(bool-exp value)
-      bool-t])
+     (the-exp bool-t (bool-exp value)))
     ((if-exp condition then else)
-     (= [condition^ condition-type] (infer-exp context condition))
+     (= (the-exp condition-type condition^) (infer-exp context condition))
      (unless (equal? bool-t condition-type)
        (exit [:who 'infer-exp
               :message "fail on if-exp's condition"
               :exp exp
               :condition-type condition-type]))
-     (= [then^ then-type] (infer-exp context then))
-     (= [else^ else-type] (infer-exp context else))
+     (= (the-exp then-type then^) (infer-exp context then))
+     (= (the-exp else-type else^) (infer-exp context else))
      (unless (equal? then-type else-type)
        (exit [:who 'infer-exp
               :message "fail on if-exp's then and else"
               :exp exp
               :then-type then-type
               :else-type else-type]))
-     [(if-exp condition^ then^ else^)
-      then-type])
+     (the-exp then-type
+              (if-exp (the-exp condition-type condition^)
+                      (the-exp then-type then^)
+                      (the-exp else-type else^))))
     ((prim-exp 'eq? [lhs rhs])
-     (= [lhs^ lhs-type] (infer-exp context lhs))
-     (= [rhs^ rhs-type] (infer-exp context rhs))
+     (= (the-exp lhs-type lhs^) (infer-exp context lhs))
+     (= (the-exp rhs-type rhs^) (infer-exp context rhs))
      (unless (equal? lhs-type rhs-type)
        (exit [:who 'infer-exp
               :message "fail on eq?"
               :exp exp
               :lhs-type lhs-type
               :rhs-type rhs-type]))
-     [(prim-exp 'eq? [lhs^ rhs^])
-      bool-t])
+     (the-exp bool-t
+              (prim-exp 'eq? [(the-exp lhs-type lhs^)
+                              (the-exp rhs-type rhs^)])))
     ((prim-exp op args)
-     (= [args^ arg-types] (list-unzip (list-map (infer-exp context) args)))
+     (= typed-args (list-map (infer-exp context) args))
+     (= arg-types (list-map the-exp-type typed-args))
      (= return-type (check-op arg-types op))
      (when (null? return-type)
        (exit [:who 'infer-exp
               :message "fail on prim-exp"
               :exp exp
               :arg-types arg-types]))
-     [(prim-exp op args^)
-      return-type])
+     (the-exp return-type (prim-exp op typed-args)))
     ((let-exp name rhs body)
-     (= [rhs^ rhs-type] (infer-exp context rhs))
+     (= (the-exp rhs-type rhs^) (infer-exp context rhs))
      (= new-context (record-put name rhs-type context))
-     (= [body^ body-type] (infer-exp new-context body))
-     [(let-exp name rhs^ body^)
-      body-type])))
+     (= (the-exp body-type body^) (infer-exp new-context body))
+     (the-exp body-type
+              (let-exp name (the-exp rhs-type rhs^)
+                       (the-exp body-type body^))))))
+
+(claim check-exp (-> (record? type?) exp? type? typed-exp?))
+
+(define (check-exp context exp type)
+  (= (the-exp inferred-type exp^) (infer-exp context exp))
+  (unless (equal? type inferred-type)
+    (exit [:who 'check-exp
+           :message "given type is not equal to inferred-type"
+           :exp exp
+           :type type
+           :inferred-type inferred-type]))
+  (the-exp inferred-type exp^))
