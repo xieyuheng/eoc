@@ -49,7 +49,7 @@ explicate-control:
 uncover-locals:
 
   [#cons-c-mod
-   [:context
+   [:locals
     [:v₁ #int-type
      :w₁ #int-type
      :x₁ #int-type
@@ -83,7 +83,7 @@ uncover-locals:
 select-instructions:
 
   [#cons-x86-mod
-   [:context
+   [:locals
     [:v₁ #int-type
      :w₁ #int-type
      :x₁ #int-type
@@ -109,7 +109,7 @@ select-instructions:
 uncover-live:
 
   [#cons-x86-mod
-   [:context
+   [:locals
     [:v₁ #int-type
      :w₁ #int-type
      :x₁ #int-type
@@ -148,7 +148,7 @@ uncover-live:
 build-interference:
 
   [#cons-x86-mod
-   [:context
+   [:locals
     [:v₁ #int-type
      :w₁ #int-type
      :x₁ #int-type
@@ -229,7 +229,7 @@ allocate-registers:
       [#var-rand 'x₁] [#reg-rand 'rbx])
     :spill-count 1
     :callee-saved [[#reg-rand 'rbx]]
-    :context
+    :locals
     [:v₁ #int-type
      :w₁ #int-type
      :x₁ #int-type
@@ -310,7 +310,7 @@ assign-homes:
       [#var-rand 'x₁] [#reg-rand 'rbx])
     :spill-count 1
     :callee-saved [[#reg-rand 'rbx]]
-    :context
+    :locals
     [:v₁ #int-type
      :w₁ #int-type
      :x₁ #int-type
@@ -391,7 +391,7 @@ patch-instructions:
       [#var-rand 'x₁] [#reg-rand 'rbx])
     :spill-count 1
     :callee-saved [[#reg-rand 'rbx]]
-    :context
+    :locals
     [:v₁ #int-type
      :w₁ #int-type
      :x₁ #int-type
@@ -470,7 +470,7 @@ prolog-and-epilog:
       [#var-rand 'x₁] [#reg-rand 'rbx])
     :spill-count 1
     :callee-saved [[#reg-rand 'rbx]]
-    :context
+    :locals
     [:v₁ #int-type
      :w₁ #int-type
      :x₁ #int-type

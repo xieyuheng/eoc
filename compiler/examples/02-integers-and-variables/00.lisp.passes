@@ -24,12 +24,12 @@ explicate-control:
 
 uncover-locals:
 
-  [#cons-c-mod [:context []] [:begin [#return-seq [#int-c-exp 42]]]]
+  [#cons-c-mod [:locals []] [:begin [#return-seq [#int-c-exp 42]]]]
 
 select-instructions:
 
   [#cons-x86-mod
-   [:context []]
+   [:locals []]
    [:begin
     [#cons-block
      []
@@ -38,7 +38,7 @@ select-instructions:
 uncover-live:
 
   [#cons-x86-mod
-   [:context []]
+   [:locals []]
    [:begin
     [#cons-block
      [:block-live-before-set {[#reg-rand 'rsp]}
@@ -48,7 +48,7 @@ uncover-live:
 build-interference:
 
   [#cons-x86-mod
-   [:context []
+   [:locals []
     :interference-graph
     [#cons-graph
      {[#reg-rand 'rax] [#reg-rand 'rsp]}
@@ -67,7 +67,7 @@ allocate-registers:
    [:home-locations (@hash)
     :spill-count 0
     :callee-saved []
-    :context []
+    :locals []
     :interference-graph
     [#cons-graph
      {[#reg-rand 'rax] [#reg-rand 'rsp]}
@@ -86,7 +86,7 @@ assign-homes:
    [:home-locations (@hash)
     :spill-count 0
     :callee-saved []
-    :context []
+    :locals []
     :interference-graph
     [#cons-graph
      {[#reg-rand 'rax] [#reg-rand 'rsp]}
@@ -105,7 +105,7 @@ patch-instructions:
    [:home-locations (@hash)
     :spill-count 0
     :callee-saved []
-    :context []
+    :locals []
     :interference-graph
     [#cons-graph
      {[#reg-rand 'rax] [#reg-rand 'rsp]}
@@ -124,7 +124,7 @@ prolog-and-epilog:
    [:home-locations (@hash)
     :spill-count 0
     :callee-saved []
-    :context []
+    :locals []
     :interference-graph
     [#cons-graph
      {[#reg-rand 'rax] [#reg-rand 'rsp]}

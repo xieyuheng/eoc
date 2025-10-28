@@ -94,7 +94,7 @@ explicate-control:
 uncover-locals:
 
   [#cons-c-mod
-   [:context [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]]
+   [:locals [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]]
    [:begin.let_body.0
     [#return-seq [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#var-c-exp '_₂]]]]
     :begin.then.1
@@ -167,7 +167,7 @@ uncover-locals:
 select-instructions:
 
   [#cons-x86-mod
-   [:context [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]]
+   [:locals [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]]
    [:begin.let_body.0
     [#cons-block
      []
@@ -246,7 +246,7 @@ select-instructions:
 uncover-live:
 
   [#cons-x86-mod
-   [:context [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]]
+   [:locals [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]]
    [:begin.let_body.0
     [#cons-block
      [:block-live-before-set {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp]}
@@ -392,7 +392,7 @@ uncover-live:
 build-interference:
 
   [#cons-x86-mod
-   [:context [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]
+   [:locals [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand '_₂]
@@ -614,7 +614,7 @@ allocate-registers:
       [#var-rand 'y₁] [#deref-rand 'rbp -16])
     :spill-count 1
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]
+    :locals [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand '_₂]
@@ -836,7 +836,7 @@ assign-homes:
       [#var-rand 'y₁] [#deref-rand 'rbp -16])
     :spill-count 1
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]
+    :locals [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand '_₂]
@@ -1058,7 +1058,7 @@ patch-instructions:
       [#var-rand 'y₁] [#deref-rand 'rbp -16])
     :spill-count 1
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]
+    :locals [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand '_₂]
@@ -1280,7 +1280,7 @@ prolog-and-epilog:
       [#var-rand 'y₁] [#deref-rand 'rbp -16])
     :spill-count 1
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]
+    :locals [:_₂ #int-type :_₁ #int-type :x₁ #int-type :y₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand '_₂]
