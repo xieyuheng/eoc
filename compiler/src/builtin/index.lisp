@@ -1,1 +1,2 @@
-(include-all "check-op")
+(include-all "operator-types")
+(include-all "operator-prims")

@@ -87,3 +87,21 @@
            :type type
            :inferred-type inferred-type]))
   (the-exp inferred-type exp^))
+
+(claim check-op
+  (-> (list? type?) symbol?
+      (union type? null?)))
+
+(define (check-op arg-types op)
+  ((optional-lift (check-type-entry arg-types))
+   (record-get op operator-types)))
+
+(claim check-type-entry
+  (-> (list? type?) (tau (list? type?) type?)
+      (union type? null?)))
+
+(define (check-type-entry arg-types type-entry)
+  (= [expected-arg-types return-type] type-entry)
+  (if (equal? expected-arg-types arg-types)
+    return-type
+    null))
