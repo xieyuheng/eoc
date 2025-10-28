@@ -37,4 +37,6 @@
        (list-map (swap eval-exp env) args)))
     ((let-exp name rhs body)
      (= new-env (record-put name (eval-exp rhs env) env))
-     (eval-exp body new-env))))
+     (eval-exp body new-env))
+    ((the-exp type exp)
+     (eval-exp exp env))))

@@ -48,3 +48,17 @@
      (if (eq? x 1)
        1
        0))))
+
+(test-mod
+ (equal? 1)
+ '(mod
+   ()
+   (the int-t 1)))
+
+(test-mod
+ (equal? 3)
+ '(mod
+   ()
+   (the int-t
+     (iadd (the int-t 2)
+           (the int-t 1)))))

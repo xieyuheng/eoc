@@ -16,6 +16,8 @@
   (match sexp
     (`(let ((,name ,rhs)) ,body)
      (let-exp name (parse-exp rhs) (parse-exp body)))
+    (`(the ,type ,exp)
+     (the-exp (parse-type type) (parse-exp exp)))
     (`(if ,condition ,then ,else)
      (if-exp (parse-exp condition)
              (parse-exp then)
@@ -25,3 +27,11 @@
     (atom
      (cond ((int? atom) (int-exp atom))
            (else (var-exp atom))))))
+
+(claim parse-type (-> sexp? type?))
+
+(define (parse-type sexp)
+  (match sexp
+    ('int-t int-t)
+    ('bool-t bool-t)
+    ('void-t void-t)))

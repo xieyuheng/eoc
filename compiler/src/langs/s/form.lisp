@@ -25,4 +25,15 @@
         ,(form-exp else)))
     ((let-exp name rhs body)
      `(let ((,name ,(form-exp rhs)))
-        ,(form-exp body)))))
+        ,(form-exp body)))
+    ((the-exp type exp)
+     `(the ,(form-type type)
+        ,(form-exp exp)))))
+
+(claim form-type (-> type? sexp?))
+
+(define (form-type type)
+  (match type
+    (int-t 'int-t)
+    (bool-t 'bool-t)
+    (void-t 'void-t)))
