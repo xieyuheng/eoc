@@ -1,9 +1,11 @@
 (import-all "deps")
 
-;; Translate nested function applications to
-;; assignments (let) of results to temporary variables.
+;; Unnest operands by translating to assignments (let)
+;; with the help of generated temporary variables.
 
-(export remove-complex-operands atom-operand-exp?)
+(export
+  remove-complex-operands
+  typed-atom-operand-exp?)
 
 (claim remove-complex-operands (-> mod? mod?))
 
@@ -22,32 +24,38 @@
   (record-put! 'count (iadd 1 count) state)
   (symbol-append name (string-to-symbol (format-subscript (iadd 1 count)))))
 
-(claim atom-operand-exp? (-> exp? bool?))
+(claim typed-atom-operand-exp? (-> exp? bool?))
 
 (@comment
   To define the grammer of the result exp of (rco-exp).
   this grammer will direct (by result type) the implementation
   of structural recursive functions -- (rco-exp) and (rco-atom).)
 
-(define (atom-operand-exp? exp)
+(define (typed-atom-operand-exp? exp)
   (match exp
-    ((var-exp name)
+    ((the-exp type (var-exp name))
      true)
-    ((int-exp value)
+    ((the-exp type (int-exp value))
      true)
-    ((bool-exp value)
+    ((the-exp type (bool-exp value))
      true)
-    ((if-exp condition then else)
-     (and (atom-operand-exp? condition)
-          (atom-operand-exp? then)
-          (atom-operand-exp? else)))
-    ((let-exp name rhs body)
-     (and (atom-operand-exp? rhs)
-          (atom-operand-exp? body)))
-    ((prim-exp op args)
-     (list-all? atom-exp? args))))
+    ((the-exp type (if-exp condition then else))
+     (and (typed-atom-operand-exp? condition)
+          (typed-atom-operand-exp? then)
+          (typed-atom-operand-exp? else)))
+    ((the-exp type (let-exp name rhs body))
+     (and (typed-atom-operand-exp? rhs)
+          (typed-atom-operand-exp? body)))
+    ((the-exp type (prim-exp op args))
+     (list-all? typed-atom-exp? args))
+    (_ false)))
 
-(claim rco-exp (-> state? exp? atom-operand-exp?))
+(define (typed-atom-exp? exp)
+  (and (the-exp? exp) (atom-exp? (the-exp-exp exp))))
+
+(claim rco-exp
+  (-> state? typed-exp?
+      typed-atom-operand-exp?))
 
 (@comment
   To make the operand position of an exp atomic.
@@ -61,40 +69,41 @@
 
 (define (rco-exp state exp)
   (match exp
-    ((var-exp name)
-     (var-exp name))
-    ((int-exp value)
-     (int-exp value))
-    ((bool-exp value)
-     (bool-exp value))
-    ((let-exp name rhs body)
-     (let-exp name
-              (rco-exp state rhs)
-              (rco-exp state body)))
-    ((if-exp condition then else)
-     (if-exp (rco-exp state condition)
-             (rco-exp state then)
-             (rco-exp state else)))
-    ((prim-exp op args)
+    ((the-exp type (var-exp name))
+     (the-exp type (var-exp name)))
+    ((the-exp type (int-exp value))
+     (the-exp type (int-exp value)))
+    ((the-exp type (bool-exp value))
+     (the-exp type (bool-exp value)))
+    ((the-exp type (let-exp name rhs body))
+     (the-exp type
+              (let-exp name
+                       (rco-exp state rhs)
+                       (rco-exp state body))))
+    ((the-exp type (if-exp condition then else))
+     (the-exp type (if-exp (rco-exp state condition)
+                           (rco-exp state then)
+                           (rco-exp state else))))
+    ((the-exp type (prim-exp op args))
      (= [binds new-args] (rco-atom-many state args))
-     (prepend-lets binds (prim-exp op new-args)))))
+     (prepend-lets type binds (the-exp type (prim-exp op new-args))))))
 
-(define bind? (tau symbol? atom-operand-exp?))
+(define bind? (tau symbol? typed-atom-operand-exp?))
 
 (claim prepend-lets
-  (-> (list? bind?) exp? exp?))
+  (-> type? (list? bind?) typed-exp? typed-exp?))
 
-(define (prepend-lets binds exp)
+(define (prepend-lets type binds exp)
   (match binds
     ([]
      exp)
     ((cons [name rhs] rest-binds)
-     (let-exp name rhs (prepend-lets rest-binds exp)))))
+     (the-exp type (let-exp name rhs (prepend-lets type rest-binds exp))))))
 
 (claim rco-atom
-  (-> state? exp?
+  (-> state? typed-exp?
       (tau (list? bind?)
-           atom-operand-exp?)))
+           typed-atom-operand-exp?)))
 
 (@comment
   To make an exp atomic.
@@ -109,13 +118,13 @@
 
 (define (rco-atom state exp)
   (match exp
-    ((var-exp name)
-     [[] (var-exp name)])
-    ((int-exp value)
-     [[] (int-exp value)])
-    ((int-exp value)
-     [[] (int-exp value)])
-    ((let-exp name rhs body)
+    ((the-exp type (var-exp name))
+     [[] (the-exp type (var-exp name))])
+    ((the-exp type (int-exp value))
+     [[] (the-exp type (int-exp value))])
+    ((the-exp type (bool-exp value))
+     [[] (the-exp type (bool-exp value))])
+    ((the-exp type (let-exp name rhs body))
      ;; We use (rco-exp) instead of (rco-atom) on rhs,
      ;; (rco-atom) should only be used on
      ;; exp at the operand position.
@@ -123,20 +132,20 @@
      (= [binds new-body] (rco-atom state body))
      [(cons rhs-bind binds)
       new-body])
-    ((if-exp condition then else)
+    ((the-exp type (if-exp condition then else))
      (= name (freshen state '_))
      [[[name (rco-exp state exp)]]
-      (var-exp name)])
-    ((prim-exp op args)
+      (the-exp type (var-exp name))])
+    ((the-exp type (prim-exp op args))
      (= [binds new-args] (rco-atom-many state args))
      (= name (freshen state '_))
-     [(list-push [name (prim-exp op new-args)] binds)
-      (var-exp name)])))
+     [(list-push [name (the-exp type (prim-exp op new-args))] binds)
+      (the-exp type (var-exp name))])))
 
 (claim rco-atom-many
-  (-> state? (list? exp?)
+  (-> state? (list? typed-exp?)
       (tau (list? bind?)
-           (list? atom-operand-exp?))))
+           (list? typed-atom-operand-exp?))))
 
 (define (rco-atom-many state exps)
   (= [binds-list new-exps] (list-unzip (list-map (rco-atom state) exps)))

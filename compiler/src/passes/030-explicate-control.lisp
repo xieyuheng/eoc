@@ -1,5 +1,5 @@
 (import-all "deps")
-(import "020-remove-complex-operands" atom-operand-exp?)
+(import "020-remove-complex-operands" typed-atom-operand-exp?)
 
 ;; Translate s to c with explicit execution order.
 
@@ -16,7 +16,7 @@
      (cons-c-mod info (record-put label seq seqs)))))
 
 (claim explicate-tail
-  (-> (record? seq?) symbol? atom-operand-exp?
+  (-> (record? seq?) symbol? typed-atom-operand-exp?
       seq?))
 
 (@comment
@@ -34,12 +34,12 @@
 
 (define (explicate-tail seqs label exp)
   (match exp
-    ((let-exp name rhs body)
+    ((the-exp type (let-exp name rhs body))
      (explicate-assign
       seqs label
       name rhs
       (explicate-tail seqs label body)))
-    ((if-exp condition then else)
+    ((the-exp type (if-exp condition then else))
      (explicate-if
       seqs label
       condition
@@ -49,23 +49,23 @@
      (return-seq (exp-to-c-exp exp)))))
 
 (claim exp-to-c-exp
-  (-> (union atom-exp? (inter prim-exp? atom-operand-exp?))
+  (-> typed-atom-operand-exp?
       c-exp?))
 
 (define (exp-to-c-exp exp)
   (match exp
-    ((var-exp name)
+    ((the-exp type (var-exp name))
      (var-c-exp name))
-    ((int-exp value)
+    ((the-exp type (int-exp value))
      (int-c-exp value))
-    ((bool-exp value)
+    ((the-exp type (bool-exp value))
      (bool-c-exp value))
-    ((prim-exp op args)
+    ((the-exp type (prim-exp op args))
      (prim-c-exp op (list-map exp-to-c-exp args)))))
 
 (claim explicate-assign
   (-> (record? seq?) symbol?
-      symbol? atom-operand-exp? seq?
+      symbol? typed-atom-operand-exp? seq?
       seq?))
 
 (@comment
@@ -83,10 +83,10 @@
 
 (define (explicate-assign seqs label name rhs cont)
   (match rhs
-    ((let-exp rhs-name rhs-rhs rhs-body)
+    ((the-exp type (let-exp rhs-name rhs-rhs rhs-body))
      (= cont (explicate-assign seqs label name rhs-body cont))
      (explicate-assign seqs label rhs-name rhs-rhs cont))
-    ((if-exp condition then else)
+    ((the-exp type (if-exp condition then else))
      (= let-body-label (generate-label seqs label 'let_body cont))
      (explicate-if
       seqs label
@@ -113,7 +113,7 @@
 
 (claim explicate-if
   (-> (record? seq?) symbol?
-      atom-operand-exp? seq? seq?
+      typed-atom-operand-exp? seq? seq?
       seq?))
 
 (@comment
@@ -122,23 +122,23 @@
 
 (define (explicate-if seqs label condition then-cont else-cont)
   (match condition
-    ((var-exp name)
+    ((the-exp type (var-exp name))
      (explicate-if
       seqs label
       (prim-exp 'eq? [(var-exp name) (bool-exp #t)])
       then-cont else-cont))
-    ((bool-exp value)
+    ((the-exp type (bool-exp value))
      (if value then-cont else-cont))
-    ((prim-exp 'not [negated-condition])
+    ((the-exp type (prim-exp 'not [negated-condition]))
      (explicate-if seqs label negated-condition else-cont then-cont))
-    ((prim-exp (the cmp-op? op) args)
+    ((the-exp type (prim-exp (the cmp-op? op) args))
      (branch-seq (prim-c-exp op (list-map exp-to-c-exp args))
                  (generate-label seqs label 'then then-cont)
                  (generate-label seqs label 'else else-cont)))
-    ((let-exp name rhs body)
+    ((the-exp type (let-exp name rhs body))
      (= cont (explicate-if seqs label body then-cont else-cont))
      (explicate-assign seqs label name rhs cont))
-    ((if-exp inner-condition then else)
+    ((the-exp type (if-exp inner-condition then else))
      (= then-cont (goto-seq (generate-label seqs label 'then then-cont)))
      (= else-cont (goto-seq (generate-label seqs label 'else else-cont)))
      (explicate-if

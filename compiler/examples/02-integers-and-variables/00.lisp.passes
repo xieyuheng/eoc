@@ -10,9 +10,13 @@ uniquify:
 
   (mod () 42)
 
+check-type:
+
+  (mod () (the int-t 42))
+
 remove-complex-operands:
 
-  (mod () 42)
+  (mod () (the int-t 42))
 
 explicate-control:
 

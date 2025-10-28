@@ -10,9 +10,13 @@ uniquify:
 
   (mod () (let ((x₁ (random-dice))) (let ((y₁ (random-dice))) (iadd (if (if (lt? x₁ 1) (eq? x₁ 0) (eq? x₁ 2)) (iadd y₁ 2) (iadd y₁ 10)) (if (if (lt? x₁ 1) (eq? x₁ 0) (eq? x₁ 2)) (iadd y₁ 2) (iadd y₁ 10))))))
 
+check-type:
+
+  (mod () (the int-t (let ((x₁ (the int-t (random-dice)))) (the int-t (let ((y₁ (the int-t (random-dice)))) (the int-t (iadd (the int-t (if (the bool-t (if (the bool-t (lt? (the int-t x₁) (the int-t 1))) (the bool-t (eq? (the int-t x₁) (the int-t 0))) (the bool-t (eq? (the int-t x₁) (the int-t 2))))) (the int-t (iadd (the int-t y₁) (the int-t 2))) (the int-t (iadd (the int-t y₁) (the int-t 10))))) (the int-t (if (the bool-t (if (the bool-t (lt? (the int-t x₁) (the int-t 1))) (the bool-t (eq? (the int-t x₁) (the int-t 0))) (the bool-t (eq? (the int-t x₁) (the int-t 2))))) (the int-t (iadd (the int-t y₁) (the int-t 2))) (the int-t (iadd (the int-t y₁) (the int-t 10))))))))))))
+
 remove-complex-operands:
 
-  (mod () (let ((x₁ (random-dice))) (let ((y₁ (random-dice))) (let ((_₁ (if (if (lt? x₁ 1) (eq? x₁ 0) (eq? x₁ 2)) (iadd y₁ 2) (iadd y₁ 10)))) (let ((_₂ (if (if (lt? x₁ 1) (eq? x₁ 0) (eq? x₁ 2)) (iadd y₁ 2) (iadd y₁ 10)))) (iadd _₁ _₂))))))
+  (mod () (the int-t (let ((x₁ (the int-t (random-dice)))) (the int-t (let ((y₁ (the int-t (random-dice)))) (the int-t (let ((_₁ (the int-t (if (the bool-t (if (the bool-t (lt? (the int-t x₁) (the int-t 1))) (the bool-t (eq? (the int-t x₁) (the int-t 0))) (the bool-t (eq? (the int-t x₁) (the int-t 2))))) (the int-t (iadd (the int-t y₁) (the int-t 2))) (the int-t (iadd (the int-t y₁) (the int-t 10))))))) (the int-t (let ((_₂ (the int-t (if (the bool-t (if (the bool-t (lt? (the int-t x₁) (the int-t 1))) (the bool-t (eq? (the int-t x₁) (the int-t 0))) (the bool-t (eq? (the int-t x₁) (the int-t 2))))) (the int-t (iadd (the int-t y₁) (the int-t 2))) (the int-t (iadd (the int-t y₁) (the int-t 10))))))) (the int-t (iadd (the int-t _₁) (the int-t _₂))))))))))))
 
 explicate-control:
 

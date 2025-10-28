@@ -10,9 +10,13 @@ uniquify:
 
   (mod () (iadd 20 22))
 
+check-type:
+
+  (mod () (the int-t (iadd (the int-t 20) (the int-t 22))))
+
 remove-complex-operands:
 
-  (mod () (iadd 20 22))
+  (mod () (the int-t (iadd (the int-t 20) (the int-t 22))))
 
 explicate-control:
 

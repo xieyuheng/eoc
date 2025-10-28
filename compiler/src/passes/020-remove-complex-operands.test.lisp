@@ -2,17 +2,17 @@
 (import-all "020-remove-complex-operands")
 
 (assert
-  (atom-operand-exp?
-   (parse-exp '(iadd x 1))))
+  (typed-atom-operand-exp?
+   (infer-exp [] (parse-exp '(iadd 1 1)))))
 
 (assert-not
-  (atom-operand-exp?
-   (parse-exp '(iadd (iadd x 1) 1))))
+  (typed-atom-operand-exp?
+   (infer-exp [] (parse-exp '(iadd (iadd 1 1) 1)))))
 
 (assert
-  (atom-operand-exp?
-   (parse-exp '(let ((y (iadd x 1))) (iadd y 1)))))
+  (typed-atom-operand-exp?
+   (infer-exp [] (parse-exp '(let ((y (iadd 1 1))) (iadd y 1))))))
 
 (assert-not
-  (atom-operand-exp?
-   (parse-exp '(let ((y (iadd (iadd x 1) 1))) (iadd y 1)))))
+  (typed-atom-operand-exp?
+   (infer-exp [] (parse-exp '(let ((y (iadd (iadd 1 1) 1))) (iadd y 1))))))

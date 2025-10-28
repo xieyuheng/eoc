@@ -10,9 +10,13 @@ uniquify:
 
   (mod () (if (if (eq? (random-dice) 1) (eq? (random-dice) 2) #f) 0 42))
 
+check-type:
+
+  (mod () (the int-t (if (the bool-t (if (the bool-t (eq? (the int-t (random-dice)) (the int-t 1))) (the bool-t (eq? (the int-t (random-dice)) (the int-t 2))) (the bool-t #f))) (the int-t 0) (the int-t 42))))
+
 remove-complex-operands:
 
-  (mod () (if (if (let ((_₁ (random-dice))) (eq? _₁ 1)) (let ((_₂ (random-dice))) (eq? _₂ 2)) #f) 0 42))
+  (mod () (the int-t (if (the bool-t (if (the bool-t (let ((_₁ (the int-t (random-dice)))) (the bool-t (eq? (the int-t _₁) (the int-t 1))))) (the bool-t (let ((_₂ (the int-t (random-dice)))) (the bool-t (eq? (the int-t _₂) (the int-t 2))))) (the bool-t #f))) (the int-t 0) (the int-t 42))))
 
 explicate-control:
 

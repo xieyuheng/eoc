@@ -8,6 +8,7 @@
   (pipe mod
     shrink
     uniquify
+    check-type
     remove-complex-operands
     (compose check-c-mod explicate-control)
     select-instructions

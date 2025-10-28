@@ -1,7 +1,10 @@
 (import-all "deps")
 (import-all "index")
 
-(export check-mod)
+(export
+  check-mod
+  infer-exp
+  check-exp)
 
 (claim check-mod (-> mod? mod?))
 
@@ -60,7 +63,8 @@
      (= return-type (check-op arg-types op))
      (when (null? return-type)
        (exit [:who 'infer-exp
-              :message "fail on prim-exp"
+              :message "fail on prim-exp, no return-type for op"
+              :op op
               :exp exp
               :arg-types arg-types]))
      (the-exp return-type (prim-exp op typed-args)))

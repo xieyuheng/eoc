@@ -9,6 +9,7 @@
     (compose (log-mod "mod"))
     (compose (log-mod "shrink") shrink)
     (compose (log-mod "uniquify") uniquify)
+    (compose (log-mod "check-type") check-type)
     (compose (log-mod "remove-complex-operands") remove-complex-operands)
     (compose check-c-mod (log-c-mod "explicate-control") explicate-control)
     (compose (log-x86-mod "select-instructions") select-instructions)

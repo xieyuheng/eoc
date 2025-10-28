@@ -29,6 +29,7 @@
   [:iadd [[int-type int-type] int-type]
    :isub [[int-type int-type] int-type]
    :ineg [[int-type] int-type]
+   :imul [[int-type int-type] int-type]   
    :random-dice [[] int-type]
    :and [[bool-type bool-type] bool-type]
    :or [[bool-type bool-type] bool-type]
@@ -45,6 +46,7 @@
   [:iadd iadd
    :isub isub
    :ineg ineg
+   :imul imul
    :random-dice (lambda () (iadd 1 (random-int 0 5)))
    ;; and is lazy
    ;; or is lazy

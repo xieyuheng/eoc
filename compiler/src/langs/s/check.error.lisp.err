@@ -1,4 +1,5 @@
 [:who 'infer-exp
- :message "fail on prim-exp"
+ :message "fail on prim-exp, no return-type for op"
+ :op 'iadd
  :exp [#prim-exp 'iadd [[#int-exp 8]]]
  :arg-types [#int-type]]

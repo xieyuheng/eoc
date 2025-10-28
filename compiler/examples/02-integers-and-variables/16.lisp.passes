@@ -10,9 +10,13 @@ uniquify:
 
   (mod () (isub 50 8))
 
+check-type:
+
+  (mod () (the int-t (isub (the int-t 50) (the int-t 8))))
+
 remove-complex-operands:
 
-  (mod () (isub 50 8))
+  (mod () (the int-t (isub (the int-t 50) (the int-t 8))))
 
 explicate-control:
 

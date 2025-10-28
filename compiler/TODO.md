@@ -1,8 +1,3 @@
-[passes] add `015-type-check` as a pass -- after `uniquify`
-
-- fix `020-remove-complex-operands`
-- fix `030-explicate-control`
-
 [c] add `uncover-locals` -- replace `check-c-mod`
 
 [s] add `arrow-type` -- fix `check-op`

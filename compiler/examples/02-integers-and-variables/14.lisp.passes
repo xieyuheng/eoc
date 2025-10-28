@@ -10,9 +10,13 @@ uniquify:
 
   (mod () (let ((x₁ 32)) (iadd (let ((x₂ 10)) x₂) x₁)))
 
+check-type:
+
+  (mod () (the int-t (let ((x₁ (the int-t 32))) (the int-t (iadd (the int-t (let ((x₂ (the int-t 10))) (the int-t x₂))) (the int-t x₁))))))
+
 remove-complex-operands:
 
-  (mod () (let ((x₁ 32)) (let ((x₂ 10)) (iadd x₂ x₁))))
+  (mod () (the int-t (let ((x₁ (the int-t 32))) (the int-t (let ((x₂ (the int-t 10))) (the int-t (iadd (the int-t x₂) (the int-t x₁))))))))
 
 explicate-control:
 

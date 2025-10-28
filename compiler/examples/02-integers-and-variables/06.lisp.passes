@@ -10,9 +10,13 @@ uniquify:
 
   (mod () (ineg (random-dice)))
 
+check-type:
+
+  (mod () (the int-t (ineg (the int-t (random-dice)))))
+
 remove-complex-operands:
 
-  (mod () (let ((_₁ (random-dice))) (ineg _₁)))
+  (mod () (the int-t (let ((_₁ (the int-t (random-dice)))) (the int-t (ineg (the int-t _₁))))))
 
 explicate-control:
 

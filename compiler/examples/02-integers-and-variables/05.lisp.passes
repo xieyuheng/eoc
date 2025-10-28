@@ -10,9 +10,13 @@ uniquify:
 
   (mod () (let ((a₁ 42)) (let ((b₁ a₁)) b₁)))
 
+check-type:
+
+  (mod () (the int-t (let ((a₁ (the int-t 42))) (the int-t (let ((b₁ (the int-t a₁))) (the int-t b₁))))))
+
 remove-complex-operands:
 
-  (mod () (let ((a₁ 42)) (let ((b₁ a₁)) b₁)))
+  (mod () (the int-t (let ((a₁ (the int-t 42))) (the int-t (let ((b₁ (the int-t a₁))) (the int-t b₁))))))
 
 explicate-control:
 

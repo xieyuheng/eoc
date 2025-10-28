@@ -1,41 +1,48 @@
 (import-all "deps")
+(import-all "005-shrink")
+(import-all "015-check-type")
 (import-all "020-remove-complex-operands")
 
 (define (test-mod sexp)
-  (= mod-0 (parse-mod sexp))
-  (write ">> ") (write (format-sexp (form-mod mod-0)))
+  (pipe sexp
+    (compose (log-mod ">> ") parse-mod)
+    (compose (log-mod ">> ") check-type shrink)
+    (compose (log-mod "=> ") remove-complex-operands)
+    (constant void)))
+
+(define (log-mod prompt mod)
+  (write prompt)
+  (write (format-sexp (form-mod-without-type mod)))
   (newline)
-  (= mod-1 (remove-complex-operands mod-0))
-  (write "=> ") (write (format-sexp (form-mod mod-1)))
-  (newline))
+  mod)
 
 (test-mod
  '(mod
    ()
-   (iadd x 1)))
+   (iadd 1 1)))
 
 (test-mod
  '(mod
    ()
-   (iadd (iadd x 1) 1)))
+   (iadd (iadd 1 1) 1)))
 
 (test-mod
  '(mod
    ()
-   (let ((y (iadd x 1)))
+   (let ((y (iadd 1 1)))
      (iadd y 1))))
 
 (test-mod
  '(mod
    ()
-   (let ((y (iadd (iadd x 1) 1)))
+   (let ((y (iadd (iadd 1 1) 1)))
      (iadd y 1))))
 
 (test-mod
  '(mod
    ()
    (let ((x 8))
-     (if (and e1 e2)
+     (if (and #t #f)
        (iadd x x)
        (imul x x)))))
 

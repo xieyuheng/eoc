@@ -10,9 +10,13 @@ uniquify:
 
   (mod () (iadd (iadd (iadd (iadd (random-dice) 1) 1) 1) 1))
 
+check-type:
+
+  (mod () (the int-t (iadd (the int-t (iadd (the int-t (iadd (the int-t (iadd (the int-t (random-dice)) (the int-t 1))) (the int-t 1))) (the int-t 1))) (the int-t 1))))
+
 remove-complex-operands:
 
-  (mod () (let ((_₁ (random-dice))) (let ((_₂ (iadd _₁ 1))) (let ((_₃ (iadd _₂ 1))) (let ((_₄ (iadd _₃ 1))) (iadd _₄ 1))))))
+  (mod () (the int-t (let ((_₁ (the int-t (random-dice)))) (the int-t (let ((_₂ (the int-t (iadd (the int-t _₁) (the int-t 1))))) (the int-t (let ((_₃ (the int-t (iadd (the int-t _₂) (the int-t 1))))) (the int-t (let ((_₄ (the int-t (iadd (the int-t _₃) (the int-t 1))))) (the int-t (iadd (the int-t _₄) (the int-t 1))))))))))))
 
 explicate-control:
 

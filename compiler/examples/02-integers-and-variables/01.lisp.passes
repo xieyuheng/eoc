@@ -10,9 +10,13 @@ uniquify:
 
   (mod () (let ((x₁ 4)) (iadd 8 x₁)))
 
+check-type:
+
+  (mod () (the int-t (let ((x₁ (the int-t 4))) (the int-t (iadd (the int-t 8) (the int-t x₁))))))
+
 remove-complex-operands:
 
-  (mod () (let ((x₁ 4)) (iadd 8 x₁)))
+  (mod () (the int-t (let ((x₁ (the int-t 4))) (the int-t (iadd (the int-t 8) (the int-t x₁))))))
 
 explicate-control:
 

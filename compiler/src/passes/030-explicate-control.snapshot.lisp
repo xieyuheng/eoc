@@ -3,12 +3,13 @@
 
 (define (test-mod sexp)
   (= mod (parse-mod sexp))
-  (write ">> ") (write (format-sexp (form-mod mod)))
+  (write ">> ") (write (format-sexp (form-mod-without-type mod)))
   (newline)
   (= c-mod
      (pipe mod
        shrink
        uniquify
+       check-type
        remove-complex-operands
        explicate-control))
   (write (format-after-prompt "=> " (pretty 80 c-mod)))
@@ -17,30 +18,30 @@
 (test-mod
  '(mod
    ()
-   (iadd x 1)))
+   (iadd 1 1)))
 
 (test-mod
  '(mod
    ()
-   (iadd (iadd x 1) 1)))
+   (iadd (iadd 1 1) 1)))
 
 (test-mod
  '(mod
    ()
-   (let ((y (iadd x 1)))
+   (let ((y (iadd 1 1)))
      (iadd y 1))))
 
 (test-mod
  '(mod
    ()
-   (let ((y (iadd (iadd x 1) 1)))
+   (let ((y (iadd (iadd 1 1) 1)))
      (iadd y 1))))
 
 (test-mod
  '(mod
    ()
    (let ((x 8))
-     (if (and e1 e2)
+     (if (and #t #f)
        (iadd x x)
        (imul x x)))))
 

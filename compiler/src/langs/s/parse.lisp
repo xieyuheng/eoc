@@ -26,6 +26,8 @@
      (prim-exp op (list-map parse-exp args)))
     (atom
      (cond ((int? atom) (int-exp atom))
+           ((bool? atom) (bool-exp atom))
+           ;; ((void? atom) (void-exp atom))
            (else (var-exp atom))))))
 
 (claim parse-type (-> sexp? type?))
