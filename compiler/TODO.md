@@ -1,5 +1,3 @@
-[pass] `031-uncover-locals` -- rename context to `locals`
-
 [s] add `arrow-type` -- fix `check-op`
 
 [s] add `void-exp`

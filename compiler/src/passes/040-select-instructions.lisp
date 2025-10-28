@@ -6,9 +6,9 @@
 
 (claim select-instructions
   (-> (c-mod/info?
-       (tau :context (record? type?)))
+       (tau :locals (record? type?)))
       (x86-mod/info?
-       (tau :context (record? type?)))))
+       (tau :locals (record? type?)))))
 
 (define (select-instructions c-mod)
   (match c-mod
@@ -18,7 +18,7 @@
       (pipe seqs
         (record-map
          (lambda (label seq)
-           (= context (record-get 'context info))
+           (= locals (record-get 'locals info))
            [label (cons-block [] (select-instr-seq label seq))])))))))
 
 (claim select-instr-seq

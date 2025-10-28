@@ -4,26 +4,26 @@
 
 (claim uncover-locals
   (-> c-mod?
-      (c-mod/info? (tau :context (record? type?)))))
+      (c-mod/info? (tau :locals (record? type?)))))
 
 (define (uncover-locals c-mod)
   (match c-mod
     ((cons-c-mod info seqs)
-     (= context [])
-     (pipe seqs (record-each-value (uncover-locals-seq context)))
+     (= locals [])
+     (pipe seqs (record-each-value (uncover-locals-seq locals)))
      (cons-c-mod
-      (record-put 'context context info)
+      (record-put 'locals locals info)
       seqs))))
 
 (claim uncover-locals-seq
   (-> (record? type?) seq?
       void?))
 
-(define (uncover-locals-seq context seq)
+(define (uncover-locals-seq locals seq)
   (match seq
     ((cons-seq stmt tail)
-     (uncover-locals-stmt context stmt)
-     (uncover-locals-seq context tail))
+     (uncover-locals-stmt locals stmt)
+     (uncover-locals-seq locals tail))
     (else
      void)))
 
@@ -31,8 +31,8 @@
   (-> (record? type?) stmt?
       void?))
 
-(define (uncover-locals-stmt context stmt)
+(define (uncover-locals-stmt locals stmt)
   (match stmt
     ((assign-stmt (var-c-exp name) type rhs)
-     (record-put! name type context)
+     (record-put! name type locals)
      void)))
