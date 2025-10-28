@@ -107,9 +107,6 @@
 ;; TODO (rco-atom) and (rco-atom-many) use writer monad,
 ;; we should make this explicit.
 
-;; TODO we should also avoid side effect on state
-;; by using state monad.
-
 (define (rco-atom state exp)
   (match exp
     ((var-exp name)

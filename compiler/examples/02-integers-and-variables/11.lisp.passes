@@ -32,7 +32,7 @@ explicate-control:
 select-instructions:
 
   [#cons-x86-mod
-   [:context [:_₁ #int-t :_₂ #int-t]]
+   [:context [:_₁ #int-type :_₂ #int-type]]
    [:begin
     [#cons-block
      []
@@ -47,7 +47,7 @@ select-instructions:
 uncover-live:
 
   [#cons-x86-mod
-   [:context [:_₁ #int-t :_₂ #int-t]]
+   [:context [:_₁ #int-type :_₂ #int-type]]
    [:begin
     [#cons-block
      [:block-live-before-set {[#reg-rand 'rsp]}
@@ -70,7 +70,7 @@ uncover-live:
 build-interference:
 
   [#cons-x86-mod
-   [:context [:_₁ #int-t :_₂ #int-t]
+   [:context [:_₁ #int-type :_₂ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]}
@@ -105,7 +105,7 @@ allocate-registers:
     (@hash [#var-rand '_₂] [#reg-rand 'rcx] [#var-rand '_₁] [#reg-rand 'rbx])
     :spill-count 0
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:_₁ #int-t :_₂ #int-t]
+    :context [:_₁ #int-type :_₂ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]}
@@ -140,7 +140,7 @@ assign-homes:
     (@hash [#var-rand '_₂] [#reg-rand 'rcx] [#var-rand '_₁] [#reg-rand 'rbx])
     :spill-count 0
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:_₁ #int-t :_₂ #int-t]
+    :context [:_₁ #int-type :_₂ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]}
@@ -175,7 +175,7 @@ patch-instructions:
     (@hash [#var-rand '_₂] [#reg-rand 'rcx] [#var-rand '_₁] [#reg-rand 'rbx])
     :spill-count 0
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:_₁ #int-t :_₂ #int-t]
+    :context [:_₁ #int-type :_₂ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]}
@@ -210,7 +210,7 @@ prolog-and-epilog:
     (@hash [#var-rand '_₂] [#reg-rand 'rcx] [#var-rand '_₁] [#reg-rand 'rbx])
     :spill-count 0
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:_₁ #int-t :_₂ #int-t]
+    :context [:_₁ #int-type :_₂ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand '_₁] [#var-rand '_₂] [#reg-rand 'rsp] [#reg-rand 'rax]}

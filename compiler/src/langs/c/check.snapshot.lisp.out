@@ -1,5 +1,5 @@
 [#cons-c-mod
- [:context [:x #int-t]]
+ [:context [:x #int-type]]
  [:begin
   [#cons-seq
    [#assign-stmt
@@ -7,7 +7,7 @@
     [#prim-c-exp 'ineg [[#int-c-exp 1]]]]
    [#return-seq [#var-c-exp 'x]]]]]
 [#cons-c-mod
- [:context [:x #int-t]]
+ [:context [:x #int-type]]
  [:begin
   [#cons-seq
    [#assign-stmt [#var-c-exp 'x] [#int-c-exp 8]]
@@ -16,7 +16,7 @@
     'a
     'b]]]]
 [#cons-c-mod
- [:context [:x #int-t]]
+ [:context [:x #int-type]]
  [:begin
   [#cons-seq
    [#assign-stmt [#var-c-exp 'x] [#int-c-exp 8]]
@@ -25,7 +25,7 @@
     'a
     'b]]]]
 [#cons-c-mod
- [:context [:x #int-t :b #bool-t]]
+ [:context [:x #int-type :b #bool-type]]
  [:begin
   [#cons-seq
    [#assign-stmt [#var-c-exp 'x] [#int-c-exp 8]]

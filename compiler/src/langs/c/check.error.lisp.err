@@ -1,4 +1,4 @@
 [:who 'infer-c-exp
  :message "fail on prim-c-exp"
  :c-exp [#prim-c-exp 'ineg [[#int-c-exp 1] [#int-c-exp 2]]]
- :arg-types [#int-t #int-t]]
+ :arg-types [#int-type #int-type]]

@@ -70,7 +70,7 @@
      void)
     ((branch-seq condition then-label else-label)
      (= condition-type (infer-c-exp context condition))
-     (unless (equal? bool-t condition-type)
+     (unless (equal? bool-type condition-type)
        (exit [:who 'check-seq
               :message "fail on branch"
               :context context
@@ -106,9 +106,9 @@
     ((var-c-exp name)
      (record-get name context))
     ((int-c-exp value)
-     int-t)
+     int-type)
     ((bool-c-exp value)
-     bool-t)
+     bool-type)
     ((prim-c-exp 'eq? [lhs rhs])
      (= lhs-type (infer-c-exp context lhs))
      (= rhs-type (infer-c-exp context rhs))
@@ -118,7 +118,7 @@
               :c-exp c-exp
               :lhs-type lhs-type
               :rhs-type rhs-type]))
-     bool-t)
+     bool-type)
     ((prim-c-exp op args)
      (= arg-types (list-map (infer-c-exp context) args))
      (= return-type (check-op arg-types op))

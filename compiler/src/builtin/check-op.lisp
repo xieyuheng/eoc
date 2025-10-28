@@ -26,18 +26,18 @@
 (claim operator-types (record? (tau (list? type?) type?)))
 
 (define operator-types
-  [:iadd [[int-t int-t] int-t]
-   :isub [[int-t int-t] int-t]
-   :ineg [[int-t] int-t]
-   :random-dice [[] int-t]
-   :and [[bool-t bool-t] bool-t]
-   :or [[bool-t bool-t] bool-t]
-   :not [[bool-t] bool-t]
+  [:iadd [[int-type int-type] int-type]
+   :isub [[int-type int-type] int-type]
+   :ineg [[int-type] int-type]
+   :random-dice [[] int-type]
+   :and [[bool-type bool-type] bool-type]
+   :or [[bool-type bool-type] bool-type]
+   :not [[bool-type] bool-type]
    ;; eq? is generic
-   :lt? [[int-t int-t] bool-t]
-   :gt? [[int-t int-t] bool-t]
-   :lteq? [[int-t int-t] bool-t]
-   :gteq? [[int-t int-t] bool-t]])
+   :lt? [[int-type int-type] bool-type]
+   :gt? [[int-type int-type] bool-type]
+   :lteq? [[int-type int-type] bool-type]
+   :gteq? [[int-type int-type] bool-type]])
 
 (claim operator-prims (record? (*-> value? value?)))
 

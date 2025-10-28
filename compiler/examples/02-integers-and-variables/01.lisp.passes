@@ -26,7 +26,7 @@ explicate-control:
 select-instructions:
 
   [#cons-x86-mod
-   [:context [:x₁ #int-t]]
+   [:context [:x₁ #int-type]]
    [:begin
     [#cons-block
      []
@@ -38,7 +38,7 @@ select-instructions:
 uncover-live:
 
   [#cons-x86-mod
-   [:context [:x₁ #int-t]]
+   [:context [:x₁ #int-type]]
    [:begin
     [#cons-block
      [:block-live-before-set {[#reg-rand 'rsp]}
@@ -55,7 +55,7 @@ uncover-live:
 build-interference:
 
   [#cons-x86-mod
-   [:context [:x₁ #int-t]
+   [:context [:x₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
@@ -82,7 +82,7 @@ allocate-registers:
    [:home-locations (@hash [#var-rand 'x₁] [#reg-rand 'rcx])
     :spill-count 0
     :callee-saved []
-    :context [:x₁ #int-t]
+    :context [:x₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
@@ -109,7 +109,7 @@ assign-homes:
    [:home-locations (@hash [#var-rand 'x₁] [#reg-rand 'rcx])
     :spill-count 0
     :callee-saved []
-    :context [:x₁ #int-t]
+    :context [:x₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
@@ -136,7 +136,7 @@ patch-instructions:
    [:home-locations (@hash [#var-rand 'x₁] [#reg-rand 'rcx])
     :spill-count 0
     :callee-saved []
-    :context [:x₁ #int-t]
+    :context [:x₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
@@ -163,7 +163,7 @@ prolog-and-epilog:
    [:home-locations (@hash [#var-rand 'x₁] [#reg-rand 'rcx])
     :spill-count 0
     :callee-saved []
-    :context [:x₁ #int-t]
+    :context [:x₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}

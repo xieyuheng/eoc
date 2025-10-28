@@ -1,10 +1,10 @@
 (export
   type?
-  int-t
-  bool-t
-  void-t)
+  int-type
+  bool-type
+  void-type)
 
 (define-data type?
-  int-t
-  bool-t
-  void-t)
+  int-type
+  bool-type
+  void-type)

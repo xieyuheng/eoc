@@ -32,6 +32,6 @@
 
 (define (parse-type sexp)
   (match sexp
-    ('int-t int-t)
-    ('bool-t bool-t)
-    ('void-t void-t)))
+    ('int-t int-type)
+    ('bool-t bool-type)
+    ('void-t void-type)))

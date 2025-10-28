@@ -34,6 +34,6 @@
 
 (define (form-type type)
   (match type
-    (int-t 'int-t)
-    (bool-t 'bool-t)
-    (void-t 'void-t)))
+    (int-type 'int-t)
+    (bool-type 'bool-t)
+    (void-type 'void-t)))

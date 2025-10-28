@@ -36,7 +36,7 @@ explicate-control:
 select-instructions:
 
   [#cons-x86-mod
-   [:context [:x₁ #int-t :x₃ #int-t :x₂ #int-t :_₁ #int-t]]
+   [:context [:x₁ #int-type :x₃ #int-type :x₂ #int-type :_₁ #int-type]]
    [:begin
     [#cons-block
      []
@@ -53,7 +53,7 @@ select-instructions:
 uncover-live:
 
   [#cons-x86-mod
-   [:context [:x₁ #int-t :x₃ #int-t :x₂ #int-t :_₁ #int-t]]
+   [:context [:x₁ #int-type :x₃ #int-type :x₂ #int-type :_₁ #int-type]]
    [:begin
     [#cons-block
      [:block-live-before-set {[#reg-rand 'rsp]}
@@ -80,7 +80,7 @@ uncover-live:
 build-interference:
 
   [#cons-x86-mod
-   [:context [:x₁ #int-t :x₃ #int-t :x₂ #int-t :_₁ #int-t]
+   [:context [:x₁ #int-type :x₃ #int-type :x₂ #int-type :_₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₁]
@@ -136,7 +136,7 @@ allocate-registers:
       [#var-rand 'x₂] [#reg-rand 'rcx])
     :spill-count 0
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:x₁ #int-t :x₃ #int-t :x₂ #int-t :_₁ #int-t]
+    :context [:x₁ #int-type :x₃ #int-type :x₂ #int-type :_₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₁]
@@ -192,7 +192,7 @@ assign-homes:
       [#var-rand 'x₂] [#reg-rand 'rcx])
     :spill-count 0
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:x₁ #int-t :x₃ #int-t :x₂ #int-t :_₁ #int-t]
+    :context [:x₁ #int-type :x₃ #int-type :x₂ #int-type :_₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₁]
@@ -248,7 +248,7 @@ patch-instructions:
       [#var-rand 'x₂] [#reg-rand 'rcx])
     :spill-count 0
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:x₁ #int-t :x₃ #int-t :x₂ #int-t :_₁ #int-t]
+    :context [:x₁ #int-type :x₃ #int-type :x₂ #int-type :_₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₁]
@@ -302,7 +302,7 @@ prolog-and-epilog:
       [#var-rand 'x₂] [#reg-rand 'rcx])
     :spill-count 0
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:x₁ #int-t :x₃ #int-t :x₂ #int-t :_₁ #int-t]
+    :context [:x₁ #int-type :x₃ #int-type :x₂ #int-type :_₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₁]

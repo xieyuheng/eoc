@@ -1,83 +1,83 @@
-[#cons-mod [] [#the-exp #int-t [#int-exp 8]]]
+[#cons-mod [] [#the-exp #int-type [#int-exp 8]]]
 [#cons-mod
  []
  [#the-exp
-  #int-t
-  [#prim-exp 'ineg [[#the-exp #int-t [#int-exp 8]]]]]]
+  #int-type
+  [#prim-exp 'ineg [[#the-exp #int-type [#int-exp 8]]]]]]
 [#cons-mod
  []
  [#the-exp
-  #int-t
+  #int-type
   [#prim-exp
    'iadd
-   [[#the-exp #int-t [#int-exp 8]]
+   [[#the-exp #int-type [#int-exp 8]]
     [#the-exp
-     #int-t
-     [#prim-exp 'ineg [[#the-exp #int-t [#int-exp 8]]]]]]]]]
+     #int-type
+     [#prim-exp 'ineg [[#the-exp #int-type [#int-exp 8]]]]]]]]]
 [#cons-mod
  []
  [#the-exp
-  #int-t
+  #int-type
   [#let-exp
    'x
-   [#the-exp #int-t [#int-exp 8]]
+   [#the-exp #int-type [#int-exp 8]]
    [#the-exp
-    #int-t
+    #int-type
     [#prim-exp
      'iadd
-     [[#the-exp #int-t [#var-exp 'x]]
-      [#the-exp #int-t [#var-exp 'x]]]]]]]]
+     [[#the-exp #int-type [#var-exp 'x]]
+      [#the-exp #int-type [#var-exp 'x]]]]]]]]
 [#cons-mod
  []
  [#the-exp
-  #int-t
+  #int-type
   [#let-exp
    'x
-   [#the-exp #int-t [#int-exp 8]]
+   [#the-exp #int-type [#int-exp 8]]
    [#the-exp
-    #int-t
+    #int-type
     [#if-exp
      [#the-exp
-      #bool-t
+      #bool-type
       [#prim-exp
        'gt?
-       [[#the-exp #int-t [#var-exp 'x]]
-        [#the-exp #int-t [#int-exp 1]]]]]
-     [#the-exp #int-t [#int-exp 1]]
-     [#the-exp #int-t [#int-exp 0]]]]]]]
+       [[#the-exp #int-type [#var-exp 'x]]
+        [#the-exp #int-type [#int-exp 1]]]]]
+     [#the-exp #int-type [#int-exp 1]]
+     [#the-exp #int-type [#int-exp 0]]]]]]]
 [#cons-mod
  []
  [#the-exp
-  #int-t
+  #int-type
   [#let-exp
    'x
-   [#the-exp #int-t [#int-exp 0]]
+   [#the-exp #int-type [#int-exp 0]]
    [#the-exp
-    #int-t
+    #int-type
     [#if-exp
      [#the-exp
-      #bool-t
+      #bool-type
       [#prim-exp
        'gt?
-       [[#the-exp #int-t [#var-exp 'x]]
-        [#the-exp #int-t [#int-exp 1]]]]]
-     [#the-exp #int-t [#int-exp 1]]
-     [#the-exp #int-t [#int-exp 0]]]]]]]
+       [[#the-exp #int-type [#var-exp 'x]]
+        [#the-exp #int-type [#int-exp 1]]]]]
+     [#the-exp #int-type [#int-exp 1]]
+     [#the-exp #int-type [#int-exp 0]]]]]]]
 [#cons-mod
  []
  [#the-exp
-  #int-t
+  #int-type
   [#let-exp
    'x
-   [#the-exp #int-t [#int-exp 0]]
+   [#the-exp #int-type [#int-exp 0]]
    [#the-exp
-    #int-t
+    #int-type
     [#if-exp
      [#the-exp
-      #bool-t
+      #bool-type
       [#prim-exp
        'eq?
-       [[#the-exp #int-t [#var-exp 'x]]
-        [#the-exp #int-t [#int-exp 1]]]]]
-     [#the-exp #int-t [#int-exp 1]]
-     [#the-exp #int-t [#int-exp 0]]]]]]]
+       [[#the-exp #int-type [#var-exp 'x]]
+        [#the-exp #int-type [#int-exp 1]]]]]
+     [#the-exp #int-type [#int-exp 1]]
+     [#the-exp #int-type [#int-exp 0]]]]]]]

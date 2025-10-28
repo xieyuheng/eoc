@@ -20,12 +20,12 @@
     ((var-exp name)
      (the-exp (record-get name context) (var-exp name)))
     ((int-exp value)
-     (the-exp int-t (int-exp value)))
+     (the-exp int-type (int-exp value)))
     ((bool-exp value)
-     (the-exp bool-t (bool-exp value)))
+     (the-exp bool-type (bool-exp value)))
     ((if-exp condition then else)
      (= (the-exp condition-type condition^) (infer-exp context condition))
-     (unless (equal? bool-t condition-type)
+     (unless (equal? bool-type condition-type)
        (exit [:who 'infer-exp
               :message "fail on if-exp's condition"
               :exp exp
@@ -51,7 +51,7 @@
               :exp exp
               :lhs-type lhs-type
               :rhs-type rhs-type]))
-     (the-exp bool-t
+     (the-exp bool-type
               (prim-exp 'eq? [(the-exp lhs-type lhs^)
                               (the-exp rhs-type rhs^)])))
     ((prim-exp op args)

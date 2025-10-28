@@ -30,7 +30,7 @@ explicate-control:
 select-instructions:
 
   [#cons-x86-mod
-   [:context [:x₂ #int-t :x₁ #int-t]]
+   [:context [:x₂ #int-type :x₁ #int-type]]
    [:begin
     [#cons-block
      []
@@ -44,7 +44,7 @@ select-instructions:
 uncover-live:
 
   [#cons-x86-mod
-   [:context [:x₂ #int-t :x₁ #int-t]]
+   [:context [:x₂ #int-type :x₁ #int-type]]
    [:begin
     [#cons-block
      [:block-live-before-set {[#reg-rand 'rsp]}
@@ -65,7 +65,7 @@ uncover-live:
 build-interference:
 
   [#cons-x86-mod
-   [:context [:x₂ #int-t :x₁ #int-t]
+   [:context [:x₂ #int-type :x₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
@@ -98,7 +98,7 @@ allocate-registers:
     (@hash [#var-rand 'x₂] [#reg-rand 'rcx] [#var-rand 'x₁] [#reg-rand 'rcx])
     :spill-count 0
     :callee-saved []
-    :context [:x₂ #int-t :x₁ #int-t]
+    :context [:x₂ #int-type :x₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
@@ -131,7 +131,7 @@ assign-homes:
     (@hash [#var-rand 'x₂] [#reg-rand 'rcx] [#var-rand 'x₁] [#reg-rand 'rcx])
     :spill-count 0
     :callee-saved []
-    :context [:x₂ #int-t :x₁ #int-t]
+    :context [:x₂ #int-type :x₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
@@ -164,7 +164,7 @@ patch-instructions:
     (@hash [#var-rand 'x₂] [#reg-rand 'rcx] [#var-rand 'x₁] [#reg-rand 'rcx])
     :spill-count 0
     :callee-saved []
-    :context [:x₂ #int-t :x₁ #int-t]
+    :context [:x₂ #int-type :x₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}
@@ -196,7 +196,7 @@ prolog-and-epilog:
     (@hash [#var-rand 'x₂] [#reg-rand 'rcx] [#var-rand 'x₁] [#reg-rand 'rcx])
     :spill-count 0
     :callee-saved []
-    :context [:x₂ #int-t :x₁ #int-t]
+    :context [:x₂ #int-type :x₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'x₂] [#var-rand 'x₁] [#reg-rand 'rsp] [#reg-rand 'rax]}

@@ -40,7 +40,13 @@ explicate-control:
 select-instructions:
 
   [#cons-x86-mod
-   [:context [:v₁ #int-t :w₁ #int-t :x₁ #int-t :y₁ #int-t :z₁ #int-t :_₁ #int-t]]
+   [:context
+    [:v₁ #int-type
+     :w₁ #int-type
+     :x₁ #int-type
+     :y₁ #int-type
+     :z₁ #int-type
+     :_₁ #int-type]]
    [:begin
     [#cons-block
      []
@@ -60,7 +66,13 @@ select-instructions:
 uncover-live:
 
   [#cons-x86-mod
-   [:context [:v₁ #int-t :w₁ #int-t :x₁ #int-t :y₁ #int-t :z₁ #int-t :_₁ #int-t]]
+   [:context
+    [:v₁ #int-type
+     :w₁ #int-type
+     :x₁ #int-type
+     :y₁ #int-type
+     :z₁ #int-type
+     :_₁ #int-type]]
    [:begin
     [#cons-block
      [:block-live-before-set {[#reg-rand 'rsp]}
@@ -93,7 +105,13 @@ uncover-live:
 build-interference:
 
   [#cons-x86-mod
-   [:context [:v₁ #int-t :w₁ #int-t :x₁ #int-t :y₁ #int-t :z₁ #int-t :_₁ #int-t]
+   [:context
+    [:v₁ #int-type
+     :w₁ #int-type
+     :x₁ #int-type
+     :y₁ #int-type
+     :z₁ #int-type
+     :_₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'v₁]
@@ -168,7 +186,13 @@ allocate-registers:
       [#var-rand 'x₁] [#reg-rand 'rbx])
     :spill-count 1
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:v₁ #int-t :w₁ #int-t :x₁ #int-t :y₁ #int-t :z₁ #int-t :_₁ #int-t]
+    :context
+    [:v₁ #int-type
+     :w₁ #int-type
+     :x₁ #int-type
+     :y₁ #int-type
+     :z₁ #int-type
+     :_₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'v₁]
@@ -243,7 +267,13 @@ assign-homes:
       [#var-rand 'x₁] [#reg-rand 'rbx])
     :spill-count 1
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:v₁ #int-t :w₁ #int-t :x₁ #int-t :y₁ #int-t :z₁ #int-t :_₁ #int-t]
+    :context
+    [:v₁ #int-type
+     :w₁ #int-type
+     :x₁ #int-type
+     :y₁ #int-type
+     :z₁ #int-type
+     :_₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'v₁]
@@ -318,7 +348,13 @@ patch-instructions:
       [#var-rand 'x₁] [#reg-rand 'rbx])
     :spill-count 1
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:v₁ #int-t :w₁ #int-t :x₁ #int-t :y₁ #int-t :z₁ #int-t :_₁ #int-t]
+    :context
+    [:v₁ #int-type
+     :w₁ #int-type
+     :x₁ #int-type
+     :y₁ #int-type
+     :z₁ #int-type
+     :_₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'v₁]
@@ -391,7 +427,13 @@ prolog-and-epilog:
       [#var-rand 'x₁] [#reg-rand 'rbx])
     :spill-count 1
     :callee-saved [[#reg-rand 'rbx]]
-    :context [:v₁ #int-t :w₁ #int-t :x₁ #int-t :y₁ #int-t :z₁ #int-t :_₁ #int-t]
+    :context
+    [:v₁ #int-type
+     :w₁ #int-type
+     :x₁ #int-type
+     :y₁ #int-type
+     :z₁ #int-type
+     :_₁ #int-type]
     :interference-graph
     [#cons-graph
      {[#var-rand 'v₁]
