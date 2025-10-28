@@ -7,6 +7,14 @@ int64_t random_dice(void) {
     return 6;
 }
 
+int64_t print_int(int64_t x) {
+    printf("%lld", x);
+}
+
+void newline(void) {
+    printf("\n");
+}
+
 gc_t *gc;
 void **root_stack;
 void **root_pointer;

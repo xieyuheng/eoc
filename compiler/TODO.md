@@ -1,4 +1,3 @@
-[builtin] runtime support for `print-int` and `newline`
 [builtin] codegen for `print-int` and `newline`
 
 [c] `effect-stmt`
