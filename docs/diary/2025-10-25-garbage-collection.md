@@ -92,3 +92,9 @@ sweep 的时候扫描这个 object-stack 来做回收。
 都编译一个 if 来判断是否「object-stack 比较大了」，
 如果是，就进行 GC，
 而 GC 之前要保存所有寄存器到中的值到 root-stack 中。
+
+好像也可以直接在 GC 代码中使用 inline assembly，
+做到把所有 register 都保存到 root-stack 中，
+这样就不需要编译器有任何特殊处理了。
+
+也就是说，编译器生成代码的时候，不用做 if 判断。
