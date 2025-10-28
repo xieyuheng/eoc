@@ -1,27 +1,10 @@
 (import-all "deps")
+(import-all "exp")
 
 (export
-  mod? cons-mod
-  exp?
-  var-exp int-exp bool-exp if-exp prim-exp let-exp the-exp
-  var-exp? int-exp? bool-exp? if-exp? prim-exp? let-exp? the-exp?
-  atom-exp?)
+  mod? cons-mod)
 
 (define-data mod?
   (cons-mod
    (info anything?)
    (body exp?)))
-
-(define-data exp?
-  (var-exp (name symbol?))
-  (int-exp (value int?))
-  (bool-exp (value bool?))
-  (if-exp (condition exp?) (then exp?) (else exp?))
-  (prim-exp (op symbol?) (args (list? exp?)))
-  (let-exp (name symbol?) (rhs exp?) (body exp?))
-  (the-exp (type type?) (exp exp?)))
-
-(define atom-exp?
-  (union var-exp?
-         int-exp?
-         bool-exp?))

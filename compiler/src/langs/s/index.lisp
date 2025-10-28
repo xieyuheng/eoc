@@ -1,3 +1,4 @@
+(include-all "exp")
 (include-all "mod")
 (include "check" check-mod)
 (include "eval" eval-mod)
