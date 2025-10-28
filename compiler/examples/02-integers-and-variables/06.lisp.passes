@@ -24,7 +24,16 @@ explicate-control:
    []
    [:begin
     [#cons-seq
-     [#assign-stmt [#var-c-exp '_₁] [#prim-c-exp 'random-dice []]]
+     [#assign-stmt [#var-c-exp '_₁] #int-type [#prim-c-exp 'random-dice []]]
+     [#return-seq [#prim-c-exp 'ineg [[#var-c-exp '_₁]]]]]]]
+
+uncover-locals:
+
+  [#cons-c-mod
+   [:context [:_₁ #int-type]]
+   [:begin
+    [#cons-seq
+     [#assign-stmt [#var-c-exp '_₁] #int-type [#prim-c-exp 'random-dice []]]
      [#return-seq [#prim-c-exp 'ineg [[#var-c-exp '_₁]]]]]]]
 
 select-instructions:

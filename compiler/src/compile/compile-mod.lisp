@@ -10,7 +10,8 @@
     uniquify
     check-type
     remove-complex-operands
-    (compose check-c-mod explicate-control)
+    explicate-control
+    uncover-locals
     select-instructions
     uncover-live
     build-interference

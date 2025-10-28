@@ -1,6 +1,4 @@
-[c] add `031-uncover-locals` -- replace `check-c-mod`
-
-- [ ] `c-exp` should always be typed
+[pass] `031-uncover-locals` -- rename context to `locals`
 
 [s] add `arrow-type` -- fix `check-op`
 

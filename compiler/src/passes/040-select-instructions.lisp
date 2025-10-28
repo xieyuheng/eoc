@@ -58,24 +58,28 @@
     ;; special case: self iadd -- right
     ((assign-stmt
       (var-c-exp self-name)
+      type
       (prim-c-exp 'iadd [(var-c-exp self-name) arg2]))
      [['addq [(select-operand arg2) (var-rand self-name)]]])
     ;; special case: self iadd -- left
     ((assign-stmt
       (var-c-exp self-name)
+      type
       (prim-c-exp 'iadd [arg1 (var-c-exp self-name)]))
      [['addq [(select-operand arg1) (var-rand self-name)]]])
     ;; special case: self isub
     ((assign-stmt
       (var-c-exp self-name)
+      type
       (prim-c-exp 'isub [(var-c-exp self-name) arg2]))
      [['subq [(select-operand arg2) (var-rand self-name)]]])
     ;; special case: self not
     ((assign-stmt
       (var-c-exp self-name)
+      type
       (prim-c-exp 'not [(var-c-exp self-name)]))
      [['xorq [(imm-rand 1) (var-rand self-name)]]])
-    ((assign-stmt (var-c-exp name) rhs)
+    ((assign-stmt (var-c-exp name) type rhs)
      (select-instr-assign (var-rand name) rhs))))
 
 (claim select-instr-assign

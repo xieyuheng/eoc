@@ -93,8 +93,8 @@
       condition
       (explicate-assign seqs label name then (goto-seq let-body-label))
       (explicate-assign seqs label name else (goto-seq let-body-label))))
-    (else
-     (= stmt (assign-stmt (var-c-exp name) (exp-to-c-exp rhs)))
+    ((the-exp type _)
+     (= stmt (assign-stmt (var-c-exp name) type (exp-to-c-exp rhs)))
      (cons-seq stmt cont))))
 
 (claim generate-label

@@ -24,9 +24,20 @@ explicate-control:
    []
    [:begin
     [#cons-seq
-     [#assign-stmt [#var-c-exp 'a₁] [#int-c-exp 42]]
+     [#assign-stmt [#var-c-exp 'a₁] #int-type [#int-c-exp 42]]
      [#cons-seq
-      [#assign-stmt [#var-c-exp 'b₁] [#var-c-exp 'a₁]]
+      [#assign-stmt [#var-c-exp 'b₁] #int-type [#var-c-exp 'a₁]]
+      [#return-seq [#var-c-exp 'b₁]]]]]]
+
+uncover-locals:
+
+  [#cons-c-mod
+   [:context [:a₁ #int-type :b₁ #int-type]]
+   [:begin
+    [#cons-seq
+     [#assign-stmt [#var-c-exp 'a₁] #int-type [#int-c-exp 42]]
+     [#cons-seq
+      [#assign-stmt [#var-c-exp 'b₁] #int-type [#var-c-exp 'a₁]]
       [#return-seq [#var-c-exp 'b₁]]]]]]
 
 select-instructions:

@@ -24,6 +24,12 @@ explicate-control:
    []
    [:begin [#return-seq [#prim-c-exp 'isub [[#int-c-exp 50] [#int-c-exp 8]]]]]]
 
+uncover-locals:
+
+  [#cons-c-mod
+   [:context []]
+   [:begin [#return-seq [#prim-c-exp 'isub [[#int-c-exp 50] [#int-c-exp 8]]]]]]
+
 select-instructions:
 
   [#cons-x86-mod

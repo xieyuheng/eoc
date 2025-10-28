@@ -26,10 +26,29 @@ explicate-control:
     [#cons-seq
      [#assign-stmt
       [#var-c-exp '_₁]
+      #int-type
       [#prim-c-exp 'iadd [[#int-c-exp 1] [#int-c-exp 2]]]]
      [#cons-seq
       [#assign-stmt
        [#var-c-exp '_₂]
+       #int-type
+       [#prim-c-exp 'iadd [[#int-c-exp 3] [#int-c-exp 4]]]]
+      [#return-seq [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#var-c-exp '_₂]]]]]]]]
+
+uncover-locals:
+
+  [#cons-c-mod
+   [:context [:_₁ #int-type :_₂ #int-type]]
+   [:begin
+    [#cons-seq
+     [#assign-stmt
+      [#var-c-exp '_₁]
+      #int-type
+      [#prim-c-exp 'iadd [[#int-c-exp 1] [#int-c-exp 2]]]]
+     [#cons-seq
+      [#assign-stmt
+       [#var-c-exp '_₂]
+       #int-type
        [#prim-c-exp 'iadd [[#int-c-exp 3] [#int-c-exp 4]]]]
       [#return-seq [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#var-c-exp '_₂]]]]]]]]
 

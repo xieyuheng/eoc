@@ -22,6 +22,10 @@ explicate-control:
 
   [#cons-c-mod [] [:begin [#return-seq [#int-c-exp 42]]]]
 
+uncover-locals:
+
+  [#cons-c-mod [:context []] [:begin [#return-seq [#int-c-exp 42]]]]
+
 select-instructions:
 
   [#cons-x86-mod

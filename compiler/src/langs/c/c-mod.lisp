@@ -29,4 +29,4 @@
               (else-label symbol?)))
 
 (define-data stmt?
-  (assign-stmt (var var-c-exp?) (rhs c-exp?)))
+  (assign-stmt (var var-c-exp?) (type type?) (rhs c-exp?)))

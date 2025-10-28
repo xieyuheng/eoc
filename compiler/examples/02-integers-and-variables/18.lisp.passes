@@ -24,18 +24,45 @@ explicate-control:
    []
    [:begin
     [#cons-seq
-     [#assign-stmt [#var-c-exp '_₁] [#prim-c-exp 'random-dice []]]
+     [#assign-stmt [#var-c-exp '_₁] #int-type [#prim-c-exp 'random-dice []]]
      [#cons-seq
       [#assign-stmt
        [#var-c-exp '_₂]
+       #int-type
        [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#int-c-exp 1]]]]
       [#cons-seq
        [#assign-stmt
         [#var-c-exp '_₃]
+        #int-type
         [#prim-c-exp 'iadd [[#var-c-exp '_₂] [#int-c-exp 1]]]]
        [#cons-seq
         [#assign-stmt
          [#var-c-exp '_₄]
+         #int-type
+         [#prim-c-exp 'iadd [[#var-c-exp '_₃] [#int-c-exp 1]]]]
+        [#return-seq [#prim-c-exp 'iadd [[#var-c-exp '_₄] [#int-c-exp 1]]]]]]]]]]
+
+uncover-locals:
+
+  [#cons-c-mod
+   [:context [:_₁ #int-type :_₂ #int-type :_₃ #int-type :_₄ #int-type]]
+   [:begin
+    [#cons-seq
+     [#assign-stmt [#var-c-exp '_₁] #int-type [#prim-c-exp 'random-dice []]]
+     [#cons-seq
+      [#assign-stmt
+       [#var-c-exp '_₂]
+       #int-type
+       [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#int-c-exp 1]]]]
+      [#cons-seq
+       [#assign-stmt
+        [#var-c-exp '_₃]
+        #int-type
+        [#prim-c-exp 'iadd [[#var-c-exp '_₂] [#int-c-exp 1]]]]
+       [#cons-seq
+        [#assign-stmt
+         [#var-c-exp '_₄]
+         #int-type
          [#prim-c-exp 'iadd [[#var-c-exp '_₃] [#int-c-exp 1]]]]
         [#return-seq [#prim-c-exp 'iadd [[#var-c-exp '_₄] [#int-c-exp 1]]]]]]]]]]
 

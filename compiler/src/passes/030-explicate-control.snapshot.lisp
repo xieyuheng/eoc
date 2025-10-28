@@ -1,5 +1,9 @@
 (import-all "deps")
-(import-all "index")
+(import-all "005-shrink")
+(import-all "010-uniquify")
+(import-all "015-check-type")
+(import-all "020-remove-complex-operands")
+(import-all "030-explicate-control")
 
 (define (test-mod sexp)
   (= mod (parse-mod sexp))

@@ -24,9 +24,20 @@ explicate-control:
    []
    [:begin
     [#cons-seq
-     [#assign-stmt [#var-c-exp '_₁] [#prim-c-exp 'random-dice []]]
+     [#assign-stmt [#var-c-exp '_₁] #int-type [#prim-c-exp 'random-dice []]]
      [#cons-seq
-      [#assign-stmt [#var-c-exp '_₂] [#prim-c-exp 'random-dice []]]
+      [#assign-stmt [#var-c-exp '_₂] #int-type [#prim-c-exp 'random-dice []]]
+      [#return-seq [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#var-c-exp '_₂]]]]]]]]
+
+uncover-locals:
+
+  [#cons-c-mod
+   [:context [:_₁ #int-type :_₂ #int-type]]
+   [:begin
+    [#cons-seq
+     [#assign-stmt [#var-c-exp '_₁] #int-type [#prim-c-exp 'random-dice []]]
+     [#cons-seq
+      [#assign-stmt [#var-c-exp '_₂] #int-type [#prim-c-exp 'random-dice []]]
       [#return-seq [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#var-c-exp '_₂]]]]]]]]
 
 select-instructions:

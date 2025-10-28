@@ -24,6 +24,12 @@ explicate-control:
    []
    [:begin [#return-seq [#prim-c-exp 'iadd [[#int-c-exp 20] [#int-c-exp 22]]]]]]
 
+uncover-locals:
+
+  [#cons-c-mod
+   [:context []]
+   [:begin [#return-seq [#prim-c-exp 'iadd [[#int-c-exp 20] [#int-c-exp 22]]]]]]
+
 select-instructions:
 
   [#cons-x86-mod
