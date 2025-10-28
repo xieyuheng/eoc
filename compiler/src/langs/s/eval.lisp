@@ -1,13 +1,13 @@
 (import-all "deps")
 (import-all "index")
 
-(export eval-program)
+(export eval-mod)
 
-(claim eval-program (-> program? value?))
+(claim eval-mod (-> mod? value?))
 
-(define (eval-program program)
-  (match program
-    ((cons-program info exp)
+(define (eval-mod mod)
+  (match mod
+    ((cons-mod info exp)
      (eval-exp exp []))))
 
 (claim eval-exp

@@ -1,4 +1,4 @@
-[#cons-c-program
+[#cons-c-mod
  [:context [:x #int-t]]
  [:begin
   [#cons-seq
@@ -6,7 +6,7 @@
     [#var-c-exp 'x]
     [#prim-c-exp 'ineg [[#int-c-exp 1]]]]
    [#return-seq [#var-c-exp 'x]]]]]
-[#cons-c-program
+[#cons-c-mod
  [:context [:x #int-t]]
  [:begin
   [#cons-seq
@@ -15,7 +15,7 @@
     [#prim-c-exp 'gt? [[#var-c-exp 'x] [#int-c-exp 1]]]
     'a
     'b]]]]
-[#cons-c-program
+[#cons-c-mod
  [:context [:x #int-t]]
  [:begin
   [#cons-seq
@@ -24,7 +24,7 @@
     [#prim-c-exp 'eq? [[#var-c-exp 'x] [#int-c-exp 1]]]
     'a
     'b]]]]
-[#cons-c-program
+[#cons-c-mod
  [:context [:x #int-t :b #bool-t]]
  [:begin
   [#cons-seq

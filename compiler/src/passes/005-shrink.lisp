@@ -2,12 +2,12 @@
 
 (export shrink)
 
-(claim shrink (-> program? program?))
+(claim shrink (-> mod? mod?))
 
-(define (shrink program)
-  (match program
-    ((cons-program info exp)
-     (cons-program info (shrink-exp exp)))))
+(define (shrink mod)
+  (match mod
+    ((cons-mod info exp)
+     (cons-mod info (shrink-exp exp)))))
 
 (claim shrink-exp (-> exp? exp?))
 

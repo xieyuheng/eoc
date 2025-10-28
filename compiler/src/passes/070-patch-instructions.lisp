@@ -3,12 +3,12 @@
 (export patch-instructions)
 
 (claim patch-instructions
-  (-> x86-program? x86-program?))
+  (-> x86-mod? x86-mod?))
 
-(define (patch-instructions x86-program)
-  (match x86-program
-    ((cons-x86-program info blocks)
-     (cons-x86-program info (record-map-value patch-block blocks)))))
+(define (patch-instructions x86-mod)
+  (match x86-mod
+    ((cons-x86-mod info blocks)
+     (cons-x86-mod info (record-map-value patch-block blocks)))))
 
 (claim patch-block
   (-> block? block?))

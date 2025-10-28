@@ -12,12 +12,12 @@
        :live-after-sets (list? (set? location-operand?))))
 
 (claim uncover-live
-  (-> x86-program?
-      (x86-program/block? (block/info? live-info?))))
+  (-> x86-mod?
+      (x86-mod/block? (block/info? live-info?))))
 
-(define (uncover-live x86-program)
-  (match x86-program
-    ((cons-x86-program info blocks)
+(define (uncover-live x86-mod)
+  (match x86-mod
+    ((cons-x86-mod info blocks)
      (= result-blocks [])
      (pipe blocks
        make-control-flow-graph
@@ -31,7 +31,7 @@
           (unless (null? block)
             (= result-block (uncover-live-block result-blocks block))
             (record-put! label result-block result-blocks)))))
-     (cons-x86-program info result-blocks))))
+     (cons-x86-mod info result-blocks))))
 
 (claim make-control-flow-graph
   (-> (record? block?)

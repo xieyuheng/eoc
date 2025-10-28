@@ -1,22 +1,22 @@
-program:
+mod:
 
-  (program () (let ((x (let ((x 4)) (iadd x 1)))) (iadd x 2)))
+  (mod () (let ((x (let ((x 4)) (iadd x 1)))) (iadd x 2)))
 
 shrink:
 
-  (program () (let ((x (let ((x 4)) (iadd x 1)))) (iadd x 2)))
+  (mod () (let ((x (let ((x 4)) (iadd x 1)))) (iadd x 2)))
 
 uniquify:
 
-  (program () (let ((x₁ (let ((x₂ 4)) (iadd x₂ 1)))) (iadd x₁ 2)))
+  (mod () (let ((x₁ (let ((x₂ 4)) (iadd x₂ 1)))) (iadd x₁ 2)))
 
 remove-complex-operands:
 
-  (program () (let ((x₁ (let ((x₂ 4)) (iadd x₂ 1)))) (iadd x₁ 2)))
+  (mod () (let ((x₁ (let ((x₂ 4)) (iadd x₂ 1)))) (iadd x₁ 2)))
 
 explicate-control:
 
-  [#cons-c-program
+  [#cons-c-mod
    []
    [:begin
     [#cons-seq
@@ -29,7 +29,7 @@ explicate-control:
 
 select-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:x₂ #int-t :x₁ #int-t]]
    [:begin
     [#cons-block
@@ -43,7 +43,7 @@ select-instructions:
 
 uncover-live:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:x₂ #int-t :x₁ #int-t]]
    [:begin
     [#cons-block
@@ -64,7 +64,7 @@ uncover-live:
 
 build-interference:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:x₂ #int-t :x₁ #int-t]
     :interference-graph
     [#cons-graph
@@ -93,7 +93,7 @@ build-interference:
 
 allocate-registers:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand 'x₂] [#reg-rand 'rcx] [#var-rand 'x₁] [#reg-rand 'rcx])
     :spill-count 0
@@ -126,7 +126,7 @@ allocate-registers:
 
 assign-homes:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand 'x₂] [#reg-rand 'rcx] [#var-rand 'x₁] [#reg-rand 'rcx])
     :spill-count 0
@@ -159,7 +159,7 @@ assign-homes:
 
 patch-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand 'x₂] [#reg-rand 'rcx] [#var-rand 'x₁] [#reg-rand 'rcx])
     :spill-count 0
@@ -191,7 +191,7 @@ patch-instructions:
 
 prolog-and-epilog:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand 'x₂] [#reg-rand 'rcx] [#var-rand 'x₁] [#reg-rand 'rcx])
     :spill-count 0

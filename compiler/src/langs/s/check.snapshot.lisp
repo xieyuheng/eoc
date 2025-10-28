@@ -1,40 +1,40 @@
 (import-all "deps")
 (import-all "index")
 
-(define (test-program sexp)
-  (= program (parse-program sexp))
-  (check-program program))
+(define (test-mod sexp)
+  (= mod (parse-mod sexp))
+  (check-mod mod))
 
-(test-program
- '(program () 8))
+(test-mod
+ '(mod () 8))
 
-(test-program
- '(program () (ineg 8)))
+(test-mod
+ '(mod () (ineg 8)))
 
-(test-program
- '(program () (iadd 8 (ineg 8))))
+(test-mod
+ '(mod () (iadd 8 (ineg 8))))
 
-(test-program
- '(program () (let ((x 8)) (iadd x x))))
+(test-mod
+ '(mod () (let ((x 8)) (iadd x x))))
 
-(test-program
- '(program
+(test-mod
+ '(mod
    ()
    (let ((x 8))
      (if (gt? x 1)
        1
        0))))
 
-(test-program
- '(program
+(test-mod
+ '(mod
    ()
    (let ((x 0))
      (if (gt? x 1)
        1
        0))))
 
-(test-program
- '(program
+(test-mod
+ '(mod
    ()
    (let ((x 0))
      (if (eq? x 1)

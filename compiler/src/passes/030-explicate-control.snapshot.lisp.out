@@ -1,9 +1,9 @@
->> (program () (iadd x 1))
-=> [#cons-c-program
+>> (mod () (iadd x 1))
+=> [#cons-c-mod
     []
     [:begin [#return-seq [#prim-c-exp 'iadd [[#var-c-exp 'x] [#int-c-exp 1]]]]]]
->> (program () (iadd (iadd x 1) 1))
-=> [#cons-c-program
+>> (mod () (iadd (iadd x 1) 1))
+=> [#cons-c-mod
     []
     [:begin
      [#cons-seq
@@ -11,8 +11,8 @@
        [#var-c-exp '_₁]
        [#prim-c-exp 'iadd [[#var-c-exp 'x] [#int-c-exp 1]]]]
       [#return-seq [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#int-c-exp 1]]]]]]]
->> (program () (let ((y (iadd x 1))) (iadd y 1)))
-=> [#cons-c-program
+>> (mod () (let ((y (iadd x 1))) (iadd y 1)))
+=> [#cons-c-mod
     []
     [:begin
      [#cons-seq
@@ -20,8 +20,8 @@
        [#var-c-exp 'y₁]
        [#prim-c-exp 'iadd [[#var-c-exp 'x] [#int-c-exp 1]]]]
       [#return-seq [#prim-c-exp 'iadd [[#var-c-exp 'y₁] [#int-c-exp 1]]]]]]]
->> (program () (let ((y (iadd (iadd x 1) 1))) (iadd y 1)))
-=> [#cons-c-program
+>> (mod () (let ((y (iadd (iadd x 1) 1))) (iadd y 1)))
+=> [#cons-c-mod
     []
     [:begin
      [#cons-seq
@@ -33,8 +33,8 @@
         [#var-c-exp 'y₁]
         [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#int-c-exp 1]]]]
        [#return-seq [#prim-c-exp 'iadd [[#var-c-exp 'y₁] [#int-c-exp 1]]]]]]]]
->> (program () (let ((x 8)) (if (and e1 e2) (iadd x x) (imul x x))))
-=> [#cons-c-program
+>> (mod () (let ((x 8)) (if (and e1 e2) (iadd x x) (imul x x))))
+=> [#cons-c-mod
     []
     [:begin.then.0
      [#return-seq [#prim-c-exp 'iadd [[#var-c-exp 'x₁] [#var-c-exp 'x₁]]]]
@@ -54,8 +54,8 @@
        [#prim-c-exp 'eq? [[#var-c-exp 'e1] [#bool-c-exp #t]]]
        'begin.then.4
        'begin.else.3]]]]
->> (program () (let ((x (random-dice))) (let ((y (random-dice))) (if (if (lt? x 1) (eq? x 0) (eq? x 2)) (iadd y 2) (iadd y 10)))))
-=> [#cons-c-program
+>> (mod () (let ((x (random-dice))) (let ((y (random-dice))) (if (if (lt? x 1) (eq? x 0) (eq? x 2)) (iadd y 2) (iadd y 10)))))
+=> [#cons-c-mod
     []
     [:begin.then.0
      [#return-seq [#prim-c-exp 'iadd [[#var-c-exp 'y₁] [#int-c-exp 2]]]]
@@ -82,8 +82,8 @@
         [#prim-c-exp 'lt? [[#var-c-exp 'x₁] [#int-c-exp 1]]]
         'begin.then.4
         'begin.else.5]]]]]
->> (program () (let ((x (random-dice))) (let ((y (random-dice))) (iadd (if (if (lt? x 1) (eq? x 0) (eq? x 2)) (iadd y 2) (iadd y 10)) (if (if (lt? x 1) (eq? x 0) (eq? x 2)) (iadd y 2) (iadd y 10))))))
-=> [#cons-c-program
+>> (mod () (let ((x (random-dice))) (let ((y (random-dice))) (iadd (if (if (lt? x 1) (eq? x 0) (eq? x 2)) (iadd y 2) (iadd y 10)) (if (if (lt? x 1) (eq? x 0) (eq? x 2)) (iadd y 2) (iadd y 10))))))
+=> [#cons-c-mod
     []
     [:begin.let_body.0
      [#return-seq [#prim-c-exp 'iadd [[#var-c-exp '_₁] [#var-c-exp '_₂]]]]
@@ -149,8 +149,8 @@
         [#prim-c-exp 'lt? [[#var-c-exp 'x₁] [#int-c-exp 1]]]
         'begin.then.12
         'begin.else.13]]]]]
->> (program () (if (and (eq? (random-dice) 1) (eq? (random-dice) 2)) 0 42))
-=> [#cons-c-program
+>> (mod () (if (and (eq? (random-dice) 1) (eq? (random-dice) 2)) 0 42))
+=> [#cons-c-mod
     []
     [:begin.then.0 [#return-seq [#int-c-exp 0]]
      :begin.else.1 [#return-seq [#int-c-exp 42]]

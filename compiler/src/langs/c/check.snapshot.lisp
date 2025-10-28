@@ -1,33 +1,33 @@
 (import-all "deps")
 (import-all "index")
 
-(define (test-c-program sexp)
-  (= c-program (parse-c-program sexp))
-  (check-c-program c-program))
+(define (test-c-mod sexp)
+  (= c-mod (parse-c-mod sexp))
+  (check-c-mod c-mod))
 
-(test-c-program
- '(c-program
+(test-c-mod
+ '(c-mod
    ()
    (:begin
     ((= x (ineg 1))
      (return x)))))
 
-(test-c-program
- '(c-program
+(test-c-mod
+ '(c-mod
    ()
    (:begin
     ((= x 8)
      (branch (gt? x 1) a b)))))
 
-(test-c-program
- '(c-program
+(test-c-mod
+ '(c-mod
    ()
    (:begin
     ((= x 8)
      (branch (eq? x 1) a b)))))
 
-(test-c-program
- '(c-program
+(test-c-mod
+ '(c-mod
    ()
    (:begin
     ((= x 8)

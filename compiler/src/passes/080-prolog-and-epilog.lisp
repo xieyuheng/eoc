@@ -4,15 +4,15 @@
 (export prolog-and-epilog)
 
 (claim prolog-and-epilog
-  (-> (x86-program/info? register-info?)
-      x86-program?))
+  (-> (x86-mod/info? register-info?)
+      x86-mod?))
 
-(define (prolog-and-epilog x86-program)
-  (match x86-program
-    ((cons-x86-program info blocks)
+(define (prolog-and-epilog x86-mod)
+  (match x86-mod
+    ((cons-x86-mod info blocks)
      (= [:begin block] blocks)
      (= label 'begin)
-     (cons-x86-program
+     (cons-x86-mod
       info
       (record-put-entries
        [[label (prolog-block label info)]

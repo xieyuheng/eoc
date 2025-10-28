@@ -1,48 +1,48 @@
 (import-all "deps")
 (import-all "index")
 
-(define (test-program predicate sexp)
-  (= program (parse-program sexp))
-  (= value (eval-program program))
+(define (test-mod predicate sexp)
+  (= mod (parse-mod sexp))
+  (= value (eval-mod mod))
   (assert-the predicate value))
 
-(test-program
+(test-mod
  (equal? 8)
- '(program () 8))
+ '(mod () 8))
 
-(test-program
+(test-mod
  (equal? -8)
- '(program () (ineg 8)))
+ '(mod () (ineg 8)))
 
-(test-program
+(test-mod
  (equal? 0)
- '(program () (iadd 8 (ineg 8))))
+ '(mod () (iadd 8 (ineg 8))))
 
-(test-program
+(test-mod
  (equal? 16)
- '(program () (let ((x 8)) (iadd x x))))
+ '(mod () (let ((x 8)) (iadd x x))))
 
-(test-program
+(test-mod
  (equal? 1)
- '(program
+ '(mod
    ()
    (let ((x 8))
      (if (gt? x 1)
        1
        0))))
 
-(test-program
+(test-mod
  (equal? 0)
- '(program
+ '(mod
    ()
    (let ((x 0))
      (if (gt? x 1)
        1
        0))))
 
-(test-program
+(test-mod
  (equal? 0)
- '(program
+ '(mod
    ()
    (let ((x 0))
      (if (eq? x 1)

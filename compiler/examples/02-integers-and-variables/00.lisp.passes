@@ -1,26 +1,26 @@
-program:
+mod:
 
-  (program () 42)
+  (mod () 42)
 
 shrink:
 
-  (program () 42)
+  (mod () 42)
 
 uniquify:
 
-  (program () 42)
+  (mod () 42)
 
 remove-complex-operands:
 
-  (program () 42)
+  (mod () 42)
 
 explicate-control:
 
-  [#cons-c-program [] [:begin [#return-seq [#int-c-exp 42]]]]
+  [#cons-c-mod [] [:begin [#return-seq [#int-c-exp 42]]]]
 
 select-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context []]
    [:begin
     [#cons-block
@@ -29,7 +29,7 @@ select-instructions:
 
 uncover-live:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context []]
    [:begin
     [#cons-block
@@ -39,7 +39,7 @@ uncover-live:
 
 build-interference:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context []
     :interference-graph
     [#cons-graph
@@ -55,7 +55,7 @@ build-interference:
 
 allocate-registers:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations (@hash)
     :spill-count 0
     :callee-saved []
@@ -74,7 +74,7 @@ allocate-registers:
 
 assign-homes:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations (@hash)
     :spill-count 0
     :callee-saved []
@@ -93,7 +93,7 @@ assign-homes:
 
 patch-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations (@hash)
     :spill-count 0
     :callee-saved []
@@ -112,7 +112,7 @@ patch-instructions:
 
 prolog-and-epilog:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations (@hash)
     :spill-count 0
     :callee-saved []

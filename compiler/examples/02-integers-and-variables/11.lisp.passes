@@ -1,22 +1,22 @@
-program:
+mod:
 
-  (program () (iadd (iadd 1 2) (iadd 3 4)))
+  (mod () (iadd (iadd 1 2) (iadd 3 4)))
 
 shrink:
 
-  (program () (iadd (iadd 1 2) (iadd 3 4)))
+  (mod () (iadd (iadd 1 2) (iadd 3 4)))
 
 uniquify:
 
-  (program () (iadd (iadd 1 2) (iadd 3 4)))
+  (mod () (iadd (iadd 1 2) (iadd 3 4)))
 
 remove-complex-operands:
 
-  (program () (let ((_₁ (iadd 1 2))) (let ((_₂ (iadd 3 4))) (iadd _₁ _₂))))
+  (mod () (let ((_₁ (iadd 1 2))) (let ((_₂ (iadd 3 4))) (iadd _₁ _₂))))
 
 explicate-control:
 
-  [#cons-c-program
+  [#cons-c-mod
    []
    [:begin
     [#cons-seq
@@ -31,7 +31,7 @@ explicate-control:
 
 select-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t]]
    [:begin
     [#cons-block
@@ -46,7 +46,7 @@ select-instructions:
 
 uncover-live:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t]]
    [:begin
     [#cons-block
@@ -69,7 +69,7 @@ uncover-live:
 
 build-interference:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t]
     :interference-graph
     [#cons-graph
@@ -100,7 +100,7 @@ build-interference:
 
 allocate-registers:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand '_₂] [#reg-rand 'rcx] [#var-rand '_₁] [#reg-rand 'rbx])
     :spill-count 0
@@ -135,7 +135,7 @@ allocate-registers:
 
 assign-homes:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand '_₂] [#reg-rand 'rcx] [#var-rand '_₁] [#reg-rand 'rbx])
     :spill-count 0
@@ -170,7 +170,7 @@ assign-homes:
 
 patch-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand '_₂] [#reg-rand 'rcx] [#var-rand '_₁] [#reg-rand 'rbx])
     :spill-count 0
@@ -205,7 +205,7 @@ patch-instructions:
 
 prolog-and-epilog:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand '_₂] [#reg-rand 'rcx] [#var-rand '_₁] [#reg-rand 'rbx])
     :spill-count 0

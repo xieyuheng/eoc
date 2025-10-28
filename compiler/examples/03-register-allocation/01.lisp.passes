@@ -1,22 +1,22 @@
-program:
+mod:
 
-  (program () (let ((v 1)) (let ((w 42)) (let ((x (iadd v 7))) (let ((y x)) (let ((z (iadd x w))) (iadd z (ineg y))))))))
+  (mod () (let ((v 1)) (let ((w 42)) (let ((x (iadd v 7))) (let ((y x)) (let ((z (iadd x w))) (iadd z (ineg y))))))))
 
 shrink:
 
-  (program () (let ((v 1)) (let ((w 42)) (let ((x (iadd v 7))) (let ((y x)) (let ((z (iadd x w))) (iadd z (ineg y))))))))
+  (mod () (let ((v 1)) (let ((w 42)) (let ((x (iadd v 7))) (let ((y x)) (let ((z (iadd x w))) (iadd z (ineg y))))))))
 
 uniquify:
 
-  (program () (let ((v₁ 1)) (let ((w₁ 42)) (let ((x₁ (iadd v₁ 7))) (let ((y₁ x₁)) (let ((z₁ (iadd x₁ w₁))) (iadd z₁ (ineg y₁))))))))
+  (mod () (let ((v₁ 1)) (let ((w₁ 42)) (let ((x₁ (iadd v₁ 7))) (let ((y₁ x₁)) (let ((z₁ (iadd x₁ w₁))) (iadd z₁ (ineg y₁))))))))
 
 remove-complex-operands:
 
-  (program () (let ((v₁ 1)) (let ((w₁ 42)) (let ((x₁ (iadd v₁ 7))) (let ((y₁ x₁)) (let ((z₁ (iadd x₁ w₁))) (let ((_₁ (ineg y₁))) (iadd z₁ _₁))))))))
+  (mod () (let ((v₁ 1)) (let ((w₁ 42)) (let ((x₁ (iadd v₁ 7))) (let ((y₁ x₁)) (let ((z₁ (iadd x₁ w₁))) (let ((_₁ (ineg y₁))) (iadd z₁ _₁))))))))
 
 explicate-control:
 
-  [#cons-c-program
+  [#cons-c-mod
    []
    [:begin
     [#cons-seq
@@ -39,7 +39,7 @@ explicate-control:
 
 select-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:v₁ #int-t :w₁ #int-t :x₁ #int-t :y₁ #int-t :z₁ #int-t :_₁ #int-t]]
    [:begin
     [#cons-block
@@ -59,7 +59,7 @@ select-instructions:
 
 uncover-live:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:v₁ #int-t :w₁ #int-t :x₁ #int-t :y₁ #int-t :z₁ #int-t :_₁ #int-t]]
    [:begin
     [#cons-block
@@ -92,7 +92,7 @@ uncover-live:
 
 build-interference:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:v₁ #int-t :w₁ #int-t :x₁ #int-t :y₁ #int-t :z₁ #int-t :_₁ #int-t]
     :interference-graph
     [#cons-graph
@@ -157,7 +157,7 @@ build-interference:
 
 allocate-registers:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash
       [#var-rand '_₁] [#reg-rand 'rcx]
@@ -232,7 +232,7 @@ allocate-registers:
 
 assign-homes:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash
       [#var-rand '_₁] [#reg-rand 'rcx]
@@ -307,7 +307,7 @@ assign-homes:
 
 patch-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash
       [#var-rand '_₁] [#reg-rand 'rcx]
@@ -380,7 +380,7 @@ patch-instructions:
 
 prolog-and-epilog:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash
       [#var-rand '_₁] [#reg-rand 'rcx]

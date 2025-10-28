@@ -1,22 +1,22 @@
 (import-all "deps")
 (import-all "005-shrink")
 
-(define (test-program sexp)
-  (= program (parse-program sexp))
-  (= shrinked-program (shrink program))
-  (write ">> ") (write (format-sexp (form-program program)))
+(define (test-mod sexp)
+  (= mod (parse-mod sexp))
+  (= shrinked-mod (shrink mod))
+  (write ">> ") (write (format-sexp (form-mod mod)))
   (newline)
-  (write "=> ") (write (format-sexp (form-program shrinked-program)))
+  (write "=> ") (write (format-sexp (form-mod shrinked-mod)))
   (newline))
 
-(test-program
- '(program () (and (and e1 e2) (and e4 e4))))
+(test-mod
+ '(mod () (and (and e1 e2) (and e4 e4))))
 
-(test-program
- '(program () (or (or e1 e2) (or e3 e4))))
+(test-mod
+ '(mod () (or (or e1 e2) (or e3 e4))))
 
-(test-program
- '(program
+(test-mod
+ '(mod
    ()
    (let ((x 8))
      (if (and e1 e2)

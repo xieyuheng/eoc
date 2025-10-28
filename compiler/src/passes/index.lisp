@@ -4,7 +4,7 @@
 (include "010-uniquify" uniquify)
 ;; Translate nested function applications to
 ;; assignments (let) of results to temporary variables.
-(include "020-remove-complex-operands" rco-program atom-operand-exp?)
+(include "020-remove-complex-operands" rco-mod atom-operand-exp?)
 ;; Translate s to c with explicit execution order.
 (include "030-explicate-control" explicate-control)
 ;; Translate c to x86 (with variables).

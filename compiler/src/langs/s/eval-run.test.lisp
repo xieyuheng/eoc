@@ -1,14 +1,14 @@
 (import-all "deps")
 (import-all "index")
 
-(define (run-program sexp)
-  (= program (parse-program sexp))
-  (= program (check-program program))
-  (eval-program program))
+(define (run-mod sexp)
+  (= mod (parse-mod sexp))
+  (= mod (check-mod mod))
+  (eval-mod mod))
 
-[:random-dice (run-program '(program () (random-dice)))]
-[:random-dice (run-program '(program () (random-dice)))]
-[:random-dice (run-program '(program () (random-dice)))]
-[:random-dice (run-program '(program () (random-dice)))]
-[:random-dice (run-program '(program () (random-dice)))]
-[:random-dice (run-program '(program () (random-dice)))]
+[:random-dice (run-mod '(mod () (random-dice)))]
+[:random-dice (run-mod '(mod () (random-dice)))]
+[:random-dice (run-mod '(mod () (random-dice)))]
+[:random-dice (run-mod '(mod () (random-dice)))]
+[:random-dice (run-mod '(mod () (random-dice)))]
+[:random-dice (run-mod '(mod () (random-dice)))]

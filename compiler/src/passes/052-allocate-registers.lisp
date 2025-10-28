@@ -37,12 +37,12 @@
       'rax -1  'rsp -2  'rbp -3  'r11 -4  'r15 -5)))
 
 (claim allocate-registers
-  (-> (x86-program/info? interference-info?)
-      (x86-program/info? (inter register-info? home-info?))))
+  (-> (x86-mod/info? interference-info?)
+      (x86-mod/info? (inter register-info? home-info?))))
 
-(define (allocate-registers x86-program)
-  (match x86-program
-    ((cons-x86-program info blocks)
+(define (allocate-registers x86-mod)
+  (match x86-mod
+    ((cons-x86-mod info blocks)
      (= interference-graph (record-get 'interference-graph info))
      (= interference-graph (record-get 'interference-graph info))
      (= coloring (pre-coloring))
@@ -57,7 +57,7 @@
          (hash-from-map
           (allocate-registers-variable coloring register-info)
           variables)])
-     (cons-x86-program
+     (cons-x86-mod
       (pipe info
         (record-append register-info)
         (record-append home-info))

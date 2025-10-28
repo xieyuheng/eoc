@@ -1,22 +1,22 @@
-program:
+mod:
 
-  (program () (if (and (eq? (random-dice) 1) (eq? (random-dice) 2)) 0 42))
+  (mod () (if (and (eq? (random-dice) 1) (eq? (random-dice) 2)) 0 42))
 
 shrink:
 
-  (program () (if (if (eq? (random-dice) 1) (eq? (random-dice) 2) #f) 0 42))
+  (mod () (if (if (eq? (random-dice) 1) (eq? (random-dice) 2) #f) 0 42))
 
 uniquify:
 
-  (program () (if (if (eq? (random-dice) 1) (eq? (random-dice) 2) #f) 0 42))
+  (mod () (if (if (eq? (random-dice) 1) (eq? (random-dice) 2) #f) 0 42))
 
 remove-complex-operands:
 
-  (program () (if (if (let ((_₁ (random-dice))) (eq? _₁ 1)) (let ((_₂ (random-dice))) (eq? _₂ 2)) #f) 0 42))
+  (mod () (if (if (let ((_₁ (random-dice))) (eq? _₁ 1)) (let ((_₂ (random-dice))) (eq? _₂ 2)) #f) 0 42))
 
 explicate-control:
 
-  [#cons-c-program
+  [#cons-c-mod
    []
    [:begin.then.0 [#return-seq [#int-c-exp 0]]
     :begin.else.1 [#return-seq [#int-c-exp 42]]
@@ -39,7 +39,7 @@ explicate-control:
 
 select-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t]]
    [:begin.then.0
     [#cons-block
@@ -70,7 +70,7 @@ select-instructions:
 
 uncover-live:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t]]
    [:begin.else.1
     [#cons-block
@@ -121,7 +121,7 @@ uncover-live:
 
 build-interference:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t]
     :interference-graph
     [#cons-graph
@@ -219,7 +219,7 @@ build-interference:
 
 allocate-registers:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand '_₁] [#reg-rand 'rcx] [#var-rand '_₂] [#reg-rand 'rcx])
     :spill-count 0
@@ -321,7 +321,7 @@ allocate-registers:
 
 assign-homes:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand '_₁] [#reg-rand 'rcx] [#var-rand '_₂] [#reg-rand 'rcx])
     :spill-count 0
@@ -423,7 +423,7 @@ assign-homes:
 
 patch-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand '_₁] [#reg-rand 'rcx] [#var-rand '_₂] [#reg-rand 'rcx])
     :spill-count 0
@@ -525,7 +525,7 @@ patch-instructions:
 
 prolog-and-epilog:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand '_₁] [#reg-rand 'rcx] [#var-rand '_₂] [#reg-rand 'rcx])
     :spill-count 0

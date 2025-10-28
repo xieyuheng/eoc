@@ -1,14 +1,14 @@
 (import-all "deps")
 
-(export rco-program atom-operand-exp?)
+(export rco-mod atom-operand-exp?)
 
-(claim rco-program (-> program? program?))
+(claim rco-mod (-> mod? mod?))
 
-(define (rco-program program)
-  (match program
-    ((cons-program info body)
+(define (rco-mod mod)
+  (match mod
+    ((cons-mod info body)
      (= state [:count 0])
-     (cons-program info (rco-exp state body)))))
+     (cons-mod info (rco-exp state body)))))
 
 (define state? (tau :count int-non-negative?))
 

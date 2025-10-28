@@ -1,16 +1,16 @@
 (import-all "deps")
 (import-all "index")
 
-(export check-c-program)
+(export check-c-mod)
 
-(claim check-c-program
-  (-> c-program?
-      (c-program/info?
+(claim check-c-mod
+  (-> c-mod?
+      (c-mod/info?
        (tau :context (record? type?)))))
 
-(define (check-c-program c-program)
-  (match c-program
-    ((cons-c-program info seqs)
+(define (check-c-mod c-mod)
+  (match c-mod
+    ((cons-c-mod info seqs)
      (= context [])
      (pipe seqs
        make-control-flow-graph
@@ -20,7 +20,7 @@
           (= seq (record-get label seqs))
           (unless (null? seq)
            (check-seq context seq)))))
-     (cons-c-program
+     (cons-c-mod
       (record-put 'context context info)
       seqs))))
 

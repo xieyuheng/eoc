@@ -10,13 +10,13 @@
 
 (claim build-interference
   (-> (inter
-        (x86-program/info? (tau :context (record? type?)))
-        (x86-program/block? (block/info? live-info?)))
-      (x86-program/info? interference-info?)))
+        (x86-mod/info? (tau :context (record? type?)))
+        (x86-mod/block? (block/info? live-info?)))
+      (x86-mod/info? interference-info?)))
 
-(define (build-interference x86-program)
-  (match x86-program
-    ((cons-x86-program info blocks)
+(define (build-interference x86-mod)
+  (match x86-mod
+    ((cons-x86-mod info blocks)
      (= [:context context] info)
      (= vertices (list-map var-rand (record-keys context)))
      (= edges
@@ -24,7 +24,7 @@
           record-values
           (list-lift build-interference-block)))
      (= graph (make-graph vertices edges))
-     (cons-x86-program
+     (cons-x86-mod
       (record-put 'interference-graph graph info)
       blocks))))
 

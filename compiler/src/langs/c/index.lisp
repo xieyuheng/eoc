@@ -1,3 +1,3 @@
-(include-all "c-program")
-(include "check" check-c-program)
-(include "parse" parse-c-program)
+(include-all "c-mod")
+(include "check" check-c-mod)
+(include "parse" parse-c-mod)

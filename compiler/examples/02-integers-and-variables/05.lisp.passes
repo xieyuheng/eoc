@@ -1,22 +1,22 @@
-program:
+mod:
 
-  (program () (let ((a 42)) (let ((b a)) b)))
+  (mod () (let ((a 42)) (let ((b a)) b)))
 
 shrink:
 
-  (program () (let ((a 42)) (let ((b a)) b)))
+  (mod () (let ((a 42)) (let ((b a)) b)))
 
 uniquify:
 
-  (program () (let ((a₁ 42)) (let ((b₁ a₁)) b₁)))
+  (mod () (let ((a₁ 42)) (let ((b₁ a₁)) b₁)))
 
 remove-complex-operands:
 
-  (program () (let ((a₁ 42)) (let ((b₁ a₁)) b₁)))
+  (mod () (let ((a₁ 42)) (let ((b₁ a₁)) b₁)))
 
 explicate-control:
 
-  [#cons-c-program
+  [#cons-c-mod
    []
    [:begin
     [#cons-seq
@@ -27,7 +27,7 @@ explicate-control:
 
 select-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:a₁ #int-t :b₁ #int-t]]
    [:begin
     [#cons-block
@@ -39,7 +39,7 @@ select-instructions:
 
 uncover-live:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:a₁ #int-t :b₁ #int-t]]
    [:begin
     [#cons-block
@@ -56,7 +56,7 @@ uncover-live:
 
 build-interference:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:a₁ #int-t :b₁ #int-t]
     :interference-graph
     [#cons-graph
@@ -81,7 +81,7 @@ build-interference:
 
 allocate-registers:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand 'a₁] [#reg-rand 'rcx] [#var-rand 'b₁] [#reg-rand 'rcx])
     :spill-count 0
@@ -110,7 +110,7 @@ allocate-registers:
 
 assign-homes:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand 'a₁] [#reg-rand 'rcx] [#var-rand 'b₁] [#reg-rand 'rcx])
     :spill-count 0
@@ -139,7 +139,7 @@ assign-homes:
 
 patch-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand 'a₁] [#reg-rand 'rcx] [#var-rand 'b₁] [#reg-rand 'rcx])
     :spill-count 0
@@ -167,7 +167,7 @@ patch-instructions:
 
 prolog-and-epilog:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand 'a₁] [#reg-rand 'rcx] [#var-rand 'b₁] [#reg-rand 'rcx])
     :spill-count 0

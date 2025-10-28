@@ -1,6 +1,6 @@
 (export
-  c-program? cons-c-program
-  c-program/info?
+  c-mod? cons-c-mod
+  c-mod/info?
   seq? cons-seq return-seq goto-seq branch-seq
   cons-seq? return-seq? goto-seq? branch-seq?
   stmt? assign-stmt
@@ -9,17 +9,17 @@
   cmp-op?
   cmp-c-exp?)
 
-(define-data c-program?
-  (cons-c-program
+(define-data c-mod?
+  (cons-c-mod
    (info anything?)
    (seqs (record? seq?))))
 
-(claim c-program/info?
-  (-> (-> anything? bool?) c-program?
+(claim c-mod/info?
+  (-> (-> anything? bool?) c-mod?
       bool?))
 
-(define (c-program/info? info-p c-program)
-  (info-p (cons-c-program-info c-program)))
+(define (c-mod/info? info-p c-mod)
+  (info-p (cons-c-mod-info c-mod)))
 
 (define-data seq?
   (cons-seq (stmt stmt?) (tail seq?))

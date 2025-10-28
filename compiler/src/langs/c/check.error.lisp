@@ -1,8 +1,8 @@
 (import-all "index")
 
-(check-c-program
- (parse-c-program
-  '(c-program
+(check-c-mod
+ (parse-c-mod
+  '(c-mod
     ()
     (:begin
      ;; wrong arity

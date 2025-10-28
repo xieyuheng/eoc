@@ -1,4 +1,4 @@
-(import-all "x86-program")
+(import-all "x86-mod")
 
 (export
   sysv-argument-reg-names

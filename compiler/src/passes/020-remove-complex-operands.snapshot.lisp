@@ -1,46 +1,46 @@
 (import-all "deps")
 (import-all "020-remove-complex-operands")
 
-(define (test-program sexp)
-  (= program-0 (parse-program sexp))
-  (write ">> ") (write (format-sexp (form-program program-0)))
+(define (test-mod sexp)
+  (= mod-0 (parse-mod sexp))
+  (write ">> ") (write (format-sexp (form-mod mod-0)))
   (newline)
-  (= program-1 (rco-program program-0))
-  (write "=> ") (write (format-sexp (form-program program-1)))
+  (= mod-1 (rco-mod mod-0))
+  (write "=> ") (write (format-sexp (form-mod mod-1)))
   (newline))
 
-(test-program
- '(program
+(test-mod
+ '(mod
    ()
    (iadd x 1)))
 
-(test-program
- '(program
+(test-mod
+ '(mod
    ()
    (iadd (iadd x 1) 1)))
 
-(test-program
- '(program
+(test-mod
+ '(mod
    ()
    (let ((y (iadd x 1)))
      (iadd y 1))))
 
-(test-program
- '(program
+(test-mod
+ '(mod
    ()
    (let ((y (iadd (iadd x 1) 1)))
      (iadd y 1))))
 
-(test-program
- '(program
+(test-mod
+ '(mod
    ()
    (let ((x 8))
      (if (and e1 e2)
        (iadd x x)
        (imul x x)))))
 
-(test-program
- '(program
+(test-mod
+ '(mod
    ()
    (let ((x (random-dice)))
      (let ((y (random-dice)))
@@ -48,8 +48,8 @@
          (iadd y 2)
          (iadd y 10))))))
 
-(test-program
- '(program
+(test-mod
+ '(mod
    ()
    (let ((x (random-dice)))
      (let ((y (random-dice)))

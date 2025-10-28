@@ -1,22 +1,22 @@
-program:
+mod:
 
-  (program () (iadd (iadd 1 2) (iadd 3 (iadd 4 5))))
+  (mod () (iadd (iadd 1 2) (iadd 3 (iadd 4 5))))
 
 shrink:
 
-  (program () (iadd (iadd 1 2) (iadd 3 (iadd 4 5))))
+  (mod () (iadd (iadd 1 2) (iadd 3 (iadd 4 5))))
 
 uniquify:
 
-  (program () (iadd (iadd 1 2) (iadd 3 (iadd 4 5))))
+  (mod () (iadd (iadd 1 2) (iadd 3 (iadd 4 5))))
 
 remove-complex-operands:
 
-  (program () (let ((_₁ (iadd 1 2))) (let ((_₂ (iadd 4 5))) (let ((_₃ (iadd 3 _₂))) (iadd _₁ _₃)))))
+  (mod () (let ((_₁ (iadd 1 2))) (let ((_₂ (iadd 4 5))) (let ((_₃ (iadd 3 _₂))) (iadd _₁ _₃)))))
 
 explicate-control:
 
-  [#cons-c-program
+  [#cons-c-mod
    []
    [:begin
     [#cons-seq
@@ -35,7 +35,7 @@ explicate-control:
 
 select-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]
    [:begin
     [#cons-block
@@ -52,7 +52,7 @@ select-instructions:
 
 uncover-live:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t :_₃ #int-t]]
    [:begin
     [#cons-block
@@ -79,7 +79,7 @@ uncover-live:
 
 build-interference:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t :_₃ #int-t]
     :interference-graph
     [#cons-graph
@@ -121,7 +121,7 @@ build-interference:
 
 allocate-registers:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash
       [#var-rand '_₃] [#reg-rand 'rcx]
@@ -170,7 +170,7 @@ allocate-registers:
 
 assign-homes:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash
       [#var-rand '_₃] [#reg-rand 'rcx]
@@ -219,7 +219,7 @@ assign-homes:
 
 patch-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash
       [#var-rand '_₃] [#reg-rand 'rcx]
@@ -268,7 +268,7 @@ patch-instructions:
 
 prolog-and-epilog:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash
       [#var-rand '_₃] [#reg-rand 'rcx]

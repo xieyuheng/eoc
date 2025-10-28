@@ -3,15 +3,15 @@
 
 (export explicate-control)
 
-(claim explicate-control (-> program? c-program?))
+(claim explicate-control (-> mod? c-mod?))
 
-(define (explicate-control program)
-  (match program
-    ((cons-program info body)
+(define (explicate-control mod)
+  (match mod
+    ((cons-mod info body)
      (= seqs [])
      (= label 'begin)
      (= seq (explicate-tail seqs label body))
-     (cons-c-program info (record-put label seq seqs)))))
+     (cons-c-mod info (record-put label seq seqs)))))
 
 (claim explicate-tail
   (-> (record? seq?) symbol? atom-operand-exp?

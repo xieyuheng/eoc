@@ -1,2 +1,2 @@
-(include "compile-program" compile-program)
+(include "compile-mod" compile-mod)
 (include "compile-passes" compile-passes)

@@ -1,12 +1,12 @@
 (export
-  program? cons-program
+  mod? cons-mod
   exp?
   var-exp int-exp bool-exp if-exp prim-exp let-exp
   var-exp? int-exp? bool-exp? if-exp? prim-exp? let-exp?
   atom-exp?)
 
-(define-data program?
-  (cons-program
+(define-data mod?
+  (cons-mod
    (info anything?)
    (body exp?)))
 

@@ -1,14 +1,14 @@
 (import-all "deps")
 (import-all "index")
 
-(export parse-c-program)
+(export parse-c-mod)
 
-(claim parse-c-program (-> sexp? c-program?))
+(claim parse-c-mod (-> sexp? c-mod?))
 
-(define (parse-c-program sexp)
+(define (parse-c-mod sexp)
   (match sexp
-    (`(c-program ,info ,seqs)
-     (cons-c-program info (record-map-value parse-seq seqs)))))
+    (`(c-mod ,info ,seqs)
+     (cons-c-mod info (record-map-value parse-seq seqs)))))
 
 (claim parse-seq (-> sexp? seq?))
 

@@ -1,17 +1,17 @@
 (import-all "deps")
 (import-all "index")
 
-(export check-program)
+(export check-mod)
 
-(claim check-program
-  (-> program? program?))
+(claim check-mod
+  (-> mod? mod?))
 
-(define (check-program program)
-  (match program
-    ((cons-program info body)
+(define (check-mod mod)
+  (match mod
+    ((cons-mod info body)
      (= [body^ return-type] (infer-exp [] body))
      ;; result-type not used
-     (cons-program info body^))))
+     (cons-mod info body^))))
 
 (claim infer-exp
   (-> (record? type?) exp?

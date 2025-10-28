@@ -1,22 +1,22 @@
-program:
+mod:
 
-  (program () (iadd (random-dice) (random-dice)))
+  (mod () (iadd (random-dice) (random-dice)))
 
 shrink:
 
-  (program () (iadd (random-dice) (random-dice)))
+  (mod () (iadd (random-dice) (random-dice)))
 
 uniquify:
 
-  (program () (iadd (random-dice) (random-dice)))
+  (mod () (iadd (random-dice) (random-dice)))
 
 remove-complex-operands:
 
-  (program () (let ((_₁ (random-dice))) (let ((_₂ (random-dice))) (iadd _₁ _₂))))
+  (mod () (let ((_₁ (random-dice))) (let ((_₂ (random-dice))) (iadd _₁ _₂))))
 
 explicate-control:
 
-  [#cons-c-program
+  [#cons-c-mod
    []
    [:begin
     [#cons-seq
@@ -27,7 +27,7 @@ explicate-control:
 
 select-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t]]
    [:begin
     [#cons-block
@@ -42,7 +42,7 @@ select-instructions:
 
 uncover-live:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t]]
    [:begin
     [#cons-block
@@ -65,7 +65,7 @@ uncover-live:
 
 build-interference:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t]
     :interference-graph
     [#cons-graph
@@ -148,7 +148,7 @@ build-interference:
 
 allocate-registers:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand '_₁] [#reg-rand 'rbx] [#var-rand '_₂] [#reg-rand 'rcx])
     :spill-count 0
@@ -235,7 +235,7 @@ allocate-registers:
 
 assign-homes:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand '_₁] [#reg-rand 'rbx] [#var-rand '_₂] [#reg-rand 'rcx])
     :spill-count 0
@@ -322,7 +322,7 @@ assign-homes:
 
 patch-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand '_₁] [#reg-rand 'rbx] [#var-rand '_₂] [#reg-rand 'rcx])
     :spill-count 0
@@ -409,7 +409,7 @@ patch-instructions:
 
 prolog-and-epilog:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash [#var-rand '_₁] [#reg-rand 'rbx] [#var-rand '_₂] [#reg-rand 'rcx])
     :spill-count 0

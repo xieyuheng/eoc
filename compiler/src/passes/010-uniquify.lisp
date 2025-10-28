@@ -2,12 +2,12 @@
 
 (export uniquify)
 
-(claim uniquify (-> program? program?))
+(claim uniquify (-> mod? mod?))
 
-(define (uniquify program)
-  (match program
-    ((cons-program info body)
-     (cons-program info (uniquify-exp [] [] body)))))
+(define (uniquify mod)
+  (match mod
+    ((cons-mod info body)
+     (cons-mod info (uniquify-exp [] [] body)))))
 
 (claim uniquify-exp
   (-> (record? int-non-negative?)

@@ -1,18 +1,18 @@
 (import-all "deps")
 (import-all "index")
 
-(export format-x86-program)
+(export format-x86-mod)
 
 (define indentation "        ")
 
 (define (indent-line line)
   (string-concat [indentation line "\n"]))
 
-(claim format-x86-program (-> x86-program? string?))
+(claim format-x86-mod (-> x86-mod? string?))
 
-(define (format-x86-program x86-program)
-  (match x86-program
-    ((cons-x86-program info blocks)
+(define (format-x86-mod x86-mod)
+  (match x86-mod
+    ((cons-x86-mod info blocks)
      (string-concat
       (cons (indent-line ".global begin")
             (list-map format-block-entry

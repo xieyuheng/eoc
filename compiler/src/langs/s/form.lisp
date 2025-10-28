@@ -1,14 +1,14 @@
 (import-all "deps")
 (import-all "index")
 
-(export form-program form-exp)
+(export form-mod form-exp)
 
-(claim form-program (-> program? sexp?))
+(claim form-mod (-> mod? sexp?))
 
-(define (form-program program)
-  (match program
-    ((cons-program info body)
-     `(program ,info ,(form-exp body)))))
+(define (form-mod mod)
+  (match mod
+    ((cons-mod info body)
+     `(mod ,info ,(form-exp body)))))
 
 (claim form-exp (-> exp? sexp?))
 

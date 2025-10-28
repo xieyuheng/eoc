@@ -3,15 +3,15 @@
 (export select-instructions)
 
 (claim select-instructions
-  (-> (c-program/info?
+  (-> (c-mod/info?
        (tau :context (record? type?)))
-      (x86-program/info?
+      (x86-mod/info?
        (tau :context (record? type?)))))
 
-(define (select-instructions c-program)
-  (match c-program
-    ((cons-c-program info seqs)
-     (cons-x86-program
+(define (select-instructions c-mod)
+  (match c-mod
+    ((cons-c-mod info seqs)
+     (cons-x86-mod
       info
       (pipe seqs
         (record-map

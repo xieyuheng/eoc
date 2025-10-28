@@ -1,7 +1,7 @@
 (import-all "deps")
 (import-all "index")
 
-(check-program
- (parse-program
+(check-mod
+ (parse-mod
   ;; wrong arity
-  '(program () (iadd 8))))
+  '(mod () (iadd 8))))

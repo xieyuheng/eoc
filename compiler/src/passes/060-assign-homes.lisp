@@ -6,14 +6,14 @@
   (tau :home-locations (hash? var-rand? location-operand?)))
 
 (claim assign-homes
-  (-> (x86-program/info? home-info?)
-      x86-program?))
+  (-> (x86-mod/info? home-info?)
+      x86-mod?))
 
-(define (assign-homes x86-program)
-  (match x86-program
-    ((cons-x86-program info blocks)
+(define (assign-homes x86-mod)
+  (match x86-mod
+    ((cons-x86-mod info blocks)
      (= [:home-locations home-locations] info)
-     (cons-x86-program info
+     (cons-x86-mod info
       (record-map-value (assign-homes-block home-locations) blocks)))))
 
 (claim assign-homes-block

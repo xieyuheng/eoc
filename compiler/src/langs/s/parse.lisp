@@ -1,14 +1,14 @@
 (import-all "deps")
 (import-all "index")
 
-(export parse-program parse-exp)
+(export parse-mod parse-exp)
 
-(claim parse-program (-> sexp? program?))
+(claim parse-mod (-> sexp? mod?))
 
-(define (parse-program sexp)
+(define (parse-mod sexp)
   (match sexp
-    (`(program ,info ,body)
-     (cons-program info (parse-exp body)))))
+    (`(mod ,info ,body)
+     (cons-mod info (parse-exp body)))))
 
 (claim parse-exp (-> sexp? exp?))
 

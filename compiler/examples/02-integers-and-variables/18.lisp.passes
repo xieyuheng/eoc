@@ -1,22 +1,22 @@
-program:
+mod:
 
-  (program () (iadd (iadd (iadd (iadd (random-dice) 1) 1) 1) 1))
+  (mod () (iadd (iadd (iadd (iadd (random-dice) 1) 1) 1) 1))
 
 shrink:
 
-  (program () (iadd (iadd (iadd (iadd (random-dice) 1) 1) 1) 1))
+  (mod () (iadd (iadd (iadd (iadd (random-dice) 1) 1) 1) 1))
 
 uniquify:
 
-  (program () (iadd (iadd (iadd (iadd (random-dice) 1) 1) 1) 1))
+  (mod () (iadd (iadd (iadd (iadd (random-dice) 1) 1) 1) 1))
 
 remove-complex-operands:
 
-  (program () (let ((_₁ (random-dice))) (let ((_₂ (iadd _₁ 1))) (let ((_₃ (iadd _₂ 1))) (let ((_₄ (iadd _₃ 1))) (iadd _₄ 1))))))
+  (mod () (let ((_₁ (random-dice))) (let ((_₂ (iadd _₁ 1))) (let ((_₃ (iadd _₂ 1))) (let ((_₄ (iadd _₃ 1))) (iadd _₄ 1))))))
 
 explicate-control:
 
-  [#cons-c-program
+  [#cons-c-mod
    []
    [:begin
     [#cons-seq
@@ -37,7 +37,7 @@ explicate-control:
 
 select-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t :_₃ #int-t :_₄ #int-t]]
    [:begin
     [#cons-block
@@ -56,7 +56,7 @@ select-instructions:
 
 uncover-live:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t :_₃ #int-t :_₄ #int-t]]
    [:begin
     [#cons-block
@@ -87,7 +87,7 @@ uncover-live:
 
 build-interference:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:context [:_₁ #int-t :_₂ #int-t :_₃ #int-t :_₄ #int-t]
     :interference-graph
     [#cons-graph
@@ -171,7 +171,7 @@ build-interference:
 
 allocate-registers:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash
       [#var-rand '_₁] [#reg-rand 'rcx]
@@ -263,7 +263,7 @@ allocate-registers:
 
 assign-homes:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash
       [#var-rand '_₁] [#reg-rand 'rcx]
@@ -355,7 +355,7 @@ assign-homes:
 
 patch-instructions:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash
       [#var-rand '_₁] [#reg-rand 'rcx]
@@ -444,7 +444,7 @@ patch-instructions:
 
 prolog-and-epilog:
 
-  [#cons-x86-program
+  [#cons-x86-mod
    [:home-locations
     (@hash
       [#var-rand '_₁] [#reg-rand 'rcx]
