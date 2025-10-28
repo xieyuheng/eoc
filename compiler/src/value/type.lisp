@@ -1,9 +1,7 @@
 (export
   type?
-  int-type
-  bool-type
-  void-type
-  arrow-type)
+  int-type bool-type void-type arrow-type
+  int-type? bool-type? void-type? arrow-type?)
 
 (define-data type?
   int-type

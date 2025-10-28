@@ -1,5 +1,3 @@
-[s] add `arrow-type` -- fix `check-op`
-
 [s] add `void-exp`
 [s] eval `void-exp`
 [s] type check `void-exp`

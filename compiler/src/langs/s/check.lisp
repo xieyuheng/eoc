@@ -60,12 +60,19 @@
     ((prim-exp op args)
      (= typed-args (list-map (infer-exp context) args))
      (= arg-types (list-map the-exp-type typed-args))
-     (= return-type (check-op arg-types op))
-     (when (null? return-type)
+     (= operator-type (record-get op operator-types))
+     (when (null? operator-type)
        (exit [:who 'infer-exp
-              :message "fail on prim-exp, no return-type for op"
+              :message "unknown op"
               :op op
               :exp exp
+              :arg-types arg-types]))
+     (= (arrow-type expected-arg-types return-type) operator-type)
+     (unless (equal? expected-arg-types arg-types)
+       (exit [:who 'infer-exp
+              :message "arg-types mismatch"
+              :exp exp
+              :expected-arg-types expected-arg-types
               :arg-types arg-types]))
      (the-exp return-type (prim-exp op typed-args)))
     ((let-exp name rhs body)
@@ -87,21 +94,3 @@
            :type type
            :inferred-type inferred-type]))
   (the-exp inferred-type exp^))
-
-(claim check-op
-  (-> (list? type?) symbol?
-      (union type? null?)))
-
-(define (check-op arg-types op)
-  ((optional-lift (check-type-entry arg-types))
-   (record-get op operator-types)))
-
-(claim check-type-entry
-  (-> (list? type?) (tau (list? type?) type?)
-      (union type? null?)))
-
-(define (check-type-entry arg-types type-entry)
-  (= [expected-arg-types return-type] type-entry)
-  (if (equal? expected-arg-types arg-types)
-    return-type
-    null))
