@@ -1,4 +1,3 @@
-`005-shrink` -- handle `begin-exp`
 `010-uniquify` -- handle `begin-exp`
 `020-remove-complex-operands` -- handle `begin-exp`
 
