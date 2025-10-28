@@ -27,7 +27,7 @@
     (atom
      (cond ((int? atom) (int-exp atom))
            ((bool? atom) (bool-exp atom))
-           ;; ((void? atom) (void-exp atom))
+           ((void? atom) void-exp)
            (else (var-exp atom))))))
 
 (claim parse-type (-> sexp? type?))

@@ -26,6 +26,8 @@
      (the-exp int-type (int-exp value)))
     ((bool-exp value)
      (the-exp bool-type (bool-exp value)))
+    (void-exp
+     (the-exp void-type void-exp))
     ((if-exp condition then else)
      (= (the-exp condition-type condition^) (infer-exp context condition))
      (unless (equal? bool-type condition-type)

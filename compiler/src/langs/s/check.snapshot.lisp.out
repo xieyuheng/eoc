@@ -14,6 +14,9 @@
     [#the-exp
      #int-type
      [#prim-exp 'ineg [[#the-exp #int-type [#int-exp 8]]]]]]]]]
+[#cons-mod [] [#the-exp #bool-type [#bool-exp #t]]]
+[#cons-mod [] [#the-exp #bool-type [#bool-exp #f]]]
+[#cons-mod [] [#the-exp #void-type #void-exp]]
 [#cons-mod
  []
  [#the-exp

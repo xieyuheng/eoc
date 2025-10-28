@@ -15,6 +15,15 @@
  '(mod () (iadd 8 (ineg 8))))
 
 (test-mod
+ '(mod () #t))
+
+(test-mod
+ '(mod () #f))
+
+(test-mod
+ '(mod () #void))
+
+(test-mod
  '(mod () (let ((x 8)) (iadd x x))))
 
 (test-mod

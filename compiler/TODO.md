@@ -1,6 +1,4 @@
-[s] add `void-exp`
-[s] eval `void-exp`
-[s] type check `void-exp`
+[c] add `void-c-exp`
 
 [s] add `begin-exp`
 [s] eval `begin-exp`
