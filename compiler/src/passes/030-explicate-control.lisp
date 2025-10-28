@@ -60,6 +60,8 @@
      (int-c-exp value))
     ((the-exp type (bool-exp value))
      (bool-c-exp value))
+    ((the-exp type void-exp)
+     void-c-exp)
     ((the-exp type (prim-exp op args))
      (prim-c-exp op (list-map exp-to-c-exp args)))))
 

@@ -22,6 +22,8 @@
      (if-exp (parse-exp condition)
              (parse-exp then)
              (parse-exp else)))
+    ((cons 'begin sequence)
+     (begin-exp (list-map parse-exp sequence)))
     ((cons op args)
      (prim-exp op (list-map parse-exp args)))
     (atom

@@ -77,6 +77,12 @@
               :expected-arg-types expected-arg-types
               :arg-types arg-types]))
      (the-exp return-type (prim-exp op typed-args)))
+    ((begin-exp [])
+     (the-exp void-type (begin-exp [])))
+    ((begin-exp sequence)
+     (= typed-sequence (list-map (infer-exp context) sequence))
+     (= (the-exp last-type last-exp^) (list-last typed-sequence))
+     (the-exp last-type (begin-exp typed-sequence)))
     ((let-exp name rhs body)
      (= (the-exp rhs-type rhs^) (infer-exp context rhs))
      (= new-context (record-put name rhs-type context))

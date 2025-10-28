@@ -2,8 +2,10 @@
 
 (export
   exp?
-  var-exp int-exp bool-exp void-exp if-exp prim-exp let-exp the-exp
-  var-exp? int-exp? bool-exp? void-exp? if-exp? prim-exp? let-exp? the-exp?
+  var-exp int-exp bool-exp void-exp if-exp prim-exp
+  let-exp begin-exp the-exp
+  var-exp? int-exp? bool-exp? void-exp? if-exp? prim-exp?
+  let-exp? begin-exp the-exp?
   the-exp-type
   the-exp-exp
   atom-exp? typed-exp?)
@@ -16,6 +18,7 @@
   (if-exp (condition exp?) (then exp?) (else exp?))
   (prim-exp (op symbol?) (args (list? exp?)))
   (let-exp (name symbol?) (rhs exp?) (body exp?))
+  (begin-exp (sequence (list? exp?)))
   (the-exp (type type?) (exp exp?)))
 
 (define atom-exp?
@@ -40,5 +43,7 @@
          ((let-exp name rhs body)
           (and (typed-exp? rhs)
                (typed-exp? body)))
+         ((begin-exp sequence)
+          (list-all? typed-exp? sequence))
          ((the-exp type inner-exp)
           (typed-exp? (the-exp type inner-exp))))))

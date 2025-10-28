@@ -1,6 +1,6 @@
-[s] add `begin-exp`
-[s] eval `begin-exp`
-[s] type check `begin-exp`
+[builtin] add `print-int` and `newline` as primitive function
+[builtin] runtime support for `print-int` and `newline`
+[builtin] codegen for `print-int` and `newline`
 
 > 6 Tuples and Garbage Collection
 

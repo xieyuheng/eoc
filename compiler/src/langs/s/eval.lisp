@@ -39,5 +39,8 @@
     ((let-exp name rhs body)
      (= new-env (record-put name (eval-exp rhs env) env))
      (eval-exp body new-env))
+    ((begin-exp sequence)
+     (list-each (swap eval-exp env) (list-init sequence))
+     (eval-exp (list-last sequence) env))
     ((the-exp type exp)
      (eval-exp exp env))))
