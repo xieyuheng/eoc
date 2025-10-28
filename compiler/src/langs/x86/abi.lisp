@@ -1,3 +1,4 @@
+(import-all "instr")
 (import-all "x86-mod")
 
 (export
