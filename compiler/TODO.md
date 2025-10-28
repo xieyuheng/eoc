@@ -1,8 +1,11 @@
 [s] add `the-exp`
+[s] parse `the-exp`
+[s] eval `the-exp`
 
-[passes] add `type-checking` as a pass -- where?
+[s] check -- be clear about bidirectional type checking
 
-[s] fix bidirectional type checking
+[passes] add `type-checking` as a pass -- after `uniquify`
+[c] add `uncover-locals` -- replace `check-c-program`
 
 [s] add `void-exp`
 [s] eval `void-exp`
