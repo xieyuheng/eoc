@@ -17,4 +17,6 @@
    :lt? (arrow-type [int-type int-type] bool-type)
    :gt? (arrow-type [int-type int-type] bool-type)
    :lteq? (arrow-type [int-type int-type] bool-type)
-   :gteq? (arrow-type [int-type int-type] bool-type)])
+   :gteq? (arrow-type [int-type int-type] bool-type)
+   :print-int (arrow-type [int-type] void-type)
+   :newline (arrow-type [] void-type)])

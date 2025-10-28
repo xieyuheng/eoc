@@ -17,4 +17,6 @@
    :lt? int-less?
    :gt? int-greater?
    :lteq? int-less-equal?
-   :gteq? int-greater-equal?])
+   :gteq? int-greater-equal?
+   :print-int print
+   :newline newline])

@@ -1,6 +1,8 @@
-[builtin] add `print-int` and `newline` as primitive function
 [builtin] runtime support for `print-int` and `newline`
 [builtin] codegen for `print-int` and `newline`
+
+[c] `effect-stmt`
+[pass] `030-explicate-control` -- support `begin-exp`
 
 > 6 Tuples and Garbage Collection
 
