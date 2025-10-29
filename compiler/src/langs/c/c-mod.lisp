@@ -6,7 +6,9 @@
   c-mod/info?
   seq? cons-seq return-seq goto-seq branch-seq
   cons-seq? return-seq? goto-seq? branch-seq?
-  stmt? assign-stmt)
+  stmt?
+  assign-stmt effect-stmt
+  assign-stmt? effect-stmt?)
 
 (define-data c-mod?
   (cons-c-mod
@@ -29,4 +31,5 @@
               (else-label symbol?)))
 
 (define-data stmt?
-  (assign-stmt (var var-c-exp?) (type type?) (rhs c-exp?)))
+  (assign-stmt (var var-c-exp?) (type type?) (rhs c-exp?))
+  (effect-stmt (rhs c-exp?)))

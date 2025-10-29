@@ -1,5 +1,4 @@
-[c] `effect-stmt`
-[pass] `030-explicate-control` -- support `begin-exp`
+[pass] `030-explicate-control` -- fix `begin-exp` for `explicate-if` and `explicate-assign`
 
 > 6 Tuples and Garbage Collection
 

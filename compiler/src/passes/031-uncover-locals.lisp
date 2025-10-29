@@ -35,4 +35,6 @@
   (match stmt
     ((assign-stmt (var-c-exp name) type rhs)
      (record-put! name type locals)
+     void)
+    ((effect-stmt rhs)
      void)))

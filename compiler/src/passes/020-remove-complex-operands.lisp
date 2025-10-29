@@ -42,6 +42,8 @@
       ((the-exp type (let-exp name rhs body))
        (and (typed-atom-operand-exp? rhs)
             (typed-atom-operand-exp? body)))
+      ((the-exp type (begin-exp sequence))
+       (list-all? typed-atom-operand-exp? sequence))
       ((the-exp type (prim-exp op args))
        (list-all? typed-atom-exp? args))
       (_ false))))

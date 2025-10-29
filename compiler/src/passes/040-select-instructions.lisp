@@ -80,7 +80,9 @@
       (prim-c-exp 'not [(var-c-exp self-name)]))
      [['xorq [(imm-rand 1) (var-rand self-name)]]])
     ((assign-stmt (var-c-exp name) type rhs)
-     (select-instr-assign (var-rand name) rhs))))
+     (select-instr-assign (var-rand name) rhs))
+    ((effect-stmt rhs)
+     (select-instr-assign (reg-rand 'rax) rhs))))
 
 (claim select-instr-assign
   (-> location-operand? c-exp?

@@ -39,6 +39,13 @@
       seqs label
       name rhs
       (explicate-tail seqs label body)))
+    ((the-exp type (begin-exp sequence))
+     (if (list-empty? sequence)
+       (return-seq void-c-exp)
+       (explicate-begin
+        seqs label
+        (list-init sequence)
+        (explicate-tail seqs label (list-last sequence)))))
     ((the-exp type (if-exp condition then else))
      (explicate-if
       seqs label
@@ -148,3 +155,15 @@
       inner-condition
       (explicate-if seqs label then then-cont else-cont)
       (explicate-if seqs label else then-cont else-cont)))))
+
+(claim explicate-begin
+  (-> (record? seq?) symbol?
+      (list? typed-atom-operand-exp?) seq?
+      seq?))
+
+(define (explicate-begin seqs label sequence cont)
+  (match sequence
+    ([] cont)
+    ((cons exp rest)
+     (= stmt (effect-stmt (exp-to-c-exp exp)))
+     (cons-seq stmt (explicate-begin seqs label rest cont)))))
