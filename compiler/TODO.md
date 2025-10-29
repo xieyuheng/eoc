@@ -17,6 +17,5 @@
 
 > 4 Booleans and Conditionals
 
-[pass] `partial-eval` -- support conditional
 [pass] optimize blocks and remove jumps
 [pass] refactor `uncover-live`
