@@ -1,4 +1,4 @@
-[pass] `030-explicate-control` -- fix `begin-exp` for `explicate-if` and `explicate-assign`
+[pass] `030-explicate-control` -- fix `begin-exp` for `explicate-if`
 
 > 6 Tuples and Garbage Collection
 

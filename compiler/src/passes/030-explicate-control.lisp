@@ -95,6 +95,12 @@
     ((the-exp type (let-exp rhs-name rhs-rhs rhs-body))
      (= cont (explicate-assign seqs label name rhs-body cont))
      (explicate-assign seqs label rhs-name rhs-rhs cont))
+    ((the-exp type (begin-exp []))
+     (= rhs (the-exp void-type void-exp))
+     (explicate-assign seqs label name rhs cont))
+    ((the-exp type (begin-exp sequence))
+     (= cont (explicate-assign seqs label name (list-last sequence) cont))
+     (explicate-begin seqs label (list-init sequence) cont))
     ((the-exp type (if-exp condition then else))
      (= let-body-label (generate-label seqs label 'let_body cont))
      (explicate-if
