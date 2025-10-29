@@ -13,6 +13,7 @@ begin.body:
         movq $3, %rdi
         callq print_int
         callq newline
+        movq $666, %rax
         jmp begin.epilog
 begin.epilog:
         popq %rbp

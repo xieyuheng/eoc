@@ -1,22 +1,22 @@
 mod:
 
-  (mod () (begin (print-int 1) (newline) (print-int 2) (newline) (print-int 3) (newline)))
+  (mod () (begin (print-int 1) (newline) (print-int 2) (newline) (print-int 3) (newline) 666))
 
 shrink:
 
-  (mod () (begin (print-int 1) (newline) (print-int 2) (newline) (print-int 3) (newline)))
+  (mod () (begin (print-int 1) (newline) (print-int 2) (newline) (print-int 3) (newline) 666))
 
 uniquify:
 
-  (mod () (begin (print-int 1) (newline) (print-int 2) (newline) (print-int 3) (newline)))
+  (mod () (begin (print-int 1) (newline) (print-int 2) (newline) (print-int 3) (newline) 666))
 
 check-type:
 
-  (mod () (the void-t (begin (the void-t (print-int (the int-t 1))) (the void-t (newline)) (the void-t (print-int (the int-t 2))) (the void-t (newline)) (the void-t (print-int (the int-t 3))) (the void-t (newline)))))
+  (mod () (the int-t (begin (the void-t (print-int (the int-t 1))) (the void-t (newline)) (the void-t (print-int (the int-t 2))) (the void-t (newline)) (the void-t (print-int (the int-t 3))) (the void-t (newline)) (the int-t 666))))
 
 remove-complex-operands:
 
-  (mod () (the void-t (begin (the void-t (print-int (the int-t 1))) (the void-t (newline)) (the void-t (print-int (the int-t 2))) (the void-t (newline)) (the void-t (print-int (the int-t 3))) (the void-t (newline)))))
+  (mod () (the int-t (begin (the void-t (print-int (the int-t 1))) (the void-t (newline)) (the void-t (print-int (the int-t 2))) (the void-t (newline)) (the void-t (print-int (the int-t 3))) (the void-t (newline)) (the int-t 666))))
 
 explicate-control:
 
@@ -33,7 +33,9 @@ explicate-control:
         [#effect-stmt [#prim-c-exp 'newline []]]
         [#cons-seq
          [#effect-stmt [#prim-c-exp 'print-int [[#int-c-exp 3]]]]
-         [#return-seq [#prim-c-exp 'newline []]]]]]]]]]
+         [#cons-seq
+          [#effect-stmt [#prim-c-exp 'newline []]]
+          [#return-seq [#int-c-exp 666]]]]]]]]]]
 
 uncover-locals:
 
@@ -50,7 +52,9 @@ uncover-locals:
         [#effect-stmt [#prim-c-exp 'newline []]]
         [#cons-seq
          [#effect-stmt [#prim-c-exp 'print-int [[#int-c-exp 3]]]]
-         [#return-seq [#prim-c-exp 'newline []]]]]]]]]]
+         [#cons-seq
+          [#effect-stmt [#prim-c-exp 'newline []]]
+          [#return-seq [#int-c-exp 666]]]]]]]]]]
 
 select-instructions:
 
@@ -74,6 +78,7 @@ select-instructions:
       ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
       [#callq 'newline 0]
       ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 666] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]]]
 
 uncover-live:
@@ -98,6 +103,7 @@ uncover-live:
        {[#reg-rand 'rax] [#reg-rand 'rsp]}
        {[#reg-rand 'rsp]}
        {[#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp]}
        {[#reg-rand 'rsp] [#reg-rand 'rax]}
        {}]]
      [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
@@ -115,6 +121,7 @@ uncover-live:
       ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
       [#callq 'newline 0]
       ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 666] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]]]
 
 build-interference:
@@ -180,6 +187,7 @@ build-interference:
        {[#reg-rand 'rax] [#reg-rand 'rsp]}
        {[#reg-rand 'rsp]}
        {[#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp]}
        {[#reg-rand 'rsp] [#reg-rand 'rax]}
        {}]]
      [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
@@ -197,6 +205,7 @@ build-interference:
       ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
       [#callq 'newline 0]
       ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 666] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]]]
 
 allocate-registers:
@@ -265,6 +274,7 @@ allocate-registers:
        {[#reg-rand 'rax] [#reg-rand 'rsp]}
        {[#reg-rand 'rsp]}
        {[#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp]}
        {[#reg-rand 'rsp] [#reg-rand 'rax]}
        {}]]
      [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
@@ -282,6 +292,7 @@ allocate-registers:
       ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
       [#callq 'newline 0]
       ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 666] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]]]
 
 assign-homes:
@@ -350,6 +361,7 @@ assign-homes:
        {[#reg-rand 'rax] [#reg-rand 'rsp]}
        {[#reg-rand 'rsp]}
        {[#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp]}
        {[#reg-rand 'rsp] [#reg-rand 'rax]}
        {}]]
      [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
@@ -367,6 +379,7 @@ assign-homes:
       ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
       [#callq 'newline 0]
       ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 666] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]]]
 
 patch-instructions:
@@ -435,6 +448,7 @@ patch-instructions:
        {[#reg-rand 'rax] [#reg-rand 'rsp]}
        {[#reg-rand 'rsp]}
        {[#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp]}
        {[#reg-rand 'rsp] [#reg-rand 'rax]}
        {}]]
      [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
@@ -446,6 +460,7 @@ patch-instructions:
       ['movq [[#imm-rand 3] [#reg-rand 'rdi]]]
       [#callq 'print_int 1]
       [#callq 'newline 0]
+      ['movq [[#imm-rand 666] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]]]
 
 prolog-and-epilog:
@@ -520,6 +535,7 @@ prolog-and-epilog:
        {[#reg-rand 'rax] [#reg-rand 'rsp]}
        {[#reg-rand 'rsp]}
        {[#reg-rand 'rax] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp]}
        {[#reg-rand 'rsp] [#reg-rand 'rax]}
        {}]]
      [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
@@ -531,6 +547,7 @@ prolog-and-epilog:
       ['movq [[#imm-rand 3] [#reg-rand 'rdi]]]
       [#callq 'print_int 1]
       [#callq 'newline 0]
+      ['movq [[#imm-rand 666] [#reg-rand 'rax]]]
       [#jmp 'begin.epilog]]]
     :begin.epilog [#cons-block [] [['popq [[#reg-rand 'rbp]]] #retq]]]]
 
