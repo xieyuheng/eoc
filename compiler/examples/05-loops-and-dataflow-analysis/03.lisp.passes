@@ -1,0 +1,950 @@
+mod:
+
+  (mod () (if (begin (print-int 1) (newline) (print-int 2) (newline) (print-int 3) (newline) (eq? 1 2)) (begin (print-int 111) (newline) (eq? 1 2)) (begin (print-int 222) (newline) (eq? 1 2))))
+
+shrink:
+
+  (mod () (if (begin (print-int 1) (newline) (print-int 2) (newline) (print-int 3) (newline) (eq? 1 2)) (begin (print-int 111) (newline) (eq? 1 2)) (begin (print-int 222) (newline) (eq? 1 2))))
+
+uniquify:
+
+  (mod () (if (begin (print-int 1) (newline) (print-int 2) (newline) (print-int 3) (newline) (eq? 1 2)) (begin (print-int 111) (newline) (eq? 1 2)) (begin (print-int 222) (newline) (eq? 1 2))))
+
+check-type:
+
+  (mod () (the bool-t (if (the bool-t (begin (the void-t (print-int (the int-t 1))) (the void-t (newline)) (the void-t (print-int (the int-t 2))) (the void-t (newline)) (the void-t (print-int (the int-t 3))) (the void-t (newline)) (the bool-t (eq? (the int-t 1) (the int-t 2))))) (the bool-t (begin (the void-t (print-int (the int-t 111))) (the void-t (newline)) (the bool-t (eq? (the int-t 1) (the int-t 2))))) (the bool-t (begin (the void-t (print-int (the int-t 222))) (the void-t (newline)) (the bool-t (eq? (the int-t 1) (the int-t 2))))))))
+
+remove-complex-operands:
+
+  (mod () (the bool-t (if (the bool-t (begin (the void-t (print-int (the int-t 1))) (the void-t (newline)) (the void-t (print-int (the int-t 2))) (the void-t (newline)) (the void-t (print-int (the int-t 3))) (the void-t (newline)) (the bool-t (eq? (the int-t 1) (the int-t 2))))) (the bool-t (begin (the void-t (print-int (the int-t 111))) (the void-t (newline)) (the bool-t (eq? (the int-t 1) (the int-t 2))))) (the bool-t (begin (the void-t (print-int (the int-t 222))) (the void-t (newline)) (the bool-t (eq? (the int-t 1) (the int-t 2))))))))
+
+explicate-control:
+
+  [#cons-c-mod
+   []
+   [:begin.then.0
+    [#cons-seq
+     [#effect-stmt [#prim-c-exp 'print-int [[#int-c-exp 111]]]]
+     [#cons-seq
+      [#effect-stmt [#prim-c-exp 'newline []]]
+      [#return-seq [#prim-c-exp 'eq? [[#int-c-exp 1] [#int-c-exp 2]]]]]]
+    :begin.else.1
+    [#cons-seq
+     [#effect-stmt [#prim-c-exp 'print-int [[#int-c-exp 222]]]]
+     [#cons-seq
+      [#effect-stmt [#prim-c-exp 'newline []]]
+      [#return-seq [#prim-c-exp 'eq? [[#int-c-exp 1] [#int-c-exp 2]]]]]]
+    :begin
+    [#cons-seq
+     [#effect-stmt [#prim-c-exp 'print-int [[#int-c-exp 1]]]]
+     [#cons-seq
+      [#effect-stmt [#prim-c-exp 'newline []]]
+      [#cons-seq
+       [#effect-stmt [#prim-c-exp 'print-int [[#int-c-exp 2]]]]
+       [#cons-seq
+        [#effect-stmt [#prim-c-exp 'newline []]]
+        [#cons-seq
+         [#effect-stmt [#prim-c-exp 'print-int [[#int-c-exp 3]]]]
+         [#cons-seq
+          [#effect-stmt [#prim-c-exp 'newline []]]
+          [#branch-seq
+           [#prim-c-exp 'eq? [[#int-c-exp 1] [#int-c-exp 2]]]
+           'begin.then.0
+           'begin.else.1]]]]]]]]]
+
+uncover-locals:
+
+  [#cons-c-mod
+   [:locals []]
+   [:begin.then.0
+    [#cons-seq
+     [#effect-stmt [#prim-c-exp 'print-int [[#int-c-exp 111]]]]
+     [#cons-seq
+      [#effect-stmt [#prim-c-exp 'newline []]]
+      [#return-seq [#prim-c-exp 'eq? [[#int-c-exp 1] [#int-c-exp 2]]]]]]
+    :begin.else.1
+    [#cons-seq
+     [#effect-stmt [#prim-c-exp 'print-int [[#int-c-exp 222]]]]
+     [#cons-seq
+      [#effect-stmt [#prim-c-exp 'newline []]]
+      [#return-seq [#prim-c-exp 'eq? [[#int-c-exp 1] [#int-c-exp 2]]]]]]
+    :begin
+    [#cons-seq
+     [#effect-stmt [#prim-c-exp 'print-int [[#int-c-exp 1]]]]
+     [#cons-seq
+      [#effect-stmt [#prim-c-exp 'newline []]]
+      [#cons-seq
+       [#effect-stmt [#prim-c-exp 'print-int [[#int-c-exp 2]]]]
+       [#cons-seq
+        [#effect-stmt [#prim-c-exp 'newline []]]
+        [#cons-seq
+         [#effect-stmt [#prim-c-exp 'print-int [[#int-c-exp 3]]]]
+         [#cons-seq
+          [#effect-stmt [#prim-c-exp 'newline []]]
+          [#branch-seq
+           [#prim-c-exp 'eq? [[#int-c-exp 1] [#int-c-exp 2]]]
+           'begin.then.0
+           'begin.else.1]]]]]]]]]
+
+select-instructions:
+
+  [#cons-x86-mod
+   [:locals []]
+   [:begin.then.0
+    [#cons-block
+     []
+     [['movq [[#imm-rand 111] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin.else.1
+    [#cons-block
+     []
+     [['movq [[#imm-rand 222] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin
+    [#cons-block
+     []
+     [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 2] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 3] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#jmp-if 'e 'begin.then.0]
+      [#jmp 'begin.else.1]]]]]
+
+uncover-live:
+
+  [#cons-x86-mod
+   [:locals []]
+   [:begin.else.1
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [['movq [[#imm-rand 222] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin.then.0
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [['movq [[#imm-rand 111] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {}]]
+     [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 2] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 3] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#jmp-if 'e 'begin.then.0]
+      [#jmp 'begin.else.1]]]]]
+
+build-interference:
+
+  [#cons-x86-mod
+   [:locals []
+    :interference-graph
+    [#cons-graph
+     {[#reg-rand 'rdi]
+      [#byte-reg-rand 'al]
+      [#reg-rand 'rsp]
+      [#reg-rand 'rax]
+      [#reg-rand 'rcx]
+      [#reg-rand 'rdx]
+      [#reg-rand 'rsi]
+      [#reg-rand 'r8]
+      [#reg-rand 'r9]
+      [#reg-rand 'r10]
+      [#reg-rand 'r11]}
+     (@hash
+       [#reg-rand 'rdi] {[#byte-reg-rand 'al] [#reg-rand 'rsp] [#reg-rand 'rax]}
+       [#byte-reg-rand 'al]
+       {[#reg-rand 'rdi]
+        [#reg-rand 'rax]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rsp]
+       {[#reg-rand 'rdi]
+        [#reg-rand 'rax]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rax]
+       {[#byte-reg-rand 'al]
+        [#reg-rand 'rsp]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'rdi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rcx] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'rdx] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'rsi] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r8] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r9] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r10] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r11] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]})]]
+   [:begin.else.1
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [['movq [[#imm-rand 222] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin.then.0
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [['movq [[#imm-rand 111] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {}]]
+     [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 2] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 3] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#jmp-if 'e 'begin.then.0]
+      [#jmp 'begin.else.1]]]]]
+
+allocate-registers:
+
+  [#cons-x86-mod
+   [:home-locations (@hash)
+    :spill-count 0
+    :callee-saved [[#reg-rand 'rbx]]
+    :locals []
+    :interference-graph
+    [#cons-graph
+     {[#reg-rand 'rdi]
+      [#byte-reg-rand 'al]
+      [#reg-rand 'rsp]
+      [#reg-rand 'rax]
+      [#reg-rand 'rcx]
+      [#reg-rand 'rdx]
+      [#reg-rand 'rsi]
+      [#reg-rand 'r8]
+      [#reg-rand 'r9]
+      [#reg-rand 'r10]
+      [#reg-rand 'r11]}
+     (@hash
+       [#reg-rand 'rdi] {[#byte-reg-rand 'al] [#reg-rand 'rsp] [#reg-rand 'rax]}
+       [#byte-reg-rand 'al]
+       {[#reg-rand 'rdi]
+        [#reg-rand 'rax]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rsp]
+       {[#reg-rand 'rdi]
+        [#reg-rand 'rax]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rax]
+       {[#byte-reg-rand 'al]
+        [#reg-rand 'rsp]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'rdi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rcx] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'rdx] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'rsi] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r8] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r9] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r10] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r11] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]})]]
+   [:begin.else.1
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [['movq [[#imm-rand 222] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin.then.0
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [['movq [[#imm-rand 111] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {}]]
+     [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 2] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 3] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#jmp-if 'e 'begin.then.0]
+      [#jmp 'begin.else.1]]]]]
+
+assign-homes:
+
+  [#cons-x86-mod
+   [:home-locations (@hash)
+    :spill-count 0
+    :callee-saved [[#reg-rand 'rbx]]
+    :locals []
+    :interference-graph
+    [#cons-graph
+     {[#reg-rand 'rdi]
+      [#byte-reg-rand 'al]
+      [#reg-rand 'rsp]
+      [#reg-rand 'rax]
+      [#reg-rand 'rcx]
+      [#reg-rand 'rdx]
+      [#reg-rand 'rsi]
+      [#reg-rand 'r8]
+      [#reg-rand 'r9]
+      [#reg-rand 'r10]
+      [#reg-rand 'r11]}
+     (@hash
+       [#reg-rand 'rdi] {[#byte-reg-rand 'al] [#reg-rand 'rsp] [#reg-rand 'rax]}
+       [#byte-reg-rand 'al]
+       {[#reg-rand 'rdi]
+        [#reg-rand 'rax]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rsp]
+       {[#reg-rand 'rdi]
+        [#reg-rand 'rax]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rax]
+       {[#byte-reg-rand 'al]
+        [#reg-rand 'rsp]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'rdi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rcx] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'rdx] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'rsi] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r8] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r9] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r10] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r11] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]})]]
+   [:begin.else.1
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [['movq [[#imm-rand 222] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin.then.0
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [['movq [[#imm-rand 111] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {}]]
+     [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 2] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['movq [[#imm-rand 3] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      [#callq 'newline 0]
+      ['movq [[#reg-rand 'rax] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#imm-rand 1]]]
+      [#jmp-if 'e 'begin.then.0]
+      [#jmp 'begin.else.1]]]]]
+
+patch-instructions:
+
+  [#cons-x86-mod
+   [:home-locations (@hash)
+    :spill-count 0
+    :callee-saved [[#reg-rand 'rbx]]
+    :locals []
+    :interference-graph
+    [#cons-graph
+     {[#reg-rand 'rdi]
+      [#byte-reg-rand 'al]
+      [#reg-rand 'rsp]
+      [#reg-rand 'rax]
+      [#reg-rand 'rcx]
+      [#reg-rand 'rdx]
+      [#reg-rand 'rsi]
+      [#reg-rand 'r8]
+      [#reg-rand 'r9]
+      [#reg-rand 'r10]
+      [#reg-rand 'r11]}
+     (@hash
+       [#reg-rand 'rdi] {[#byte-reg-rand 'al] [#reg-rand 'rsp] [#reg-rand 'rax]}
+       [#byte-reg-rand 'al]
+       {[#reg-rand 'rdi]
+        [#reg-rand 'rax]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rsp]
+       {[#reg-rand 'rdi]
+        [#reg-rand 'rax]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rax]
+       {[#byte-reg-rand 'al]
+        [#reg-rand 'rsp]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'rdi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rcx] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'rdx] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'rsi] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r8] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r9] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r10] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r11] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]})]]
+   [:begin.else.1
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [['movq [[#imm-rand 222] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      [#callq 'newline 0]
+      ['movq [[#imm-rand 1] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#reg-rand 'rax]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin.then.0
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [['movq [[#imm-rand 111] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      [#callq 'newline 0]
+      ['movq [[#imm-rand 1] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#reg-rand 'rax]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {}]]
+     [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      [#callq 'newline 0]
+      ['movq [[#imm-rand 2] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      [#callq 'newline 0]
+      ['movq [[#imm-rand 3] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      [#callq 'newline 0]
+      ['movq [[#imm-rand 1] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#reg-rand 'rax]]]
+      [#jmp-if 'e 'begin.then.0]
+      [#jmp 'begin.else.1]]]]]
+
+prolog-and-epilog:
+
+  [#cons-x86-mod
+   [:home-locations (@hash)
+    :spill-count 0
+    :callee-saved [[#reg-rand 'rbx]]
+    :locals []
+    :interference-graph
+    [#cons-graph
+     {[#reg-rand 'rdi]
+      [#byte-reg-rand 'al]
+      [#reg-rand 'rsp]
+      [#reg-rand 'rax]
+      [#reg-rand 'rcx]
+      [#reg-rand 'rdx]
+      [#reg-rand 'rsi]
+      [#reg-rand 'r8]
+      [#reg-rand 'r9]
+      [#reg-rand 'r10]
+      [#reg-rand 'r11]}
+     (@hash
+       [#reg-rand 'rdi] {[#byte-reg-rand 'al] [#reg-rand 'rsp] [#reg-rand 'rax]}
+       [#byte-reg-rand 'al]
+       {[#reg-rand 'rdi]
+        [#reg-rand 'rax]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rsp]
+       {[#reg-rand 'rdi]
+        [#reg-rand 'rax]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rax]
+       {[#byte-reg-rand 'al]
+        [#reg-rand 'rsp]
+        [#reg-rand 'rcx]
+        [#reg-rand 'rdx]
+        [#reg-rand 'rsi]
+        [#reg-rand 'rdi]
+        [#reg-rand 'r8]
+        [#reg-rand 'r9]
+        [#reg-rand 'r10]
+        [#reg-rand 'r11]}
+       [#reg-rand 'rcx] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'rdx] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'rsi] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r8] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r9] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r10] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       [#reg-rand 'r11] {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]})]]
+   [:begin.else.1
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [['movq [[#imm-rand 222] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      [#callq 'newline 0]
+      ['movq [[#imm-rand 1] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#reg-rand 'rax]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin.then.0
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rsp] [#reg-rand 'rax]}
+       {}]]
+     [['movq [[#imm-rand 111] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      [#callq 'newline 0]
+      ['movq [[#imm-rand 1] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#reg-rand 'rax]]]
+      [#set-if 'e [#byte-reg-rand 'al]]
+      ['movzbq [[#byte-reg-rand 'al] [#reg-rand 'rax]]]
+      [#jmp 'begin.epilog]]]
+    :begin
+    [#cons-block
+     []
+     [['pushq [[#reg-rand 'rbp]]]
+      ['movq [[#reg-rand 'rsp] [#reg-rand 'rbp]]]
+      ['pushq [[#reg-rand 'rbx]]]
+      ['subq [[#imm-rand 8] [#reg-rand 'rsp]]]
+      [#jmp 'begin.body]]]
+    :begin.body
+    [#cons-block
+     [:block-live-before-set {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+      :live-after-sets
+      [{[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rdi] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#reg-rand 'rax] [#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {[#byte-reg-rand 'al] [#reg-rand 'rsp]}
+       {}]]
+     [['movq [[#imm-rand 1] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      [#callq 'newline 0]
+      ['movq [[#imm-rand 2] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      [#callq 'newline 0]
+      ['movq [[#imm-rand 3] [#reg-rand 'rdi]]]
+      [#callq 'print_int 1]
+      [#callq 'newline 0]
+      ['movq [[#imm-rand 1] [#reg-rand 'rax]]]
+      ['cmpq [[#imm-rand 2] [#reg-rand 'rax]]]
+      [#jmp-if 'e 'begin.then.0]
+      [#jmp 'begin.else.1]]]
+    :begin.epilog
+    [#cons-block
+     []
+     [['addq [[#imm-rand 8] [#reg-rand 'rsp]]]
+      ['popq [[#reg-rand 'rbx]]]
+      ['popq [[#reg-rand 'rbp]]]
+      #retq]]]]
+

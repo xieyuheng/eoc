@@ -40,12 +40,10 @@
       name rhs
       (explicate-tail seqs label body)))
     ((the-exp type (begin-exp sequence))
-     (if (list-empty? sequence)
-       (return-seq void-c-exp)
-       (explicate-begin
-        seqs label
-        (list-init sequence)
-        (explicate-tail seqs label (list-last sequence)))))
+     (explicate-begin
+      seqs label
+      (list-init sequence)
+      (explicate-tail seqs label (list-last sequence))))
     ((the-exp type (if-exp condition then else))
      (explicate-if
       seqs label
@@ -153,6 +151,9 @@
     ((the-exp type (let-exp name rhs body))
      (= cont (explicate-if seqs label body then-cont else-cont))
      (explicate-assign seqs label name rhs cont))
+    ((the-exp type (begin-exp sequence))
+     (= cont (explicate-if seqs label (list-last sequence) then-cont else-cont))
+     (explicate-begin seqs label (list-init sequence) cont))
     ((the-exp type (if-exp inner-condition then else))
      (= then-cont (goto-seq (generate-label seqs label 'then then-cont)))
      (= else-cont (goto-seq (generate-label seqs label 'else else-cont)))

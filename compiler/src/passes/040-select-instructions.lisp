@@ -120,7 +120,7 @@
      (= cc (record-get op operator-condition-codes))
      [['cmpq [(select-operand arg2) (select-operand arg1)]]
       (set-if cc (byte-reg-rand 'al))
-      [movzbq (byte-reg-rand 'al) dest]])))
+      ['movzbq [(byte-reg-rand 'al) dest]]])))
 
 (claim select-operand (-> atom-c-exp? operand?))
 

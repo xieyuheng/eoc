@@ -1,5 +1,3 @@
-[pass] `030-explicate-control` -- fix `begin-exp` for `explicate-if`
-
 > 6 Tuples and Garbage Collection
 
 [s] add `tau-type`

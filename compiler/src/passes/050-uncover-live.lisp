@@ -141,6 +141,8 @@
     ;; TODO only when label ends with .epilog
     ((jmp label)
      {(reg-rand 'rsp) (reg-rand 'rax)})
+    ((set-if cc dest)
+     (uncover-live-operand (extend-byte-register dest)))
     (['addq [src dest]]
      (set-union (uncover-live-operand src)
                 (uncover-live-operand dest)))
@@ -149,6 +151,8 @@
                 (uncover-live-operand dest)))
     (['movq [src dest]]
      (uncover-live-operand src))
+    (['movzbq [src dest]]
+     (uncover-live-operand (extend-byte-register src)))
     (['negq [dest]]
      (uncover-live-operand dest))
     (['cmpq [src dest]]
@@ -168,11 +172,15 @@
     ;; TODO only when label ends with .epilog
     ((jmp label)
      {(reg-rand 'rsp) (reg-rand 'rax)})
+    ((set-if cc dest)
+     {})
     (['addq [src dest]]
      (uncover-live-operand dest))
     (['subq [src dest]]
      (uncover-live-operand dest))
     (['movq [src dest]]
+     (uncover-live-operand dest))
+    (['movzbq [src dest]]
      (uncover-live-operand dest))
     (['negq [dest]]
      (uncover-live-operand dest))
