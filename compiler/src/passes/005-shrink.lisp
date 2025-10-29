@@ -31,6 +31,8 @@
      (prim-exp op (list-map shrink-exp args)))
     ((let-exp name rhs body)
      (let-exp name (shrink-exp rhs) (shrink-exp body)))
+    ((begin-exp [])
+     void-exp)
     ((begin-exp sequence)
      (begin-exp (list-map shrink-exp sequence)))
     (else exp)))

@@ -6,4 +6,11 @@
            (print-int 3)
            (newline)
            6)))
-  (iadd x x))
+  (begin
+    (print-int 4)
+    (newline)
+    (print-int 5)
+    (newline)
+    (print-int 6)
+    (newline)
+    (iadd x x)))
