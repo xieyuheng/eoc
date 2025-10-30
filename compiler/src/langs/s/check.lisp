@@ -29,33 +29,17 @@
     (void-exp
      (the-exp void-type void-exp))
     ((if-exp condition then else)
-     (= (the-exp condition-type condition^) (infer-exp context condition))
-     (unless (equal? bool-type condition-type)
-       (exit [:who 'infer-exp
-              :message "fail on if-exp's condition"
-              :exp exp
-              :condition-type condition-type]))
+     (= (the-exp condition-type condition^)
+        (check-exp context condition bool-type))
      (= (the-exp then-type then^) (infer-exp context then))
-     (= (the-exp else-type else^) (infer-exp context else))
-     (unless (equal? then-type else-type)
-       (exit [:who 'infer-exp
-              :message "fail on if-exp's then and else"
-              :exp exp
-              :then-type then-type
-              :else-type else-type]))
+     (= (the-exp else-type else^) (check-exp context else then-type))
      (the-exp then-type
               (if-exp (the-exp condition-type condition^)
                       (the-exp then-type then^)
                       (the-exp else-type else^))))
     ((prim-exp 'eq? [lhs rhs])
      (= (the-exp lhs-type lhs^) (infer-exp context lhs))
-     (= (the-exp rhs-type rhs^) (infer-exp context rhs))
-     (unless (equal? lhs-type rhs-type)
-       (exit [:who 'infer-exp
-              :message "fail on eq?"
-              :exp exp
-              :lhs-type lhs-type
-              :rhs-type rhs-type]))
+     (= (the-exp rhs-type rhs^) (check-exp context rhs lhs-type))
      (the-exp bool-type
               (prim-exp 'eq? [(the-exp lhs-type lhs^)
                               (the-exp rhs-type rhs^)])))
