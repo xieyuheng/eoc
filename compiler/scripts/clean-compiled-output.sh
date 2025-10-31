@@ -2,7 +2,7 @@
 
 set -ex
 
-rm -f examples/**/*.out
-rm -f examples/**/*.exe
-rm -f examples/**/*.s
-rm -f examples/**/*.passes
+rm -f tests/**/*.out
+rm -f tests/**/*.exe
+rm -f tests/**/*.s
+rm -f tests/**/*.passes
