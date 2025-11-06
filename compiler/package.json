@@ -1,9 +1,5 @@
 {
   "private": true,
-  "scripts": {
-    "test": "sh scripts/test-all.sh",
-    "clean": "sh scripts/clean-compiled-output.sh"
-  },
   "dependencies": {
     "@xieyuheng/x-lisp.js": "^0.6.33"
   }
