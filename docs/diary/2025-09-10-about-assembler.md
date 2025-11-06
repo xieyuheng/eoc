@@ -19,7 +19,7 @@ date: 2025-09-10
 或者包裹在 object file 中（也是 ELF），
 然后再用 system linker（linux 的 ld）生成可执行文件。
 
-但是汇编器的本质是 byte layer （类似 brick layer）。
+但是汇编器的本质是 layout bytes。
 比如看 uxn 的汇编器，在其中用 byte 就直接生成 byte，
 类似默认就是 db 或者 dw。
 
@@ -42,7 +42,7 @@ date: 2025-09-10
 只不过二进制的文件没法保存在 JSON 中，
 所以才使用了人们没法阅读的格式。
 
-可以直接解决「在类似 JSON（或 x-data）的文本中写二进制文件」的问题，
+可以直接解决「在类似 JSON（或 x-sexp）的文本中写二进制文件」的问题，
 而不是绕过这个问题去设计二进制格式。
 
 解决方案很简单，只要模仿 hex editor
