@@ -1,0 +1,54 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@xieyuheng/x-lisp.js':
+        specifier: ^0.6.33
+        version: 0.6.33
+
+packages:
+
+  '@types/yargs-parser@21.0.3':
+    resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
+
+  '@xieyuheng/commander.js@0.1.5':
+    resolution: {integrity: sha512-xNURLT7rXD3vhiCijYouYz/GSak5+tR30ZkrPC1iR4t3SWyRo5Z3OsLY3NMf/l02vtIDJYFo8xful1UmTDuGuQ==}
+    hasBin: true
+
+  '@xieyuheng/x-lisp.js@0.6.33':
+    resolution: {integrity: sha512-S7TpFk9ivheUdykXOQYpTWAp4TujQNK+xO/IWv9M0y/TFEeyB6yRPDqZXnlz8LPUqhmLgemZB2HpiLz0TGDR7w==}
+    hasBin: true
+
+  '@xieyuheng/x-sexp.js@0.5.5':
+    resolution: {integrity: sha512-fs6NHnzzSO/68tfO+Idr61jMjSocNmJ7mjCCe1QU0ev3IGtNh8QaOjIGn+8Viv2gcBtzwemIUrEyEp0Nbel/lQ==}
+    hasBin: true
+
+  yargs-parser@22.0.0:
+    resolution: {integrity: sha512-rwu/ClNdSMpkSrUb+d6BRsSkLUq1fmfsY6TOpYzTwvwkg1/NRG85KBy3kq++A8LKQwX6lsu+aWad+2khvuXrqw==}
+    engines: {node: ^20.19.0 || ^22.12.0 || >=23}
+
+snapshots:
+
+  '@types/yargs-parser@21.0.3': {}
+
+  '@xieyuheng/commander.js@0.1.5':
+    dependencies:
+      '@types/yargs-parser': 21.0.3
+      yargs-parser: 22.0.0
+
+  '@xieyuheng/x-lisp.js@0.6.33':
+    dependencies:
+      '@xieyuheng/commander.js': 0.1.5
+      '@xieyuheng/x-sexp.js': 0.5.5
+
+  '@xieyuheng/x-sexp.js@0.5.5':
+    dependencies:
+      '@xieyuheng/commander.js': 0.1.5
+
+  yargs-parser@22.0.0: {}
