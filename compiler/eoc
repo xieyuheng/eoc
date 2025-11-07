@@ -1,4 +1,4 @@
-#!/usr/bin/env -S ./node_modules/.bin/x-lisp.js interpret --debug=true
+#!/usr/bin/env -S ./node_modules/.bin/x-lisp-proto run --debug=true
 
 (import-all "src/index.lisp")
 

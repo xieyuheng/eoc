@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@xieyuheng/x-lisp.js':
-        specifier: ^0.6.33
-        version: 0.6.33
+      '@xieyuheng/x-lisp-proto':
+        specifier: ^0.6.34
+        version: 0.6.34
 
 packages:
 
@@ -21,8 +21,8 @@ packages:
     resolution: {integrity: sha512-xNURLT7rXD3vhiCijYouYz/GSak5+tR30ZkrPC1iR4t3SWyRo5Z3OsLY3NMf/l02vtIDJYFo8xful1UmTDuGuQ==}
     hasBin: true
 
-  '@xieyuheng/x-lisp.js@0.6.33':
-    resolution: {integrity: sha512-S7TpFk9ivheUdykXOQYpTWAp4TujQNK+xO/IWv9M0y/TFEeyB6yRPDqZXnlz8LPUqhmLgemZB2HpiLz0TGDR7w==}
+  '@xieyuheng/x-lisp-proto@0.6.34':
+    resolution: {integrity: sha512-87VXXJn/dfQ1KStYMWvrHksepZCI3AeoptFcX0S5pkjzLpcabtS8x6PweRFFnK0OvQMiTirfVxuzAcVrB4V8Fw==}
     hasBin: true
 
   '@xieyuheng/x-sexp.js@0.5.5':
@@ -42,7 +42,7 @@ snapshots:
       '@types/yargs-parser': 21.0.3
       yargs-parser: 22.0.0
 
-  '@xieyuheng/x-lisp.js@0.6.33':
+  '@xieyuheng/x-lisp-proto@0.6.34':
     dependencies:
       '@xieyuheng/commander.js': 0.1.5
       '@xieyuheng/x-sexp.js': 0.5.5
