@@ -9,20 +9,23 @@ importers:
   .:
     dependencies:
       '@xieyuheng/x-lisp-proto':
-        specifier: ^0.6.34
-        version: 0.6.34
+        specifier: ^0.6.36
+        version: 0.6.36
 
 packages:
 
   '@types/yargs-parser@21.0.3':
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
 
+  '@xieyuheng/command-router.js@0.1.9':
+    resolution: {integrity: sha512-uiiFm+VOoMA9lG3d0Iwf4QRQWz7X5kAz9mAb+TbCI5ghXDQ9P7yB3Ho5NBe5ZQttV6uqbNft1TRcPiKvCrdjTA==}
+
   '@xieyuheng/commander.js@0.1.5':
     resolution: {integrity: sha512-xNURLT7rXD3vhiCijYouYz/GSak5+tR30ZkrPC1iR4t3SWyRo5Z3OsLY3NMf/l02vtIDJYFo8xful1UmTDuGuQ==}
     hasBin: true
 
-  '@xieyuheng/x-lisp-proto@0.6.34':
-    resolution: {integrity: sha512-87VXXJn/dfQ1KStYMWvrHksepZCI3AeoptFcX0S5pkjzLpcabtS8x6PweRFFnK0OvQMiTirfVxuzAcVrB4V8Fw==}
+  '@xieyuheng/x-lisp-proto@0.6.36':
+    resolution: {integrity: sha512-7QLqAwrWuHd4I1A8bULxKxHc+ReXUQ4vzeIQLXPHj5oTCFc8P9FNuBjaKghyWAyHZ6Ul1BQ1KCvVMAn/Fiaymg==}
     hasBin: true
 
   '@xieyuheng/x-sexp.js@0.5.5':
@@ -37,14 +40,16 @@ snapshots:
 
   '@types/yargs-parser@21.0.3': {}
 
+  '@xieyuheng/command-router.js@0.1.9': {}
+
   '@xieyuheng/commander.js@0.1.5':
     dependencies:
       '@types/yargs-parser': 21.0.3
       yargs-parser: 22.0.0
 
-  '@xieyuheng/x-lisp-proto@0.6.34':
+  '@xieyuheng/x-lisp-proto@0.6.36':
     dependencies:
-      '@xieyuheng/commander.js': 0.1.5
+      '@xieyuheng/command-router.js': 0.1.9
       '@xieyuheng/x-sexp.js': 0.5.5
 
   '@xieyuheng/x-sexp.js@0.5.5':
