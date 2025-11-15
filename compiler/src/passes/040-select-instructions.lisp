@@ -18,7 +18,6 @@
       (pipe seqs
         (record-map
          (lambda (label seq)
-           (= locals (record-get 'locals info))
            [label (cons-block [] (select-instr-seq label seq))])))))))
 
 (claim select-instr-seq

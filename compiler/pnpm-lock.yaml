@@ -9,51 +9,36 @@ importers:
   .:
     dependencies:
       '@xieyuheng/x-lisp-proto':
-        specifier: ^0.6.36
-        version: 0.6.36
+        specifier: ^0.6.38
+        version: 0.6.38
 
 packages:
 
-  '@types/yargs-parser@21.0.3':
-    resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
+  '@xieyuheng/command-router.js@0.1.10':
+    resolution: {integrity: sha512-kucsG1vxOt4xSSoy17qXkXLhuYFNVPo6EcUfatiQW5kB3mffPRbYcTt0Hey5MpcU5JgpZqxlFXyWHnCwoaNd2g==}
 
-  '@xieyuheng/command-router.js@0.1.9':
-    resolution: {integrity: sha512-uiiFm+VOoMA9lG3d0Iwf4QRQWz7X5kAz9mAb+TbCI5ghXDQ9P7yB3Ho5NBe5ZQttV6uqbNft1TRcPiKvCrdjTA==}
+  '@xieyuheng/command.js@0.2.3':
+    resolution: {integrity: sha512-2pyhP7NW/DV0FDPGO4tRWFRldxd5F04xq389GBsuWGQCrNacOjmU/nlR8tJKl/rATZJV5bwuyKXZ72jMdMsFnQ==}
 
-  '@xieyuheng/commander.js@0.1.5':
-    resolution: {integrity: sha512-xNURLT7rXD3vhiCijYouYz/GSak5+tR30ZkrPC1iR4t3SWyRo5Z3OsLY3NMf/l02vtIDJYFo8xful1UmTDuGuQ==}
+  '@xieyuheng/x-lisp-proto@0.6.38':
+    resolution: {integrity: sha512-lvB2q4CupPC9GFbDoCkc3fc/PWju30CjLiLsL2s2+a42TC4GCHfNogxF9mVRdpYlkNeAVSESScUfjyarqLL63w==}
     hasBin: true
 
-  '@xieyuheng/x-lisp-proto@0.6.36':
-    resolution: {integrity: sha512-7QLqAwrWuHd4I1A8bULxKxHc+ReXUQ4vzeIQLXPHj5oTCFc8P9FNuBjaKghyWAyHZ6Ul1BQ1KCvVMAn/Fiaymg==}
+  '@xieyuheng/x-sexp.js@0.5.7':
+    resolution: {integrity: sha512-RvChRenDvMSIOghIQ+Zyq1Gun8qrWD0biKXksFpSuKsAS6yWDWREJMr6u+ocTn5MKlcKF1pYVjFpfps57xLimQ==}
     hasBin: true
-
-  '@xieyuheng/x-sexp.js@0.5.5':
-    resolution: {integrity: sha512-fs6NHnzzSO/68tfO+Idr61jMjSocNmJ7mjCCe1QU0ev3IGtNh8QaOjIGn+8Viv2gcBtzwemIUrEyEp0Nbel/lQ==}
-    hasBin: true
-
-  yargs-parser@22.0.0:
-    resolution: {integrity: sha512-rwu/ClNdSMpkSrUb+d6BRsSkLUq1fmfsY6TOpYzTwvwkg1/NRG85KBy3kq++A8LKQwX6lsu+aWad+2khvuXrqw==}
-    engines: {node: ^20.19.0 || ^22.12.0 || >=23}
 
 snapshots:
 
-  '@types/yargs-parser@21.0.3': {}
+  '@xieyuheng/command-router.js@0.1.10': {}
 
-  '@xieyuheng/command-router.js@0.1.9': {}
+  '@xieyuheng/command.js@0.2.3': {}
 
-  '@xieyuheng/commander.js@0.1.5':
+  '@xieyuheng/x-lisp-proto@0.6.38':
     dependencies:
-      '@types/yargs-parser': 21.0.3
-      yargs-parser: 22.0.0
+      '@xieyuheng/command.js': 0.2.3
+      '@xieyuheng/x-sexp.js': 0.5.7
 
-  '@xieyuheng/x-lisp-proto@0.6.36':
+  '@xieyuheng/x-sexp.js@0.5.7':
     dependencies:
-      '@xieyuheng/command-router.js': 0.1.9
-      '@xieyuheng/x-sexp.js': 0.5.5
-
-  '@xieyuheng/x-sexp.js@0.5.5':
-    dependencies:
-      '@xieyuheng/commander.js': 0.1.5
-
-  yargs-parser@22.0.0: {}
+      '@xieyuheng/command-router.js': 0.1.10

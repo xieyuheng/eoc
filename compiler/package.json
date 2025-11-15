@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "@xieyuheng/x-lisp-proto": "^0.6.36"
+    "@xieyuheng/x-lisp-proto": "^0.6.38"
   }
 }
