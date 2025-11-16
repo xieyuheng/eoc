@@ -156,12 +156,12 @@ tuple_print_with_circle(
 
 void
 tuple_print(tuple_t *self, file_t *file) {
-    set_t *occurred_set = set_new();
-    hash_t *circle_hash = hash_new();
+    set_t *occurred_set = make_set();
+    hash_t *circle_hash = make_hash();
     tuple_collect_circle(self, occurred_set, circle_hash);
 
     set_destroy(&occurred_set);
-    occurred_set = set_new();
+    occurred_set = make_set();
     tuple_print_with_circle(self, file, occurred_set, circle_hash);
 
     set_destroy(&occurred_set);
