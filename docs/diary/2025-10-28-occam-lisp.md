@@ -10,6 +10,5 @@ date: 2025-10-28
 features：
 
 - reference value 只有 cons。
-- 有 keyword 用来实现 bool 中的 #t 和 #f。
 - 没有 pattern matching。
 - 没有 `define-data`。

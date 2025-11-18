@@ -38,8 +38,13 @@ GC 之后再 pop 出来。
 
 可以借助这个机会，多研究一些 GC 相关的论文。
 
-另外 liveness 分析所得到的信息，
+另外 liveness analysis 所得到的信息，
 是否可以表达在 basic-lisp 中？
+
+- [2025-11-19] 不可以。
+  因为 liveness analysis 是为寄存器分配而准备的信息，
+  而寄存器分配是在 machine-lisp 中处理的，
+  不是在 basic-lisp 中处理的。
 
 毕竟，对 tag 的 inject 和 project
 能够表达在 IR 中是我之前没有想到的，
