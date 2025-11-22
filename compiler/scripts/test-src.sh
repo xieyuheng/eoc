@@ -3,7 +3,7 @@
 set -e
 
 parallel="parallel -v --halt now,fail=1"
-bin="./node_modules/.bin/x-lisp-proto run"
+bin="./node_modules/.bin/x-lisp-proto.js run"
 flags="--debug"
 
 find src -name "*.test.lisp" | $parallel $bin {} $flags
