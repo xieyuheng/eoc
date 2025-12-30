@@ -11,11 +11,11 @@
 
 (define-data x86-mod?
   (cons-x86-mod
-   (info anything?)
+   (info any?)
    (blocks (record? block?))))
 
 (claim x86-mod/info?
-  (-> (-> anything? bool?) x86-mod?
+  (-> (-> any? bool?) x86-mod?
       bool?))
 
 (define (x86-mod/info? info-p x86-mod)
@@ -32,14 +32,14 @@
 
 (define-data block?
   (cons-block
-   (info anything?)
+   (info any?)
    (instrs (list? instr?))))
 
 (define block-info cons-block-info)
 (define block-instrs cons-block-instrs)
 
 (claim block/info?
-  (-> (-> anything? bool?) block?
+  (-> (-> any? bool?) block?
       bool?))
 
 (define (block/info? info-p block)

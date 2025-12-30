@@ -12,11 +12,11 @@
 
 (define-data c-mod?
   (cons-c-mod
-   (info anything?)
+   (info any?)
    (seqs (record? seq?))))
 
 (claim c-mod/info?
-  (-> (-> anything? bool?) c-mod?
+  (-> (-> any? bool?) c-mod?
       bool?))
 
 (define (c-mod/info? info-p c-mod)

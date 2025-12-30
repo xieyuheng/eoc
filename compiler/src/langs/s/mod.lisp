@@ -6,5 +6,5 @@
 
 (define-data mod?
   (cons-mod
-   (info anything?)
+   (info any?)
    (body exp?)))

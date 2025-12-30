@@ -8,7 +8,7 @@
   uncover-live-before*
   uncover-live-write)
 
-(claim live-info? (-> anything? bool?))
+(claim live-info? (-> any? bool?))
 
 (define live-info?
   (tau :block-live-before-set (set? location-operand?)
