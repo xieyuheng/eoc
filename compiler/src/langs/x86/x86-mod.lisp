@@ -26,7 +26,7 @@
       bool?))
 
 (define (x86-mod/block? block-p x86-mod)
-  (list-all?
+  (list-every?
    block-p
    (record-values (cons-x86-mod-blocks x86-mod))))
 

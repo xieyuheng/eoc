@@ -43,9 +43,9 @@
        (and (typed-atom-operand-exp? rhs)
             (typed-atom-operand-exp? body)))
       ((the-exp type (begin-exp sequence))
-       (list-all? typed-atom-operand-exp? sequence))
+       (list-every? typed-atom-operand-exp? sequence))
       ((the-exp type (prim-exp op args))
-       (list-all? typed-atom-exp? args))
+       (list-every? typed-atom-exp? args))
       (_ false))))
 
 (define (typed-atom-exp? exp)

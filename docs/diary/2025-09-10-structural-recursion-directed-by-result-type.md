@@ -163,7 +163,7 @@ date: 2025-09-10
      (and (atom-operand-exp? rhs)
           (atom-operand-exp? body)))
     ((prim-exp op args)
-     (list-all? atom-exp? args))))
+     (list-every? atom-exp? args))))
 
 ;; `rco-exp` -- making the operand position of an exp atomic.
 
