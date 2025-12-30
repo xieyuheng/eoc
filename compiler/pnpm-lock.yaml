@@ -9,49 +9,38 @@ importers:
   .:
     dependencies:
       '@xieyuheng/x-lisp-proto.js':
-        specifier: ^0.8.2
-        version: 0.8.2
+        specifier: ^0.8.5
+        version: 0.8.5
 
 packages:
 
-  '@xieyuheng/command.js@0.3.1':
-    resolution: {integrity: sha512-0btkuYwfeTpBnbnDQFeeYYEpsILffjcgArHZJ8isAvctDxtXeG1eRQnXP8w/XVGnOugtVPT7AMIMC7KVM2xLSw==}
+  '@xieyuheng/cmd.js@0.4.2':
+    resolution: {integrity: sha512-PPav0Y3mQa8ThvGQTvW+jtME2YXaaH7YY8HZn17xGo6Zkf/COpRlAuBjNb1imjOSR9kvoclESsIsFVDY4jZk5Q==}
 
-  '@xieyuheng/command.js@0.4.0':
-    resolution: {integrity: sha512-N4dcxsupmBPvnGAsd7heybdrXDu1WbVSqkLBkKsogXTIbIvZpaLyblHtur0wliCieNUzGiDkBVWzrSL6a64U3w==}
+  '@xieyuheng/helpers.js@0.2.3':
+    resolution: {integrity: sha512-3jlq/DERy76292b+mbjAiNwDHCqQxipXteYcB1QfZnV9O11CvQ+dwuy9+MTT/08jjNd+lCcr0lI3CIhxJeMiiQ==}
 
-  '@xieyuheng/helpers.js@0.1.1':
-    resolution: {integrity: sha512-rNeOvtCYdVg+sdbjQF9imwWceu7WdywxLlSUn3xgS8kmkO0juI7l64o27uihk++SVR1WLNFvyjS5HJNO5P/rfQ==}
+  '@xieyuheng/sexp.js@0.7.3':
+    resolution: {integrity: sha512-Bc/DMtZCdMnfgfrNaCenYqbS/QbytpuZmUaazWz7tvNkOpNe9bp71RUmB5lOrA+TWftbWpZ4LQmFVjl3wiaAvQ==}
 
-  '@xieyuheng/helpers.js@0.2.1':
-    resolution: {integrity: sha512-J3oswHQ0El4X78C7gzZuYif9Bo2I8ydEldcjbhVT9RculQfNxkdugWJGLyo5ntNh6dTr5IxmHscK4VxYtyqTWw==}
-
-  '@xieyuheng/x-lisp-proto.js@0.8.2':
-    resolution: {integrity: sha512-EVwm3ZLyOm4iUAF0UAipKWKpoQre42//uAm7L2VgGni9l4SXXeVrvMpANVMy3xq/o1JJ/MJqUdpYDHJ31z2h9A==}
-    hasBin: true
-
-  '@xieyuheng/x-sexp.js@0.7.1':
-    resolution: {integrity: sha512-XHn/W4jUfmZeQ2ujYdi8lMrBFtJ4BNvwGiEpJ0EhV4heu6Hykb5/KWOO9V3bbuXEs1zugy3Rp8lFGJqjtSlvPg==}
+  '@xieyuheng/x-lisp-proto.js@0.8.5':
+    resolution: {integrity: sha512-EEiQ5w7jl4eVI9hQakLGWozWBTrVmx9R3IrURWRXoTiiuwh+zoj6d4tWYZB/b4oB5yFMs6vS3cHQogHF9R01gw==}
     hasBin: true
 
 snapshots:
 
-  '@xieyuheng/command.js@0.3.1': {}
-
-  '@xieyuheng/command.js@0.4.0':
+  '@xieyuheng/cmd.js@0.4.2':
     dependencies:
-      '@xieyuheng/helpers.js': 0.1.1
+      '@xieyuheng/helpers.js': 0.2.3
 
-  '@xieyuheng/helpers.js@0.1.1': {}
+  '@xieyuheng/helpers.js@0.2.3': {}
 
-  '@xieyuheng/helpers.js@0.2.1': {}
-
-  '@xieyuheng/x-lisp-proto.js@0.8.2':
+  '@xieyuheng/sexp.js@0.7.3':
     dependencies:
-      '@xieyuheng/command.js': 0.4.0
-      '@xieyuheng/helpers.js': 0.2.1
-      '@xieyuheng/x-sexp.js': 0.7.1
+      '@xieyuheng/helpers.js': 0.2.3
 
-  '@xieyuheng/x-sexp.js@0.7.1':
+  '@xieyuheng/x-lisp-proto.js@0.8.5':
     dependencies:
-      '@xieyuheng/command.js': 0.3.1
+      '@xieyuheng/cmd.js': 0.4.2
+      '@xieyuheng/helpers.js': 0.2.3
+      '@xieyuheng/sexp.js': 0.7.3
