@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@xieyuheng/x-lisp-proto.js':
-        specifier: ^0.8.5
-        version: 0.8.5
+        specifier: ^0.8.6
+        version: 0.8.6
 
 packages:
 
@@ -23,8 +23,8 @@ packages:
   '@xieyuheng/sexp.js@0.7.3':
     resolution: {integrity: sha512-Bc/DMtZCdMnfgfrNaCenYqbS/QbytpuZmUaazWz7tvNkOpNe9bp71RUmB5lOrA+TWftbWpZ4LQmFVjl3wiaAvQ==}
 
-  '@xieyuheng/x-lisp-proto.js@0.8.5':
-    resolution: {integrity: sha512-EEiQ5w7jl4eVI9hQakLGWozWBTrVmx9R3IrURWRXoTiiuwh+zoj6d4tWYZB/b4oB5yFMs6vS3cHQogHF9R01gw==}
+  '@xieyuheng/x-lisp-proto.js@0.8.6':
+    resolution: {integrity: sha512-sGK9nj/RvEXk8Mv7NcloOt79mL9BL8RfGdI9sb+NfM2jFidpPds7OXGgvTqK8hnOpRVEfBxJEjW2w8YDWMgaXQ==}
     hasBin: true
 
 snapshots:
@@ -39,7 +39,7 @@ snapshots:
     dependencies:
       '@xieyuheng/helpers.js': 0.2.3
 
-  '@xieyuheng/x-lisp-proto.js@0.8.5':
+  '@xieyuheng/x-lisp-proto.js@0.8.6':
     dependencies:
       '@xieyuheng/cmd.js': 0.4.2
       '@xieyuheng/helpers.js': 0.2.3
