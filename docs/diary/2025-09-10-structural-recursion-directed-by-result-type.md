@@ -283,7 +283,7 @@ date: 2025-09-10
 
 `explicate-control` 中的两个递归函数
 `explicate-tail` 和 `explicate-assign` 也是类似的。
-此时不是按照返回值的类型，也不是简单的按照递归对象的类型，
+此时不是按照返回值的类型，也不是简单地按照递归对象的类型，
 而是可以重新递归定义一个集合来刻画递归对象的类型，
 区分处理 tail position 和 non-tail position。
 
@@ -310,12 +310,15 @@ date: 2025-09-10
 ```
 
 此时再严格地按照 structural recursion 来写，
-就会发现 `explicate-assign` 根本就应该调用 `explicate-tail`。
+就会发现 `explicate-assign` 根本就不应该调用 `explicate-tail`。
 
 # 总结
 
 这是我首次意识到，
-可以通过递归刻画 target type 和 result type 的子集，
+可以通过递归刻画 result type 的子集
+-- `<exp>` 的子集 `<atom-operand-exp>`，
+和递归刻画 target type 的子集
+-- `<atom-operand-exp>` 的子集 `<tail-exp>` 和 `<non-tail-exp>`，
 来实现结构清晰的 structural recursion。
 
 这对于写编译器尤其重要，
@@ -338,3 +341,9 @@ date: 2025-09-10
 注意，就算是增强类型系统的表达能力，使用 dependent type，
 也没法做到像使用谓词一样自由地刻画子集。
 所以动态类型语言有其集合论意义上的独特的重要性。
+
+[2026-07-04]
+现在 meta-lisp 是静态类型语言了。
+对于静态类型语言而言，
+在用类型描述数据的结构的同时，
+也一定要用谓词来明确 structural recursion。
